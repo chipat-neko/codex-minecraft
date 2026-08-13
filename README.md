@@ -11,23 +11,29 @@ internet nécessaire : tout est en HTML/CSS/JS classiques et fonctionne en `file
 ## Arborescence
 
 ```
-index.html          Accueil : progression de partie, repères chiffrés, dimensions
-drops.html          Catalogue 1 — 87 fiches de drops + table des minerais + troc piglin
-craft.html          Catalogue 2 — 127 recettes avec grille 3×3 dessinée + cuisson + enchantements
-potions.html        Catalogue 3 — 18 potions, chaîne de brassage, modificateurs, kits
-biomes.html         Catalogue 4 — 26 biomes et leurs ressources exclusives
-plans.html          Catalogue 5 — 19 plans de construction couche par couche
-usines.html         Catalogue 6 — 25 usines/fermes automatiques + dépannage
+index.html            Accueil : progression de partie, repères chiffrés, dimensions
+drops.html            Catalogue 1 — 87 fiches de drops + table des minerais + troc piglin
+craft.html            Catalogue 2 — 127 recettes avec grille 3×3 dessinée + cuisson
+potions.html          Catalogue 3 — 18 potions, chaîne de brassage, modificateurs, kits
+biomes.html           Catalogue 4 — 26 biomes et leurs ressources exclusives
+enchantements.html    Catalogue 5 — 32 enchantements, postes, optimisation de l'enclume
+redstone.html         Catalogue 6 — 10 composants + 13 circuits + dépannage
+villageois.html       Catalogue 7 — 14 métiers, commerce, remise par soin, hall
+plans.html            Catalogue 8 — 19 plans de construction couche par couche
+usines.html           Catalogue 9 — 25 usines/fermes automatiques + dépannage
 assets/
-  style.css         Feuille de style unique (thèmes sombre et clair)
-  core.js           Palette de blocs, moteurs de rendu, recherche/filtres,
-                    thème, favoris, impression, vue isométrique, sommaire
-  data-drops.js     Données : mobs, minerais, structures, troc
-  data-craft.js     Données : recettes
-  data-potions.js   Données : brassage
-  data-biomes.js    Données : biomes
-  data-plans.js     Données : plans de construction
-  data-usines.js    Données : fermes automatiques
+  style.css           Feuille de style unique (thèmes sombre et clair)
+  core.js             Palette de blocs, moteurs de rendu, recherche/filtres,
+                      thème, favoris, impression, vue isométrique, sommaire
+  data-drops.js       Données : mobs, minerais, structures, troc
+  data-craft.js       Données : recettes
+  data-potions.js     Données : brassage
+  data-biomes.js      Données : biomes
+  data-enchant.js     Données : enchantements
+  data-redstone.js    Données : composants et circuits
+  data-villageois.js  Données : métiers et commerce
+  data-plans.js       Données : plans de construction
+  data-usines.js      Données : fermes automatiques
 ```
 
 ## Fonctions de l'interface
@@ -40,7 +46,17 @@ assets/
 | Thème clair / sombre | bouton de l'en-tête | Mémorisé d'une visite à l'autre |
 | Impression | bouton sur chaque plan/usine | N'imprime que la fiche choisie |
 | Vue 3D | bouton sur les plans empilables | Rendu isométrique SVG des couches, généré au clic |
-| Sommaire latéral | plans et usines, écrans ≥ 1140 px | Groupé par catégorie, suit le défilement |
+| Sommaire latéral | plans, usines, redstone — écrans ≥ 1140 px | Groupé par catégorie, suit le défilement |
+
+## Ajouter une page
+
+Trois fichiers de données suivent le format « fiche » (`renderEntry`) : drops, potions, biomes,
+enchantements, composants redstone, métiers. Deux suivent le format « schéma » (`renderBlueprint`) :
+plans, usines, circuits redstone. Une nouvelle page se construit en copiant une page existante du
+même format et en changeant le fichier de données chargé.
+
+Les `id` des schémas doivent être **uniques sur l'ensemble du site**, toutes listes confondues :
+`PLANS`, `USINES` et `CIRCUITS` partagent le même espace de noms pour les ancres.
 
 ## Ajouter du contenu
 

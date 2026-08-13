@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Villageois &amp; commerce — Codex Minecraft</title>
+<meta name="description" content="Tous les métiers de villageois Minecraft Java : ce qu'ils achètent et vendent, les niveaux, le reroll d'offres, la remise permanente par soin.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-cube"></span>
+      <span>Codex Minecraft<small>Java Edition</small></span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="drops.html">Drops</a>
+      <a href="craft.html">Artisanat</a>
+      <a href="potions.html">Potions</a>
+      <a href="enchantements.html">Enchant.</a>
+      <a href="redstone.html">Redstone</a>
+      <a href="villageois.html">Villageois</a>
+      <a href="biomes.html">Biomes</a>
+      <a href="plans.html">Plans</a>
+      <a href="usines.html">Usines</a>
+    </nav>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Catalogue 7 / 9</span>
+    <h1>Villageois &amp; commerce</h1>
+    <p>Le commerce est le raccourci le plus puissant du jeu : <b>armure en diamant enchantée</b>, <b>Raccommodage</b>,
+      <b>Fortune III</b>, <b>selles</b> et <b>cartes de manoir</b> s'achètent contre des émeraudes — que vous produisez
+      avec du blé, du papier ou des bâtons.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <input id="q" class="search" type="search" placeholder="Rechercher un métier, un objet…  ( / )" autocomplete="off">
+      <span id="count" class="count"></span>
+    </div>
+    <div class="toolbar-row" id="chips" style="margin-top:10px">
+      <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="fav">★ Favoris</button>
+      <button class="chip" data-cat="essentiel">Métiers essentiels</button>
+      <button class="chip" data-cat="utile">Métiers utiles</button>
+      <button class="chip" data-cat="special">Cas particuliers</button>
+    </div>
+  </div>
+
+  <section class="print-host" style="margin-bottom:20px">
+    <div id="liste" class="grid g2"></div>
+    <div id="vide" class="empty" style="display:none">Aucun métier trouvé. Essayez « livre », « diamant », « selle », « carte »…</div>
+  </section>
+
+  <hr>
+
+  <section id="top">
+    <h2>Les meilleurs échanges</h2>
+    <p class="lead">Quatre échanges génèrent des émeraudes à partir de ressources que vous produisez déjà.
+      Cinq autres transforment ces émeraudes en équipement de fin de partie.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Échange</th><th>Métier</th><th>Taux courant</th><th>Pourquoi c'est le bon</th></tr></thead>
+        <tbody id="tbl-top"></tbody>
+      </table>
+    </div>
+    <div class="callout tip">
+      <b>La boucle complète</b> — <a href="usines.html#ble-auto">ferme à blé automatique</a> → fermier (émeraudes) →
+      bibliothécaire (Raccommodage, Fortune III) → armurier (armure en diamant enchantée).
+      Cette chaîne donne un équipement complet bien plus vite que le minage et l'enchantement au hasard.
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="mecaniques">
+    <h2>Les mécaniques à connaître</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Mécanique</th><th>En pratique</th><th>Détail</th></tr></thead>
+        <tbody id="tbl-meca"></tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <b>Le point de non-retour</b> — tant qu'un villageois est <b>novice et n'a jamais commercé</b>, casser et reposer son
+      bloc de métier retire ses offres au hasard. Dès le premier échange, le métier est verrouillé à vie. Choisissez avant d'acheter.
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="soin">
+    <h2>La remise permanente : soigner un villageois zombifié</h2>
+    <p class="lead">C'est l'optimisation la plus rentable du jeu. Un villageois soigné vend souvent
+      pour <b>1 émeraude</b> ce qu'il facturait 30. L'effet est définitif et se cumule avec la remise du héros du village.</p>
+    <ol class="steps" id="steps-soin"></ol>
+    <div class="callout danger">
+      <b>Difficulté Difficile obligatoire</b> — en Normal, un zombie a seulement 50 % de chances de convertir le villageois
+      au lieu de le tuer ; en Facile, 0 %. Repassez en Normal une fois l'opération terminée si vous le souhaitez.
+    </div>
+    <div class="callout info">
+      <b>Ce qu'il faut préparer</b> — 1 potion de Faiblesse jetable (eau + œil d'araignée fermenté + poudre à canon)
+      et 1 pomme dorée (8 lingots d'or + 1 pomme) par villageois. Prévoyez le double : une conversion ratée coûte un villageois.
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="hall">
+    <h2>Monter un hall de commerce</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3>🚚 Transporter les villageois</h3>
+        <p>En <b>bateau</b> sur terre (poussez-le), en <b>wagonnet</b> sur rails, ou par un <b>couloir d'eau</b>.
+          Un villageois suit aussi une porte ouverte s'il y a un lit accessible derrière.</p>
+        <p class="note" style="margin-top:10px">Vérifiez la tunique avant : un idiot (vert) ne prendra jamais de métier.</p>
+      </div>
+      <div class="card">
+        <h3>🧱 La cellule type</h3>
+        <p>1 bloc de large, une <b>dalle au sol</b> pour l'empêcher de bouger, une <b>vitre</b> pour commercer,
+          son <b>bloc de métier</b> devant lui et un <b>lit</b> s'il doit se reproduire.</p>
+        <p class="note" style="margin-top:10px">Le plan complet est dans les <a href="usines.html#trading">usines</a>.</p>
+      </div>
+      <div class="card">
+        <h3>🍞 Les nourrir</h3>
+        <p>Un <b>fermier</b> avec un composteur au milieu du hall distribue du pain à tous les autres.
+          Sans nourriture, pas de reproduction et pas de réapprovisionnement fiable.</p>
+      </div>
+      <div class="card">
+        <h3>🛡️ Les protéger</h3>
+        <p>Un hall de commerce est une cible de <b>raid</b>. Enfermez-le complètement, éclairez-le,
+          et gardez un <b>golem de fer</b> à proximité — il défendra les villageois.</p>
+        <p class="note" style="margin-top:10px">Un raid gagné donne « Héros du village » : c'est le meilleur moment pour faire vos gros achats.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Codex Minecraft — guide de référence non officiel.</div>
+</footer>
+
+<script src="assets/core.js"></script>
+<script src="assets/data-villageois.js"></script>
+<script>
+(function () {
+  var liste = document.getElementById('liste');
+  for (var i = 0; i < METIERS.length; i++) { liste.appendChild(renderEntry(METIERS[i])); }
+  fillTable('tbl-top', TOP_ECHANGES);
+  fillTable('tbl-meca', MECANIQUES);
+
+  var ol = document.getElementById('steps-soin');
+  for (var s = 0; s < SOIN.length; s++) {
+    var li = document.createElement('li');
+    li.innerHTML = boldFirst(SOIN[s]);
+    ol.appendChild(li);
+  }
+
+  setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
+}());
+</script>
+</body>
+</html>

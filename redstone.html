@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Redstone — Codex Minecraft</title>
+<meta name="description" content="La redstone Minecraft Java expliquée : tous les composants, les portes logiques, les horloges, la mémoire et les montages utiles.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-cube"></span>
+      <span>Codex Minecraft<small>Java Edition</small></span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="drops.html">Drops</a>
+      <a href="craft.html">Artisanat</a>
+      <a href="potions.html">Potions</a>
+      <a href="enchantements.html">Enchant.</a>
+      <a href="redstone.html">Redstone</a>
+      <a href="villageois.html">Villageois</a>
+      <a href="biomes.html">Biomes</a>
+      <a href="plans.html">Plans</a>
+      <a href="usines.html">Usines</a>
+    </nav>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Catalogue 6 / 9</span>
+    <h1>Redstone</h1>
+    <p>Trois règles suffisent à tout comprendre : <b>le signal vaut 15 et perd 1 par bloc</b>,
+      <b>une torche alimentée s'éteint</b>, <b>un comparateur mesure</b>. Tout le reste en découle.</p>
+  </div>
+
+  <section id="regles">
+    <h2>Les trois règles fondamentales</h2>
+    <div class="grid g3">
+      <div class="card">
+        <div class="card-icon">📉</div>
+        <h3>1. Le signal s'affaiblit</h3>
+        <p>La poudre transporte une force de <b>15</b> qui perd <b>1 point par bloc</b>. Au 16ᵉ bloc, plus rien.
+          Un <b>répéteur</b> le régénère à 15 et impose un sens unique.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔦</div>
+        <h3>2. La torche s'inverse</h3>
+        <p>Une torche de redstone brille en permanence — sauf si le bloc qui la porte est alimenté, auquel cas elle s'éteint.
+          C'est la <b>porte NON</b>, et toutes les autres portes s'en déduisent.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>3. Le comparateur mesure</h3>
+        <p>Derrière un conteneur, il donne un signal <b>proportionnel au remplissage</b>.
+          Entre deux lignes, il compare ou soustrait. C'est ce qui rend possible le tri automatique.</p>
+      </div>
+    </div>
+    <div class="callout info">
+      <b>Le tick</b> — l'unité de temps de la redstone vaut <b>0,1 seconde</b> (2 ticks de jeu).
+      Un répéteur ajoute 1 à 4 ticks, un observateur émet une impulsion d'1 tick, un piston met 3 ticks à s'étendre.
+    </div>
+  </section>
+
+  <section id="composants">
+    <h2>Les composants</h2>
+    <p class="lead">Ce que fait chaque bloc, et le piège qui lui est propre.</p>
+    <div id="liste-comp" class="grid g2"></div>
+  </section>
+
+  <hr>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <input id="q" class="search" type="search" placeholder="Rechercher un circuit…  ( / )" autocomplete="off">
+      <span id="count" class="count"></span>
+    </div>
+    <div class="toolbar-row" id="chips" style="margin-top:10px">
+      <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="fav">★ Favoris</button>
+      <button class="chip" data-cat="logique">Portes logiques</button>
+      <button class="chip" data-cat="horloge">Horloges &amp; impulsions</button>
+      <button class="chip" data-cat="memoire">Mémoire &amp; détection</button>
+      <button class="chip" data-cat="usage">Montages utiles</button>
+    </div>
+  </div>
+
+  <section class="print-host" style="margin-bottom:20px">
+    <div class="layout-toc">
+      <aside id="toc" class="toc-side"></aside>
+      <div>
+        <div id="liste"></div>
+        <div id="vide" class="empty" style="display:none">Aucun circuit trouvé. Essayez « horloge », « porte », « comparateur »…</div>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="depannage">
+    <h2>Dépannage : « mon circuit ne marche pas »</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Symptôme</th><th>Cause la plus probable</th><th>Correctif</th></tr></thead>
+        <tbody>
+          <tr><td>Le signal s'arrête en cours de route</td><td>Plus de 15 blocs de poudre d'affilée</td><td>Un répéteur tous les 15 blocs maximum</td></tr>
+          <tr><td>Le signal repart en arrière</td><td>La poudre se connecte dans toutes les directions</td><td>Répéteur en entrée de chaque branche : il impose un sens unique</td></tr>
+          <tr><td>Le piston collant lâche son bloc</td><td>Impulsion trop courte (1 tick)</td><td>Réglez le répéteur sur 2 crans minimum</td></tr>
+          <tr><td>L'entonnoir ne transfère rien</td><td>Il est alimenté par de la redstone</td><td>Logique inversée : un signal le DÉSACTIVE. Coupez l'alimentation</td></tr>
+          <tr><td>La torche s'éteint et ne revient pas</td><td>Surcharge (« burn out ») : elle a clignoté trop vite</td><td>Ralentissez l'horloge, puis cassez et reposez la torche</td></tr>
+          <tr><td>L'observateur ne détecte rien</td><td>Il détecte les CHANGEMENTS, pas les états</td><td>Vérifiez que le bloc visé change réellement, et que le visage est du bon côté</td></tr>
+          <tr><td>Les blocs bougent en décalé</td><td>Délais de répéteurs inégaux</td><td>Comptez les crans branche par branche : les chemins doivent être équivalents</td></tr>
+          <tr><td>Le circuit marche puis s'arrête seul</td><td>Le chunk s'est déchargé</td><td>Restez dans la distance de simulation, ou déplacez le circuit près de votre base</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout tip">
+      <b>La méthode de diagnostic</b> — posez des lampes de redstone à chaque étape du circuit. Vous voyez alors exactement
+      jusqu'où le signal se propage, et où il meurt. C'est plus rapide que n'importe quelle relecture du schéma.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Codex Minecraft — guide de référence non officiel.</div>
+</footer>
+
+<script src="assets/core.js"></script>
+<script src="assets/data-redstone.js"></script>
+<script>
+(function () {
+  var comp = document.getElementById('liste-comp');
+  for (var c = 0; c < COMPOSANTS.length; c++) { comp.appendChild(renderEntry(COMPOSANTS[c])); }
+
+  var liste = document.getElementById('liste');
+  var ordonnes = sortByCat(CIRCUITS, GROUPES_REDSTONE);
+  for (var i = 0; i < ordonnes.length; i++) { liste.appendChild(renderBlueprint(ordonnes[i])); }
+  buildToc('toc', CIRCUITS, GROUPES_REDSTONE);
+  setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
+
+  if (location.hash) {
+    var t = document.getElementById(location.hash.slice(1));
+    if (t) { t.scrollIntoView(); }
+  }
+}());
+</script>
+</body>
+</html>

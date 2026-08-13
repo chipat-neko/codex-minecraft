@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enchantements — Codex Minecraft</title>
+<meta name="description" content="Tous les enchantements Minecraft Java : niveaux maximaux, effets, incompatibilités, coûts à l'enclume et astuces d'optimisation.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-cube"></span>
+      <span>Codex Minecraft<small>Java Edition</small></span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="drops.html">Drops</a>
+      <a href="craft.html">Artisanat</a>
+      <a href="potions.html">Potions</a>
+      <a href="enchantements.html">Enchant.</a>
+      <a href="redstone.html">Redstone</a>
+      <a href="villageois.html">Villageois</a>
+      <a href="biomes.html">Biomes</a>
+      <a href="plans.html">Plans</a>
+      <a href="usines.html">Usines</a>
+    </nav>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Catalogue 5 / 9</span>
+    <h1>Enchantements</h1>
+    <p>Chaque enchantement avec son <b>niveau maximal</b>, son effet réel, ses <b>incompatibilités</b> et la façon de l'obtenir.
+      Trois d'entre eux ne s'obtiennent jamais à la table : Raccommodage, Marche aquatique et Âme rapide.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <input id="q" class="search" type="search" placeholder="Rechercher un enchantement…  ( / )" autocomplete="off">
+      <span id="count" class="count"></span>
+    </div>
+    <div class="toolbar-row" id="chips" style="margin-top:10px">
+      <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="fav">★ Favoris</button>
+      <button class="chip" data-cat="universel">Universels</button>
+      <button class="chip" data-cat="arme">Épée &amp; hache</button>
+      <button class="chip" data-cat="outil">Outils</button>
+      <button class="chip" data-cat="projectile">Arc, arbalète, trident</button>
+      <button class="chip" data-cat="armure">Armure</button>
+      <button class="chip" data-cat="divers">Divers</button>
+    </div>
+  </div>
+
+  <section class="print-host" style="margin-bottom:20px">
+    <div id="liste" class="grid g2"></div>
+    <div id="vide" class="empty" style="display:none">Aucun enchantement trouvé. Essayez « fortune », « soie », « chute », « butin »…</div>
+  </section>
+
+  <hr>
+
+  <section id="postes">
+    <h2>Les trois postes</h2>
+    <p class="lead">La table crée, l'enclume combine, la meule annule. Chacun a son coût et ses limites.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Poste</th><th>Coût de fabrication</th><th>Ce qu'il fait</th></tr></thead>
+        <tbody id="tbl-postes"></tbody>
+      </table>
+    </div>
+    <div class="callout tip">
+      <b>Niveau 30 obligatoire</b> — 15 bibliothèques autour de la table, à 2 blocs de distance, avec un bloc d'air entre elles et la table.
+      Le plan exact est dans les <a href="plans.html#enchant">plans de construction</a>.
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="astuces">
+    <h2>Optimiser l'enclume</h2>
+    <p class="lead">L'enclume applique une « pénalité de travail » qui double à chaque passage : 0, 1, 3, 7, 15, 31…
+      Passé 39 niveaux, l'objet devient définitivement « trop coûteux ». L'ordre des opérations change donc tout.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Règle</th><th>En pratique</th><th>Pourquoi</th></tr></thead>
+        <tbody id="tbl-astuces"></tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <b>L'erreur classique</b> — appliquer six livres l'un après l'autre sur une pioche neuve la rend inutilisable à l'enclume
+      avant même d'être finie. Fusionnez d'abord les livres entre eux (3 fusions au lieu de 6 applications), puis appliquez le résultat.
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="setups">
+    <h2>Les équipements à viser</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3>⛏️ Pioche de minage</h3>
+        <p>Efficacité V · Fortune III · Solidité III · Raccommodage</p>
+        <p class="note" style="margin-top:10px">Gardez-en une seconde en Toucher de soie : Fortune et Toucher de soie ne peuvent jamais coexister.</p>
+      </div>
+      <div class="card">
+        <h3>⚔️ Épée de ferme</h3>
+        <p>Tranchant V · Butin III · Solidité III · Raccommodage · Balayage III</p>
+        <p class="note" style="margin-top:10px">Évitez Aura de feu : le feu brûle les objets au sol avant que vous ne les ramassiez.</p>
+      </div>
+      <div class="card">
+        <h3>🛡️ Armure polyvalente</h3>
+        <p>Protection IV partout · Solidité III · Raccommodage · Chute amortie IV sur les bottes · Respiration III et Affinité aquatique sur le casque</p>
+        <p class="note" style="margin-top:10px">Ajoutez Foulée légère III sur les jambières avant d'aller dans une cité antique.</p>
+      </div>
+      <div class="card">
+        <h3>🏹 Arc et élytre</h3>
+        <p>Arc : Puissance V · Perforation II · Solidité III · Raccommodage<br>
+          Élytre : Solidité III · Raccommodage</p>
+        <p class="note" style="margin-top:10px">L'élytre se répare aussi à l'enclume avec des membranes de Phantom, mais Raccommodage évite d'y penser.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Codex Minecraft — guide de référence non officiel.</div>
+</footer>
+
+<script src="assets/core.js"></script>
+<script src="assets/data-enchant.js"></script>
+<script>
+(function () {
+  var liste = document.getElementById('liste');
+  for (var i = 0; i < ENCHANTS.length; i++) { liste.appendChild(renderEntry(ENCHANTS[i])); }
+  fillTable('tbl-postes', POSTES_ENCHANT);
+  fillTable('tbl-astuces', ASTUCES_ENCHANT);
+  setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
+}());
+</script>
+</body>
+</html>
