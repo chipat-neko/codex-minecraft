@@ -33,7 +33,7 @@
   argileB:    { n: 'Bloc de terre cuite',     c: '#a3603f', t: 'TC' },
   chaine:     { n: 'Chaîne',                  c: '#5a5a62', t: 'CN' },
   livreEnc:   { n: 'Livre',                   c: '#a8763c', t: 'LI' },
-  outil:      { n: 'Matériau (bois/pierre/fer/or/diamant)', c: '#7f8c9b', t: 'MA' },
+  outil:      { n: 'Matériau (bois, pierre, cuivre, fer, or ou diamant)', c: '#7f8c9b', t: 'MA' },
   armeD:      { n: 'Équipement en diamant',   c: '#4fd6e0', t: 'DI' },
   modele:     { n: 'Modèle d\'amélioration',  c: '#c9c2b8', t: 'MO' },
   chorus:     { n: 'Fruit du chorus cuit',    c: '#8a5aa0', t: 'CH' },
@@ -61,7 +61,11 @@
   citrouilleB:{ n: 'Citrouille (entière)',    c: '#d97a20', t: 'CI' },
   disque:     { n: 'Disque de musique',       c: '#2a2a30', t: 'DM' },
   lapinC:     { n: 'Lapin cuit',              c: '#b06a4a', t: 'LC' },
-  patate:     { n: 'Pomme de terre cuite',    c: '#d0a860', t: 'PT' }
+  patate:     { n: 'Pomme de terre cuite',    c: '#d0a860', t: 'PT' },
+  pepiteFer:  { n: 'Pépite de fer',           c: '#d8d8d8', t: 'PF' },
+  wagonnet:   { n: 'Wagonnet',                c: '#6a6a72', t: 'WG' },
+  etiquette:  { n: 'Étiquette',               c: '#c8c0a8', t: 'ÉT' },
+  lance:      { n: 'Lance',                   c: '#9a8a6a', t: 'LA' }
 }));
 
 var RECETTES = [
@@ -151,7 +155,7 @@ var RECETTES = [
     nom: 'Pioche', cat: 'outil', qte: 1,
     sortie: 'Pioche', tagCls: 'ok',
     grille: ['MMM', ' B ', ' B '], legende: { M: 'outil', B: 'baton' },
-    desc: 'Remplacez M par : planches, pierre, lingot de fer, lingot d\'or ou diamant. Progression obligatoire : bois → pierre → fer → diamant → netherite.'
+    desc: 'Remplacez M par : planches, pierre, lingot de CUIVRE, lingot de fer, lingot d\'or ou diamant. Progression : bois → pierre → cuivre → fer → diamant → netherite.'
   },
   {
     nom: 'Hache', cat: 'outil', qte: 1,
@@ -188,6 +192,18 @@ var RECETTES = [
     sortie: 'Flèche', sortieItem: 'fleche',
     grille: [' S ', ' B ', ' P '], legende: { S: 'silex', B: 'baton', P: 'plume' },
     desc: 'Une ferme à squelettes rend ce craft inutile : elle produit directement des flèches par milliers.'
+  },
+  {
+    nom: 'Lance (spear)', cat: 'outil', qte: 1,
+    sortie: 'Lance', sortieItem: 'lance', tagCls: 'cyan',
+    grille: ['  M', ' B ', 'B  '], legende: { M: 'outil', B: 'baton' },
+    desc: 'Arme d\'hast à longue portée, déclinée dans tous les matériaux (bois à diamant), et améliorable en netherite à la table de forge. Elle frappe plus loin que l\'épée mais plus lentement.'
+  },
+  {
+    nom: 'Étiquette (name tag)', cat: 'outil', qte: 1,
+    sortie: 'Étiquette', sortieItem: 'etiquette', tagCls: 'gold',
+    grille: [' P', 'A '], legende: { P: 'pepiteFer', A: 'papier' },
+    desc: 'Désormais FABRICABLE : 1 papier + 1 pépite de métal en diagonale. Il fallait auparavant la pêcher ou la trouver en coffre. Nommez un mob à l\'enclume pour qu\'il ne disparaisse jamais.'
   },
   {
     nom: 'Bouclier', cat: 'outil', qte: 1,
@@ -310,7 +326,7 @@ var RECETTES = [
   {
     nom: 'Fabricateur (crafter)', cat: 'redstone', qte: 1,
     sortie: 'Fabricateur', tagCls: 'red',
-    grille: ['FFF', 'RYR', 'FDF'], legende: { F: 'fer', R: 'redstone', Y: 'etabli', D: 'dropper' },
+    grille: ['FFF', 'FYF', 'RDR'], legende: { F: 'fer', Y: 'etabli', R: 'redstone', D: 'dropper' },
     desc: 'Craft automatiquement dès qu\'il reçoit un signal de redstone : permet des usines de blocs, de flèches, de pains entièrement automatiques.'
   },
   {
@@ -414,8 +430,8 @@ var RECETTES = [
   {
     nom: 'Table de cartographie', cat: 'station', qte: 1,
     sortie: 'Table de cartographie',
-    grille: ['AA', 'PP'], legende: { A: 'papier', P: 'planche' },
-    desc: 'Agrandit, copie et verrouille les cartes. Métier : cartographe (vend les cartes du manoir et du monument).'
+    grille: ['AA', 'PP', 'PP'], legende: { A: 'papier', P: 'planche' },
+    desc: '2 papiers + 4 planches. Agrandit, copie et verrouille les cartes. Métier : cartographe (vend les cartes du manoir et du monument).'
   },
   {
     nom: 'Composteur', cat: 'station', qte: 1,
@@ -502,14 +518,14 @@ var RECETTES = [
   {
     nom: 'Boussole de récupération', cat: 'transport', qte: 1,
     sortie: 'Boussole de récupération', tagCls: 'purple',
-    grille: ['EEE', 'ECE', 'EEE'], legende: { E: 'echo', C: 'coeurMer' },
-    desc: '8 éclats d\'écho (Warden) + 1 cœur de la mer. Pointe vers votre dernier lieu de mort : sauve un stuff complet.'
+    grille: ['EEE', 'ECE', 'EEE'], legende: { E: 'echo', C: 'boussole' },
+    desc: '8 éclats d\'écho (Warden) + 1 BOUSSOLE au centre — et non un cœur de la mer, qui sert au conduit. Pointe vers votre dernier lieu de mort.'
   },
   {
     nom: 'Échafaudage', cat: 'transport', qte: 6,
     sortie: 'Échafaudage',
-    grille: ['B B', 'BFB', 'B B'], legende: { B: 'bambou', F: 'ficelle' },
-    desc: '6 bambous + 1 ficelle. Se pose en chaîne vers le haut ou latéralement : l\'outil de construction verticale par excellence.'
+    grille: ['BFB', 'B B', 'B B'], legende: { B: 'bambou', F: 'ficelle' },
+    desc: '6 bambous + 1 ficelle, celle-ci en HAUT au centre. Se pose en chaîne vers le haut ou latéralement : l\'outil de construction verticale par excellence.'
   },
 
   /* =========== NETHER & END =========== */
@@ -532,24 +548,24 @@ var RECETTES = [
     desc: 'Pas un craft mais une construction : un T de 4 sables des âmes surmonté de 3 crânes de squelette wither. Posez le dernier crâne en dernier.'
   },
   {
-    nom: 'Masse (Mace)', cat: 'end', station: 'Table de forge', qte: 1,
+    nom: 'Masse (Mace)', cat: 'end', qte: 1,
     sortie: 'Masse', tagCls: 'red',
-    grille: ['HB'], legende: { H: 'lourd', B: 'tige' },
-    desc: 'Cœur alourdi (coffre-fort ominous des chambres d\'épreuve) + tige de Breeze, à la table de forge. Ses dégâts augmentent avec la hauteur de chute.'
+    grille: [' H ', ' B '], legende: { H: 'lourd', B: 'tige' },
+    desc: 'Cœur alourdi (coffre-fort ominous des chambres d\'épreuve) posé AU-DESSUS d\'une tige de Breeze, à l\'établi — pas à la table de forge. Ses dégâts augmentent avec la hauteur de chute.'
   },
 
   /* =========== DÉCORATION / DIVERS =========== */
   {
     nom: 'Lanterne', cat: 'deco', qte: 1,
     sortie: 'Lanterne',
-    grille: ['PPP', 'PTP', 'PPP'], legende: { P: 'pepite', T: 'torche' },
-    desc: '8 pépites d\'or + 1 torche. Se suspend aux plafonds et aux chaînes : l\'éclairage le plus élégant du jeu.'
+    grille: ['PPP', 'PTP', 'PPP'], legende: { P: 'pepiteFer', T: 'torche' },
+    desc: '8 pépites de FER (pas d\'or) + 1 torche. Se suspend aux plafonds et aux chaînes : l\'éclairage le plus élégant du jeu.'
   },
   {
     nom: 'Chaîne', cat: 'deco', qte: 1,
     sortie: 'Chaîne', sortieItem: 'chaine',
-    grille: [' P ', ' F ', ' P '], legende: { P: 'pepite', F: 'fer' },
-    desc: 'Suspend les lanternes en grappes ou décore les entrepôts et les mines.'
+    grille: [' P ', ' F ', ' P '], legende: { P: 'pepiteFer', F: 'fer' },
+    desc: '2 pépites de fer + 1 lingot de fer. Suspend les lanternes en grappes ou décore les entrepôts et les mines. Une variante en cuivre existe aussi.'
   },
   {
     nom: 'Bougie', cat: 'deco', qte: 1,
@@ -578,8 +594,8 @@ var RECETTES = [
   {
     nom: 'Livre', cat: 'deco', qte: 1,
     sortie: 'Livre', sortieItem: 'livre',
-    grille: ['PP', 'C '], legende: { P: 'papier', C: 'cuir' },
-    desc: '3 papiers + 1 cuir. Multipliez par 45 pour équiper une salle d\'enchantement complète.'
+    grille: ['PP', 'PC'], legende: { P: 'papier', C: 'cuir' },
+    desc: '3 papiers + 1 cuir, sans forme imposée. Multipliez par 45 pour équiper une salle d\'enchantement complète.'
   },
   {
     nom: 'Fusée de feu d\'artifice', cat: 'deco', qte: 3,
@@ -629,7 +645,7 @@ var RECETTES = [
     nom: 'Bloc compact (fer, or, diamant…)', cat: 'bloc', qte: 1,
     sortie: 'Bloc de ressource',
     grille: ['RRR', 'RRR', 'RRR'], legende: { R: 'ressource' },
-    desc: '9 unités → 1 bloc, et l\'inverse rend les 9 unités. Vaut pour fer, or, cuivre, diamant, émeraude, redstone, lapis, charbon, netherite, améthyste et slime.'
+    desc: '9 unités → 1 bloc, et l\'inverse rend les 9 unités. Vaut pour fer, or, cuivre, diamant, émeraude, redstone, lapis, charbon, netherite et slime. Exception : le bloc d\'améthyste ne demande que 4 éclats, en 2 × 2.'
   },
   {
     nom: 'Bloc de foin', cat: 'bloc', qte: 1,
@@ -764,20 +780,20 @@ var RECETTES = [
   {
     nom: 'Cible (target)', cat: 'redstone', qte: 1,
     sortie: 'Cible', tagCls: 'red',
-    grille: [' H ', 'HRH', ' H '], legende: { H: 'foin', R: 'redstone' },
-    desc: '4 blocs de foin + 1 redstone. Émet un signal d\'autant plus fort que la flèche touche près du centre : la base des portes à tir.'
+    grille: [' R ', 'RHR', ' R '], legende: { R: 'redstone', H: 'foin' },
+    desc: '4 poudres de redstone autour d\'1 bloc de foin. Émet un signal d\'autant plus fort que la flèche touche près du centre : la base des portes à tir.'
   },
   {
-    nom: 'Crochet de détente', cat: 'redstone', qte: 1,
+    nom: 'Crochet de détente', cat: 'redstone', qte: 2,
     sortie: 'Crochet de détente',
-    grille: [' F ', ' B ', ' P '], legende: { F: 'fer', B: 'baton', P: 'planche' },
+    grille: ['F', 'B', 'P'], legende: { F: 'fer', B: 'baton', P: 'planche' },
     desc: 'Deux crochets reliés par de la ficelle forment un fil de détente : le déclencheur invisible des pièges et des portes secrètes.'
   },
   {
     nom: 'Wagonnet-coffre', cat: 'transport', qte: 1,
     sortie: 'Wagonnet-coffre',
-    grille: ['C', 'W'], legende: { C: 'coffre', W: 'fer' },
-    desc: 'Coffre + wagonnet. Transporte 27 emplacements sur rails ; un rail détecteur + comparateur permet de le décharger automatiquement.'
+    grille: ['C', 'W'], legende: { C: 'coffre', W: 'wagonnet' },
+    desc: 'Coffre + wagonnet déjà fabriqué, sans forme imposée. Transporte 27 emplacements sur rails ; un rail détecteur + comparateur permet de le décharger automatiquement.'
   },
 
   /* =========== TEINTURES & COULEURS =========== */
@@ -842,8 +858,8 @@ var RECETTES = [
   {
     nom: 'Longe (laisse)', cat: 'transport', qte: 2,
     sortie: 'Longe',
-    grille: ['FF ', 'FS ', '  F'], legende: { F: 'ficelle', S: 'slime' },
-    desc: '4 ficelles + 1 boule de slime. Attache les animaux à un piquet de clôture : le seul moyen simple de déplacer un troupeau.'
+    grille: ['FF ', 'FF ', '  F'], legende: { F: 'ficelle' },
+    desc: '5 ficelles, et plus aucune boule de slime : la recette a été simplifiée. Attache les animaux à un piquet de clôture — le moyen le plus simple de déplacer un troupeau.'
   },
   {
     nom: 'Cisaille à citrouille', cat: 'transport', station: 'Clic droit', qte: 1,

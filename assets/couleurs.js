@@ -201,6 +201,10 @@ var COULEURS_JEU = {
   "banniere": "#e9e9e9",
   "disque": "#44433a",
   "lapinC": "#aa7351",
-  "patate": "#b0812e"
+  "patate": "#b0812e",
+  "pepiteFer": "#858d95",
+  "wagonnet": "#474d51",
+  "etiquette": "#a69b7f",
+  "lance": "#695c50"
  }
 };

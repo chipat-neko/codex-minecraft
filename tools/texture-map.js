@@ -221,7 +221,11 @@ var MAP_ITEMS = {
   /* le bouclier n'a pas de texture plate exploitable : aplat de couleur */
   disque: 'item/music_disc_13',
   lapinC: 'item/cooked_rabbit',
-  patate: 'item/baked_potato'
+  patate: 'item/baked_potato',
+  pepiteFer: 'item/iron_nugget',
+  wagonnet: 'item/minecart',
+  etiquette: 'item/name_tag',
+  lance: 'item/iron_spear'
 };
 
 if (typeof module !== 'undefined') {
