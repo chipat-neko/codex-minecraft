@@ -112,12 +112,12 @@ a:hover { text-decoration: underline; }
 }
 
 .topbar-inner {
-  max-width: 1280px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 10px 20px;
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
@@ -156,12 +156,16 @@ a:hover { text-decoration: underline; }
 }
 
 .nav a {
-  padding: 7px 13px;
+  padding: 6px 9px;
   border-radius: 8px;
   color: var(--txt-2);
-  font-size: 14px;
+  font-size: 13.4px;
   font-weight: 500;
   border: 1px solid transparent;
+  white-space: nowrap;
+}
+@media (min-width: 1250px) {
+  .nav a { padding: 6px 11px; font-size: 14px; }
 }
 .nav a:hover { background: var(--panel-2); color: var(--txt); text-decoration: none; }
 .nav a.is-active {
