@@ -579,5 +579,436 @@ var USINES = [
     notes: [
       { type: 'tip', txt: 'Ne posez jamais de catalyseur près de votre base sans le contenir : le sculk se propage et transforme le décor.' }
     ]
+  },
+
+/* ================= MOBS RARES & DROPS UNIQUES ================= */
+  {
+    id: 'trident-noyes', nom: 'Ferme à tridents (noyés de rivière)', cat: 'mob',
+    taille: '≈21 × 21 × 40', diff: 'Expert',
+    desc: 'Une plateforme d\'eau totalement obscure posée dans un biome de rivière : les noyés qui y apparaissent naturellement sont les seuls du jeu à pouvoir tenir un trident. Ils sont convoyés par le courant, affaiblis par une chute, puis achevés à l\'épée.',
+    mats: ['≈1 200 blocs pleins pour la cuve et le blindage', '≈30 seaux d\'eau (ou du kelp pour figer les sources)', '≈12 entonnoirs, 2 grands coffres', '1 épée avec Butin III (obligatoire pour le rendement)', '≈40 dalles ou trappes pour condamner les autres surfaces d\'apparition'],
+    couches: [
+      { t: 'Vue de dessus · cuve d\'apparition immergée', g: [
+        'bbbbbbbbbbb',
+        'b~~~~~~~~~b',
+        'b~wwwwwww~b',
+        'b~wwwwwww~b',
+        'b~www.www~b',
+        'b~wwwwwww~b',
+        'b~wwwwwww~b',
+        'b~~~~~~~~~b',
+        'bbbbbbbbbbb'
+      ] },
+      { t: 'Vue de côté · chute et poste de mise à mort', g: [
+        'bwwwb',
+        'b...b',
+        '..|..',
+        '..|..',
+        '..|..',
+        '..|..',
+        '..|..',
+        '..x..',
+        '.HHH.',
+        '..E..'
+      ] }
+    ],
+    etapes: [
+      'Repérez une rivière : c\'est le meilleur biome, car son plafond d\'apparition aquatique est presque vide, donc tous les mobs générés sont des noyés.',
+      'Creusez ou construisez une cuve de 21 × 21 sous le niveau de la mer et remplissez-la d\'eau : les noyés n\'apparaissent que dans l\'eau, à un niveau de lumière nul.',
+      'Blindez tout : plafond opaque, aucune torche, et dalles ou trappes sur chaque surface exploitable dans un rayon de 128 blocs — sinon la limite de mobs part ailleurs.',
+      'Faites converger les courants vers un trou central d\'un bloc, puis vers une colonne de chute.',
+      'Chute de 24 blocs exactement : le noyé arrive à 1 point de vie mais n\'est pas mort — c\'est indispensable, car un mob tué autrement que par un joueur ne lâche JAMAIS son équipement, donc jamais son trident.',
+      'Achevez à l\'épée avec Butin III : la chance de lâcher le trident passe de 8,5 % à 11,5 %.',
+      'Entonnoirs sous la zone de mise à mort, reliés à deux grands coffres — le volume de chair putréfiée est énorme.',
+      'Tenez-vous à plus de 24 blocs de la cuve pendant l\'attente : rien n\'apparaît plus près de vous que cette distance.'
+    ],
+    rendement: '≈1 à 3 tridents par heure avec Butin III, plus des piles de lingots de cuivre et quelques coquillages nautiles.',
+    notes: [
+      { type: 'warn', txt: 'Noyés convertis = zéro trident — un zombie qui se noie devient un noyé, mais sans équipement. Seuls les noyés apparus naturellement dans l\'eau peuvent porter un trident (6,25 % d\'entre eux). Ne recyclez donc jamais une ferme à zombies pour cet objectif.' },
+      { type: 'tip', txt: 'Coquillages nautiles — 3 % des noyés naturels tiennent un nautile en main gauche et le lâchent toujours. Huit nautiles plus un cœur de la mer font un conduit : cette ferme finance à elle seule votre base sous-marine.' }
+    ]
+  },
+  {
+    id: 'slime-chunk', nom: 'Ferme à slimes (chunk à slime)', cat: 'mob',
+    taille: '16 × 16 × 30', diff: 'Avancé',
+    desc: 'Les slimes n\'apparaissent que dans certains chunks tirés au sort par la graine du monde (environ 1 sur 10), sous Y = 40, quelle que soit la lumière. On vide entièrement le chunk sur plusieurs niveaux et on laisse les courants pousser les slimes vers un golem de fer qui les broie.',
+    mats: ['≈3 000 blocs pleins (murs, plafonds, plateformes)', '≈24 seaux d\'eau', '1 golem de fer (4 blocs de fer + 1 citrouille sculptée)', '≈10 entonnoirs, 2 grands coffres', 'Beaucoup d\'échafaudages et de torches pour le chantier'],
+    couches: [
+      { t: 'Vue de dessus · une plateforme (un chunk entier, 16 × 16)', g: [
+        'cccccccccccccccc',
+        'c~~~~~~~~~~~~~~c',
+        'c~cccccccccccc~c',
+        'c~cccccccccccc~c',
+        'c~ccccc..ccccc~c',
+        'c~ccccc..ccccc~c',
+        'c~cccccccccccc~c',
+        'c~cccccccccccc~c',
+        'c~~~~~~~~~~~~~~c',
+        'cccccccccccccccc'
+      ] },
+      { t: 'Vue de côté · empilement des niveaux et broyeur', g: [
+        'ccccc',
+        'c...c',
+        'ccccc',
+        'c...c',
+        'ccccc',
+        'c...c',
+        '..|..',
+        '..|..',
+        'c...c',
+        'cI1.c',
+        'cHHHc',
+        'cEEEc'
+      ] }
+    ],
+    etapes: [
+      'Identifiez un chunk à slime : sa position dépend de la graine du monde, pas du biome. Repérez-le en creusant et en attendant sous Y = 40, ou vérifiez la graine dans un outil de cartographie.',
+      'Marquez les limites exactes du chunk avec la touche de debug : un slime apparu un bloc à côté n\'apparaîtra jamais. Toute la précision du projet tient là.',
+      'Videz le chunk sur 5 à 8 niveaux, chaque plateforme séparée de 3 blocs de hauteur : les gros slimes font 2 blocs de côté et ont besoin de place.',
+      'Éclairez le reste de la grotte alentour : la lumière n\'empêche pas les slimes d\'apparaître, mais elle supprime la concurrence des zombies et squelettes qui saturent la limite de mobs.',
+      'Sur chaque plateforme, des courants d\'eau depuis les bords poussent tout vers un trou CENTRAL DE 2 × 2 — un trou d\'un seul bloc bloquerait les gros slimes.',
+      'Reliez les trous à une colonne unique qui descend vers la chambre de broyage.',
+      'Enfermez un golem de fer dans la chambre : les slimes ne subissent aucun dégât de chute, donc la chute seule ne tue rien. Le golem, lui, tue les trois tailles en boucle et sans intervention.',
+      'Entonnoirs sous le golem, coffres reliés. Restez à 24–128 blocs pour que les apparitions continuent.'
+    ],
+    rendement: '≈300 à 800 boules de slime par heure sur un chunk aménagé sur plusieurs niveaux. Rendement strictement nul si le chunk n\'est pas un chunk à slime.',
+    notes: [
+      { type: 'info', txt: 'Variante marais — dans un biome de marais, les slimes apparaissent entre Y 50 et 70, la nuit, avec une lumière ≤ 7, et selon la phase de lune. C\'est plus simple à monter mais irrégulier : la ferme ne produit rien à la pleine lune inverse ni en journée.' },
+      { type: 'tip', txt: 'Blocs de slime — 9 boules font 1 bloc. C\'est la base des machines volantes, des ascenseurs à pistons et des blocs de miel/slime alternés qui déplacent des structures entières.' }
+    ]
+  },
+  {
+    id: 'shulker-dup', nom: 'Ferme à shulkers (duplication en cité de l\'End)', cat: 'mob',
+    taille: '≈11 × 11 × 20', diff: 'Expert',
+    desc: 'Quand le projectile d\'un shulker touche un autre shulker, celui-ci a une chance d\'en engendrer un nouveau : c\'est la seule duplication de mob du jeu. Deux shulkers enfermés face à face se tirent dessus en boucle et alimentent une chambre de mise à mort.',
+    mats: ['2 shulkers vivants (récupérés dans une cité de l\'End)', '≈400 blocs de purpur ou de pierre de l\'End', 'Dalles et escaliers pour supprimer les points de téléportation', '≈8 entonnoirs, 2 coffres', '1 épée avec Butin III, 1 arc pour la manipulation'],
+    couches: [
+      { t: 'Vue de dessus · cellule de duplication', g: [
+        'qqqqqqqqq',
+        'q.......q',
+        'q.1...2.q',
+        'q.......q',
+        'qqqq.qqqq'
+      ] },
+      { t: 'Vue de côté · éjection et mise à mort', g: [
+        'qqqqqqq',
+        'q1...2q',
+        'qqq.qqq',
+        '...|...',
+        '...|...',
+        '...|...',
+        '...x...',
+        '..HHH..',
+        '...E...'
+      ] }
+    ],
+    etapes: [
+      'Trouvez une cité de l\'End et gardez deux shulkers vivants : ne les tuez pas, poussez-les à coups de piston ou déplacez le bloc auquel ils sont accrochés.',
+      'Construisez la cellule : deux shulkers séparés de 4 à 6 blocs, face à face, dans une boîte fermée. Ils se tirent dessus dès qu\'un joueur est à moins de 16 blocs.',
+      'Supprimez toute possibilité de téléportation : un shulker blessé se téléporte vers une surface pleine libre à moins de 8 blocs. Habillez l\'intérieur de dalles et d\'escaliers, ou construisez au-dessus du vide, pour qu\'aucune destination ne soit valide.',
+      'Un projectile qui touche un shulker a environ une chance sur quatre d\'en faire apparaître un nouveau, sur une case libre adjacente.',
+      'Sous la cellule, laissez un trou : les shulkers nouvellement créés qui ne trouvent pas d\'accroche tombent dans la colonne de chute.',
+      'Chambre de mise à mort au bas de la chute, elle aussi sans destination de téléportation valide, sinon le shulker blessé s\'échappe.',
+      'Frappez à l\'épée avec Butin III : le taux de carapaces monte fortement, et 2 carapaces font une boîte de shulker.',
+      'Portez toujours du lait ou un seau : la Lévitation infligée par les projectiles est mortelle au-dessus du vide de l\'End.'
+    ],
+    rendement: 'Environ 10 à 20 carapaces par heure pour une cellule unique ; 40 à 80 pour un modèle à plusieurs cellules. Variable selon la cadence de tir.',
+    notes: [
+      { type: 'danger', txt: 'Lévitation au-dessus du vide — la moindre erreur de placement vous fait flotter hors de la plateforme puis tomber dans le vide. Construisez avec un mur plein autour du poste de mise à mort et gardez une perle de l\'Ender en main gauche.' },
+      { type: 'tip', txt: 'Boîtes de shulker à volonté — 2 carapaces + 1 coffre = 1 boîte. Avec cette ferme, on transporte 27 emplacements dans un seul emplacement : c\'est ce qui rend les grands chantiers possibles.' }
+    ]
+  },
+  {
+    id: 'froglight', nom: 'Ferme à lumigrenouilles (grenouilles + cubes de magma)', cat: 'animal',
+    taille: '≈21 × 21 × 25 dans le Nether', diff: 'Expert',
+    desc: 'Une grenouille qui avale un PETIT cube de magma le transforme en bloc de lumigrenouille. On monte donc une plateforme à cubes de magma dans un delta de basalte, on découpe les gros cubes, et on envoie les petits dans un enclos de grenouilles.',
+    mats: ['≈1 000 blocs de briques du Nether (résistants aux ghasts)', '3 à 6 grenouilles amenées en seau de têtard', '≈12 pistons pour le broyeur, redstone et observateurs', '≈15 entonnoirs, 2 grands coffres', '≈30 trappes pour la plateforme et le blindage', 'Potion de Résistance au feu pour le chantier'],
+    couches: [
+      { t: 'Vue de dessus · enclos des grenouilles', g: [
+        'rrrrrrrrr',
+        'r.......r',
+        'r.HHHHH.r',
+        'r.HHHHH.r',
+        'r.HHHHH.r',
+        'r.......r',
+        'rrrrErrrr'
+      ] },
+      { t: 'Vue de côté · plateforme, broyeur et enclos', g: [
+        'rrrrrrr',
+        'r.....r',
+        'rrr.rrr',
+        '...|...',
+        '...|...',
+        'rPPPPPr',
+        'r.....r',
+        'rHHHHHr',
+        'rrrErrr'
+      ] },
+      { t: 'Vue de dessus · plateforme d\'apparition à trappes', g: [
+        'rrrrrrrrrrr',
+        'r.........r',
+        'r.........r',
+        'r....+....r',
+        'r.........r',
+        'r.........r',
+        'rrrrrrrrrrr'
+      ] }
+    ],
+    etapes: [
+      'Choisissez un delta de basalte : c\'est le biome où les cubes de magma apparaissent le plus densément, à n\'importe quel niveau de lumière.',
+      'Construisez une grande plateforme et condamnez toutes les autres surfaces d\'apparition dans un rayon de 128 blocs, sinon la limite de mobs se disperse.',
+      'Au centre, une trappe ou un trou d\'un bloc : les cubes marchent dessus et tombent. Pas d\'eau possible dans le Nether, le convoyage se fait donc par gravité.',
+      'Sous la chute, un broyeur à pistons découpe les cubes : un gros cube tué se scinde en cubes moyens, puis en petits. Seuls les PETITS cubes intéressent les grenouilles.',
+      'Amenez vos grenouilles en seau de têtard : la couleur de la lumigrenouille dépend du biome où le têtard devient adulte — tempéré donne l\'ocre, chaud donne la nacrée, froid donne la verdoyante.',
+      'Enclos à sol d\'entonnoirs : la grenouille avale le petit cube, le bloc de lumigrenouille tombe et part directement au coffre.',
+      'Limitez-vous à 4 à 6 grenouilles : au-delà, elles se gênent et le débit ne monte plus.',
+      'Fermez complètement le dessus : un ghast qui tire dans la ferme détruit des mois de chantier.'
+    ],
+    rendement: 'De l\'ordre de 200 à 400 lumigrenouilles par heure sur une grande plateforme — très variable selon la surface d\'apparition et le nombre de grenouilles.',
+    notes: [
+      { type: 'warn', txt: 'Seuls les petits cubes comptent — une grenouille ignore les cubes moyens et gros, et un cube trop grand la piétine. Le broyeur doit impérativement les réduire à la plus petite taille avant l\'enclos.' },
+      { type: 'info', txt: 'Les trois couleurs se cultivent séparément : élevez vos têtards dans trois biomes différents (plaines, désert, taïga enneigée) pour obtenir les trois variétés sans dupliquer toute la ferme.' }
+    ]
+  },
+
+  /* ================= RESSOURCES & MATÉRIAUX ================= */
+  {
+    id: 'sable-gravier', nom: 'Carrière à sable et gravier (pistons + rails)', cat: 'ressource',
+    taille: 'Front de taille de 16 blocs', diff: 'Avancé',
+    desc: 'Le sable et le gravier tombent dès qu\'on retire leur support. Une rangée de pistons collants arrache la base d\'une dune, toute la colonne s\'effondre sur des rails, et un bloc qui tombe sur un rail se transforme instantanément en objet ramassé par l\'entonnoir du dessous.',
+    mats: ['≈16 pistons collants + 16 blocs pleins de soutien', '≈16 rails (6 lingots de fer pour 16)', '≈16 entonnoirs, 2 grands coffres', '1 levier, ≈20 poudres de redstone', '≈100 blocs pleins pour le bâti'],
+    couches: [
+      { t: 'Vue de côté · effondrement de la colonne', g: [
+        '.AAAAA.',
+        '.AAAAA.',
+        '.AAAAA.',
+        'SBBBBB.',
+        'c=====c',
+        'cHHHHHc',
+        'ccccEcc'
+      ] },
+      { t: 'Vue de dessus · ligne de collecte', g: [
+        'ccccccccc',
+        'c=======c',
+        'cHHHHHHHc',
+        'ccccEcccc'
+      ] },
+      { t: 'Vue de côté · commande des pistons', g: [
+        '!RRRR',
+        'SBBBB',
+        '=====',
+        'HHHHH'
+      ] }
+    ],
+    etapes: [
+      'Choisissez un front de taille : un flanc de dune de désert pour le sable, un banc de gravier de grotte ou de rivière pour le gravier et le silex.',
+      'Posez d\'abord la ligne d\'entonnoirs reliés au coffre, puis un rail SUR chaque entonnoir : le rail n\'est pas un bloc plein, donc tout bloc qui lui tombe dessus se casse en objet au lieu de s\'empiler.',
+      'Juste au-dessus des rails, placez la rangée de blocs de soutien qui retient la colonne de sable ou de gravier.',
+      'Derrière chaque bloc de soutien, un piston COLLANT : en se rétractant il ramène le bloc et libère toute la colonne d\'un coup.',
+      'Reliez les pistons à une ligne de redstone commandée par un levier ; un répéteur tous les 15 blocs si la ligne est longue.',
+      'Actionnez : la dune s\'effondre, chaque bloc touche un rail, se casse et part au coffre. Repoussez les blocs de soutien pour le cycle suivant.',
+      'Déplacez la machine d\'un bloc vers la dune à chaque cycle : ce n\'est pas une ferme renouvelable mais une excavatrice, elle consomme le terrain.',
+      'Envoyez le gravier vers un second poste : cassé à la main il donne 10 % de silex, mais un fabricateur transforme directement 4 silex en bloc de gravier reconstitué pour la construction.'
+    ],
+    rendement: 'Une dune de 20 × 20 sur 10 de haut, soit ≈4 000 blocs, se vide en quelques minutes une fois la machine posée. Le sable n\'étant pas renouvelable, la ferme se déplace après chaque secteur.',
+    notes: [
+      { type: 'tip', txt: 'Variante torches — à défaut de rails, une rangée de torches au sol fait exactement le même travail : tout bloc qui tombe sur une torche se casse. C\'est la version « début de partie », gratuite en fer.' },
+      { type: 'warn', txt: 'Variante TNT — le TNT creuse infiniment plus vite mais ne restitue qu\'une partie des blocs détruits, et il faut un duplicateur de TNT monté sur machine volante. Réservez-la aux très gros chantiers de verre.' }
+    ]
+  },
+  {
+    id: 'obsidienne-auto', nom: 'Ferme à obsidienne (lave renouvelable)', cat: 'ressource',
+    taille: '≈11 × 5 × 8', diff: 'Avancé',
+    desc: 'Une stalactite pointue suspendue sous une source de lave remplit un chaudron sans jamais consommer la source : la lave devient renouvelable. Des distributeurs versent cette lave dans un mur de cellules, l\'eau la fige en obsidienne, et il ne reste qu\'à miner.',
+    mats: ['1 stalactite pointue + 1 chaudron par générateur (10 à 20 générateurs)', '≈20 distributeurs + seaux (2 fer par générateur)', '1 source de lave « mère » par générateur', '≈12 entonnoirs, 2 coffres, 1 seau d\'eau', '1 pioche en netherite avec Efficacité V (et une balise en Célérité II)'],
+    couches: [
+      { t: 'Vue de côté · générateur de lave renouvelable', g: [
+        'bblbb',
+        'bbbbb',
+        'bb|bb',
+        'bb.bb',
+        'bb.bb',
+        'bbCbb'
+      ] },
+      { t: 'Vue de côté · mur de coulée et collecte', g: [
+        'bbbbbbbbb',
+        'bYYYYYYYb',
+        'b~~~~~~~b',
+        'bOOOOOOOb',
+        'bOOOOOOOb',
+        'b.......b',
+        'bHHHHHHHb',
+        'bbbbEbbbb'
+      ] },
+      { t: 'Vue de dessus · cellules de coulée', g: [
+        'bbbbbbbbbbb',
+        'bYbYbYbYbYb',
+        'bObObObObOb',
+        'bObObObObOb',
+        'b~~~~~~~~~b',
+        'bHHHHHHHHHb',
+        'bbbbbEbbbbb'
+      ] }
+    ],
+    etapes: [
+      'Montez le générateur de lave : une source de lave, un bloc plein juste dessous, une stalactite pointue accrochée sous ce bloc (le « | » du schéma), et un chaudron en dessous.',
+      'La stalactite goutte de la lave dans le chaudron sans jamais vider la source du dessus : c\'est le seul moyen de rendre la lave renouvelable en survie.',
+      'Répliquez le générateur 10 à 20 fois côte à côte : la production de lave est le vrai goulot d\'étranglement, pas le minage.',
+      'Chaque cellule de coulée fait 1 bloc de large et est séparée de sa voisine par un bloc plein : sans cette séparation la lave s\'écoule latéralement et donne de la pierre, pas de l\'obsidienne.',
+      'Un distributeur chargé d\'un seau de lave verse une SOURCE dans la cellule — une simple lave qui coule ne donne jamais d\'obsidienne, uniquement le bloc source figé.',
+      'Faites couler l\'eau depuis le haut du mur : au contact, chaque source de lave devient un bloc d\'obsidienne.',
+      'Minez le mur avec une pioche en netherite Efficacité V sous une balise en Célérité II : le temps par bloc tombe de 9,4 s à environ 0,35 s.',
+      'Sol en entonnoirs sous le mur pour récupérer, et un canal d\'eau si le mur est long.'
+    ],
+    rendement: '≈4 blocs d\'obsidienne par minute avec 20 générateurs, soit ≈240 par heure. Chaque chaudron se remplit en 5 à 6 minutes environ.',
+    notes: [
+      { type: 'info', txt: 'Pourquoi pas de piston — l\'obsidienne est immobile : aucun piston ne la pousse ni ne la tire. Toute « ferme à obsidienne » reste donc semi-automatique, la partie minage revient au joueur.' },
+      { type: 'tip', txt: 'Version rapide en début de partie — un lac de lave du Nether donne des centaines d\'obsidiennes tout de suite, mais il est fini. Le générateur à stalactite est le seul montage qui tient sur des années de partie.' }
+    ]
+  },
+
+  /* ================= ÉLEVAGE & VILLAGEOIS ================= */
+  {
+    id: 'villageois-repro', nom: 'Reproduction et tri automatiques de villageois', cat: 'logistique',
+    taille: '9 × 7 × 6', diff: 'Avancé',
+    desc: 'Deux couples de villageois nourris automatiquement se reproduisent en boucle. Les bébés, deux fois moins hauts que les adultes, s\'échappent seuls par un passage d\'un bloc de haut que les adultes ne peuvent pas franchir, et partent en wagonnet vers le hall de commerce.',
+    mats: ['4 villageois de départ + 6 lits minimum', '1 distributeur + 1 horloge de redstone lente', '≈12 entonnoirs reliés à une ferme à blé ou à carottes', '1 dalle, 1 seau d\'eau, quelques rails et 1 wagonnet', '≈150 blocs pleins et vitres'],
+    couches: [
+      { t: 'Vue de dessus · chambre de reproduction', g: [
+        'bbbbbbbbb',
+        'b<.<.<.<b',
+        'b.......b',
+        'b.1...2.b',
+        'b.......b',
+        'bbbbbbb.b'
+      ] },
+      { t: 'Vue de côté · sas à bébés (1 bloc de haut)', g: [
+        'bbbbbbbb',
+        'b......b',
+        'b.11..-b',
+        'bbbbbb.b',
+        'bbbbbb~b',
+        'bbbbb..b',
+        'bbbbb=.b',
+        'bbbbbbbb'
+      ] },
+      { t: 'Vue de côté · distributeur de nourriture', g: [
+        'bbEbb',
+        'bbHbb',
+        'bbYbb',
+        'b...b',
+        'b.1.b',
+        'bbbbb'
+      ] }
+    ],
+    etapes: [
+      'Construisez une chambre fermée de 7 × 5 et posez au moins 6 lits accessibles : un couple ne se reproduit que s\'il reste un lit LIBRE pour le bébé.',
+      'Amenez 4 villageois (bateau, wagonnet ou couloir d\'eau) et fermez la chambre avec des vitres pour garder un œil dessus.',
+      'Nourriture : un coffre alimenté par votre ferme à blé descend dans un entonnoir puis un distributeur, déclenché par une horloge lente. Le distributeur JETTE le pain au sol — un entonnoir ne peut pas nourrir un villageois, il faut qu\'il ramasse l\'objet lui-même.',
+      'Comptez 3 pains, ou 12 carottes, ou 12 pommes de terre par villageois pour qu\'il devienne « volontaire ». C\'est le seul déclencheur de la reproduction.',
+      'Le tri se fait par la taille : un adulte mesure environ 1,95 bloc, un bébé moins d\'un bloc. Ouvrez dans un coin un passage haut d\'un seul bloc (une dalle inférieure au plafond du passage) : seuls les bébés s\'y engagent.',
+      'Un filet d\'eau dans ce passage pousse les bébés vers un trou puis vers un rail où attend un wagonnet.',
+      'Expédiez les bébés vers le hall de commerce : ils grandissent en 20 minutes de jeu et prennent ensuite le métier du bloc que vous leur présentez.',
+      'Gardez la chambre parfaitement éclairée : un zombie qui entre transforme toute la colonie en une nuit.'
+    ],
+    rendement: '≈1 villageois toutes les 20 à 30 secondes avec deux couples bien nourris, soit plus de 100 par heure — de quoi remplir un hall de commerce complet en une soirée.',
+    notes: [
+      { type: 'warn', txt: 'Lits et portes — depuis la refonte des villages, seul le nombre de LITS libres compte, plus les portes. Un lit inaccessible (bloqué par un bloc au-dessus ou hors de portée) ne compte pas.' },
+      { type: 'tip', txt: 'Couplez avec la ferme à blé automatique : le fermier envoie le blé, un fabricateur le transforme en pain, le pain part au distributeur. La ferme s\'auto-alimente et ne demande plus jamais rien.' }
+    ]
+  },
+  {
+    id: 'tortue-ecailles', nom: 'Ferme à œufs de tortue et écailles', cat: 'animal',
+    taille: '11 × 11 × 5', diff: 'Intermédiaire',
+    desc: 'Une tortue ne pond que sur le sable de la plage où elle est née. Les œufs éclosent la nuit, les bébés s\'échappent par un couloir d\'un bloc de large trop étroit pour les adultes, et chaque bébé devenu adulte lâche une écaille sur un sol d\'entonnoirs.',
+    mats: ['2 tortues adultes + de l\'herbe marine (cisaille sur les fonds marins)', '≈60 blocs de sable pour la plage de ponte', '≈15 entonnoirs, 1 grand coffre', '1 distributeur + horloge lente pour l\'herbe marine', '≈120 blocs pleins et vitres pour l\'enceinte'],
+    couches: [
+      { t: 'Vue de dessus · plage de ponte', g: [
+        'bbbbbbbbbbb',
+        'bwwwwwwwwwb',
+        'bwAAAAAAAwb',
+        'bwA.....Awb',
+        'bwA.1.2.Awb',
+        'bwA.....Awb',
+        'bwAAAAAAAwb',
+        'bwwww.wwwwb',
+        'bbbbb~bbbbb'
+      ] },
+      { t: 'Vue de côté · couloir filtrant et enclos de croissance', g: [
+        'bbbbbbbbb',
+        'b..b....b',
+        'bA1~.2..b',
+        'bAAAHHHHb',
+        'bbbbEbbbb'
+      ] },
+      { t: 'Vue de dessus · enclos de croissance', g: [
+        'bbbbbbb',
+        'bHHHHHb',
+        'bHHHHHb',
+        'bHHHHHb',
+        'bbbEbbb'
+      ] }
+    ],
+    etapes: [
+      'Récoltez de l\'herbe marine à la cisaille : c\'est le seul aliment des tortues, à la fois pour la reproduction et pour accélérer la croissance des bébés.',
+      'Construisez la plage : une dalle de sable bordée d\'eau. Une tortue ne pond QUE sur la plage où elle a elle-même éclos, donc faites naître vos deux premières tortues sur place avant tout.',
+      'Nourrissez les deux adultes : l\'une porte alors des œufs et va pondre 1 à 4 œufs dans le sable en quelques minutes.',
+      'Enfermez complètement la plage : les zombies et les squelettes cherchent activement à piétiner les œufs, et un joueur qui marche dessus les casse aussi.',
+      'Les œufs n\'éclosent que la nuit et plus vite sur du sable : ne les couvrez pas et n\'éclairez pas la plage.',
+      'Le filtre est une affaire de largeur : un adulte fait 1,2 bloc de large, un bébé 0,36. Un couloir d\'UN bloc de large avec un filet d\'eau évacue les bébés et retient les adultes.',
+      'Enclos de croissance à sol d\'entonnoirs : quand un bébé devient adulte, il lâche exactement une écaille, qui part directement au coffre.',
+      'Un distributeur d\'herbe marine sur horloge lente accélère nettement la croissance : chaque herbe donnée retire 10 % du temps restant.',
+      'Cinq écailles font un casque de tortue : respiration aquatique permanente, et l\'ingrédient de la potion du Maître des tortues.'
+    ],
+    rendement: '≈10 à 30 écailles par heure avec un nourrissage automatique à l\'herbe marine. Sans nourrissage, comptez une écaille par bébé toutes les 50 minutes environ.',
+    notes: [
+      { type: 'warn', txt: 'Ne cassez jamais un œuf sans Toucher de soie : il ne se récupère pas autrement, et une ponte perdue coûte plusieurs minutes de production.' },
+      { type: 'info', txt: 'Les adultes ne sont jamais consommés : ils restent sur la plage et repondent indéfiniment tant qu\'on les nourrit. C\'est une des rares fermes animales sans mise à mort.' }
+    ]
+  },
+  {
+    id: 'mouton-laine', nom: 'Ferme à laine automatique (distributeur à cisailles)', cat: 'animal',
+    taille: '9 × 4 × 5', diff: 'Intermédiaire',
+    desc: 'Un mouton posé sur un bloc d\'herbe finit toujours par la brouter : le bloc devient de la terre, un observateur détecte le changement et déclenche un distributeur chargé d\'une cisaille. La laine tombe et un wagonnet-entonnoir la ramasse à travers le sol.',
+    mats: ['1 mouton par module (jusqu\'à 8)', '1 distributeur + 1 cisaille + 1 observateur par module', '≈9 blocs d\'herbe (à la houe ou déplacés à la pelle)', '1 wagonnet-entonnoir + ≈16 rails + 1 rail motorisé', '2 entonnoirs, 1 grand coffre, ≈20 poudres de redstone'],
+    couches: [
+      { t: 'Vue de dessus · rangée de 7 enclos', g: [
+        'bbbbbbbbb',
+        'bYYYYYYYb',
+        'beeeeeeeb',
+        'bbbbbbbbb'
+      ] },
+      { t: 'Vue de côté · un module', g: [
+        'bbbbb',
+        'bY1.b',
+        'bQeQb',
+        'b.=.b',
+        'b.H.b',
+        'b.E.b'
+      ] },
+      { t: 'Vue de dessus · boucle du wagonnet-entonnoir', g: [
+        'bbbbbbbbb',
+        'b=======b',
+        'b=bbbbb=b',
+        'b=======b',
+        'bbbHbbbbb'
+      ] }
+    ],
+    etapes: [
+      'Creusez une rangée d\'enclos d\'un bloc de large : un mouton par case, sinon ils se déplacent et ratent le jet de la cisaille.',
+      'Le sol de chaque enclos est un bloc d\'herbe. Un mouton tondu ne récupère sa laine qu\'en broutant : sans herbe, la ferme s\'arrête définitivement.',
+      'Placez un observateur contre le bloc d\'herbe : quand le mouton broute, l\'herbe devient de la terre, ce changement d\'état est détecté et fournit le signal — c\'est le déclencheur le plus fiable, aucun besoin d\'horloge.',
+      'Le signal alimente un distributeur, à hauteur de tête du mouton, chargé d\'une cisaille : il tond automatiquement et rend 1 à 3 laines.',
+      'Prévoyez la repousse de l\'herbe : laissez des blocs d\'herbe éclairés autour des enclos, l\'herbe se propage vers la terre nue en quelques minutes.',
+      'Collecte : la laine tombe sur le sol en herbe, donc un entonnoir classique ne peut rien attraper. Faites passer un wagonnet-entonnoir sur un rail JUSTE en dessous : il ramasse les objets à travers le bloc au-dessus de lui.',
+      'Bouclez le rail avec un rail motorisé et faites passer le wagonnet au-dessus d\'un entonnoir relié au coffre : il s\'y vide à chaque tour.',
+      'Teignez chaque mouton d\'une couleur différente : la couleur est permanente et la laine repousse teintée. Une rangée de 8 moutons donne 8 couleurs en continu.'
+    ],
+    rendement: '≈150 à 300 laines par heure pour une rangée de 8 moutons — très variable, tout dépend de la vitesse de repousse de l\'herbe.',
+    notes: [
+      { type: 'tip', txt: 'Laine et lits — 3 laines + 3 planches font un lit, 1 laine fait un tapis et 3 laines une bannière. C\'est aussi la matière première du bloc de laine insonorisant utilisé sur les capteurs sculk.' },
+      { type: 'info', txt: 'Le distributeur n\'use pas la cisaille au même rythme qu\'un joueur, mais elle finit par casser : ajoutez un entonnoir d\'approvisionnement depuis un coffre de cisailles de rechange.' }
+    ]
   }
+
 ];

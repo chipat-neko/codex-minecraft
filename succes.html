@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Succès — Codex Minecraft</title>
+<meta name="description" content="Tous les succès (advancements) de Minecraft Java : comment les obtenir concrètement et les astuces qui font gagner du temps.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-cube"></span>
+      <span>Codex Minecraft<small>Java Edition</small></span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="drops.html">Drops</a>
+      <a href="craft.html">Artisanat</a>
+      <a href="potions.html">Potions</a>
+      <a href="enchantements.html">Enchant.</a>
+      <a href="redstone.html">Redstone</a>
+      <a href="villageois.html">Villageois</a>
+      <a href="biomes.html">Biomes</a>
+      <a href="structures.html">Structures</a>
+      <a href="blocs.html">Blocs</a>
+      <a href="succes.html">Succès</a>
+      <a href="plans.html">Plans</a>
+      <a href="usines.html">Usines</a>
+    </nav>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Catalogue 10 / 12</span>
+    <h1>Succès</h1>
+    <p>Les succès du jeu, avec <b>ce qu'il faut faire concrètement</b> et l'astuce qui fait gagner du temps.
+      Chaque nom est suivi de son intitulé anglais : les traductions françaises changent d'une version à l'autre,
+      l'anglais lève l'ambiguïté.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <input id="q" class="search" type="search" placeholder="Rechercher un succès…  ( / )" autocomplete="off">
+      <span id="count" class="count"></span>
+    </div>
+    <div class="toolbar-row" id="chips" style="margin-top:10px">
+      <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="fav">★ Favoris</button>
+      <button class="chip" data-cat="surworld">Minecraft</button>
+      <button class="chip" data-cat="nether">Nether</button>
+      <button class="chip" data-cat="end">The End</button>
+      <button class="chip" data-cat="aventure">Aventure</button>
+      <button class="chip" data-cat="elevage">Agriculture &amp; élevage</button>
+    </div>
+  </div>
+
+  <section class="print-host" style="margin-bottom:20px">
+    <div id="liste" class="grid g2"></div>
+    <div id="vide" class="empty" style="display:none">Aucun succès trouvé. Essayez « dragon », « élytre », « balise », « poisson »…</div>
+  </section>
+
+  <hr>
+
+  <section id="conseils">
+    <h2>Faire les succès sans y passer des mois</h2>
+    <div class="grid g3">
+      <div class="card">
+        <h3>🧭 Groupez par lieu</h3>
+        <p>Une seule expédition dans le Nether peut valider une dizaine de succès si vous préparez la liste avant de partir :
+          bastion, forteresse, troc, hoglin, distorsion du temps.</p>
+      </div>
+      <div class="card">
+        <h3>🐟 Les collections d'abord</h3>
+        <p>Les succès « tous les poissons », « tous les biomes », « toutes les armures » sont les plus longs.
+          Commencez-les tôt et complétez-les au fil du jeu plutôt qu'en fin de partie.</p>
+      </div>
+      <div class="card">
+        <h3>⚗️ Préparez le matériel</h3>
+        <p>Beaucoup de succès demandent un objet précis (bloc de note, balise, conduit, cartographe).
+          Une fois vos <a href="usines.html">fermes</a> en place, ils tombent presque tout seuls.</p>
+      </div>
+    </div>
+    <div class="callout info">
+      <b>Où les voir en jeu</b> — touche <kbd>L</kbd> par défaut. L'onglet indique clairement les succès en cours
+      et ceux qui restent bloqués faute d'un prérequis.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Codex Minecraft — guide de référence non officiel.</div>
+</footer>
+
+<!-- Visuels : couleurs réelles du jeu (versionnées) puis, si elles ont été
+     extraites en local via tools/extract-textures.js, les vraies textures.
+     L'absence du second fichier est sans conséquence : on garde les aplats. -->
+<script src="assets/couleurs.js"></script>
+<script src="assets/textures/index.js" onerror="void 0"></script>
+<script src="assets/core.js"></script>
+<script src="assets/data-structures.js"></script>
+<script>
+(function () {
+  var liste = document.getElementById('liste');
+  for (var i = 0; i < ADVANCEMENTS.length; i++) { liste.appendChild(renderEntry(ADVANCEMENTS[i])); }
+  setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
+}());
+</script>
+</body>
+</html>

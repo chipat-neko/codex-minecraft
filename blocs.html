@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blocs de construction — Codex Minecraft</title>
+<meta name="description" content="Toutes les familles de blocs de construction Minecraft Java : variantes, obtention, pièges, palettes de styles et techniques de construction.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-cube"></span>
+      <span>Codex Minecraft<small>Java Edition</small></span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="drops.html">Drops</a>
+      <a href="craft.html">Artisanat</a>
+      <a href="potions.html">Potions</a>
+      <a href="enchantements.html">Enchant.</a>
+      <a href="redstone.html">Redstone</a>
+      <a href="villageois.html">Villageois</a>
+      <a href="biomes.html">Biomes</a>
+      <a href="structures.html">Structures</a>
+      <a href="blocs.html">Blocs</a>
+      <a href="succes.html">Succès</a>
+      <a href="plans.html">Plans</a>
+      <a href="usines.html">Usines</a>
+    </nav>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Catalogue 9 / 12</span>
+    <h1>Blocs de construction</h1>
+    <p>Le catalogue du constructeur : pour chaque famille de matériaux, <b>quelles variantes existent</b>
+      (escalier, dalle, muret, ciselé), <b>où l'obtenir</b>, et surtout <b>le piège</b> qui vous fera perdre une soirée
+      si vous ne le connaissez pas.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <input id="q" class="search" type="search" placeholder="Rechercher un matériau…  ( / )" autocomplete="off">
+      <span id="count" class="count"></span>
+    </div>
+    <div class="toolbar-row" id="chips" style="margin-top:10px">
+      <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="fav">★ Favoris</button>
+      <button class="chip" data-cat="bois">Bois</button>
+      <button class="chip" data-cat="pierre">Pierre &amp; minéraux</button>
+      <button class="chip" data-cat="terre">Terre &amp; végétal</button>
+      <button class="chip" data-cat="couleur">Couleur &amp; verre</button>
+      <button class="chip" data-cat="lumiere">Lumière</button>
+      <button class="chip" data-cat="aquatique">Aquatique &amp; froid</button>
+      <button class="chip" data-cat="nether">Nether</button>
+      <button class="chip" data-cat="end">End</button>
+    </div>
+  </div>
+
+  <section class="print-host" style="margin-bottom:20px">
+    <div id="liste" class="grid g2"></div>
+    <div id="vide" class="empty" style="display:none">Aucun matériau trouvé. Essayez « cuivre », « béton », « cerisier », « prismarine »…</div>
+  </section>
+
+  <hr>
+
+  <section id="palettes">
+    <h2>Palettes par style</h2>
+    <p class="lead">Des combinaisons éprouvées, à copier telles quelles. Trois familles suffisent :
+      un matériau principal, un matériau de structure, un matériau de détail.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Style</th><th>Principal</th><th>Structure</th><th>Détail &amp; accents</th></tr></thead>
+        <tbody id="tbl-palettes"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="techniques">
+    <h2>Techniques de construction</h2>
+    <p class="lead">Ce qui sépare un bâtiment correct d'un bâtiment marquant tient à une poignée de gestes,
+      tous applicables quel que soit le style.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Technique</th><th>Comment faire</th><th>Effet obtenu</th></tr></thead>
+        <tbody id="tbl-techniques"></tbody>
+      </table>
+    </div>
+    <div class="callout tip">
+      <b>À appliquer sur un vrai chantier</b> — ces techniques se voient tout de suite sur les
+      <a href="plans.html">plans de construction</a> : la maison de colon pour le colombage, le château pour le vieillissement,
+      la cathédrale pour les arcs et les proportions.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Codex Minecraft — guide de référence non officiel.</div>
+</footer>
+
+<!-- Visuels : couleurs réelles du jeu (versionnées) puis, si elles ont été
+     extraites en local via tools/extract-textures.js, les vraies textures.
+     L'absence du second fichier est sans conséquence : on garde les aplats. -->
+<script src="assets/couleurs.js"></script>
+<script src="assets/textures/index.js" onerror="void 0"></script>
+<script src="assets/core.js"></script>
+<script src="assets/data-blocs.js"></script>
+<script>
+(function () {
+  var liste = document.getElementById('liste');
+  for (var i = 0; i < FAMILLES_BLOCS.length; i++) { liste.appendChild(renderEntry(FAMILLES_BLOCS[i])); }
+  fillTable('tbl-palettes', PALETTES);
+  fillTable('tbl-techniques', TECHNIQUES_BLOCS);
+  setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
+}());
+</script>
+</body>
+</html>

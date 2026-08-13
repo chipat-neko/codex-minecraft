@@ -1,0 +1,7 @@
+# Textures extraites du jeu par tools/extract-textures.js.
+# Les assets de Minecraft appartiennent à Mojang : ils ne sont pas
+# redistribués ici. Chacun les extrait depuis SA propre installation :
+#   node tools/extract-textures.js
+# Sans elles, le site utilise les couleurs réelles de assets/couleurs.js
+# (valeurs dérivées, elles, versionnées).
+assets/textures/

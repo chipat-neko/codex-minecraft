@@ -8,33 +8,88 @@ recettes d'artisanat, plans de construction, usines et fermes automatiques.
 Double-cliquez sur `index.html`. Aucune installation, aucun serveur, aucune connexion
 internet nécessaire : tout est en HTML/CSS/JS classiques et fonctionne en `file://`.
 
+## Afficher les vraies textures du jeu
+
+Par défaut, chaque bloc et chaque objet s'affiche avec **la couleur moyenne réelle de sa
+texture**, calculée à partir du jeu et stockée dans `assets/couleurs.js` (versionné).
+
+Pour aller plus loin et afficher **les textures elles-mêmes** :
+
+```
+node tools/extract-textures.js
+```
+
+Le script trouve votre installation Minecraft, ouvre le `.jar` de la version la plus récente
+et en extrait les ~160 textures dont le site a besoin, dans `assets/textures/`. Rechargez la
+page : grilles de craft, plans et vue 3D utilisent alors les vrais visuels du jeu.
+
+Vous pouvez viser une version précise :
+
+```
+node tools/extract-textures.js "C:/Users/moi/AppData/Roaming/.minecraft/versions/1.21.4/1.21.4.jar"
+```
+
+**Pourquoi ce n'est pas fourni** — les textures de Minecraft appartiennent à Mojang et ne
+peuvent pas être redistribuées. `assets/textures/` est donc dans `.gitignore` : chacun les
+extrait depuis sa propre copie du jeu. Sans elles, le site reste parfaitement lisible, avec
+ses aplats de couleur. Les couleurs moyennes, elles, sont des valeurs dérivées : elles sont
+versionnées et bénéficient à tout le monde.
+
+Le fichier `tools/texture-map.js` fait la correspondance entre les clés du site et les noms
+de textures du jeu. Si une version renomme une texture, c'est le seul fichier à corriger :
+le script signale toute texture introuvable au lieu d'échouer.
+
 ## Arborescence
 
 ```
-index.html            Accueil : progression de partie, repères chiffrés, dimensions
-drops.html            Catalogue 1 — 87 fiches de drops + table des minerais + troc piglin
-craft.html            Catalogue 2 — 127 recettes avec grille 3×3 dessinée + cuisson
-potions.html          Catalogue 3 — 18 potions, chaîne de brassage, modificateurs, kits
-biomes.html           Catalogue 4 — 26 biomes et leurs ressources exclusives
-enchantements.html    Catalogue 5 — 32 enchantements, postes, optimisation de l'enclume
-redstone.html         Catalogue 6 — 10 composants + 13 circuits + dépannage
-villageois.html       Catalogue 7 — 14 métiers, commerce, remise par soin, hall
-plans.html            Catalogue 8 — 19 plans de construction couche par couche
-usines.html           Catalogue 9 — 25 usines/fermes automatiques + dépannage
+index.html             Accueil : progression de partie, repères chiffrés, dimensions
+drops.html             Catalogue 1  — 87 fiches de drops + minerais + troc piglin
+craft.html             Catalogue 2  — 127 recettes avec grille 3×3 dessinée
+potions.html           Catalogue 3  — 18 potions, toute la chaîne de brassage
+enchantements.html     Catalogue 4  — 32 enchantements, optimisation de l'enclume
+redstone.html          Catalogue 5  — 10 composants, 13 circuits, dépannage
+villageois.html        Catalogue 6  — 14 métiers, commerce, remise par soin
+biomes.html            Catalogue 7  — 26 biomes et ressources exclusives
+structures.html        Catalogue 8  — 33 structures, butin et pièges
+blocs.html             Catalogue 9  — 38 familles de blocs, 17 palettes
+succes.html            Catalogue 10 — 49 succès
+plans.html             Catalogue 11 — 26 plans de construction couche par couche
+usines.html            Catalogue 12 — 34 usines et fermes automatiques
 assets/
-  style.css           Feuille de style unique (thèmes sombre et clair)
-  core.js             Palette de blocs, moteurs de rendu, recherche/filtres,
-                      thème, favoris, impression, vue isométrique, sommaire
-  data-drops.js       Données : mobs, minerais, structures, troc
-  data-craft.js       Données : recettes
-  data-potions.js     Données : brassage
-  data-biomes.js      Données : biomes
-  data-enchant.js     Données : enchantements
-  data-redstone.js    Données : composants et circuits
-  data-villageois.js  Données : métiers et commerce
-  data-plans.js       Données : plans de construction
-  data-usines.js      Données : fermes automatiques
+  style.css            Feuille de style unique (thèmes sombre et clair)
+  core.js              Palette de blocs, moteurs de rendu, recherche/filtres,
+                       thème, favoris, impression, vue isométrique, sommaire
+  couleurs.js          Couleurs moyennes réelles des textures (généré, versionné)
+  textures/            Textures extraites du jeu (généré, NON versionné)
+  data-drops.js        Données : mobs, minerais, structures, troc
+  data-craft.js        Données : recettes
+  data-potions.js      Données : brassage
+  data-biomes.js       Données : biomes
+  data-enchant.js      Données : enchantements
+  data-redstone.js     Données : composants et circuits
+  data-villageois.js   Données : métiers et commerce
+  data-structures.js   Données : structures et succès
+  data-blocs.js        Données : familles de blocs, palettes, techniques
+  data-plans.js        Données : plans de construction
+  data-usines.js       Données : fermes automatiques
+tools/
+  extract-textures.js  Extrait les textures depuis votre installation Minecraft
+  texture-map.js       Correspondance clés du site → noms de textures du jeu
+  png.js               Décodeur PNG minimal (couleur moyenne d'une texture)
+  valider.js           Validation complète : données, rendus, pages, encodage
 ```
+
+## Vérifier le site
+
+```
+node tools/valider.js
+```
+
+Contrôle les grilles de schéma (lignes de longueur égale, caractères connus), les items
+référencés par les recettes, l'unicité des identifiants, les liens de navigation croisés
+entre toutes les pages, la correspondance filtres ↔ catégories, le rendu sans exception de
+chaque fiche, la génération des vues 3D, et l'encodage UTF-8 de tous les fichiers.
+La commande renvoie un code d'erreur non nul si quelque chose ne va pas.
 
 ## Fonctions de l'interface
 

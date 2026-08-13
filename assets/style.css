@@ -412,6 +412,9 @@ td.num { font-family: var(--mono); white-space: nowrap; color: var(--txt-2); }
 .cgrid.c2 { grid-template-columns: repeat(2, 42px); }
 
 .slot {
+  width: 42px;
+  height: 42px;
+  flex: none;
   border-radius: 5px;
   background: var(--slot-bg);
   border: 1px solid var(--slot-line);
@@ -597,6 +600,19 @@ hr { border: none; border-top: 1px solid var(--line-soft); margin: 34px 0; }
   .nav { width: 100%; margin-left: 0; }
   .bp-cell { width: 14px; height: 14px; }
 }
+
+/* ============================================================
+   Visuels du jeu (textures extraites en local)
+   ============================================================ */
+
+/* Les textures 16×16 doivent rester nettes, jamais lissées */
+.slot, .bp-cell, .legend-swatch { image-rendering: pixelated; }
+
+/* Une case texturée n'a plus besoin de son abréviation */
+.slot.tex .lbl { display: none; }
+.slot.tex { border-color: rgba(255,255,255,.18); }
+
+.iso-wrap svg image { image-rendering: pixelated; }
 
 /* ============================================================
    Composants d'interface

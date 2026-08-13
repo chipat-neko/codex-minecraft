@@ -165,6 +165,46 @@ var ITEMS = {
 };
 
 /* -----------------------------------------------------------
+   2 bis. Visuels du jeu
+   ---------------------------------------------------------------
+   Deux niveaux de fidélité, choisis automatiquement :
+
+   1. `assets/couleurs.js` (toujours présent) remplace les couleurs
+      approximatives ci-dessus par la couleur moyenne RÉELLE de
+      chaque texture du jeu.
+   2. `assets/textures/index.js` (optionnel, généré en local par
+      tools/extract-textures.js) fait afficher les VRAIES textures.
+      Les assets de Minecraft appartenant à Mojang, ils ne sont pas
+      versionnés : sans eux, on garde les aplats de couleur.
+   ----------------------------------------------------------- */
+
+(function () {
+  if (typeof COULEURS_JEU === 'undefined') { return; }
+  var b = COULEURS_JEU.blocs || {}, i = COULEURS_JEU.items || {};
+  for (var k in b) { if (BLOCKS[k]) { BLOCKS[k].c = b[k]; } }
+  for (var j in i) { if (ITEMS[j]) { ITEMS[j].c = i[j]; } }
+}());
+
+function aTextures() { return typeof TEXTURES !== 'undefined'; }
+
+/* Style CSS d'une case texturée. `type` vaut 'blocs' ou 'items'. */
+function texStyle(type, cle, couleur) {
+  if (!aTextures()) { return 'background:' + couleur; }
+  var t = (TEXTURES[type] || {})[cle];
+  if (!t) { return 'background:' + couleur; }
+  /* la couleur reste en fond : si l'image ne charge pas, la case reste lisible */
+  var s = 'background-color:' + couleur + ';' +
+    'background-image:url(assets/textures/' + t.f + ');' +
+    'background-repeat:no-repeat;image-rendering:pixelated;';
+  /* Une texture animée est une bande verticale : on n'affiche que la 1re image. */
+  s += t.n ? 'background-size:100% ' + (t.n * 100) + '%;background-position:top center;'
+           : 'background-size:100% 100%;';
+  /* Herbe, feuillage, eau : textures grises que le jeu colore lui-même. */
+  if (t.t) { s += 'background-color:' + t.t + ';background-blend-mode:multiply;'; }
+  return s;
+}
+
+/* -----------------------------------------------------------
    3. Rendu d'une recette d'artisanat
    ----------------------------------------------------------- */
 function renderRecipe(r) {
@@ -191,13 +231,13 @@ function renderRecipe(r) {
       var key = (r.legende || {})[ch];
       var it = key ? ITEMS[key] : null;
       if (it) { used[key] = true; }
-      g += slotHTML(it);
+      g += slotHTML(it, key);
     }
   }
   g += '</div>';
 
   var outItem = ITEMS[r.sortieItem] || { n: r.sortie, c: '#2fd47a', t: '✔' };
-  var out = '<div class="out">' + slotHTML(outItem) +
+  var out = '<div class="out">' + slotHTML(outItem, r.sortieItem) +
     '<div><div class="out-name">' + esc(r.sortie || outItem.n) + '</div>' +
     '<div class="out-qty">×' + (r.qte || 1) + '</div></div></div>';
 
@@ -216,10 +256,12 @@ function renderRecipe(r) {
   return el;
 }
 
-function slotHTML(it) {
+function slotHTML(it, cle) {
   if (!it || !it.c) { return '<div class="slot"></div>'; }
-  return '<div class="slot filled" style="background:' + it.c + '" title="' + esc(it.n) + '">' +
-    '<span class="lbl">' + esc(it.t || '') + '</span></div>';
+  var texture = cle && aTextures() && (TEXTURES.items || {})[cle];
+  return '<div class="slot filled' + (texture ? ' tex' : '') + '" style="' +
+    texStyle('items', cle, it.c) + '" title="' + esc(it.n) + '">' +
+    (texture ? '' : '<span class="lbl">' + esc(it.t || '') + '</span>') + '</div>';
 }
 
 /* -----------------------------------------------------------
@@ -297,7 +339,7 @@ function gridHTML(lines, charsOut) {
       if (!b) { b = { n: 'Bloc « ' + ch + ' »', c: '#4c5566' }; }
       if (b.c) {
         if (charsOut) { charsOut[ch] = b; }
-        h += '<div class="bp-cell" style="background:' + b.c + '" title="' + esc(b.n) + '"></div>';
+        h += '<div class="bp-cell" style="' + texStyle('blocs', ch, b.c) + '" title="' + esc(b.n) + '"></div>';
       } else {
         h += '<div class="bp-cell air" title="Air"></div>';
       }
@@ -311,8 +353,8 @@ function legendHTML(chars) {
   if (!keys.length) { return ''; }
   keys.sort();
   return '<div class="legend">' + keys.map(function (k) {
-    return '<span class="legend-item"><span class="legend-swatch" style="background:' +
-      chars[k].c + '"></span><code>' + esc(k) + '</code> ' + esc(chars[k].n) + '</span>';
+    return '<span class="legend-item"><span class="legend-swatch" style="' +
+      texStyle('blocs', k, chars[k].c) + '"></span><code>' + esc(k) + '</code> ' + esc(chars[k].n) + '</span>';
   }).join('') + '</div>';
 }
 
@@ -575,6 +617,7 @@ function renderIso(bp) {
   });
 
   var parts = [];
+  var motifs = {};   /* caractère -> motif SVG, pour texturer les faces */
   for (var L = 0; L < couches.length; L++) {
     var g = couches[L].g;
     var offX = Math.floor((maxW - g.reduce(function (m, l) { return Math.max(m, l.length); }, 0)) / 2);
@@ -585,7 +628,8 @@ function renderIso(bp) {
         var ch = g[z][x];
         var blk = BLOCKS[ch];
         if (!blk || !blk.c) { continue; }
-        cells.push({ x: x + offX, z: z + offZ, c: blk.c, n: blk.n });
+        cells.push({ x: x + offX, z: z + offZ, c: blk.c, n: blk.n, ch: ch });
+        if (aTextures() && (TEXTURES.blocs || {})[ch]) { motifs[ch] = TEXTURES.blocs[ch]; }
       }
     }
     /* du fond vers l'avant pour un recouvrement correct */
@@ -593,7 +637,7 @@ function renderIso(bp) {
     cells.forEach(function (c) {
       var sx = (c.x - c.z) * TW;
       var sy = (c.x + c.z) * TH - L * TZ;
-      parts.push(cube(sx, sy, TW, TH, TZ, c.c, c.n));
+      parts.push(cube(sx, sy, TW, TH, TZ, c.c, c.n, motifs[c.ch] ? c.ch : null));
     });
   }
 
@@ -602,21 +646,50 @@ function renderIso(bp) {
   var ox = maxD * TW + 20;
   var oy = 20 + couches.length * TZ;
 
+  /* un motif par bloc texturé, réutilisé par toutes ses faces */
+  var defs = '';
+  for (var ch in motifs) {
+    var t = motifs[ch];
+    defs += '<pattern id="tx' + ch.charCodeAt(0) + '" patternUnits="userSpaceOnUse" ' +
+      'width="' + (TW * 2) + '" height="' + (TZ * 2) + '">' +
+      '<image href="assets/textures/' + t.f + '" x="0" y="0" width="' + (TW * 2) + '" height="' + (TZ * 2) +
+      '" preserveAspectRatio="none" style="image-rendering:pixelated"' +
+      (t.n ? ' clip-path="inset(0 0 ' + (100 - 100 / t.n) + '% 0)"' : '') + '/>' +
+      (t.t ? '<rect width="' + (TW * 2) + '" height="' + (TZ * 2) + '" fill="' + t.t + '" style="mix-blend-mode:multiply"/>' : '') +
+      '</pattern>';
+  }
+
   return '<svg viewBox="0 0 ' + w + ' ' + h + '" width="' + Math.max(300, Math.min(w, 900)) + '" role="img" ' +
     'aria-label="Vue isométrique de ' + esc(bp.nom) + '">' +
+    (defs ? '<defs>' + defs + '</defs>' : '') +
     '<g transform="translate(' + ox + ',' + oy + ')">' + parts.join('') + '</g></svg>';
 }
 
-function cube(x, y, tw, th, tz, col, nom) {
-  var top = shade(col, 1.15), left = shade(col, .72), right = shade(col, .9);
+/* Un cube isométrique : face du dessus, face gauche, face droite.
+   `ch` non nul = le bloc a une texture, on peint avec son motif et on
+   ajoute un voile d'ombre pour garder le relief. */
+function cube(x, y, tw, th, tz, col, nom, ch) {
   var t = [x, y, x + tw, y + th, x, y + 2 * th, x - tw, y + th];
   var l = [x - tw, y + th, x, y + 2 * th, x, y + 2 * th + tz, x - tw, y + th + tz];
   var r = [x + tw, y + th, x, y + 2 * th, x, y + 2 * th + tz, x + tw, y + th + tz];
-  var poly = function (p, c) {
-    return '<polygon points="' + p[0] + ',' + p[1] + ' ' + p[2] + ',' + p[3] + ' ' +
-      p[4] + ',' + p[5] + ' ' + p[6] + ',' + p[7] + '" fill="' + c + '"/>';
+
+  var pts = function (p) {
+    return p[0] + ',' + p[1] + ' ' + p[2] + ',' + p[3] + ' ' + p[4] + ',' + p[5] + ' ' + p[6] + ',' + p[7];
   };
-  return '<g><title>' + esc(nom) + '</title>' + poly(l, left) + poly(r, right) + poly(t, top) + '</g>';
+  var face;
+  if (ch) {
+    var motif = 'url(#tx' + ch.charCodeAt(0) + ')';
+    /* voile : blanc léger sur le dessus, noir sur les côtés */
+    face = function (p, voile, opacite) {
+      return '<polygon points="' + pts(p) + '" fill="' + motif + '"/>' +
+        '<polygon points="' + pts(p) + '" fill="' + voile + '" opacity="' + opacite + '"/>';
+    };
+    return '<g><title>' + esc(nom) + '</title>' +
+      face(l, '#000', .34) + face(r, '#000', .14) + face(t, '#fff', .10) + '</g>';
+  }
+  var poly = function (p, c) { return '<polygon points="' + pts(p) + '" fill="' + c + '"/>'; };
+  return '<g><title>' + esc(nom) + '</title>' +
+    poly(l, shade(col, .72)) + poly(r, shade(col, .9)) + poly(t, shade(col, 1.15)) + '</g>';
 }
 
 /* Bouton « vue 3D » : le SVG n'est construit qu'au premier clic */

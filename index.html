@@ -24,6 +24,9 @@
       <a href="redstone.html">Redstone</a>
       <a href="villageois.html">Villageois</a>
       <a href="biomes.html">Biomes</a>
+      <a href="structures.html">Structures</a>
+      <a href="blocs.html">Blocs</a>
+      <a href="succes.html">Succès</a>
       <a href="plans.html">Plans</a>
       <a href="usines.html">Usines</a>
     </nav>
@@ -36,15 +39,15 @@
   <div class="hero">
     <span class="eyebrow">Guide de référence · Java Edition</span>
     <h1>Tout ce qui est faisable<br>dans Minecraft.</h1>
-    <p>Neuf catalogues complets : <b>ce qui tombe et où le trouver</b>, <b>ce qui se fabrique et avec quoi</b>,
+    <p>Douze catalogues complets : <b>ce qui tombe et où le trouver</b>, <b>ce qui se fabrique et avec quoi</b>,
       <b>tout le brassage</b>, <b>les enchantements</b>, <b>la redstone</b>, <b>le commerce villageois</b>,
-      <b>ce que cache chaque biome</b>, <b>des plans de construction bloc par bloc</b>,
-      et <b>les usines qui font tourner une base toute seule</b>.</p>
+      <b>ce que cache chaque biome</b>, <b>le butin de chaque structure</b>, <b>les blocs de construction</b>,
+      <b>les succès</b>, <b>des plans bloc par bloc</b>, et <b>les usines qui font tourner une base toute seule</b>.</p>
     <p>Chaque page a sa recherche (raccourci <kbd>/</kbd>) et ses filtres. Tout est en accès direct, sans compte ni connexion.</p>
   </div>
 
   <section id="sommaire">
-    <h2>Les neuf catalogues</h2>
+    <h2>Les douze catalogues</h2>
     <p class="lead">Commencez par où vous en êtes : survie du premier jour, atelier complet, grand chantier ou automatisation.</p>
 
     <div class="grid g3">
@@ -89,6 +92,24 @@
         <h3>Biomes</h3>
         <p>Ce que chaque biome détient d'exclusif, et les ressources qui obligent à voyager.</p>
         <p class="go">Explorer les biomes →</p>
+      </a>
+      <a class="card card-link" href="structures.html">
+        <div class="card-icon">🏛️</div>
+        <h3>Structures &amp; butin</h3>
+        <p>Chaque structure générée, ce que contiennent ses coffres, ses pièges et comment la piller.</p>
+        <p class="go">Voir les structures →</p>
+      </a>
+      <a class="card card-link" href="blocs.html">
+        <div class="card-icon">🧱</div>
+        <h3>Blocs de construction</h3>
+        <p>Les familles de matériaux, leurs variantes, leurs pièges, et 17 palettes de styles prêtes à copier.</p>
+        <p class="go">Ouvrir le catalogue →</p>
+      </a>
+      <a class="card card-link" href="succes.html">
+        <div class="card-icon">🏆</div>
+        <h3>Succès</h3>
+        <p>Les 49 succès, ce qu'il faut faire concrètement et l'astuce qui fait gagner du temps.</p>
+        <p class="go">Voir les succès →</p>
       </a>
       <a class="card card-link" href="plans.html">
         <div class="card-icon">🏰</div>
@@ -253,6 +274,11 @@
   </div>
 </footer>
 
+<!-- Visuels : couleurs réelles du jeu (versionnées) puis, si elles ont été
+     extraites en local via tools/extract-textures.js, les vraies textures.
+     L'absence du second fichier est sans conséquence : on garde les aplats. -->
+<script src="assets/couleurs.js"></script>
+<script src="assets/textures/index.js" onerror="void 0"></script>
 <script src="assets/core.js"></script>
 </body>
 </html>

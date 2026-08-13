@@ -461,7 +461,7 @@ var DROPS = [
   {
     nom: 'Sniffer', cat: 'passif',
     tags: [{ txt: 'Archéologie', cls: 'gold' }],
-    ou: 'Éclos d\'un œuf de sniffer, obtenu en brossant les blocs suspects des ruines de sentier (trail ruins).',
+    ou: 'Éclos d\'un œuf de sniffer, obtenu en brossant le SABLE suspect des ruines sous-marines chaudes (et non les ruines de sentier).',
     drops: ['Rien', 'Il fouille le sol et déterre des graines de plantes anciennes : torchflower et pitcher pod'],
     note: 'Les seules sources de torchflower et de pitcher plant du jeu passent par le sniffer.'
   },
@@ -705,7 +705,7 @@ var DROPS = [
     tags: [{ txt: 'Nether', cls: 'red' }],
     ou: 'Nether, tous biomes sauf mers de lave. Quatre types : trésor, pont, écuries de hoglin, salle des piglins.',
     drops: [
-      'Coffres : lingots d\'or, blocs d\'or, débris antiques (bastion trésor), patron d\'armure « rib », pommes d\'or enchantées, arcs enchantés, selles',
+      'Coffres : lingots d\'or, blocs d\'or, débris antiques (bastion trésor), patron d\'armure « groin » (snout), pommes d\'or enchantées, arcs enchantés, selles',
       'Blocs de pierre noire et briques d\'or récupérables'
     ],
     note: 'Le bastion trésor (coffres gardés par des piglins brutes, derrière un pont) est la meilleure source de débris antiques sans minage.'
@@ -718,7 +718,7 @@ var DROPS = [
       'Générateurs de Blaze (poudre de Blaze)',
       'Squelettes wither (crânes)',
       'Verrue du Nether dans les escaliers (indispensable au brassage)',
-      'Coffres : selle, épée en diamant, cheval en or, obsidienne, or'
+      'Coffres : selle, épée en diamant, cheval en or, obsidienne, or, patron d\'armure « côte » (rib)'
     ],
     note: 'Récupérez la verrue du Nether + le sable des âmes : elles se replantent chez vous et alimentent toutes vos potions.'
   },
@@ -750,7 +750,7 @@ var DROPS = [
     tags: [{ txt: 'Archéologie', cls: 'gold' }],
     ou: 'Enterrées dans les taïgas, jungles, forêts de bouleaux, marais de mangrove, plaines enneigées.',
     drops: [
-      'Brosse sur gravier suspect : tessons de poterie (12 motifs), perles d\'ambre, œufs de sniffer, plants de bois rares',
+      'Brosse sur gravier suspect : tessons de poterie, perles d\'ambre, plants de bois rares (mais PAS d\'œufs de sniffer : ceux-là viennent des ruines sous-marines chaudes)',
       'Blocs décoratifs uniques'
     ],
     note: 'Il faut une brosse (plume + cuivre + bâton). Une seule structure fournit assez de tessons pour composer des jarres décoratives.'

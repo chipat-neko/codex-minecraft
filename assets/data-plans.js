@@ -783,5 +783,843 @@ var PLANS = [
       { type: 'danger', txt: 'Jamais de lit dans le Nether — il explose violemment. En revanche, cette explosion est la méthode standard pour miner les débris antiques : posez le lit, reculez, faites-le exploser à distance.' },
       { type: 'tip', txt: 'Portez une pièce d\'armure en or en permanence : les piglins vous ignoreront. Mais n\'ouvrez jamais un coffre ni ne minez d\'or devant eux — cela les rend hostiles quoi qu\'il arrive.' }
     ]
+  },
+
+/* ================= CATHÉDRALE ================= */
+  {
+    id: 'cathedrale', nom: 'Cathédrale — nef, transept et clocher', cat: 'ville',
+    taille: '21 × 27 × 30', diff: 'Expert',
+    desc: 'Le chantier d\'une partie entière : une nef de 9 blocs de large, un transept qui la coupe en croix, un chœur en abside et un clocher-porche. La réussite tient à une seule chose, la hauteur — une cathédrale basse n\'existe pas.',
+    mats: ['≈4 500 briques de pierre (murs, piliers, contreforts)', '≈900 blocs de quartz ou de pierre claire (voûtes)', '≈700 escaliers et 400 dalles (toitures et arcs)', '≈350 vitres teintées (verrières et rosace)', '≈60 lanternes · 1 cloche · bannières'],
+    couches: [
+      {
+        t: 'Y+0 · plan de masse : chœur, nef, transept et clocher',
+        g: [
+          '........bbbbb........',
+          '.......b.....b.......',
+          '......b.......b......',
+          '......b...;...b......',
+          '......b.......b......',
+          '......b.c...c.b......',
+          '......b.......b......',
+          'bbbbbbb.......bbbbbbb',
+          'b...................b',
+          'b.....c.......c.....b',
+          'b...................b',
+          'bbbbbbb.......bbbbbbb',
+          '......b.c...c.b......',
+          '......b.......b......',
+          '......b.c...c.b......',
+          '......b.......b......',
+          '......b.c...c.b......',
+          '......b.......b......',
+          '......bbb...bbb......',
+          '......b.......b......',
+          '......b.......b......',
+          '......b..*.*..b......',
+          '......b.......b......',
+          '......b.......b......',
+          '......b.......b......',
+          '......b.L.....b......',
+          '......bbbbDbbbb......'
+        ]
+      },
+      {
+        t: 'Y+5 · verrières hautes et arcs des bas-côtés',
+        g: [
+          '........bGGGb........',
+          '.......G.....G.......',
+          '......b.......b......',
+          '......G...;...G......',
+          '......b.......b......',
+          '......G.c...c.G......',
+          '......b.......b......',
+          'bbGbGbb.......bbGbGbb',
+          'G...................G',
+          'b.....c.......c.....b',
+          'G...................G',
+          'bbGbGbb.......bbGbGbb',
+          '......G.c...c.G......',
+          '......b.......b......',
+          '......G.c...c.G......',
+          '......b.......b......',
+          '......G.c...c.G......',
+          '......b.......b......',
+          '......bbb...bbb......',
+          '......b.......b......',
+          '......G.......G......',
+          '......b.......b......',
+          '......G.......G......',
+          '......b.......b......',
+          '......G.......G......',
+          '......b.L.....b......',
+          '......bbbGGGbbb......'
+        ]
+      },
+      {
+        t: 'Y+13 · toitures de la nef et du transept',
+        g: [
+          '.......///////.......',
+          '.......///////.......',
+          '.....///////////.....',
+          '.....///////////.....',
+          '.....///////////.....',
+          '.....///////////.....',
+          '.....///////////.....',
+          '/////////////////////',
+          '/////////////////////',
+          '/////////////////////',
+          '/////////////////////',
+          '/////////////////////',
+          '.....///////////.....',
+          '.....///////////.....',
+          '.....///////////.....',
+          '.....///////////.....',
+          '.....///////////.....',
+          '.....///////////.....',
+          '......b.......b......',
+          '......b.......b......',
+          '......b.......b......',
+          '......b.......b......',
+          '......b.......b......',
+          '......b.......b......',
+          '......b.......b......',
+          '......b.......b......',
+          '......b.......b......'
+        ]
+      },
+      {
+        t: 'Y+22 · beffroi du clocher (9 × 9)',
+        g: [
+          'bbb+++bbb',
+          'b.......b',
+          'b.......b',
+          '+.......+',
+          '+...}...+',
+          '+.......+',
+          'b.......b',
+          'b.......b',
+          'bbb+++bbb'
+        ]
+      },
+      {
+        t: 'Y+27 · couronnement de la flèche (7 × 7)',
+        g: [
+          '..///..',
+          './---/.',
+          '/-----/',
+          '/--*--/',
+          '/-----/',
+          './---/.',
+          '..///..'
+        ]
+      },
+      {
+        t: 'Vue de face · rosace de la façade ouest (11 × 11)',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbGGGbbbb',
+          'bbGGGGGGGbb',
+          'bGGGGbGGGGb',
+          'bGGGbcbGGGb',
+          'GGGGcccGGGG',
+          'bGGGbcbGGGb',
+          'bGGGGbGGGGb',
+          'bbGGGGGGGbb',
+          'bbbbGGGbbbb',
+          'bbbbbbbbbbb'
+        ]
+      }
+    ],
+    etapes: [
+      'Tracez la croix au sol avant tout : nef de 9 blocs de large sur 19 de long, transept de 5 blocs de profondeur traversant toute la largeur. Cette croix est le seul élément qu\'on ne peut plus corriger ensuite.',
+      'Montez uniquement les piliers, en briques de pierre 1 × 1, tous les 2 blocs le long de la nef, sur 12 blocs de haut. Reculez et vérifiez le rythme : c\'est l\'alignement des piliers qui fait la nef, pas les murs.',
+      'Reliez les têtes de piliers par des arcs en escaliers inversés, puis fermez les voûtes en quartz. Une voûte se lit de l\'intérieur : ne bouchez pas encore les murs, vous auriez à casser.',
+      'Remplissez les murs entre les piliers, en laissant des baies de 3 × 6 blocs pour les verrières. La règle : plus de vide que de plein dans le mur haut, sinon l\'intérieur reste sombre et lourd.',
+      'Ajoutez les contreforts extérieurs, un par pilier, saillie de 2 blocs, chapeautés d\'escaliers. Sans eux, les murs hauts paraissent en carton.',
+      'Couvrez la nef et le transept d\'un toit à deux pentes en escaliers, faîtage en dalles. Le toit doit démarrer 2 blocs au-dessus du sommet des verrières, jamais au ras.',
+      'Bâtissez le clocher-porche à l\'ouest : une tour carrée de 9 × 9 montée à 22 blocs, puis le beffroi ajouré de trappes, puis la flèche. Le clocher doit dépasser le faîtage de la nef d\'au moins la moitié de sa hauteur.',
+      'Percez la rosace dans la façade ouest, au-dessus du portail : partez d\'un cercle de 11 blocs de diamètre, posez les meneaux en pierre en croix, puis remplissez en verre teinté du centre vers l\'extérieur.',
+      'Aménagez le chœur : estrade de 3 blocs surélevée d\'un bloc, autel, bannières de part et d\'autre, et deux rangées de bancs (dalles + escaliers) dans la nef.',
+      'Éclairez au plafond, pas au sol : lanternes suspendues à des chaînes entre les piliers. Une cathédrale éclairée par des torches murales perd instantanément son échelle.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Proportion clé — la hauteur intérieure de la nef doit valoir environ deux fois sa largeur. Pour 9 blocs de large, visez 18 blocs sous voûte. En dessous de 12, vous construisez une chapelle, pas une cathédrale.' },
+      { type: 'warn', txt: 'Chantier — montez des échafaudages sur toute la hauteur avant de commencer les voûtes, et travaillez en mode paisible ou avec le sol entièrement éclairé : la moitié des accidents de chantier sont des chutes depuis un arc inachevé.' },
+      { type: 'info', txt: 'Verre teinté — n\'utilisez pas plus de trois couleurs par verrière, et gardez la même dominante sur toute une façade. Un vitrail arc-en-ciel ressemble à une erreur, pas à un vitrail.' }
+    ]
+  },
+
+  /* ================= QUARTIER MÉDIÉVAL ================= */
+  {
+    id: 'quartier-medieval', nom: 'Quartier médiéval — îlot mitoyen sur rue', cat: 'ville',
+    taille: '25 × 15 × 12', diff: 'Avancé',
+    desc: 'Deux rangées de maisons mitoyennes de part et d\'autre d\'une ruelle de 3 blocs. C\'est le plan qui fait passer d\'un « village de cubes espacés » à une vraie ville : les bâtiments se touchent et partagent leurs murs.',
+    mats: ['≈600 briques de pierre (rez-de-chaussée et murs mitoyens)', '≈700 planches et rondins (étages)', '≈500 escaliers et 200 dalles (toitures)', '≈90 vitres', '≈200 blocs de chemin de terre ou de gravier (rue)', '16 lanternes · 6 portes'],
+    couches: [
+      {
+        t: 'Y+0 · rez-de-chaussée : boutiques, rue et puits',
+        g: [
+          'bbbbbbbbbbbbbbbbbbbbbbbbb',
+          'b.....b.....b....b......b',
+          'b.<E..b..YU.b.E..b.&....b',
+          'b.....b.....b....b......b',
+          'b..*..b..*..b.*..b...*..b',
+          'b.....b.....b....b......b',
+          'bbDbbbbbbDbbbbbDbbbbbbDbb',
+          ',,,,,,,,,,,,,,,,,,,,,,,,,',
+          ',,,,,,,,,,cwc,,,,,,,,,,,,',
+          ',,,,,,,,,,,,,,,,,,,,,,,,,',
+          'bbbDbbbbbbbDbbbbbbDbbbbbb',
+          'b.......b......b........b',
+          'b.EEU...b.&....b..h.....b',
+          'b..*....b...*..b....*...b',
+          'bbbbbbbbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+3 · étages en encorbellement (le mur avance d\'un bloc)',
+        g: [
+          '##GG###GG####GG###GGG####',
+          'G.....#.....#....#......G',
+          '#..<..#..<..#.<..#...<..#',
+          'G.....#.....#....#......G',
+          '#.....#.....#....#......#',
+          '#..*..#..*..#.*..#...*..#',
+          '#.....#.....#....#......#',
+          '##GG####GG#####GG####GG##',
+          '.........................',
+          '###GG####GG#####GG####G##',
+          '#.......#......#........#',
+          '#..<....#..<...#...<....#',
+          'G.......#......#........G',
+          '#..*....#...*..#....*...#',
+          '#####GG######GG####GG####'
+        ]
+      },
+      {
+        t: 'Y+6 · toitures, premier rang',
+        g: [
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////',
+          '.........................',
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////'
+        ]
+      },
+      {
+        t: 'Y+7 · toitures, second rang',
+        g: [
+          '.........................',
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////',
+          '.........................',
+          '.........................',
+          '.........................',
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////',
+          '/////////////////////////',
+          '.........................'
+        ]
+      },
+      {
+        t: 'Y+8 · faîtages et souches de cheminée',
+        g: [
+          '.........................',
+          '.........................',
+          '.........................',
+          '---b-------b------b------',
+          '-------------------------',
+          '.........................',
+          '.........................',
+          '.........................',
+          '.........................',
+          '.........................',
+          '.........................',
+          '----b--------b-----b-----',
+          '-------------------------',
+          '.........................',
+          '.........................'
+        ]
+      }
+    ],
+    etapes: [
+      'Tracez d\'abord la rue, pas les maisons : une bande de 3 blocs de large, légèrement creusée d\'un demi-bloc (dalles) pour qu\'elle se lise comme une chaussée.',
+      'Posez les murs mitoyens perpendiculaires à la rue, en pierre, avant tout le reste. Ils découpent l\'îlot en parcelles et deux maisons voisines les partagent : c\'est ce partage qui crée l\'effet « quartier ».',
+      'Donnez à chaque parcelle une largeur DIFFÉRENTE — 5, 6, 4, 7 blocs. Des parcelles égales produisent une caserne, pas une ville.',
+      'Montez le rez-de-chaussée en pierre sur 3 blocs : c\'est le niveau des échoppes, il doit être plus massif et plus ouvert que les étages (larges baies, auvents en trappes).',
+      'Montez le premier étage en encorbellement : le mur de façade avance d\'un bloc sur la rue, porté par des escaliers inversés en corbeaux. Ce décalage d\'un seul bloc est le détail médiéval le plus rentable du plan.',
+      'Faites varier la hauteur de faîtage d\'une maison à l\'autre (un ou deux blocs d\'écart suffisent) et décalez les toitures : deux maisons voisines ne doivent jamais avoir la même silhouette.',
+      'Couvrez en escaliers, rang par rang, chaque maison gardant son propre pignon sur rue. Ajoutez une souche de cheminée en pierre par maison, jamais alignées.',
+      'Meublez le rez-de-chaussée par métier : forge (fourneaux + enclume), boulangerie, échoppe de tissu, bibliothèque. Un métier visible depuis la rue justifie chaque porte.',
+      'Habillez la rue : puits ou fontaine au centre, étals en dalles, tonneaux, cordes à linge en clôtures, lanternes accrochées aux façades tous les 6 blocs.',
+      'Terminez par le vieillissement : 15 % de briques fissurées et moussues en bas des murs, quelques blocs de terre entre les pavés, et de la vigne sur un mur d\'angle.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Largeur de rue — 3 blocs pour une ruelle, 5 pour une rue marchande, jamais plus dans un quartier médiéval. Une rue large tue immédiatement l\'ambiance : c\'est l\'étroitesse qui fait la ville ancienne.' },
+      { type: 'warn', txt: 'Apparitions — un îlot dense crée beaucoup de recoins sombres entre les bâtiments. Éclairez les cours arrière et les passages couverts, sinon vous découvrirez des zombies au milieu de votre quartier.' },
+      { type: 'info', txt: 'Extensible — l\'îlot se duplique tel quel de l\'autre côté de la rue et se répète en profondeur. Trois îlots et une place suffisent à faire une ville entière.' }
+    ]
+  },
+
+  /* ================= BASE DANS LA MONTAGNE ================= */
+  {
+    id: 'base-montagne', nom: 'Base creusée dans la montagne', cat: 'maison',
+    taille: '19 × 21 × 12', diff: 'Avancé',
+    desc: 'Un portail monumental taillé dans une falaise, un grand hall à colonnes et trois salles creusées au fond. La difficulté n\'est pas de creuser, c\'est de faire croire que la roche a été taillée et non grignotée.',
+    mats: ['≈900 blocs de pierre des profondeurs polie (parements)', '≈400 briques de pierre et pierre taillée', '≈150 escaliers et dalles (corniches, arcs)', '≈30 lanternes ou lanternes des âmes', 'Coffres, bibliothèques, table d\'enchantement', 'Beaucoup d\'échafaudages pour le portail'],
+    couches: [
+      {
+        t: 'Y+0 · parvis, portail et grand hall',
+        g: [
+          ',,,,,,,,,,,,,,,,,,,',
+          'ccc,,,,,,,,,,,,,ccc',
+          'cc,,,,,,,,,,,,,,,cc',
+          'cc,,d,,,,,,,,,d,,cc',
+          'cc,,d,,,,,,,,,d,,cc',
+          'cccddd^^^^^^^dddccc',
+          'cccd...........dccc',
+          'cccd..*.....*..dccc',
+          'cccd.c.......c.dccc',
+          'cccd...........dccc',
+          'cccd.c.......c.dccc',
+          'cccd...........dccc',
+          'cccd..*.....*..dccc',
+          'cccddd>dd>dd>dddccc',
+          'd.....d.....d.....d',
+          'd.EEE.d..$..d.<<..d',
+          'd.EEE.d.&&&.d.....d',
+          'd.....d..*..d..*..d',
+          'd..*..d.....d.....d',
+          'ddddddddddddddddddd',
+          'ccccccccccccccccccc'
+        ]
+      },
+      {
+        t: 'Y+5 · voûte du hall et plafonds des salles',
+        g: [
+          '...................',
+          'ccc.............ccc',
+          'cc...............cc',
+          'cc..d.........d..cc',
+          'cc..d.........d..cc',
+          'cccddd///////dddccc',
+          'cccd...........dccc',
+          'cccd...........dccc',
+          'cccd..*.....*..dccc',
+          'cccd...........dccc',
+          'cccd..*.....*..dccc',
+          'cccd...........dccc',
+          'cccd...........dccc',
+          'cccdddddddddddddccc',
+          'ddddddd.....ddddddd',
+          'ddddddd.....ddddddd',
+          'ddddddd..*..ddddddd',
+          'ddddddd.....ddddddd',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ccccccccccccccccccc'
+        ]
+      },
+      {
+        t: 'Y+9 · balcon et arc au-dessus du portail (15 × 7)',
+        g: [
+          'M.M.M.M.M.M.M.M',
+          '---------------',
+          'ddddd/////ddddd',
+          'ddddd.....ddddd',
+          'ddddd.....ddddd',
+          'ddddddddddddddd',
+          'ccccccccccccccc'
+        ]
+      }
+    ],
+    etapes: [
+      'Choisissez une falaise vraiment verticale, ou taillez-la : une base de montagne posée sur une pente molle ne se voit pas. Il faut au moins 15 blocs de paroi nue au-dessus du portail.',
+      'Marquez d\'abord le contour du portail à la surface de la roche, avec des blocs colorés temporaires, et regardez-le de loin. Corrigez la largeur AVANT de creuser : un portail trop étroit est irrécupérable.',
+      'Creusez le hall en une seule fois jusqu\'au fond, à la hauteur définitive (8 blocs minimum sous plafond). Creuser bas puis « rehausser » laisse toujours des traces au plafond.',
+      'Parementez : remplacez toute la roche apparente du hall par de la pierre des profondeurs polie, en gardant volontairement quelques zones de roche brute — c\'est le contraste taillé/brut qui raconte l\'histoire.',
+      'Posez les deux rangées de colonnes du hall, alignées sur les colonnes extérieures du parvis. La colonnade doit se poursuivre du dehors vers le dedans, sans rupture.',
+      'Habillez le portail : deux colonnes engagées, un arc en escaliers, une corniche en dalles, puis le balcon à créneaux au-dessus. Les trois éléments empilés donnent l\'échelle monumentale.',
+      'Percez les trois salles du fond derrière un mur unique à trois portes en fer : réserve et coffres à l\'ouest, enchantement et bibliothèque au centre, chambres à l\'est.',
+      'Éclairez par le haut et par les côtés : lanternes suspendues au plafond du hall, et une bande lumineuse cachée derrière la corniche. Aucune torche posée au sol dans un hall monumental.',
+      'Aménagez le parvis : chemin de terre ou gravier, marches larges de 5 blocs, deux braseros ou feux de camp de part et d\'autre du portail.',
+      'Reliez le fond de la base à votre mine : un couloir en pente douce depuis la salle ouest, pas un escalier vertical — c\'est l\'accès que vous emprunterez le plus souvent.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Le piège du creusement — un intérieur creusé paraît toujours plus petit qu\'il ne l\'est. Doublez la hauteur que vous jugez suffisante, puis ajoutez 2 blocs. Vous ne regretterez jamais un plafond trop haut.' },
+      { type: 'danger', txt: 'Lave et vides — creusez horizontalement, jamais tout droit vers le bas, et gardez un seau d\'eau en barre d\'accès rapide. Une poche de lave dans le mur du hall peut détruire des heures de parement.' },
+      { type: 'info', txt: 'Variante — la même composition fonctionne en base naine (roche + fer + lave contenue) ou en temple abandonné (mousse, lianes, blocs fissurés). Seule la palette change, pas le plan.' }
+    ]
+  },
+
+  /* ================= MAISON DANS LES ARBRES ================= */
+  {
+    id: 'maison-arbres', nom: 'Maison dans les arbres — trois plateformes', cat: 'maison',
+    taille: '21 × 15 × 16', diff: 'Intermédiaire',
+    desc: 'Trois cabanes perchées à 8 blocs du sol, reliées par des passerelles en dalles. L\'intérêt n\'est pas la hauteur mais le trajet : on doit pouvoir faire le tour sans jamais redescendre.',
+    mats: ['≈120 rondins (troncs et poteaux)', '≈450 planches (planchers et murs)', '≈250 escaliers et 120 dalles (toits et passerelles)', '≈90 clôtures (garde-corps)', '≈30 vitres · 3 portes', '20 échelles · 12 lanternes'],
+    couches: [
+      {
+        t: 'Y+0 · emprise au sol : troncs, échelle et foyer',
+        g: [
+          'eeeeeeeeeeeeeeeeeeeee',
+          'eeeeeeeeeeeeeeeeeeeee',
+          'eeeeeeeeeeeeeeeeeeeee',
+          'eeeooeeeeeeeeeeeeeeee',
+          'eeeooLeeeeeeeeeeeeeee',
+          'eeeeeeeeeeeeeeeeeeeee',
+          'eeeeeeeeeeooeeeeeeeee',
+          'eeeeeeeeeeooeeeeeeeee',
+          'eeeeeeeeeFeeeeeeeeeee',
+          'eeeeeeeeeeeeeeeeeeeee',
+          'eeeeeeeeeeeeeeeeeooee',
+          'eeeeeeeeeeeeeeeeeooee',
+          'eeeeeeeeeeeeeeeeeeeee',
+          'eeeeeeeeeeeeeeeeeeeee',
+          'eeeeeeeeeeeeeeeeeeeee'
+        ]
+      },
+      {
+        t: 'Y+8 · planchers des plateformes et passerelles',
+        g: [
+          '.....................',
+          '..............#######',
+          '..............#######',
+          '..............#######',
+          '#######.......#######',
+          '#######-------#######',
+          '#######.......#######',
+          '#######.........-....',
+          '#######.....#######..',
+          '#######.....#######..',
+          '#######-----#######..',
+          '............#######..',
+          '............#######..',
+          '............#######..',
+          '............#######..'
+        ]
+      },
+      {
+        t: 'Y+9 · murs des cabanes, portes et garde-corps',
+        g: [
+          '.....................',
+          '..............ooooooo',
+          '..............o.....o',
+          '..............oG...Go',
+          'ooooooo.......o.....o',
+          'o.....o|||||||oo.D.oo',
+          'oG...Go.......ooooooo',
+          'o.....o.........|....',
+          'oG...Go.....ooooooo..',
+          'o.....o.....o.....o..',
+          'oo.D.oo|||||oG...Go..',
+          '............o.....o..',
+          '............oG...Go..',
+          '............o.<<..o..',
+          '............ooooooo..'
+        ]
+      },
+      {
+        t: 'Y+12 · toitures des trois cabanes',
+        g: [
+          '.....................',
+          '..............///////',
+          '..............//---//',
+          '..............//---//',
+          '///////.......//---//',
+          '//---//.......//---//',
+          '//---//.......///////',
+          '//---//..............',
+          '//---//.....///////..',
+          '//---//.....//---//..',
+          '///////.....//---//..',
+          '............//---//..',
+          '............//---//..',
+          '............//---//..',
+          '............///////..'
+        ]
+      }
+    ],
+    etapes: [
+      'Choisissez trois arbres (ou plantez trois chênes noueux) espacés de 6 à 10 blocs. En dessous de 6, les cabanes se touchent ; au-delà de 10, les passerelles pendent mollement.',
+      'Montez d\'abord les poteaux porteurs : 4 rondins par plateforme, descendus jusqu\'au sol. Une plateforme qui flotte sans support visible ruine tout l\'effet, même si le jeu le permet.',
+      'Posez les trois planchers À LA MÊME HAUTEUR (Y+8) avant de construire quoi que ce soit dessus. Des plateformes à des hauteurs différentes obligent à des passerelles en pente, beaucoup plus difficiles à réussir.',
+      'Jetez les passerelles en dalles de bois, larges de 1 bloc, avec un garde-corps en clôtures des deux côtés. Un demi-bloc de dénivelé au milieu de la travée suffit à leur donner du naturel.',
+      'Montez les murs des cabanes sur 3 blocs seulement : perchée, une cabane doit rester basse, sinon elle écrase l\'arbre qui la porte.',
+      'Couvrez chaque cabane d\'un toit à quatre pans en escaliers, débordant d\'un bloc sur les murs. Le débord protège visuellement les murs et signale une construction habitée.',
+      'Installez l\'accès principal : une échelle contre le tronc le plus large, doublée d\'une trappe au niveau du plancher pour ne pas tomber dans le vide en sortant.',
+      'Ramenez le feuillage : replantez des feuilles autour des plateformes et laissez retomber des lianes depuis les passerelles. Une cabane sans feuillage autour ressemble à un échafaudage.',
+      'Éclairez avec des lanternes suspendues sous les passerelles et à l\'angle de chaque toit : le niveau de lumière doit couvrir tout le plancher, sinon les monstres apparaissent chez vous, à 8 blocs du sol.',
+      'Terminez par le sol : un foyer, quelques coffres et un petit potager au pied des arbres, pour que la base ait aussi une vie au niveau zéro.'
+    ],
+    notes: [
+      { type: 'warn', txt: 'Chute — construisez toujours avec des échafaudages ou en accroupi le long des bords. La plupart des morts sur ce chantier arrivent en posant le garde-corps, pas en montant les murs.' },
+      { type: 'tip', txt: 'Feuillage persistant — les feuilles posées à la main ne se dégradent pas, contrairement à celles d\'un arbre coupé. C\'est ce qui permet de sculpter une canopée sur mesure autour des cabanes.' },
+      { type: 'info', txt: 'Descente rapide — une colonne d\'eau ou une échelle dans un puits de 1 × 1 depuis la plus haute plateforme évite de refaire le tour des passerelles à chaque fois.' }
+    ]
+  },
+
+  /* ================= ARÈNE / COLISÉE ================= */
+  {
+    id: 'colisee', nom: 'Colisée — arène à gradins circulaires', cat: 'ville',
+    taille: '21 × 21 × 12', diff: 'Avancé',
+    desc: 'Une arène de 13 blocs de diamètre entourée de deux rangs de gradins, deux loges d\'honneur et deux tunnels d\'entrée. Sert de zone de combat PvP, de ferme à mobs spectaculaire ou simplement de place de fête.',
+    mats: ['≈2 200 briques de pierre et pierre taillée', '≈600 escaliers (gradins et voûtes)', '≈300 dalles · 180 murets (attique)', '≈120 blocs de quartz (loges)', '≈200 blocs de sable (aire centrale)', '24 lanternes · bannières'],
+    couches: [
+      {
+        t: 'Y+0 · aire centrale, mur de podium et tunnels d\'entrée',
+        g: [
+          '.......bbbbbbb.......',
+          '.....bbbcccccbbb.....',
+          '....bbcccccccccbb....',
+          '...bccccbbbbbccccb...',
+          '..bcccbbbAAAbbbcccb..',
+          '.bbccbbAAAAAAAbbccbb.',
+          '.bccbbAAAAAAAAAbbccb.',
+          'bbccbAAAAAAAAAAAbccbb',
+          'bccbbAAAAAAAAAAAbbccb',
+          '^^^^AAAAAA*AAAAAA^^^^',
+          '^^^^AAAAAAxAAAAAA^^^^',
+          '^^^^AAAAAA*AAAAAA^^^^',
+          'bccbbAAAAAAAAAAAbbccb',
+          'bbccbAAAAAAAAAAAbccbb',
+          '.bccbbAAAAAAAAAbbccb.',
+          '.bbccbbAAAAAAAbbccbb.',
+          '..bcccbbbAAAbbbcccb..',
+          '...bccccbbbbbccccb...',
+          '....bbcccccccccbb....',
+          '.....bbbcccccbbb.....',
+          '.......bbbbbbb.......'
+        ]
+      },
+      {
+        t: 'Y+3 · premier rang de gradins et loges d\'honneur',
+        g: [
+          '.......bbbbbbb.......',
+          '.....bbbqqqqqbbb.....',
+          '....bb//;;;;;//bb....',
+          '...b////qbbbq////b...',
+          '..b////bb...bb////b..',
+          '.bb//bb.......bb//bb.',
+          '.b///b.........b///b.',
+          'bb//b...........b//bb',
+          'b///b...........b///b',
+          '^//b.............b//^',
+          '^//b.............b//^',
+          '^//b.............b//^',
+          'b///b...........b///b',
+          'bb//b...........b//bb',
+          '.b///b.........b///b.',
+          '.bb//bb.......bb//bb.',
+          '..b////bb...bb////b..',
+          '...b////qbbbq////b...',
+          '....bb//;;;;;//bb....',
+          '.....bbbqqqqqbbb.....',
+          '.......bbbbbbb.......'
+        ]
+      },
+      {
+        t: 'Y+5 · second rang de gradins et lanternes',
+        g: [
+          '.......bbbbbbb.......',
+          '.....bbb//*//bbb.....',
+          '....bb//.....//bb....',
+          '...*//.........//*...',
+          '..b//...........//b..',
+          '.bb/............./bb.',
+          '.b/.............../b.',
+          'bb/.............../bb',
+          'b/................./b',
+          'b/................./b',
+          'b*.................*b',
+          'b/................./b',
+          'b/................./b',
+          'bb/.............../bb',
+          '.b/.............../b.',
+          '.bb/............./bb.',
+          '..b//...........//b..',
+          '...*//.........//*...',
+          '....bb//.....//bb....',
+          '.....bbb//*//bbb.....',
+          '.......bbbbbbb.......'
+        ]
+      },
+      {
+        t: 'Y+8 · attique : créneaux et mâts de vélum',
+        g: [
+          '.......MM|MM|M.......',
+          '.....M|M.....M|M.....',
+          '....M|.........MM....',
+          '...|.............M...',
+          '..M...............|..',
+          '.MM...............|M.',
+          '.M.................|.',
+          'MM.................|M',
+          'M...................|',
+          'M...................M',
+          '|...................M',
+          'M...................|',
+          'M...................M',
+          '|M.................M|',
+          '.M.................M.',
+          '.|M...............M|.',
+          '..M...............M..',
+          '...|.............M...',
+          '....M|.........MM....',
+          '.....|MM.....|MM.....',
+          '.......|MM|MM|.......'
+        ]
+      }
+    ],
+    etapes: [
+      'Tracez le cercle extérieur AVANT tout : posez un bloc au centre, puis marquez les quatre axes à 10 blocs, puis remplissez le cercle bloc par bloc. Un cercle raté au sol donne une arène ratée sur toute la hauteur.',
+      'Répétez ce cercle en trois exemplaires concentriques : rayon 10 (mur extérieur), rayon 7 (limite des gradins) et rayon 6 (mur du podium). Ce sont vos trois lignes directrices, tout le reste s\'y raccroche.',
+      'Creusez ou remblayez l\'aire centrale pour la mettre 3 blocs SOUS le premier rang de gradins. Un public au même niveau que les combattants ne fonctionne pas.',
+      'Percez les deux tunnels d\'entrée sur l\'axe est-ouest, larges de 3 blocs et voûtés en escaliers. Ils traversent le mur extérieur, la galerie et le mur du podium d\'un seul tenant.',
+      'Montez les gradins en anneaux : chaque anneau monte de 1 bloc et recule d\'un bloc vers l\'extérieur. Deux anneaux d\'escaliers suffisent pour un colisée de cette taille, trois le rendent illisible.',
+      'Aménagez les deux loges au nord et au sud : plancher de quartz surélevé de 2 blocs, bannières au fond, et un toit en dalles porté par quatre colonnes.',
+      'Fermez le mur extérieur par une arcade régulière : une baie de 2 blocs de large tous les 3 blocs, en arcs d\'escaliers. C\'est la répétition de cette arcade qui rend le bâtiment antique.',
+      'Couronnez d\'un attique en murets alternés, avec un mât en clôture tous les trois créneaux : ce sont les supports du vélum, la toile qui ombrageait les gradins.',
+      'Éclairez sous les gradins, pas dessus : lanternes dans la galerie basse et sous les marches. L\'aire centrale doit rester le point le plus lumineux.',
+      'Aménagez le sous-sol si vous voulez du spectacle : un couloir sous l\'arène, des portes en fer commandées par leviers, et des blocs de sable au-dessus pour ouvrir des trappes de mobs.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Cercles — n\'improvisez jamais un cercle en Minecraft. Notez la demi-largeur de chaque rangée une seule fois, puis réutilisez la même liste pour tous les anneaux : c\'est le seul moyen d\'obtenir des courbes concentriques propres.' },
+      { type: 'warn', txt: 'Sécurité PvP — le mur du podium doit faire au moins 3 blocs de haut côté arène, sinon les combattants sortent d\'un simple saut. Ajoutez une rangée de blocs lisses en haut pour empêcher l\'escalade.' },
+      { type: 'info', txt: 'Usage — avec un générateur de monstres au centre et des gradins vitrés, la même structure devient une salle d\'observation. Avec du sable et de l\'eau, elle devient une arène de course.' }
+    ]
+  },
+
+  /* ================= FERME FORTIFIÉE ================= */
+  {
+    id: 'ferme-fortifiee', nom: 'Ferme fortifiée — cour, mur et tour d\'angle', cat: 'ferme',
+    taille: '19 × 19 × 10', diff: 'Intermédiaire',
+    desc: 'Une exploitation agricole entièrement close : corps de ferme au nord, grange et enclos au sud, potager, puits central et une tour d\'angle qui surveille l\'entrée. Le plan à construire dès qu\'on joue en difficulté difficile.',
+    mats: ['≈1 100 blocs de pierre (enceinte et tour)', '≈500 rondins et planches (corps de ferme, grange)', '≈250 escaliers et dalles (toitures)', '≈80 murets (créneaux)', '≈40 clôtures + 2 portillons', '1 porte en fer · 12 lanternes'],
+    couches: [
+      {
+        t: 'Y+0 · plan de masse : bâtiments, cour et enclos',
+        g: [
+          'ccccccccccccccccccc',
+          'c...c.ooooooooooo.c',
+          'c...c.o.........o.c',
+          'ccccc.o.<...E...o.c',
+          'c.....o.........o.c',
+          'c.....o.UY......o.c',
+          'c.....ooooDoooooo.c',
+          'c.................c',
+          'c.......cwc.......c',
+          'c.......c.c.......c',
+          'c.................c',
+          'c.....|||||||.....c',
+          'c#####|eeeee|.....c',
+          'c#hhh#|eeeee|.fff.c',
+          'c#hhh#|eeeee|.fwf.c',
+          'c#hhh#|eeeee|.fff.c',
+          'c##D##|||D|||.....c',
+          'c.................c',
+          'ccccccccc>ccccccccc'
+        ]
+      },
+      {
+        t: 'Y+4 · toitures et chemin de ronde',
+        g: [
+          'ccccccccccccccccccc',
+          'c...c///////////..c',
+          'c...c//-------//..c',
+          'ccccc//-------//..c',
+          'c....//-------//..c',
+          'c....//-------//..c',
+          'c....///////////..c',
+          'c.................c',
+          'c.................c',
+          'c.................c',
+          'c.................c',
+          'c.................c',
+          'c/////............c',
+          'c/---/............c',
+          'c/---/............c',
+          'c/---/............c',
+          'c/////............c',
+          'c.................c',
+          'ccccccccccccccccccc'
+        ]
+      },
+      {
+        t: 'Y+6 · créneaux de l\'enceinte',
+        g: [
+          'M.M.M.M.M.M.M.M.M.M',
+          '...................',
+          'M.................M',
+          '...................',
+          'M.................M',
+          '...................',
+          'M.................M',
+          '...................',
+          'M.................M',
+          '...................',
+          'M.................M',
+          '...................',
+          'M.................M',
+          '...................',
+          'M.................M',
+          '...................',
+          'M.................M',
+          '...................',
+          'M.M.M.M.M.M.M.M.M.M'
+        ]
+      },
+      {
+        t: 'Y+9 · sommet de la tour d\'angle, hourd en encorbellement (7 × 7)',
+        g: [
+          'M.M.M.M',
+          '.......',
+          'M.....M',
+          '...*...',
+          'M.....M',
+          '.......',
+          'M.M.M.M'
+        ]
+      }
+    ],
+    etapes: [
+      'Aplanissez un carré de 19 × 19 et tracez l\'enceinte en pierre AVANT les bâtiments : c\'est le mur qui fixe la ferme, tout le reste vient se coller dessus.',
+      'Adossez chaque bâtiment à l\'enceinte plutôt que de le poser au milieu de la cour. Un corps de ferme qui partage un mur avec le rempart économise des blocs et paraît immédiatement plus ancien.',
+      'Montez le mur à 4 blocs, puis ajoutez le chemin de ronde à l\'intérieur : une rangée de dalles à Y+4, accessible par un escalier depuis la cour et par la tour.',
+      'Bâtissez la tour d\'angle nord-ouest à 9 blocs, soit le double du mur — elle doit surveiller l\'entrée sud, donc placez-la en diagonale de la porte, jamais à côté.',
+      'Percez l\'unique entrée au sud, avec une porte en fer et une plaque de pression à l\'intérieur seulement : les zombies n\'ouvriront pas et vous ne serez jamais bloqué dehors.',
+      'Installez le corps de ferme au nord : lit, coffres, four et établi, toit à deux pentes en escaliers avec faîtage en dalles.',
+      'Découpez la cour en trois usages nets — enclos clôturé au centre-sud, potager irrigué à l\'est, grange à foin à l\'ouest. Une cour sans découpage a l\'air abandonnée.',
+      'Creusez le puits au centre : deux blocs d\'eau, margelle en pierre, quatre poteaux et un petit toit. C\'est le repère visuel qui organise toute la cour.',
+      'Éclairez le chemin de ronde et la cour à 12 lanternes minimum : une ferme fortifiée mal éclairée fabrique ses propres assiégeants.',
+      'Terminez par le vieillissement : pierre moussue en pied de mur, chemins de terre tassés entre les bâtiments, quelques bottes de foin et outils posés contre la grange.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Hauteur de mur — 4 blocs suffisent contre les zombies et les squelettes ; les araignées grimpent, donc ajoutez une rangée de dalles ou de blocs en surplomb en haut du mur pour les bloquer.' },
+      { type: 'warn', txt: 'Raids — si des villageois habitent la ferme, un raid peut apparaître à l\'intérieur de l\'enceinte. Gardez une zone dégagée au centre pour combattre et un golem de fer dans la cour.' },
+      { type: 'info', txt: 'Rendement — le potager de 5 × 3 et l\'enclos de 5 × 5 nourrissent largement un joueur. Doublez l\'enclos si vous élevez pour le cuir et la laine plutôt que pour la viande.' }
+    ]
+  },
+
+  /* ================= AUBERGE ================= */
+  {
+    id: 'auberge', nom: 'Auberge à deux étages avec écurie', cat: 'maison',
+    taille: '17 × 13 × 14', diff: 'Intermédiaire',
+    desc: 'Salle commune et cuisine au rez-de-chaussée, quatre chambres à l\'étage, écurie sur la cour. C\'est le bâtiment public qui donne vie à un village : plusieurs lits sous un même toit et un endroit où les joueurs se retrouvent.',
+    mats: ['≈250 briques de pierre (soubassement et cheminée)', '≈600 planches et rondins', '≈300 escaliers · 120 dalles (toit, tables, comptoir)', '≈40 vitres', '4 lits · 6 tonneaux · 8 lanternes', '≈30 clôtures (stalles et cour)'],
+    couches: [
+      {
+        t: 'Y+0 · salle commune, comptoir, cuisine et écurie',
+        g: [
+          'ooooooooooo.,,,,,',
+          'o.EUU....&o.,,,,,',
+          'o.........o.,,,,,',
+          'o.-------.o.,,,,,',
+          'o.........o.,,,,,',
+          'o.--...--.o.,,,,,',
+          'o.--...--.o.ooooo',
+          'o./.......o.o,,,o',
+          'oooooDooooo.o|||o',
+          ',,,,,,,,,,,,o,,,o',
+          ',,,,,,,,,,,,o|||o',
+          ',,,,,,,,,,,,o,h,o',
+          ',,,,,,,,,,,,ooDoo'
+        ]
+      },
+      {
+        t: 'Y+4 · étage : quatre chambres et couloir central',
+        g: [
+          '###########......',
+          '#.<<.#.<<.#......',
+          '#.E..#..E.#......',
+          '###D###D###......',
+          '#.........#......',
+          '###D###D###......',
+          '#.E..#..E.#./////',
+          '#.<<.#.<<.#./---/',
+          '###########./---/',
+          '............/---/',
+          '............/---/',
+          '............/---/',
+          '............/////'
+        ]
+      },
+      {
+        t: 'Y+8 · toit de l\'auberge, premier rang (13 × 11)',
+        g: [
+          '/////////////',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/////////////'
+        ]
+      },
+      {
+        t: 'Y+10 · toit, second rang (11 × 9)',
+        g: [
+          '///////////',
+          '/........./',
+          '/........./',
+          '/........./',
+          '/........./',
+          '/........./',
+          '/........./',
+          '/........./',
+          '///////////'
+        ]
+      },
+      {
+        t: 'Y+12 · faîtage et souches de cheminée (9 × 7)',
+        g: [
+          '---b-----',
+          '---------',
+          '---------',
+          '---------',
+          '---------',
+          '---------',
+          '-----b---'
+        ]
+      }
+    ],
+    etapes: [
+      'Posez l\'emprise 11 × 9 de l\'auberge et laissez au moins 5 blocs de cour libre à côté : l\'écurie et la cour font partie du bâtiment, pas d\'un décor ajouté après.',
+      'Montez un soubassement de pierre d\'un bloc sur tout le périmètre avant les planches. Ce socle isole visuellement le bois du sol et évite l\'effet « caisse posée sur l\'herbe ».',
+      'Donnez 4 blocs de hauteur sous plafond à la salle commune et seulement 3 à l\'étage : la différence de hauteur entre le niveau public et le niveau privé est ce qui fait lire le bâtiment comme une auberge.',
+      'Installez le comptoir en L le long du mur nord (dalles posées sur des barils ou des blocs pleins), avec la cuisine derrière : deux fourneaux, un coffre, un fumoir.',
+      'Meublez la salle avec des tables : un bloc de clôture surmonté d\'une dalle de pression, entouré de 2 à 4 escaliers en guise de bancs. Trois tables de tailles différentes valent mieux que six identiques.',
+      'Placez l\'escalier dans un angle, visible depuis la porte d\'entrée : dans une auberge, l\'escalier vers les chambres doit être le premier élément que voit le client.',
+      'À l\'étage, découpez quatre chambres identiques de 4 × 2 autour d\'un couloir central, chacune avec un lit, un coffre et une fenêtre. Les portes s\'ouvrent toutes sur le couloir.',
+      'Montez le toit à quatre pentes en escaliers, rang par rang, avec un débord d\'un bloc sur les murs, puis le faîtage en dalles et deux souches de cheminée en pierre.',
+      'Construisez l\'écurie sur la cour : trois stalles de 3 blocs séparées par des clôtures, du foin au fond, un toit à une seule pente adossé au mur de la cour.',
+      'Finissez par l\'enseigne et l\'éclairage : un panneau suspendu à une potence au-dessus de la porte, des lanternes de part et d\'autre, et un feu de camp dans la cour.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Point de réapparition — quatre lits dans une auberge de village permettent à quatre joueurs de fixer leur réapparition au même endroit. C\'est le bâtiment le plus utile d\'un serveur en multijoueur.' },
+      { type: 'warn', txt: 'Feu — n\'utilisez jamais de feu de camp ni de lave à l\'intérieur d\'un bâtiment en planches. Le foyer de la salle commune doit être entouré de pierre sur au moins un bloc dans toutes les directions.' },
+      { type: 'info', txt: 'Chevaux — une stalle de 3 × 3 avec un portillon suffit à un cheval. Posez une auge (chaudron rempli d\'eau) et une botte de foin : c\'est décoratif, mais cela rend l\'écurie crédible.' }
+    ]
   }
+
 ];

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Structures &amp; butin — Codex Minecraft</title>
+<meta name="description" content="Toutes les structures générées de Minecraft Java : où les trouver, ce que contiennent leurs coffres, leurs pièges et comment les piller efficacement.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-cube"></span>
+      <span>Codex Minecraft<small>Java Edition</small></span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="drops.html">Drops</a>
+      <a href="craft.html">Artisanat</a>
+      <a href="potions.html">Potions</a>
+      <a href="enchantements.html">Enchant.</a>
+      <a href="redstone.html">Redstone</a>
+      <a href="villageois.html">Villageois</a>
+      <a href="biomes.html">Biomes</a>
+      <a href="structures.html">Structures</a>
+      <a href="blocs.html">Blocs</a>
+      <a href="succes.html">Succès</a>
+      <a href="plans.html">Plans</a>
+      <a href="usines.html">Usines</a>
+    </nav>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Catalogue 8 / 12</span>
+    <h1>Structures &amp; butin</h1>
+    <p>Chaque structure générée du jeu : <b>où elle apparaît</b>, <b>ce que contiennent ses coffres</b>,
+      <b>quels pièges elle cache</b> et comment la piller sans y laisser son équipement.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <input id="q" class="search" type="search" placeholder="Rechercher une structure, un objet…  ( / )" autocomplete="off">
+      <span id="count" class="count"></span>
+    </div>
+    <div class="toolbar-row" id="chips" style="margin-top:10px">
+      <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="fav">★ Favoris</button>
+      <button class="chip" data-cat="surworld">Surface</button>
+      <button class="chip" data-cat="souterrain">Souterrain</button>
+      <button class="chip" data-cat="oceanique">Océanique</button>
+      <button class="chip" data-cat="nether">Nether</button>
+      <button class="chip" data-cat="end">End</button>
+    </div>
+  </div>
+
+  <section class="print-host" style="margin-bottom:20px">
+    <div id="liste" class="grid g2"></div>
+    <div id="vide" class="empty" style="display:none">Aucune structure trouvée. Essayez « totem », « élytre », « diamant », « selle »…</div>
+  </section>
+
+  <hr>
+
+  <section id="methode">
+    <h2>Piller sans se faire piéger</h2>
+    <div class="grid g3">
+      <div class="card">
+        <h3>💣 Désamorcer avant de descendre</h3>
+        <p>Le <b>temple du désert</b> cache 9 blocs de TNT sous une plaque de pression, au centre du sol bleu.
+          Creusez par le côté et cassez la plaque <b>avant</b> de toucher le sol de la chambre.</p>
+      </div>
+      <div class="card">
+        <h3>🕸️ Repérer les fils</h3>
+        <p>Le <b>temple de la jungle</b> et les <b>mines abandonnées</b> utilisent des fils de détente presque invisibles.
+          Avancez à la cisaille en main : elle coupe le fil sans déclencher le mécanisme.</p>
+      </div>
+      <div class="card">
+        <h3>🧱 Emmurer avant d'ouvrir</h3>
+        <p>Dans un <b>bastion</b> ou un <b>manoir</b>, bouchez les accès derrière vous avant de fouiller un coffre.
+          Ouvrir un coffre devant des piglins les rend hostiles quelle que soit votre armure.</p>
+      </div>
+    </div>
+    <div class="callout tip">
+      <b>Repérer de loin</b> — le <b>cartographe</b> vend les cartes du manoir des bois et du monument océanique,
+      les deux structures qu'on ne trouve pratiquement jamais par hasard. Voir la page
+      <a href="villageois.html">Villageois</a>.
+    </div>
+    <div class="callout warn">
+      <b>Une seule visite</b> — la plupart des coffres ne se régénèrent jamais. Les exceptions notables sont les
+      <b>coffres-forts des chambres d'épreuve</b>, qui se rouvrent avec une nouvelle clé, et le <b>troc avec les piglins</b>,
+      renouvelable à l'infini.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Codex Minecraft — guide de référence non officiel.</div>
+</footer>
+
+<!-- Visuels : couleurs réelles du jeu (versionnées) puis, si elles ont été
+     extraites en local via tools/extract-textures.js, les vraies textures.
+     L'absence du second fichier est sans conséquence : on garde les aplats. -->
+<script src="assets/couleurs.js"></script>
+<script src="assets/textures/index.js" onerror="void 0"></script>
+<script src="assets/core.js"></script>
+<script src="assets/data-structures.js"></script>
+<script>
+(function () {
+  var liste = document.getElementById('liste');
+  for (var i = 0; i < STRUCTURES_DETAIL.length; i++) { liste.appendChild(renderEntry(STRUCTURES_DETAIL[i])); }
+  setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
+}());
+</script>
+</body>
+</html>
