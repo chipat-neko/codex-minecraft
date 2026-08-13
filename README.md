@@ -13,17 +13,34 @@ internet nécessaire : tout est en HTML/CSS/JS classiques et fonctionne en `file
 ```
 index.html          Accueil : progression de partie, repères chiffrés, dimensions
 drops.html          Catalogue 1 — 87 fiches de drops + table des minerais + troc piglin
-craft.html          Catalogue 2 — 85 recettes avec grille 3×3 dessinée + brassage + enchantements
-plans.html          Catalogue 3 — 11 plans de construction couche par couche
-usines.html         Catalogue 4 — 25 usines/fermes automatiques + dépannage
+craft.html          Catalogue 2 — 127 recettes avec grille 3×3 dessinée + cuisson + enchantements
+potions.html        Catalogue 3 — 18 potions, chaîne de brassage, modificateurs, kits
+biomes.html         Catalogue 4 — 26 biomes et leurs ressources exclusives
+plans.html          Catalogue 5 — 19 plans de construction couche par couche
+usines.html         Catalogue 6 — 25 usines/fermes automatiques + dépannage
 assets/
-  style.css         Feuille de style unique
-  core.js           Palette de blocs, moteurs de rendu, moteur de recherche/filtres
+  style.css         Feuille de style unique (thèmes sombre et clair)
+  core.js           Palette de blocs, moteurs de rendu, recherche/filtres,
+                    thème, favoris, impression, vue isométrique, sommaire
   data-drops.js     Données : mobs, minerais, structures, troc
   data-craft.js     Données : recettes
+  data-potions.js   Données : brassage
+  data-biomes.js    Données : biomes
   data-plans.js     Données : plans de construction
   data-usines.js    Données : fermes automatiques
 ```
+
+## Fonctions de l'interface
+
+| Fonction | Où | Détail |
+|---|---|---|
+| Recherche | toutes les pages à catalogue | Raccourci <kbd>/</kbd>, insensible à la casse **et aux accents** |
+| Filtres | barre d'outils | Se combinent avec la recherche |
+| Favoris | étoile ☆ de chaque fiche | Mémorisés dans le navigateur ; filtre « ★ Favoris » |
+| Thème clair / sombre | bouton de l'en-tête | Mémorisé d'une visite à l'autre |
+| Impression | bouton sur chaque plan/usine | N'imprime que la fiche choisie |
+| Vue 3D | bouton sur les plans empilables | Rendu isométrique SVG des couches, généré au clic |
+| Sommaire latéral | plans et usines, écrans ≥ 1140 px | Groupé par catégorie, suit le défilement |
 
 ## Ajouter du contenu
 
@@ -72,6 +89,13 @@ le plan est générée automatiquement à partir des caractères réellement uti
 ```
 
 Les `id` servent d'ancres : `plans.html#mon-plan` ouvre directement la fiche.
+
+Le bouton « Vue 3D » n'apparaît que si le plan compte au moins deux couches **empilables** :
+un plan dont un titre de couche contient « côté », « face », « coupe » ou « profil » est
+automatiquement exclu, car ces schémas sont des élévations et non des étages superposés.
+
+Toute nouvelle catégorie doit être déclarée à trois endroits : dans `cat`, dans les boutons
+`data-cat` de la page, et dans `GROUPES_PLANS` / `GROUPES_USINES` (libellé et ordre du sommaire).
 
 ## Version du jeu
 

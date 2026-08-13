@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biomes — Codex Minecraft</title>
+<meta name="description" content="Tous les biomes Minecraft Java : ce qu'on y trouve d'exclusif, les structures qui s'y génèrent, les mobs et les ressources uniques.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-cube"></span>
+      <span>Codex Minecraft<small>Java Edition</small></span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="drops.html">Drops</a>
+      <a href="craft.html">Artisanat</a>
+      <a href="potions.html">Potions</a>
+      <a href="biomes.html">Biomes</a>
+      <a href="plans.html">Plans</a>
+      <a href="usines.html">Usines</a>
+    </nav>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Catalogue 4 / 6</span>
+    <h1>Biomes</h1>
+    <p>Chaque biome détient des ressources qu'on ne trouve <b>nulle part ailleurs</b> : les émeraudes en montagne,
+      le cacao en jungle, l'or en badlands, les totems en forêt sombre. Cette page dit quoi chercher, et où.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <input id="q" class="search" type="search" placeholder="Rechercher un biome, une ressource…  ( / )" autocomplete="off">
+      <span id="count" class="count"></span>
+    </div>
+    <div class="toolbar-row" id="chips" style="margin-top:10px">
+      <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="fav">★ Favoris</button>
+      <button class="chip" data-cat="tempere">Tempérés</button>
+      <button class="chip" data-cat="chaud">Chauds &amp; arides</button>
+      <button class="chip" data-cat="froid">Froids &amp; montagnes</button>
+      <button class="chip" data-cat="aquatique">Aquatiques</button>
+      <button class="chip" data-cat="souterrain">Souterrains</button>
+      <button class="chip" data-cat="nether">Nether</button>
+      <button class="chip" data-cat="end">End</button>
+    </div>
+  </div>
+
+  <section class="print-host" style="margin-bottom:20px">
+    <div id="liste" class="grid g2"></div>
+    <div id="vide" class="empty" style="display:none">Aucun biome trouvé. Essayez « émeraude », « bambou », « or », « élytre »…</div>
+  </section>
+
+  <hr>
+
+  <section id="exclusifs">
+    <h2>Ce qui n'existe que dans un seul biome</h2>
+    <p class="lead">La liste des ressources qui obligent à voyager. Si vous cherchez l'un de ces objets,
+      inutile de creuser : il faut trouver le bon biome.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Ressource</th><th>Biome obligatoire</th><th>Pourquoi vous en aurez besoin</th></tr></thead>
+        <tbody>
+          <tr><td><b>Émeraude (minerai)</b></td><td>Montagnes uniquement</td><td>Monnaie du commerce villageois ; balise en émeraude</td></tr>
+          <tr><td><b>Fève de cacao</b></td><td>Jungle</td><td>Colorant marron et cookies (le meilleur ratio blé/nourriture)</td></tr>
+          <tr><td><b>Bambou</b></td><td>Jungle (ou épave)</td><td>Échafaudages, carburant renouvelable, bâtons</td></tr>
+          <tr><td><b>Totem d'immortalité</b></td><td>Forêt sombre (manoir) ou raid</td><td>Annule une mort : l'objet le plus précieux en survie</td></tr>
+          <tr><td><b>Élytre</b></td><td>Îles extérieures de l'End</td><td>Le vol — change définitivement la façon de se déplacer</td></tr>
+          <tr><td><b>Carapace de shulker</b></td><td>Cité de l'End</td><td>Boîtes de shulker : inventaire portable</td></tr>
+          <tr><td><b>Éclat d'écho</b></td><td>Deep dark (Warden)</td><td>Boussole de récupération : retrouver son stuff après la mort</td></tr>
+          <tr><td><b>Éponge</b></td><td>Monument océanique</td><td>Vider un volume d'eau — irremplaçable pour bâtir sous l'eau</td></tr>
+          <tr><td><b>Cœur de la mer</b></td><td>Trésor enfoui (plages)</td><td>Conduit et boussole de récupération</td></tr>
+          <tr><td><b>Corail</b></td><td>Océan chaud</td><td>Décoration ; il blanchit hors de l'eau, transportez-le au Toucher de soie</td></tr>
+          <tr><td><b>Mooshroom</b></td><td>Champs de champignons</td><td>Soupe illimitée avec un simple bol</td></tr>
+          <tr><td><b>Bois de cerisier</b></td><td>Cerisaie</td><td>Le seul bois rose du jeu</td></tr>
+          <tr><td><b>Bois de chêne pâle</b></td><td>Forêt pâle</td><td>Palette blafarde unique ; cœur du Craquant</td></tr>
+          <tr><td><b>Écaille d'armadillo</b></td><td>Savane</td><td>Armure de loup</td></tr>
+          <tr><td><b>Corne de chèvre</b></td><td>Montagnes</td><td>8 variantes sonores, purement collectionnables</td></tr>
+          <tr><td><b>Débris antiques</b></td><td>Nether (Y 15)</td><td>Netherite : le palier d'équipement final</td></tr>
+          <tr><td><b>Verrue du Nether</b></td><td>Forteresse du Nether</td><td>Base obligatoire de tout le brassage</td></tr>
+          <tr><td><b>Bâton de Blaze</b></td><td>Forteresse du Nether</td><td>Alambic + yeux de l'Ender : deux verrous de progression</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="strategie">
+    <h2>Choisir où s'installer</h2>
+    <div class="grid g3">
+      <div class="card">
+        <h3>🏆 L'emplacement idéal</h3>
+        <p>Un point de jonction entre <b>plaines</b> (village, terrain plat, animaux),
+          <b>forêt</b> (bois) et <b>montagne</b> (fer et émeraudes en surface),
+          avec une <b>rivière</b> ou un <b>océan</b> à proximité pour l'argile, le sable et les déplacements.</p>
+      </div>
+      <div class="card">
+        <h3>🛡️ Le plus sûr</h3>
+        <p>Les <b>champs de champignons</b> : aucun monstre hostile n'y apparaît naturellement, même dans le noir total.
+          En contrepartie, l'île est isolée et pauvre en bois — prévoyez un bateau et des pousses.</p>
+      </div>
+      <div class="card">
+        <h3>⛏️ Le plus rentable</h3>
+        <p>Les <b>badlands</b> : l'or affleure à ciel ouvert entre Y 32 et 256, et les mines abandonnées s'y génèrent
+          en surface. Une base ici accélère énormément l'accès au troc piglin et aux carottes dorées.</p>
+      </div>
+    </div>
+    <div class="callout tip">
+      <b>La règle des 128 blocs</b> — si vous prévoyez des fermes à mobs, installez votre base loin des grottes non éclairées
+      et des villages naturels. Le quota d'apparitions est partagé : chaque zone sombre alentour vole des mobs à vos fermes.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Codex Minecraft — guide de référence non officiel.</div>
+</footer>
+
+<script src="assets/core.js"></script>
+<script src="assets/data-biomes.js"></script>
+<script>
+(function () {
+  var liste = document.getElementById('liste');
+  for (var i = 0; i < BIOMES.length; i++) { liste.appendChild(renderEntry(BIOMES[i])); }
+  setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
+}());
+</script>
+</body>
+</html>

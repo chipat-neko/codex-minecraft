@@ -20,6 +20,15 @@
   ';': { n: 'Trône / bannière (décor)', c: '#8c2b2b' }
 }));
 
+/* Ordre et libellés des groupes du sommaire */
+var GROUPES_PLANS = {
+  maison:    'Habitations',
+  chateau:   'Châteaux',
+  ville:     'Village & ouvrages',
+  ferme:     'Agricole',
+  technique: 'Bâtiments techniques'
+};
+
 var PLANS = [
 
   /* ================= SURVIE ================= */
@@ -437,6 +446,342 @@ var PLANS = [
     notes: [
       { type: 'warn', txt: 'Le piège classique — si vous oubliez les 18 objets de bourre, le comparateur ne fait pas la différence entre « vide » et « un objet vient d\'arriver », et le tri fuit.' },
       { type: 'tip', txt: 'Repérage — posez un cadre d\'objet sur chaque coffre avec l\'objet correspondant : vous retrouvez tout d\'un coup d\'œil, sans ouvrir un seul coffre.' }
+    ]
+  },
+
+  /* ================= HABITATIONS — SUITE ================= */
+  {
+    id: 'maison-moderne', nom: 'Maison moderne 13 × 9', cat: 'maison',
+    taille: '13 × 9 × 5', diff: 'Intermédiaire',
+    desc: 'Volumes nets, toit-terrasse, grandes baies vitrées. Le style le plus simple à réussir : il ne pardonne rien sur les proportions, mais ne demande aucune charpente.',
+    mats: ['≈250 blocs de béton blanc (4 sable + 4 gravier + 1 colorant → 8)', '≈120 blocs de deepslate poli ou de béton gris', '≈60 vitres', '≈30 dalles pour la terrasse', 'Éclairage encastré (blocs lumineux sous des tapis)'],
+    couches: [
+      { t: 'Y+0 · dalle', g: ['WWWWWWWWWWWWW', 'WWWWWWWWWWWWW', 'WWWWWWWWWWWWW', 'WWWWWWWWWWWWW', 'WWWWWWWWWWWWW', 'WWWWWWWWWWWWW', 'WWWWWWWWWWWWW', 'WWWWWWWWWWWWW', 'WWWWWWWWWWWWW'] },
+      { t: 'Y+1 · murs & baies', g: ['dWWWWWWWWWWWd', 'G...........G', 'G...........G', 'W...........W', 'G...........G', 'G...........G', 'W...........W', 'G...........G', 'dWWWDDWWWWWWd'] },
+      { t: 'Y+2 · idem (répéter 3 fois)', g: ['dWWWWWWWWWWWd', 'G...........G', 'G...........G', 'W...........W', 'G...........G', 'G...........G', 'W...........W', 'G...........G', 'dWWWWWWWWWWWd'] },
+      { t: 'Y+4 · toit-terrasse', g: ['ddddddddddddd', 'd...........d', 'd...........d', 'd...........d', 'd...........d', 'd...........d', 'd...........d', 'd...........d', 'ddddddddddddd'] },
+      { t: 'Y+5 · garde-corps', g: ['|||||||||||||', '|...........|', '|...........|', '|...........|', '|...........|', '|...........|', '|...........|', '|...........|', '|||||||||||||'] }
+    ],
+    etapes: [
+      'Posez la dalle de béton blanc en débordant d\'un bloc sur tout le pourtour : ce léger socle décolle la maison du sol.',
+      'Montez les murs sur 3 blocs, en alternant panneaux pleins et baies vitrées de 2 blocs de large.',
+      'Marquez les angles avec un matériau sombre (deepslate poli, béton gris) : c\'est ce contraste qui structure la façade.',
+      'Toit plat en dalles sombres, débordant d\'un bloc — un toit moderne qui affleure le mur fait « boîte ».',
+      'Garde-corps en barreaux de fer ou en vitres sur toute la terrasse.',
+      'Éclairage : creusez le sol d\'un bloc, posez des blocs lumineux et recouvrez de tapis. Aucune source visible, lumière parfaite.',
+      'Aménagez la terrasse : quelques blocs de mousse, des feuillages en pot, une piscine de 3 × 5 encastrée.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'La règle du moderne — deux couleurs maximum plus le verre. Blanc + gris foncé, ou beige + noir. Trois couleurs et le bâtiment perd immédiatement son caractère.' },
+      { type: 'info', txt: 'Le béton se fabrique en masse : 4 sable + 4 gravier + 1 colorant donnent 8 poudres, à jeter dans l\'eau. Une ferme à cactus (colorant vert) ou à calmars (noir) le rend gratuit.' }
+    ]
+  },
+
+  /* ================= VILLAGE & OUVRAGES ================= */
+  {
+    id: 'village', nom: 'Village complet — plan de masse 21 × 21', cat: 'ville',
+    taille: '21 × 21', diff: 'Avancé',
+    desc: 'Trame de rues, place centrale avec puits et cloche, douze parcelles bâties. Le plan qui transforme un tas de maisons en village crédible.',
+    mats: ['≈400 blocs de chemin de terre (pelle sur l\'herbe)', '≈100 dalles pour la place', '1 puits (pierre + eau) · 1 cloche', '12 maisons (voir le plan « Maison de colon »)', 'Lampadaires : clôtures + lanternes'],
+    couches: [
+      {
+        t: 'Plan de masse · rues, place et parcelles',
+        g: [
+          'eeeee,eeeeeeeee,eeeee',
+          'e###e,###eee###,e###e',
+          'e###e,###eee###,e###e',
+          'e#D#e,#D#eee#D#,e#D#e',
+          'eeeee,eeeeeeeee,eeeee',
+          ',,,,,,,,,,,,,,,,,,,,,',
+          'eeeee,eeeeeeeee,eeeee',
+          'e###e,eeeeeeeee,e###e',
+          'e###e,ee--}--ee,e###e',
+          'e#D#e,ee-----ee,e#D#e',
+          'eeeee,ee--w--ee,eeeee',
+          'e#D#e,ee-----ee,e#D#e',
+          'e###e,ee-----ee,e###e',
+          'e###e,eeeeeeeee,e###e',
+          'eeeee,eeeeeeeee,eeeee',
+          ',,,,,,,,,,,,,,,,,,,,,',
+          'eeeee,eeeeeeeee,eeeee',
+          'e###e,###eee###,e###e',
+          'e###e,###eee###,e###e',
+          'e#D#e,#D#eee#D#,e#D#e',
+          'eeeee,eeeeeeeee,eeeee'
+        ]
+      }
+    ],
+    etapes: [
+      'Tracez d\'abord les rues à la pelle (chemin de terre) : deux axes nord-sud et deux axes est-ouest. La trame vient avant les bâtiments, jamais l\'inverse.',
+      'Dégagez la place centrale de 5 × 5 en dalles de pierre, avec le puits au milieu et la cloche au nord.',
+      'Répartissez les parcelles de 3 × 3 minimum le long des rues. Variez les tailles : trois maisons identiques côte à côte tuent l\'illusion.',
+      'Orientez TOUTES les portes vers la rue. C\'est le détail qui distingue un vrai village d\'un alignement de cabanes.',
+      'Faites varier les hauteurs : une maison à un étage tous les trois bâtiments, plus une tour ou un clocher près de la place.',
+      'Ajoutez les équipements : forge (fourneaux + enclume), grange, étal de marché, bibliothèque, puits secondaires.',
+      'Éclairez chaque rue avec des lampadaires (clôture + lanterne) tous les 6 à 8 blocs : sans cela, votre village se remplit de zombies.',
+      'Plantez : arbres aux carrefours, buissons, parcelles de culture en périphérie, quelques animaux en enclos.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Villageois — pour que le jeu reconnaisse un vrai village, il faut des lits et des blocs de métier. 12 lits + 12 blocs de métier permettent la reproduction et l\'apparition d\'un golem de fer.' },
+      { type: 'warn', txt: 'Raids — un vrai village peut être attaqué. Prévoyez un mur d\'enceinte ou au moins une porte solide, et gardez un totem d\'immortalité sur vous.' }
+    ]
+  },
+  {
+    id: 'pont', nom: 'Pont de pierre à arches', cat: 'ville',
+    taille: '17 × 5 × 7', diff: 'Intermédiaire',
+    desc: 'Franchit une rivière ou un ravin. La courbe des arches est ce qui distingue un pont d\'une simple passerelle posée sur des piliers.',
+    mats: ['≈350 briques de pierre', '≈80 escaliers en pierre (courbe des arches)', '≈40 murets (parapets)', '6 lanternes + 6 clôtures (lampadaires)', 'Quelques briques moussues pour vieillir les piles'],
+    couches: [
+      {
+        t: 'Vue de côté · l\'arche',
+        g: [
+          '.---------------.',
+          'M...............M',
+          'b...............b',
+          'bb.............bb',
+          'bbb...........bbb',
+          'wwbbb.......bbbww',
+          'wwwwwwwwwwwwwwwww'
+        ]
+      },
+      {
+        t: 'Vue de dessus · tablier',
+        g: [
+          'MMMMMMMMMMMMMMMMM',
+          '-----------------',
+          '-----------------',
+          '-----------------',
+          'MMMMMMMMMMMMMMMMM'
+        ]
+      }
+    ],
+    etapes: [
+      'Repérez les deux rives et posez d\'abord le tablier plat, à hauteur constante : c\'est votre ligne de référence.',
+      'Descendez les piles verticalement jusqu\'au fond de l\'eau, en les élargissant vers le bas (1 bloc de plus tous les 2 niveaux).',
+      'Creusez la courbe de l\'arche entre les piles : elle doit être plus large en bas qu\'en haut, et se raccorder en douceur au tablier.',
+      'Habillez la courbe d\'escaliers inversés pour adoucir l\'escalier de blocs : c\'est l\'étape qui fait toute la différence.',
+      'Posez les parapets en murets sur les deux bords du tablier, avec une interruption au milieu pour un lampadaire.',
+      'Vieillissez : briques moussues et fissurées en pied de pile, là où l\'eau attaque, et quelques vignes qui retombent.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Proportion — la hauteur de l\'arche doit valoir environ un tiers de sa portée. Une arche trop plate fait « tuyau », une arche trop haute fait « viaduc ».' }
+    ]
+  },
+  {
+    id: 'port', nom: 'Port et quai marchand', cat: 'ville',
+    taille: '17 × 13', diff: 'Intermédiaire',
+    desc: 'Quai de pierre, deux pontons sur pilotis, entrepôt en retrait. Le point de départ de toute exploration maritime, et le meilleur endroit pour amarrer un bateau-coffre.',
+    mats: ['≈200 briques de pierre (quai)', '≈120 planches et rondins (pontons et entrepôt)', '≈40 clôtures (pilotis et bornes d\'amarrage)', '8 lanternes', 'Coffres, tonneaux et cadres d\'objet'],
+    couches: [
+      {
+        t: 'Plan de masse',
+        g: [
+          'eeeeeeeeeeeeeeeee',
+          'ee#######eeeeeeee',
+          'ee#.....#eee%%%ee',
+          'ee##DD###eee%%%ee',
+          'ccccccccccccccccc',
+          'www##wwwww##wwwww',
+          'www##wwwww##wwwww',
+          'www##wwwww##wwwww',
+          'www##wwwww##wwwww',
+          'wwwwwwwwwwwwwwwww',
+          'wwwwwwwwwwwwwwwww',
+          'wwwwwwwwwwwwwwwww',
+          'wwwwwwwwwwwwwwwww'
+        ]
+      },
+      {
+        t: 'Vue de côté · un ponton',
+        g: ['..--..', '..||..', '..||..', 'wwwwww']
+      }
+    ],
+    etapes: [
+      'Coupez la berge à la verticale et montez un quai en briques de pierre, à 1 bloc au-dessus du niveau de l\'eau.',
+      'Avancez les pontons sur l\'eau : un tablier de dalles de bois porté par des clôtures qui descendent jusqu\'au fond.',
+      'Laissez un couloir d\'eau de 4 blocs entre les pontons : c\'est la largeur minimale pour manœuvrer un bateau confortablement.',
+      'Posez des bornes d\'amarrage (clôtures ou rondins) tous les 3 blocs, et une lanterne au bout de chaque ponton.',
+      'Construisez l\'entrepôt en retrait du quai, porte face à l\'eau, avec coffres et tonneaux étiquetés par cadres d\'objet.',
+      'Prévoyez un bateau-coffre amarré en permanence : c\'est votre moyen de transport de masse pour les expéditions.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Un panneau posé sur le côté d\'un bloc immergé crée une poche d\'air : c\'est la façon la plus simple de faire un accès sous-marin depuis le quai.' }
+    ]
+  },
+  {
+    id: 'statue', nom: 'Statue monumentale — creeper 20 blocs', cat: 'ville',
+    taille: '8 × 8 × 20', diff: 'Intermédiaire',
+    desc: 'Un repère visible de très loin. Le principe vaut pour n\'importe quelle statue : on travaille en élévation (vue de face), pas en couches horizontales.',
+    mats: ['≈700 blocs verts (mousse, béton vert, feuillage compact)', '≈80 blocs sombres (deepslate, béton noir) pour le visage', 'Échafaudages en quantité', 'Optionnel : blocs lumineux dans les yeux'],
+    couches: [
+      {
+        t: 'Vue de face · tête (8 × 8)',
+        g: ['NNNNNNNN', 'NnnNNnnN', 'NnnNNnnN', 'NNNnnNNN', 'NNnnnnNN', 'NNnNNnNN', 'NNNNNNNN', 'NNNNNNNN']
+      },
+      {
+        t: 'Vue de face · corps (8 × 8)',
+        g: ['NNNNNNNN', 'NNNNNNNN', 'NNNNNNNN', 'NNNNNNNN', 'NNNNNNNN', 'NNNNNNNN', 'NNNNNNNN', 'NNNNNNNN']
+      },
+      {
+        t: 'Vue de face · pattes (8 × 4)',
+        g: ['NN....NN', 'NN....NN', 'NN....NN', 'NN....NN']
+      },
+      {
+        t: 'Vue de dessus · emprise des pattes',
+        g: ['NN....NN', 'NN....NN', '........', '........', '........', '........', 'NN....NN', 'NN....NN']
+      }
+    ],
+    etapes: [
+      'Montez d\'abord les quatre pattes : deux carrés de 2 × 2 à l\'avant, deux à l\'arrière, sur 4 blocs de haut.',
+      'Posez le corps par-dessus : un pavé plein de 8 × 4 × 8 (le creeper est plus mince de profil que de face).',
+      'La tête est un cube plein de 8 × 8 × 8 posé directement sur le corps, sans cou.',
+      'Creusez le visage en dernier, sur la face avant uniquement : deux yeux carrés de 2 × 2 et la bouche en U.',
+      'Encastrez des blocs lumineux au fond des yeux : la nuit, la statue devient un repère visible à des centaines de blocs.',
+      'Reculez régulièrement pendant le chantier. Une statue se juge de loin, jamais depuis l\'échafaudage.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Méthode générale — pour n\'importe quelle statue, dessinez d\'abord la silhouette de face en un seul plan de blocs, puis « épaississez » vers l\'arrière. Sculpter directement en volume mène presque toujours à des proportions ratées.' }
+    ]
+  },
+
+  /* ================= TECHNIQUE — SUITE ================= */
+  {
+    id: 'mine', nom: 'Mine aménagée (branch mining à Y −59)', cat: 'technique',
+    taille: 'Extensible', diff: 'Débutant',
+    desc: 'La méthode de minage la plus efficace du jeu : un tunnel principal, des branches tous les 3 blocs. Cette trame expose le maximum de blocs pour le minimum de coups de pioche.',
+    mats: ['Pioche en fer ou mieux, avec Efficacité et Solidité', '≈2 piles de torches', 'Coffres et fourneaux au point d\'entrée', 'Seau d\'eau (lave), échelles ou échafaudages', 'Nourriture et un lit de secours'],
+    couches: [
+      {
+        t: 'Plan de dessus · trame de minage',
+        g: [
+          'ccccccccccccccccc',
+          'c...............c',
+          'c...*.......*...c',
+          'ccc.ccc.ccc.ccc.c',
+          'c.c.c.c.c.c.c.c.c',
+          'c.c.c.c.c.c.c.c.c',
+          'c.c.c.c.c.c.c.c.c',
+          'c.c.c.c.c.c.c.c.c'
+        ]
+      },
+      {
+        t: 'Vue de côté · accès en escalier',
+        g: ['e*.......', 'cc/......', 'ccc/.....', 'cccc/....', 'ccccc/...', 'cccccc/..', 'ccccccc*.']
+      }
+    ],
+    etapes: [
+      'Descendez à Y = −59 : c\'est le pic exact du diamant ET de la redstone. Un escalier à 45° est plus sûr qu\'un puits vertical.',
+      'Creusez le tunnel principal sur 2 blocs de haut et 2 de large, en posant une torche tous les 8 blocs (à droite uniquement : c\'est votre boussole pour le retour).',
+      'Ouvrez des branches perpendiculaires d\'un bloc de large, espacées de 3 blocs. Cet espacement expose toutes les veines de 2 blocs ou plus.',
+      'Avancez chaque branche sur 20 à 30 blocs, puis revenez. Au-delà, le trajet de retour coûte plus que ce que la branche rapporte.',
+      'Bouchez systématiquement la lave que vous croisez avec un bloc : une seule coulée peut détruire toute une session de butin.',
+      'Installez un « camp de base » tous les 100 blocs : coffre, four, établi, lit. Vous minez plus longtemps sans remonter.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Torches à droite — posez toujours vos torches du même côté en descendant. Au retour, elles sont à votre gauche : impossible de se perdre, même dans un réseau de 40 branches.' },
+      { type: 'info', txt: 'Explorer une grotte profonde ou une cité antique rapporte souvent plus de diamants qu\'un tunnel, car depuis la 1.18 le diamant est plus fréquent quand il est exposé à l\'air.' }
+    ]
+  },
+  {
+    id: 'sous-marine', nom: 'Base sous-marine — dôme de verre 13 × 13', cat: 'technique',
+    taille: '13 × 13 × 8', diff: 'Avancé',
+    desc: 'Une bulle d\'air au fond de l\'océan. Le chantier est difficile (respiration, vision, courants) mais le résultat est l\'une des constructions les plus spectaculaires du jeu.',
+    mats: ['≈400 blocs de verre (400 sables à cuire)', '≈150 briques de pierre ou prismarine (base)', '2 à 4 éponges (monument océanique)', '1 conduit (8 coquillages nautiles + 1 cœur de la mer)', 'Potions de Respiration aquatique + Vision nocturne', 'Portes en fer + sas'],
+    couches: [
+      {
+        t: 'Y+0 · plancher (cercle Ø 13)',
+        g: ['....ccccc....', '..ccccccccc..', '.ccccccccccc.', '.ccccccccccc.', 'ccccccccccccc', 'ccccccccccccc', 'ccccccccccccc', 'ccccccccccccc', 'ccccccccccccc', '.ccccccccccc.', '.ccccccccccc.', '..ccccccccc..', '....ccccc....']
+      },
+      {
+        t: 'Y+1 → Y+4 · paroi vitrée (à répéter)',
+        g: ['....ggggg....', '..gg.....gg..', '.g.........g.', '.g.........g.', 'g...........g', 'g...........g', 'g...........g', 'g...........g', 'g...........g', '.g.........g.', '.g.........g.', '..gg.....gg..', '....ggggg....']
+      },
+      {
+        t: 'Y+5 · dôme (Ø 9)',
+        g: ['...ggg...', '.gg...gg.', '.g.....g.', 'g.......g', 'g.......g', 'g.......g', '.g.....g.', '.gg...gg.', '...ggg...']
+      },
+      {
+        t: 'Y+6 · dôme (Ø 5)',
+        g: ['.ggg.', 'g...g', 'g...g', 'g...g', '.ggg.']
+      },
+      {
+        t: 'Y+7 · sommet',
+        g: ['ggg', 'ggg', 'ggg']
+      }
+    ],
+    etapes: [
+      'Posez d\'abord le conduit dans un cadre de prismarine au-dessus du chantier : il donne respiration, vision nocturne et vitesse de minage dans un rayon de 96 blocs. Sans lui, le chantier est un calvaire.',
+      'Tracez le cercle du plancher au fond de l\'océan et remblayez tout l\'intérieur.',
+      'Montez la paroi vitrée anneau par anneau. Ne videz PAS l\'eau au fur et à mesure : construisez d\'abord l\'enveloppe complète.',
+      'Fermez le dôme par le haut en réduisant le diamètre à chaque niveau (13 → 9 → 5 → 3).',
+      'Videz l\'intérieur à l\'éponge : une éponge absorbe l\'eau dans un rayon de 7 blocs, puis se sèche au four pour être réutilisée.',
+      'Percez l\'entrée en dernier : un sas de deux portes en fer, ou une colonne d\'ascenseur à bulles montant vers la surface.',
+      'Éclairez avec des lanternes marines : elles sont thématiques et donnent le niveau de lumière 15.'
+    ],
+    notes: [
+      { type: 'warn', txt: 'Sans éponge, ce chantier est presque impossible. Videz un monument océanique en premier : vous y trouverez la salle aux éponges ET les blocs de prismarine.' },
+      { type: 'tip', txt: 'Le panneau qui bloque l\'eau — posé sur la face d\'un bloc, un panneau retient l\'eau. C\'est la solution d\'urgence pour créer une poche d\'air quand vous manquez d\'oxygène en plein chantier.' }
+    ]
+  },
+  {
+    id: 'base-nether', nom: 'Fort du Nether — base fortifiée 15 × 15', cat: 'technique',
+    taille: '15 × 15 × 6', diff: 'Avancé',
+    desc: 'Un avant-poste autour de votre portail, à l\'épreuve des ghasts et des piglins. C\'est la tête de pont indispensable si vous comptez exploiter le Nether sérieusement.',
+    mats: ['≈600 briques du Nether ou blocs de pierre (résistants aux boules de feu)', '10 à 14 blocs d\'obsidienne (portail)', '≈30 barreaux de fer (meurtrières anti-ghast)', '4 portes en fer + plaques de pression', 'Lanternes des âmes (elles repoussent les piglins)'],
+    couches: [
+      {
+        t: 'Y+0 · plan de masse',
+        g: [
+          'rrrrrrrrrrrrrrr',
+          'r.............r',
+          'r.............r',
+          'r.............r',
+          'r...rrrrrrr...r',
+          'r...r.....r...r',
+          'r...r.OOO.r...r',
+          'r...r.O^O.r...r',
+          'r...r.OOO.r...r',
+          'r...r.....r...r',
+          'r...rrr>rrr...r',
+          'r.............r',
+          'r.............r',
+          'r.............r',
+          'rrrrrr>rrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+4 · toit fermé (obligatoire)',
+        g: [
+          'rrrrrrrrrrrrrrr',
+          'rrrrrrrrrrrrrrr',
+          'rrrrrrrrrrrrrrr',
+          'rrrrrrrrrrrrrrr',
+          'rrrrrrrrrrrrrrr',
+          'rrrrrrrrrrrrrrr',
+          'rrrrrrrrrrrrrrr',
+          'rrrrrrrrrrrrrrr',
+          'rrrrrrrrrrrrrrr',
+          'rrrrrrrrrrrrrrr',
+          'rrrrrrrrrrrrrrr',
+          'rrrrrrrrrrrrrrr',
+          'rrrrrrrrrrrrrrr',
+          'rrrrrrrrrrrrrrr',
+          'rrrrrrrrrrrrrrr'
+        ]
+      }
+    ],
+    etapes: [
+      'Allumez d\'abord le portail, puis emmurez-le immédiatement : c\'est le moment le plus dangereux, les zombies-piglins traversent dès l\'allumage.',
+      'Construisez la salle du portail en briques du Nether : contrairement au netherrack, elles résistent aux boules de feu des ghasts.',
+      'Fermez la salle avec une porte en fer et une plaque de pression : aucun mob ne peut l\'ouvrir.',
+      'Montez l\'enceinte extérieure de 15 × 15 à 4 blocs de haut, avec des meurtrières en barreaux de fer pour tirer sans être exposé.',
+      'Couvrez INTÉGRALEMENT le toit. Un fort à ciel ouvert dans le Nether se fait bombarder par les ghasts en quelques minutes.',
+      'Installez à l\'intérieur : coffres, fours, établi, un lit décoratif (ne dormez jamais dedans, il explose) et un point de départ de tunnel.',
+      'Notez les coordonnées sur un panneau, des deux côtés du portail. Rappel : coordonnées Surworld ÷ 8 = coordonnées Nether.'
+    ],
+    notes: [
+      { type: 'danger', txt: 'Jamais de lit dans le Nether — il explose violemment. En revanche, cette explosion est la méthode standard pour miner les débris antiques : posez le lit, reculez, faites-le exploser à distance.' },
+      { type: 'tip', txt: 'Portez une pièce d\'armure en or en permanence : les piglins vous ignoreront. Mais n\'ouvrez jamais un coffre ni ne minez d\'or devant eux — cela les rend hostiles quoi qu\'il arrive.' }
     ]
   }
 ];

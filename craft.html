@@ -17,18 +17,21 @@
     </a>
     <nav class="nav">
       <a href="index.html">Accueil</a>
-      <a href="drops.html">Drops &amp; lieux</a>
+      <a href="drops.html">Drops</a>
       <a href="craft.html">Artisanat</a>
+      <a href="potions.html">Potions</a>
+      <a href="biomes.html">Biomes</a>
       <a href="plans.html">Plans</a>
       <a href="usines.html">Usines</a>
     </nav>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
   </div>
 </header>
 
 <main class="wrap">
 
   <div class="hero">
-    <span class="eyebrow">Catalogue 2 / 4</span>
+    <span class="eyebrow">Catalogue 2 / 6</span>
     <h1>Artisanat</h1>
     <p>La grille est dessinée telle qu'elle doit apparaître dans l'établi. Survolez une case pour lire le nom de l'ingrédient.
       Les recettes <b>sans forme</b> (livre, lingot de netherite…) acceptent n'importe quelle disposition.</p>
@@ -41,9 +44,11 @@
     </div>
     <div class="toolbar-row" id="chips" style="margin-top:10px">
       <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="fav">★ Favoris</button>
       <button class="chip" data-cat="base">Survie de base</button>
       <button class="chip" data-cat="outil">Outils &amp; armes</button>
       <button class="chip" data-cat="armure">Armures</button>
+      <button class="chip" data-cat="bloc">Blocs de construction</button>
       <button class="chip" data-cat="redstone">Redstone</button>
       <button class="chip" data-cat="station">Postes de travail</button>
       <button class="chip" data-cat="nourriture">Nourriture</button>
@@ -53,7 +58,7 @@
     </div>
   </div>
 
-  <section style="margin-bottom:20px">
+  <section class="print-host" style="margin-bottom:20px">
     <div id="liste" class="grid g2"></div>
     <div id="vide" class="empty" style="display:none">Aucune recette trouvée. Essayez « piston », « balise », « enclume », « fusée »…</div>
   </section>

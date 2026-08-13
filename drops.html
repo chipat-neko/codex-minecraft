@@ -17,18 +17,21 @@
     </a>
     <nav class="nav">
       <a href="index.html">Accueil</a>
-      <a href="drops.html">Drops &amp; lieux</a>
+      <a href="drops.html">Drops</a>
       <a href="craft.html">Artisanat</a>
+      <a href="potions.html">Potions</a>
+      <a href="biomes.html">Biomes</a>
       <a href="plans.html">Plans</a>
       <a href="usines.html">Usines</a>
     </nav>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
   </div>
 </header>
 
 <main class="wrap">
 
   <div class="hero">
-    <span class="eyebrow">Catalogue 1 / 4</span>
+    <span class="eyebrow">Catalogue 1 / 6</span>
     <h1>Drops &amp; lieux d'apparition</h1>
     <p>Pour chaque monstre, animal, minerai et structure : <b>ce qui tombe</b>, <b>en quelle quantité</b> et
       <b>exactement où le chercher</b>. Les taux sont donnés en difficulté Normale, sans enchantement.</p>
@@ -41,6 +44,7 @@
     </div>
     <div class="toolbar-row" id="chips" style="margin-top:10px">
       <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="fav">★ Favoris</button>
       <button class="chip" data-cat="hostile">Monstres · Surworld</button>
       <button class="chip" data-cat="nether">Nether</button>
       <button class="chip" data-cat="end">End</button>
@@ -51,7 +55,7 @@
     </div>
   </div>
 
-  <section id="fiches" style="margin-bottom:20px">
+  <section id="fiches" class="print-host" style="margin-bottom:20px">
     <div id="liste" class="grid g2"></div>
     <div id="vide" class="empty" style="display:none">Aucun résultat. Essayez « diamant », « totem », « élytre », « poudre à canon »…</div>
   </section>

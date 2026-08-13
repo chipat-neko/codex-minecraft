@@ -17,18 +17,21 @@
     </a>
     <nav class="nav">
       <a href="index.html">Accueil</a>
-      <a href="drops.html">Drops &amp; lieux</a>
+      <a href="drops.html">Drops</a>
       <a href="craft.html">Artisanat</a>
+      <a href="potions.html">Potions</a>
+      <a href="biomes.html">Biomes</a>
       <a href="plans.html">Plans</a>
       <a href="usines.html">Usines</a>
     </nav>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
   </div>
 </header>
 
 <main class="wrap">
 
   <div class="hero">
-    <span class="eyebrow">Catalogue 3 / 4</span>
+    <span class="eyebrow">Catalogue 5 / 6</span>
     <h1>Plans de construction</h1>
     <p>Chaque plan est vu <b>de dessus, couche par couche</b> : une case = un bloc, les hachures = du vide.
       Survolez une case pour lire le nom du bloc, ou lisez la légende sous chaque plan.</p>
@@ -42,16 +45,23 @@
     </div>
     <div class="toolbar-row" id="chips" style="margin-top:10px">
       <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="fav">★ Favoris</button>
       <button class="chip" data-cat="maison">Habitations</button>
       <button class="chip" data-cat="chateau">Châteaux</button>
+      <button class="chip" data-cat="ville">Village &amp; ouvrages</button>
       <button class="chip" data-cat="ferme">Agricole</button>
       <button class="chip" data-cat="technique">Bâtiments techniques</button>
     </div>
   </div>
 
-  <section style="margin-bottom:20px">
-    <div id="liste"></div>
-    <div id="vide" class="empty" style="display:none">Aucun plan trouvé. Essayez « château », « ferme », « portail », « enchantement »…</div>
+  <section class="print-host" style="margin-bottom:20px">
+    <div class="layout-toc">
+      <aside id="toc" class="toc-side"></aside>
+      <div>
+        <div id="liste"></div>
+        <div id="vide" class="empty" style="display:none">Aucun plan trouvé. Essayez « château », « ferme », « portail », « enchantement »…</div>
+      </div>
+    </div>
   </section>
 
   <hr>
@@ -134,7 +144,9 @@
 <script>
 (function () {
   var liste = document.getElementById('liste');
-  for (var i = 0; i < PLANS.length; i++) { liste.appendChild(renderBlueprint(PLANS[i])); }
+  var ordonnes = sortByCat(PLANS, GROUPES_PLANS);
+  for (var i = 0; i < ordonnes.length; i++) { liste.appendChild(renderBlueprint(ordonnes[i])); }
+  buildToc('toc', PLANS, GROUPES_PLANS);
   setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
 
   /* Ouvre directement le plan visé par l'ancre (#chateau, #abri…) */

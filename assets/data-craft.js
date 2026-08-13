@@ -42,7 +42,26 @@
   tnt:        { n: 'TNT',                     c: '#c8382c', t: 'TN' },
   seau:       { n: 'Seau',                    c: '#c8c8c8', t: 'SE' },
   oeil:       { n: 'Œil de l\'Ender',         c: '#1c9a7e', t: 'ŒE' },
-  carapace:   { n: 'Carapace de shulker',     c: '#9a6ab0', t: 'CS' }
+  carapace:   { n: 'Carapace de shulker',     c: '#9a6ab0', t: 'CS' },
+  glowstone:  { n: 'Pierre lumineuse',        c: '#e8c46a', t: 'PM' },
+  poudreLum:  { n: 'Poudre lumineuse',        c: '#f0dca0', t: 'PL' },
+  tesson:     { n: 'Tesson de poterie',       c: '#b0714e', t: 'TP' },
+  foin:       { n: 'Bloc de foin',            c: '#c8a83c', t: 'FN' },
+  encreLum:   { n: 'Sac d\'encre luisant',    c: '#4fd6c0', t: 'EL' },
+  torcheA:    { n: 'Torche des âmes',         c: '#4fd6e0', t: 'TÂ' },
+  bloc:       { n: 'Bloc au choix (pierre, bois, grès…)', c: '#7f8c9b', t: 'BL' },
+  dalleP:     { n: 'Dalle de pierre lisse',   c: '#9a9a9a', t: 'DP' },
+  boussole:   { n: 'Boussole',                c: '#c05050', t: 'BS' },
+  cadre:      { n: 'Cadre d\'objet',          c: '#a9743f', t: 'CA' },
+  fleurR:     { n: 'Fleur (coquelicot, rose…)', c: '#d43a3a', t: 'FL' },
+  charbonB:   { n: 'Bloc de charbon',         c: '#1c1c20', t: 'BC' },
+  ressource:  { n: 'Ressource (fer, or, diamant…)', c: '#c8c8c8', t: 'RE' },
+  banniere:   { n: 'Bannière',                c: '#8c2b2b', t: 'BN' },
+  bouclier:   { n: 'Bouclier',                c: '#7a6a4a', t: 'BO' },
+  citrouilleB:{ n: 'Citrouille (entière)',    c: '#d97a20', t: 'CI' },
+  disque:     { n: 'Disque de musique',       c: '#2a2a30', t: 'DM' },
+  lapinC:     { n: 'Lapin cuit',              c: '#b06a4a', t: 'LC' },
+  patate:     { n: 'Pomme de terre cuite',    c: '#d0a860', t: 'PT' }
 }));
 
 var RECETTES = [
@@ -573,5 +592,269 @@ var RECETTES = [
     sortie: 'Verre', sortieItem: 'verre',
     grille: ['S'], legende: { S: 'sable' },
     desc: 'Cuisson au four. 6 verres → 16 vitres. Le verre teinté (verre + colorant) ne se transforme pas en vitre.'
+  },
+
+  /* =========== BLOCS DE CONSTRUCTION =========== */
+  {
+    nom: 'Escaliers', cat: 'bloc', qte: 4,
+    sortie: 'Escaliers',
+    grille: ['B  ', 'BB ', 'BBB'], legende: { B: 'bloc' },
+    desc: '6 blocs donnent 4 escaliers — une perte de 33 %. Passez par le tailleur de pierre : 1 bloc = 1 escalier, sans perte.'
+  },
+  {
+    nom: 'Dalles', cat: 'bloc', qte: 6,
+    sortie: 'Dalles',
+    grille: ['BBB'], legende: { B: 'bloc' },
+    desc: 'Une dalle inférieure empêche toute apparition de monstre : c\'est le moyen le moins cher de sécuriser une grande surface.'
+  },
+  {
+    nom: 'Muret', cat: 'bloc', qte: 6,
+    sortie: 'Muret',
+    grille: ['BBB', 'BBB'], legende: { B: 'bloc' },
+    desc: 'Le muret compte pour 1,5 bloc de hauteur, comme une clôture. Indispensable pour les créneaux et les balustrades.'
+  },
+  {
+    nom: 'Briques de pierre', cat: 'bloc', qte: 4,
+    sortie: 'Briques de pierre',
+    grille: ['SS', 'SS'], legende: { S: 'pierre' },
+    desc: '4 pierres (pas du cobblestone : il faut la cuire d\'abord). Le matériau de référence des châteaux et des donjons.'
+  },
+  {
+    nom: 'Bloc de briques', cat: 'bloc', qte: 1,
+    sortie: 'Bloc de briques',
+    grille: ['RR', 'RR'], legende: { R: 'brique' },
+    desc: 'La brique s\'obtient en cuisant une boule d\'argile. Comptez 4 briques par bloc : une cheminée en consomme vite plusieurs piles.'
+  },
+  {
+    nom: 'Bloc compact (fer, or, diamant…)', cat: 'bloc', qte: 1,
+    sortie: 'Bloc de ressource',
+    grille: ['RRR', 'RRR', 'RRR'], legende: { R: 'ressource' },
+    desc: '9 unités → 1 bloc, et l\'inverse rend les 9 unités. Vaut pour fer, or, cuivre, diamant, émeraude, redstone, lapis, charbon, netherite, améthyste et slime.'
+  },
+  {
+    nom: 'Bloc de foin', cat: 'bloc', qte: 1,
+    sortie: 'Bloc de foin', sortieItem: 'foin',
+    grille: ['WWW', 'WWW', 'WWW'], legende: { W: 'ble' },
+    desc: '9 blés. Sert au stockage compact, à nourrir chevaux et lamas, et amortit totalement les chutes (avec 1 bloc d\'eau dessus).'
+  },
+  {
+    nom: 'Bloc de laine', cat: 'bloc', qte: 1,
+    sortie: 'Laine', sortieItem: 'laine',
+    grille: ['FF', 'FF'], legende: { F: 'ficelle' },
+    desc: '4 ficelles. Utile quand une ferme à araignées produit plus de ficelle que vous n\'avez de moutons.'
+  },
+  {
+    nom: 'Tapis', cat: 'bloc', qte: 3,
+    sortie: 'Tapis',
+    grille: ['LL'], legende: { L: 'laine' },
+    desc: 'Posé sur un bloc lumineux, il masque la source de lumière : c\'est l\'astuce d\'éclairage invisible des constructeurs.'
+  },
+  {
+    nom: 'Barreaux de fer', cat: 'bloc', qte: 16,
+    sortie: 'Barreaux de fer',
+    grille: ['FFF', 'FFF'], legende: { F: 'fer' },
+    desc: '6 lingots pour 16 barreaux. Fenêtres de donjon, cages, herses de châtelet.'
+  },
+  {
+    nom: 'Verre teinté', cat: 'bloc', qte: 8,
+    sortie: 'Verre teinté',
+    grille: ['GGG', 'GCG', 'GGG'], legende: { G: 'verre', C: 'colorant' },
+    desc: '8 verres + 1 colorant. Le verre teinté ne se transforme pas en vitre — pensez-y avant de tout teindre.'
+  },
+  {
+    nom: 'Pierre lumineuse', cat: 'bloc', qte: 1,
+    sortie: 'Pierre lumineuse', sortieItem: 'glowstone',
+    grille: ['PP', 'PP'], legende: { P: 'poudreLum' },
+    desc: '4 poudres lumineuses (Nether ou sorcières). Lumière 15, et composant de la lampe de redstone.'
+  },
+
+  /* =========== ÉCLAIRAGE & DÉCORATION =========== */
+  {
+    nom: 'Lampe de redstone', cat: 'redstone', qte: 1,
+    sortie: 'Lampe de redstone', tagCls: 'red',
+    grille: [' R ', 'RGR', ' R '], legende: { R: 'redstone', G: 'glowstone' },
+    desc: '4 poudres de redstone + 1 pierre lumineuse. Le seul éclairage commutable du jeu.'
+  },
+  {
+    nom: 'Torche des âmes', cat: 'deco', qte: 4,
+    sortie: 'Torche des âmes', sortieItem: 'torcheA',
+    grille: ['C', 'B', 'A'], legende: { C: 'charbon', B: 'baton', A: 'ame' },
+    desc: 'Charbon + bâton + sable des âmes. Lumière bleue de niveau 10 — et elle repousse les piglins.'
+  },
+  {
+    nom: 'Feu de camp', cat: 'deco', qte: 1,
+    sortie: 'Feu de camp',
+    grille: [' B ', 'BCB', 'OOO'], legende: { B: 'baton', C: 'charbon', O: 'bois' },
+    desc: '3 bâtons + 1 charbon + 3 bûches. Cuit 4 aliments sans carburant, éclaire (15), et sa fumée calme les abeilles.'
+  },
+  {
+    nom: 'Citrouille-lanterne', cat: 'deco', qte: 1,
+    sortie: 'Citrouille-lanterne',
+    grille: ['C', 'T'], legende: { C: 'citrouille', T: 'torche' },
+    desc: 'Citrouille sculptée + torche. Lumière 15 et posable sous l\'eau : très utile pour éclairer un chantier sous-marin.'
+  },
+  {
+    nom: 'Pot de fleurs', cat: 'deco', qte: 1,
+    sortie: 'Pot de fleurs',
+    grille: ['R R', ' R '], legende: { R: 'brique' },
+    desc: '3 briques. Accepte fleurs, pousses, champignons, cactus et bambou : le détail qui rend un intérieur habité.'
+  },
+  {
+    nom: 'Support à armure', cat: 'deco', qte: 1,
+    sortie: 'Support à armure',
+    grille: ['BBB', ' B ', 'BDB'], legende: { B: 'baton', D: 'dalleP' },
+    desc: '6 bâtons + 1 dalle de pierre lisse. Range une armure, sert de mannequin décoratif et de repère de construction.'
+  },
+  {
+    nom: 'Pot décoré', cat: 'deco', qte: 1,
+    sortie: 'Pot décoré',
+    grille: [' T ', 'T T', ' T '], legende: { T: 'tesson' },
+    desc: '4 tessons de poterie (fouilles archéologiques) ou 4 briques. Chaque face garde le motif du tesson utilisé.'
+  },
+  {
+    nom: 'Cadre lumineux', cat: 'deco', qte: 1,
+    sortie: 'Cadre lumineux',
+    grille: ['CE'], legende: { C: 'cadre', E: 'encreLum' },
+    desc: 'Cadre d\'objet + sac d\'encre luisant (calmar luisant). L\'objet exposé reste visible dans le noir.'
+  },
+  {
+    nom: 'Jukebox', cat: 'deco', qte: 1,
+    sortie: 'Jukebox',
+    grille: ['PPP', 'PDP', 'PPP'], legende: { P: 'planche', D: 'diamant' },
+    desc: '8 planches + 1 diamant. Lit les disques ; un comparateur derrière lui indique quel disque est en lecture.'
+  },
+  {
+    nom: 'Bloc de note', cat: 'deco', qte: 1,
+    sortie: 'Bloc de note',
+    grille: ['PPP', 'PRP', 'PPP'], legende: { P: 'planche', R: 'redstone' },
+    desc: 'Le bloc placé DESSOUS détermine l\'instrument (bois = basse, pierre = batterie, or = cloche, laine = guitare…).'
+  },
+  {
+    nom: 'Bouclier orné', cat: 'deco', qte: 1,
+    sortie: 'Bouclier orné',
+    grille: ['NB'], legende: { N: 'banniere', B: 'bouclier' },
+    desc: 'Bannière + bouclier à l\'établi : le motif de la bannière s\'applique au bouclier. Purement esthétique, mais spectaculaire.'
+  },
+  {
+    nom: 'Panneau', cat: 'deco', qte: 3,
+    sortie: 'Panneau',
+    grille: ['PPP', 'PPP', ' B '], legende: { P: 'planche', B: 'baton' },
+    desc: '6 planches + 1 bâton. Un panneau bloque l\'eau : c\'est l\'astuce de base pour créer des poches d\'air sous-marines.'
+  },
+
+  /* =========== REDSTONE — COMPLÉMENTS =========== */
+  {
+    nom: 'Détecteur de lumière du jour', cat: 'redstone', qte: 1,
+    sortie: 'Détecteur de lumière', tagCls: 'red',
+    grille: ['GGG', 'QQQ', 'DDD'], legende: { G: 'verre', Q: 'quartz', D: 'dalle' },
+    desc: 'Signal proportionnel à la lumière du soleil. Un clic droit l\'inverse : il devient un détecteur de nuit, idéal pour l\'éclairage automatique.'
+  },
+  {
+    nom: 'Rail détecteur', cat: 'redstone', qte: 6,
+    sortie: 'Rail détecteur',
+    grille: ['F F', 'FPF', 'FRF'], legende: { F: 'fer', P: 'plaque', R: 'redstone' },
+    desc: 'Émet un signal au passage d\'un wagonnet. Avec un comparateur, il lit même le contenu d\'un wagonnet-coffre.'
+  },
+  {
+    nom: 'Rail activateur', cat: 'redstone', qte: 6,
+    sortie: 'Rail activateur',
+    grille: ['OBO', 'OTO', 'OBO'], legende: { O: 'fer', B: 'baton', T: 'torcheR' },
+    desc: 'Éjecte le passager d\'un wagonnet ou amorce un wagonnet-TNT. Le composant des stations automatiques.'
+  },
+  {
+    nom: 'Cible (target)', cat: 'redstone', qte: 1,
+    sortie: 'Cible', tagCls: 'red',
+    grille: [' H ', 'HRH', ' H '], legende: { H: 'foin', R: 'redstone' },
+    desc: '4 blocs de foin + 1 redstone. Émet un signal d\'autant plus fort que la flèche touche près du centre : la base des portes à tir.'
+  },
+  {
+    nom: 'Crochet de détente', cat: 'redstone', qte: 1,
+    sortie: 'Crochet de détente',
+    grille: [' F ', ' B ', ' P '], legende: { F: 'fer', B: 'baton', P: 'planche' },
+    desc: 'Deux crochets reliés par de la ficelle forment un fil de détente : le déclencheur invisible des pièges et des portes secrètes.'
+  },
+  {
+    nom: 'Wagonnet-coffre', cat: 'transport', qte: 1,
+    sortie: 'Wagonnet-coffre',
+    grille: ['C', 'W'], legende: { C: 'coffre', W: 'fer' },
+    desc: 'Coffre + wagonnet. Transporte 27 emplacements sur rails ; un rail détecteur + comparateur permet de le décharger automatiquement.'
+  },
+
+  /* =========== TEINTURES & COULEURS =========== */
+  {
+    nom: 'Colorant à partir d\'une fleur', cat: 'deco', qte: 1,
+    sortie: 'Colorant',
+    grille: ['F'], legende: { F: 'fleurR' },
+    desc: 'Chaque fleur donne son colorant : coquelicot → rouge, pissenlit → jaune, bleuet → bleu clair, orchidée → rose pâle. Les grandes fleurs en donnent 2.'
+  },
+  {
+    nom: 'Colorants de base (sans fleur)', cat: 'deco', qte: 1,
+    sortie: 'Colorant', sortieItem: 'colorant',
+    grille: ['O'], legende: { O: 'os' },
+    desc: 'Blanc = poudre d\'os · Noir = poche d\'encre · Bleu = lapis · Vert = cactus cuit au four · Marron = fève de cacao · Rouge = coquelicot ou betterave.'
+  },
+  {
+    nom: 'Mélange de colorants', cat: 'deco', qte: 2,
+    sortie: 'Colorant secondaire',
+    grille: ['CC'], legende: { C: 'colorant' },
+    desc: 'Rouge + jaune = orange · Rouge + blanc = rose · Bleu + vert = cyan · Bleu + rouge = violet · Noir + blanc = gris. Les 16 couleurs se déduisent de 6 colorants de base.'
+  },
+  {
+    nom: 'Béton (durcissement)', cat: 'bloc', qte: 1,
+    sortie: 'Béton',
+    grille: ['W'], legende: { W: 'sable' },
+    desc: 'Pas un craft : jetez la poudre de béton dans l\'eau ou versez-y un seau. Elle durcit instantanément. Un bloc de béton durci ne se re-teinte plus.'
+  },
+
+  /* =========== NOURRITURE — COMPLÉMENTS =========== */
+  {
+    nom: 'Ragoût de lapin', cat: 'nourriture', qte: 1,
+    sortie: 'Ragoût de lapin',
+    grille: [' L ', 'CPM', ' B '], legende: { L: 'lapinC', C: 'carotte', P: 'patate', M: 'champi', B: 'bol' },
+    desc: 'Lapin cuit + carotte + pomme de terre cuite + champignon + bol. L\'un des aliments les plus nourrissants, mais coûteux en ingrédients.'
+  },
+  {
+    nom: 'Tarte à la citrouille', cat: 'nourriture', qte: 1,
+    sortie: 'Tarte à la citrouille',
+    grille: ['CSE'], legende: { C: 'citrouilleB', S: 'sucre', E: 'oeuf' },
+    desc: '1 citrouille + 1 sucre + 1 œuf. Bien plus rentable que le gâteau : aucun seau de lait, et elle se mange à la main.'
+  },
+  {
+    nom: 'Pomme dorée enchantée (recette supprimée)', cat: 'nourriture', station: 'Ne se craft plus', qte: 1,
+    sortie: 'Pomme dorée enchantée', tagCls: 'red',
+    grille: ['BBB', 'BAB', 'BBB'], legende: { B: 'orB', A: 'pomme' },
+    desc: 'La recette (8 blocs d\'or + 1 pomme) a été RETIRÉE du jeu. Elle ne se trouve plus que dans les coffres : bastions, manoirs, temples, portails ruinés, mines.'
+  },
+
+  /* =========== OBJETS UTILITAIRES =========== */
+  {
+    nom: 'Carte vierge', cat: 'transport', qte: 1,
+    sortie: 'Carte vierge',
+    grille: ['PPP', 'PBP', 'PPP'], legende: { P: 'papier', B: 'boussole' },
+    desc: '8 papiers + 1 boussole. Sans boussole, la carte existe mais n\'affiche pas votre position. À agrandir à la table de cartographie.'
+  },
+  {
+    nom: 'Livre et plume', cat: 'transport', qte: 1,
+    sortie: 'Livre et plume',
+    grille: ['LUE'], legende: { L: 'livre', U: 'plume', E: 'encre' },
+    desc: 'Livre + plume + poche d\'encre. Permet d\'écrire un journal de coordonnées — bien plus fiable que la mémoire.'
+  },
+  {
+    nom: 'Longe (laisse)', cat: 'transport', qte: 2,
+    sortie: 'Longe',
+    grille: ['FF ', 'FS ', '  F'], legende: { F: 'ficelle', S: 'slime' },
+    desc: '4 ficelles + 1 boule de slime. Attache les animaux à un piquet de clôture : le seul moyen simple de déplacer un troupeau.'
+  },
+  {
+    nom: 'Cisaille à citrouille', cat: 'transport', station: 'Clic droit', qte: 1,
+    sortie: 'Citrouille sculptée', sortieItem: 'citrouille',
+    grille: ['C'], legende: { C: 'citrouilleB' },
+    desc: 'Pas un craft : clic droit avec une cisaille sur une citrouille posée. Elle donne 4 pépins et devient sculptée — nécessaire aux golems.'
+  },
+  {
+    nom: 'Bloc de charbon', cat: 'bloc', qte: 1,
+    sortie: 'Bloc de charbon', sortieItem: 'charbonB',
+    grille: ['CCC', 'CCC', 'CCC'], legende: { C: 'charbon' },
+    desc: '9 charbons. Comme carburant, il cuit 80 objets contre 72 pour 9 charbons séparés : un léger gain, et surtout un stockage 9 fois plus compact.'
   }
 ];

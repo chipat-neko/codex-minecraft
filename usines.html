@@ -17,18 +17,21 @@
     </a>
     <nav class="nav">
       <a href="index.html">Accueil</a>
-      <a href="drops.html">Drops &amp; lieux</a>
+      <a href="drops.html">Drops</a>
       <a href="craft.html">Artisanat</a>
+      <a href="potions.html">Potions</a>
+      <a href="biomes.html">Biomes</a>
       <a href="plans.html">Plans</a>
       <a href="usines.html">Usines</a>
     </nav>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
   </div>
 </header>
 
 <main class="wrap">
 
   <div class="hero">
-    <span class="eyebrow">Catalogue 4 / 4</span>
+    <span class="eyebrow">Catalogue 6 / 6</span>
     <h1>Usines &amp; fermes automatiques</h1>
     <p>Le moment où une partie bascule : la base cesse de consommer votre temps et se met à produire pendant que vous jouez.
       Chaque usine est décrite avec son <b>principe</b>, son <b>schéma</b>, ses <b>matériaux</b>, son <b>montage pas à pas</b>
@@ -42,6 +45,7 @@
     </div>
     <div class="toolbar-row" id="chips" style="margin-top:10px">
       <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="fav">★ Favoris</button>
       <button class="chip" data-cat="culture">Cultures</button>
       <button class="chip" data-cat="animal">Élevage</button>
       <button class="chip" data-cat="mob">Mobs, XP &amp; combat</button>
@@ -77,9 +81,14 @@
     </div>
   </section>
 
-  <section style="margin-bottom:20px">
-    <div id="liste"></div>
-    <div id="vide" class="empty" style="display:none">Aucune usine trouvée. Essayez « fer », « XP », « totem », « tri », « or »…</div>
+  <section class="print-host" style="margin-bottom:20px">
+    <div class="layout-toc">
+      <aside id="toc" class="toc-side"></aside>
+      <div>
+        <div id="liste"></div>
+        <div id="vide" class="empty" style="display:none">Aucune usine trouvée. Essayez « fer », « XP », « totem », « tri », « or »…</div>
+      </div>
+    </div>
   </section>
 
   <hr>
@@ -193,7 +202,9 @@
 <script>
 (function () {
   var liste = document.getElementById('liste');
-  for (var i = 0; i < USINES.length; i++) { liste.appendChild(renderBlueprint(USINES[i])); }
+  var ordonnees = sortByCat(USINES, GROUPES_USINES);
+  for (var i = 0; i < ordonnees.length; i++) { liste.appendChild(renderBlueprint(ordonnees[i])); }
+  buildToc('toc', USINES, GROUPES_USINES);
   setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
 
   if (location.hash) {

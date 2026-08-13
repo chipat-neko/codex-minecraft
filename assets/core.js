@@ -173,9 +173,11 @@ function renderRecipe(r) {
   el.dataset.search = (r.nom + ' ' + (r.cat || '') + ' ' + (r.desc || '') + ' ' +
     (r.grille || []).join(' ')).toLowerCase();
   el.dataset.cat = r.cat || '';
+  el.dataset.fav = isFav(r.nom) ? '1' : '0';
 
   var head = '<div class="recipe-title"><h3>' + esc(r.nom) + '</h3>' +
-    '<span class="tag ' + (r.tagCls || '') + '">' + esc(r.station || 'Établi') + '</span></div>';
+    '<span class="tag ' + (r.tagCls || '') + '">' + esc(r.station || 'Établi') + '</span>' +
+    favBtnHTML(r.nom) + '</div>';
 
   /* grille */
   var rows = r.grille || [];
@@ -230,11 +232,16 @@ function renderBlueprint(bp) {
   el.dataset.search = (bp.nom + ' ' + (bp.cat || '') + ' ' + (bp.desc || '') + ' ' +
     (bp.tags || []).join(' ')).toLowerCase();
   el.dataset.cat = bp.cat || '';
+  el.dataset.fav = isFav(bp.nom) ? '1' : '0';
+
+  /* index utilisé par le bouton « vue 3D » (construction différée) */
+  window.__isoIndex = window.__isoIndex || {};
+  if (bp.id) { window.__isoIndex[bp.id] = bp; }
 
   var html = '<div class="bp-head"><h3>' + esc(bp.nom) + '</h3>' +
     (bp.taille ? '<span class="tag">' + esc(bp.taille) + '</span>' : '') +
     (bp.diff ? '<span class="tag ' + diffCls(bp.diff) + '">' + esc(bp.diff) + '</span>' : '') +
-    '</div>';
+    favBtnHTML(bp.nom) + '</div>';
 
   if (bp.desc) { html += '<p class="lead" style="margin-bottom:0">' + esc(bp.desc) + '</p>'; }
 
@@ -269,6 +276,12 @@ function renderBlueprint(bp) {
   (bp.notes || []).forEach(function (n) {
     html += '<div class="callout ' + (n.type || 'tip') + '">' + boldFirst(n.txt || n) + '</div>';
   });
+
+  /* barre d'actions */
+  html += '<div class="bp-actions">' +
+    '<button class="act" data-print="1">🖨 Imprimer cette fiche</button>' +
+    (isoPossible(bp) ? '<button class="act" data-iso="' + esc(bp.id) + '">🧊 Vue 3D</button>' : '') +
+    '</div><div class="iso-wrap"></div>';
 
   el.innerHTML = html;
   return el;
@@ -320,13 +333,14 @@ function renderEntry(e) {
   el.dataset.search = (e.nom + ' ' + (e.cat || '') + ' ' + (e.ou || '') + ' ' +
     (e.drops || []).join(' ') + ' ' + (e.note || '')).toLowerCase();
   el.dataset.cat = e.cat || '';
+  el.dataset.fav = isFav(e.nom) ? '1' : '0';
 
   var tags = '';
   (e.tags || []).forEach(function (t) {
     tags += '<span class="tag ' + (t.cls || '') + '">' + esc(t.txt || t) + '</span>';
   });
 
-  var html = '<div class="entry-head"><h3>' + esc(e.nom) + '</h3>' + tags + '</div>';
+  var html = '<div class="entry-head"><h3>' + esc(e.nom) + '</h3>' + tags + favBtnHTML(e.nom) + '</div>';
   if (e.ou) { html += '<div class="where">📍 ' + esc(e.ou) + '</div>'; }
   if (e.drops && e.drops.length) {
     html += '<ul>' + e.drops.map(function (d) { return '<li>' + boldFirst(d) + '</li>'; }).join('') + '</ul>';
@@ -335,6 +349,25 @@ function renderEntry(e) {
 
   el.innerHTML = html;
   return el;
+}
+
+/* -----------------------------------------------------------
+   5 bis. Remplissage d'un <tbody> à partir d'un tableau de lignes
+   ----------------------------------------------------------- */
+function fillTable(id, rows) {
+  var tb = document.getElementById(id);
+  if (!tb) { return; }
+  for (var i = 0; i < rows.length; i++) {
+    var tr = document.createElement('tr');
+    var h = '';
+    for (var j = 0; j < rows[i].length; j++) {
+      h += j === 0
+        ? '<td><b>' + esc(rows[i][j]) + '</b></td>'
+        : '<td>' + esc(rows[i][j]) + '</td>';
+    }
+    tr.innerHTML = h;
+    tb.appendChild(tr);
+  }
 }
 
 /* -----------------------------------------------------------
@@ -374,7 +407,9 @@ function setupFilter(opts) {
     var items = root.querySelectorAll('[data-search]');
     for (var i = 0; i < items.length; i++) {
       var it = items[i];
-      var okCat = active === 'all' || it.dataset.cat === active;
+      var okCat = active === 'all' ? true
+        : active === 'fav' ? it.dataset.fav === '1'
+        : it.dataset.cat === active;
       var okQ = !q || norm(it.dataset.search).indexOf(q) !== -1;
       var vis = okCat && okQ;
       it.style.display = vis ? '' : 'none';
@@ -393,8 +428,15 @@ function setupFilter(opts) {
     }
     if (counter) { counter.textContent = shown + ' / ' + items.length + ' résultat' + (shown > 1 ? 's' : ''); }
     var empty = document.getElementById(opts.empty);
-    if (empty) { empty.style.display = shown ? 'none' : ''; }
+    if (empty) {
+      empty.style.display = shown ? 'none' : '';
+      if (!shown && active === 'fav') {
+        empty.textContent = 'Aucun favori pour l\'instant. Cliquez sur l\'étoile ☆ d\'une fiche pour l\'y ajouter.';
+      }
+    }
   }
+  /* permet au bouton favori de rafraîchir la liste */
+  window.__reapplyFilter = apply;
 
   if (input) { input.addEventListener('input', apply); }
   for (var c = 0; c < chips.length; c++) {
@@ -409,6 +451,243 @@ function setupFilter(opts) {
   return apply;
 }
 
+/* -----------------------------------------------------------
+   8. Thème clair / sombre (mémorisé)
+   ----------------------------------------------------------- */
+var THEME_KEY = 'codex-mc-theme';
+
+function store(k, v) {
+  try { if (v === undefined) { return localStorage.getItem(k); } localStorage.setItem(k, v); }
+  catch (e) { return null; }
+}
+
+function applyTheme(t) {
+  if (t === 'light') { document.documentElement.setAttribute('data-theme', 'light'); }
+  else { document.documentElement.removeAttribute('data-theme'); }
+  var b = document.getElementById('theme-btn');
+  if (b) {
+    b.textContent = t === 'light' ? '🌙' : '☀️';
+    b.title = t === 'light' ? 'Passer en thème sombre' : 'Passer en thème clair';
+  }
+}
+
+function initTheme() {
+  var t = store(THEME_KEY) || 'dark';
+  applyTheme(t);
+  var b = document.getElementById('theme-btn');
+  if (b) {
+    b.addEventListener('click', function () {
+      t = t === 'light' ? 'dark' : 'light';
+      store(THEME_KEY, t);
+      applyTheme(t);
+    });
+  }
+}
+/* appliqué au plus tôt pour éviter le flash de thème */
+(function () {
+  try {
+    if (localStorage.getItem(THEME_KEY) === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  } catch (e) { /* stockage indisponible */ }
+}());
+
+/* -----------------------------------------------------------
+   9. Favoris (mémorisés par nom d'entrée)
+   ----------------------------------------------------------- */
+var FAV_KEY = 'codex-mc-favoris';
+var FAVS = (function () {
+  try { return JSON.parse(store(FAV_KEY) || '[]'); } catch (e) { return []; }
+}());
+
+function isFav(nom) { return FAVS.indexOf(nom) !== -1; }
+
+function toggleFav(nom) {
+  var i = FAVS.indexOf(nom);
+  if (i === -1) { FAVS.push(nom); } else { FAVS.splice(i, 1); }
+  store(FAV_KEY, JSON.stringify(FAVS));
+  return isFav(nom);
+}
+
+function favBtnHTML(nom) {
+  return '<button class="fav-btn' + (isFav(nom) ? ' on' : '') + '" data-fav="' + esc(nom) +
+    '" title="Ajouter aux favoris" aria-label="Favori">' + (isFav(nom) ? '★' : '☆') + '</button>';
+}
+
+/* délégation : un seul écouteur pour toute la page */
+document.addEventListener('click', function (ev) {
+  var b = ev.target.closest ? ev.target.closest('.fav-btn') : null;
+  if (!b) { return; }
+  var on = toggleFav(b.dataset.fav);
+  b.classList.toggle('on', on);
+  b.textContent = on ? '★' : '☆';
+  var host = b.closest('[data-search]');
+  if (host) { host.dataset.fav = on ? '1' : '0'; }
+  if (window.__reapplyFilter) { window.__reapplyFilter(); }
+});
+
+/* -----------------------------------------------------------
+   10. Impression d'une fiche isolée
+   ----------------------------------------------------------- */
+document.addEventListener('click', function (ev) {
+  var b = ev.target.closest ? ev.target.closest('[data-print]') : null;
+  if (!b) { return; }
+  var host = b.closest('[data-search]');
+  if (!host) { return; }
+  host.classList.add('print-me');
+  document.body.classList.add('print-one');
+  window.print();
+  setTimeout(function () {
+    host.classList.remove('print-me');
+    document.body.classList.remove('print-one');
+  }, 400);
+});
+
+/* -----------------------------------------------------------
+   11. Vue isométrique d'un plan
+   ----------------------------------------------------------- */
+
+/* Une couche « vue de côté / de face / en coupe » ne s'empile pas : pas d'iso. */
+function isoPossible(bp) {
+  var c = bp.couches || [];
+  if (c.length < 2) { return false; }
+  for (var i = 0; i < c.length; i++) {
+    if (/c[oô]t[ée]|face|coupe|profil/i.test(c[i].t)) { return false; }
+  }
+  return true;
+}
+
+function shade(hex, f) {
+  var h = hex.replace('#', '');
+  if (h.length === 3) { h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2]; }
+  var r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16);
+  var cl = function (v) { return Math.max(0, Math.min(255, Math.round(v * f))); };
+  return 'rgb(' + cl(r) + ',' + cl(g) + ',' + cl(b) + ')';
+}
+
+function renderIso(bp) {
+  var TW = 16, TH = 8, TZ = 13;          /* demi-largeur, demi-profondeur, hauteur d'un cube */
+  var couches = bp.couches || [];
+  var maxW = 0, maxD = 0;
+  couches.forEach(function (c) {
+    maxD = Math.max(maxD, c.g.length);
+    c.g.forEach(function (l) { maxW = Math.max(maxW, l.length); });
+  });
+
+  var parts = [];
+  for (var L = 0; L < couches.length; L++) {
+    var g = couches[L].g;
+    var offX = Math.floor((maxW - g.reduce(function (m, l) { return Math.max(m, l.length); }, 0)) / 2);
+    var offZ = Math.floor((maxD - g.length) / 2);
+    var cells = [];
+    for (var z = 0; z < g.length; z++) {
+      for (var x = 0; x < g[z].length; x++) {
+        var ch = g[z][x];
+        var blk = BLOCKS[ch];
+        if (!blk || !blk.c) { continue; }
+        cells.push({ x: x + offX, z: z + offZ, c: blk.c, n: blk.n });
+      }
+    }
+    /* du fond vers l'avant pour un recouvrement correct */
+    cells.sort(function (a, b) { return (a.x + a.z) - (b.x + b.z); });
+    cells.forEach(function (c) {
+      var sx = (c.x - c.z) * TW;
+      var sy = (c.x + c.z) * TH - L * TZ;
+      parts.push(cube(sx, sy, TW, TH, TZ, c.c, c.n));
+    });
+  }
+
+  var w = (maxW + maxD) * TW + 40;
+  var h = (maxW + maxD) * TH + couches.length * TZ + 40;
+  var ox = maxD * TW + 20;
+  var oy = 20 + couches.length * TZ;
+
+  return '<svg viewBox="0 0 ' + w + ' ' + h + '" width="' + Math.max(300, Math.min(w, 900)) + '" role="img" ' +
+    'aria-label="Vue isométrique de ' + esc(bp.nom) + '">' +
+    '<g transform="translate(' + ox + ',' + oy + ')">' + parts.join('') + '</g></svg>';
+}
+
+function cube(x, y, tw, th, tz, col, nom) {
+  var top = shade(col, 1.15), left = shade(col, .72), right = shade(col, .9);
+  var t = [x, y, x + tw, y + th, x, y + 2 * th, x - tw, y + th];
+  var l = [x - tw, y + th, x, y + 2 * th, x, y + 2 * th + tz, x - tw, y + th + tz];
+  var r = [x + tw, y + th, x, y + 2 * th, x, y + 2 * th + tz, x + tw, y + th + tz];
+  var poly = function (p, c) {
+    return '<polygon points="' + p[0] + ',' + p[1] + ' ' + p[2] + ',' + p[3] + ' ' +
+      p[4] + ',' + p[5] + ' ' + p[6] + ',' + p[7] + '" fill="' + c + '"/>';
+  };
+  return '<g><title>' + esc(nom) + '</title>' + poly(l, left) + poly(r, right) + poly(t, top) + '</g>';
+}
+
+/* Bouton « vue 3D » : le SVG n'est construit qu'au premier clic */
+document.addEventListener('click', function (ev) {
+  var b = ev.target.closest ? ev.target.closest('[data-iso]') : null;
+  if (!b) { return; }
+  var host = b.closest('[data-search]');
+  var box = host && host.querySelector('.iso-wrap');
+  if (!box) { return; }
+  if (!box.dataset.built) {
+    var bp = (window.__isoIndex || {})[b.dataset.iso];
+    if (!bp) { return; }
+    box.innerHTML = renderIso(bp) +
+      '<p class="iso-hint">Couches empilées du bas vers le haut · survolez un bloc pour son nom<br>' +
+      'Sur un bâtiment fermé, les couches hautes masquent l\'intérieur : les plans ci-dessus restent la référence.</p>';
+    box.dataset.built = '1';
+  }
+  var open = box.classList.toggle('open');
+  b.classList.toggle('on', open);
+  b.textContent = open ? '◾ Masquer la vue 3D' : '🧊 Vue 3D';
+});
+
+/* -----------------------------------------------------------
+   12. Sommaire latéral
+   ----------------------------------------------------------- */
+/* Réordonne une liste selon l'ordre des catégories déclaré dans `groupes`,
+   en conservant l'ordre d'origine à l'intérieur de chaque catégorie. */
+function sortByCat(list, groupes) {
+  var ordre = groupes ? Object.keys(groupes) : [];
+  if (!ordre.length) { return list.slice(); }
+  return list.slice().sort(function (a, b) {
+    var ia = ordre.indexOf(a.cat), ib = ordre.indexOf(b.cat);
+    if (ia === -1) { ia = 999; }
+    if (ib === -1) { ib = 999; }
+    return ia - ib || list.indexOf(a) - list.indexOf(b);
+  });
+}
+
+function buildToc(tocId, list, groupes) {
+  var el = document.getElementById(tocId);
+  if (!el) { return; }
+  list = sortByCat(list, groupes);
+  var h = '<h4>Sommaire</h4>';
+  var vus = {};
+  for (var i = 0; i < list.length; i++) {
+    var it = list[i];
+    if (groupes && it.cat && !vus[it.cat]) {
+      vus[it.cat] = 1;
+      h += '<div class="toc-group">' + esc(groupes[it.cat] || it.cat) + '</div>';
+    }
+    h += '<a href="#' + esc(it.id) + '" data-toc="' + esc(it.id) + '">' + esc(it.nom) + '</a>';
+  }
+  el.innerHTML = h;
+
+  /* surligne l'entrée visible */
+  var liens = el.querySelectorAll('[data-toc]');
+  var maj = function () {
+    var best = null, bestTop = -1e9;
+    for (var j = 0; j < liens.length; j++) {
+      var cible = document.getElementById(liens[j].dataset.toc);
+      if (!cible || cible.style.display === 'none') { continue; }
+      var top = cible.getBoundingClientRect().top - 130;
+      if (top <= 0 && top > bestTop) { bestTop = top; best = liens[j]; }
+    }
+    for (var k = 0; k < liens.length; k++) { liens[k].classList.remove('is-current'); }
+    if (best) { best.classList.add('is-current'); }
+  };
+  window.addEventListener('scroll', maj, { passive: true });
+  maj();
+}
+
 /* Raccourci « / » pour aller à la recherche */
 document.addEventListener('keydown', function (ev) {
   if (ev.key === '/' && document.activeElement.tagName !== 'INPUT') {
@@ -417,8 +696,9 @@ document.addEventListener('keydown', function (ev) {
   }
 });
 
-/* Surligne l'onglet actif */
+/* Surligne l'onglet actif et installe le bouton de thème */
 document.addEventListener('DOMContentLoaded', function () {
+  initTheme();
   var page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   var links = document.querySelectorAll('.nav a');
   for (var i = 0; i < links.length; i++) {

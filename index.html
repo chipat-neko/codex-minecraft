@@ -17,11 +17,14 @@
     </a>
     <nav class="nav">
       <a href="index.html">Accueil</a>
-      <a href="drops.html">Drops &amp; lieux</a>
+      <a href="drops.html">Drops</a>
       <a href="craft.html">Artisanat</a>
+      <a href="potions.html">Potions</a>
+      <a href="biomes.html">Biomes</a>
       <a href="plans.html">Plans</a>
       <a href="usines.html">Usines</a>
     </nav>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
   </div>
 </header>
 
@@ -30,16 +33,17 @@
   <div class="hero">
     <span class="eyebrow">Guide de référence · Java Edition</span>
     <h1>Tout ce qui est faisable<br>dans Minecraft.</h1>
-    <p>Quatre catalogues complets : <b>ce qui tombe et où le trouver</b>, <b>ce qui se fabrique et avec quoi</b>,
-      <b>des plans de construction bloc par bloc</b>, et <b>les usines qui font tourner une base toute seule</b>.</p>
+    <p>Six catalogues complets : <b>ce qui tombe et où le trouver</b>, <b>ce qui se fabrique et avec quoi</b>,
+      <b>tout le brassage</b>, <b>ce que cache chaque biome</b>, <b>des plans de construction bloc par bloc</b>,
+      et <b>les usines qui font tourner une base toute seule</b>.</p>
     <p>Chaque page a sa recherche (raccourci <kbd>/</kbd>) et ses filtres. Tout est en accès direct, sans compte ni connexion.</p>
   </div>
 
   <section id="sommaire">
-    <h2>Les quatre catalogues</h2>
+    <h2>Les six catalogues</h2>
     <p class="lead">Commencez par où vous en êtes : survie du premier jour, atelier complet, grand chantier ou automatisation.</p>
 
-    <div class="grid g4">
+    <div class="grid g3">
       <a class="card card-link" href="drops.html">
         <div class="card-icon">🗺️</div>
         <h3>Drops &amp; lieux</h3>
@@ -51,6 +55,18 @@
         <h3>Artisanat</h3>
         <p>Les recettes avec la grille 3×3 dessinée, les postes de travail, les améliorations en netherite.</p>
         <p class="go">Voir les recettes →</p>
+      </a>
+      <a class="card card-link" href="potions.html">
+        <div class="card-icon">🧪</div>
+        <h3>Potions</h3>
+        <p>Toute la chaîne de brassage : effets, durées, modificateurs, potions jetables et flèches à effet.</p>
+        <p class="go">Voir le brassage →</p>
+      </a>
+      <a class="card card-link" href="biomes.html">
+        <div class="card-icon">🌍</div>
+        <h3>Biomes</h3>
+        <p>Ce que chaque biome détient d'exclusif, et les ressources qui obligent à voyager.</p>
+        <p class="go">Explorer les biomes →</p>
       </a>
       <a class="card card-link" href="plans.html">
         <div class="card-icon">🏰</div>
@@ -194,7 +210,16 @@
     </div>
     <div class="callout tip">
       <b>Navigation</b> — appuyez sur <kbd>/</kbd> sur n'importe quelle page pour sauter directement à la recherche.
-      Les filtres et la recherche se combinent.
+      Les filtres et la recherche se combinent, et la recherche ignore les accents.
+    </div>
+    <div class="callout info">
+      <b>Ce que la page retient</b> — l'étoile ☆ de chaque fiche l'ajoute à vos <b>favoris</b> (filtre « ★ Favoris »),
+      et le bouton ☀️ de l'en-tête bascule entre <b>thème clair et sombre</b>. Les deux sont mémorisés dans votre navigateur,
+      rien n'est envoyé nulle part.
+    </div>
+    <div class="callout tip">
+      <b>Sur les plans et les usines</b> — chaque fiche peut s'<b>imprimer seule</b>, et les plans dont les couches
+      s'empilent proposent une <b>vue 3D isométrique</b>. Sur grand écran, un sommaire latéral suit votre défilement.
     </div>
   </section>
 

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Potions &amp; brassage — Codex Minecraft</title>
+<meta name="description" content="Toutes les potions Minecraft Java : recettes de brassage, durées, modificateurs, potions jetables et persistantes, flèches à effet.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-cube"></span>
+      <span>Codex Minecraft<small>Java Edition</small></span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="drops.html">Drops</a>
+      <a href="craft.html">Artisanat</a>
+      <a href="potions.html">Potions</a>
+      <a href="biomes.html">Biomes</a>
+      <a href="plans.html">Plans</a>
+      <a href="usines.html">Usines</a>
+    </nav>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Catalogue 3 / 6</span>
+    <h1>Potions &amp; brassage</h1>
+    <p>Tout le brassage tient en une règle : <b>fiole d'eau → verrue du Nether → ingrédient d'effet → modificateur</b>.
+      Sautez la verrue et vous n'obtiendrez jamais qu'une potion maladroite.</p>
+  </div>
+
+  <section id="chaine">
+    <h2>La chaîne de brassage</h2>
+    <p class="lead">Les quatre étapes, dans l'ordre. L'alambic traite les trois fioles simultanément : brassez toujours par trois.</p>
+    <div class="grid g4">
+      <div class="card">
+        <div class="card-icon">💧</div>
+        <h3>1. La base</h3>
+        <p>Remplissez 3 fioles en verre à une source d'eau ou à un chaudron, puis brassez-les avec une
+          <b>verrue du Nether</b> pour obtenir la <b>potion étrange</b>.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧪</div>
+        <h3>2. L'effet</h3>
+        <p>Un seul ingrédient détermine l'effet : poudre de Blaze → Force, sucre → Rapidité, crème de magma →
+          Résistance au feu… Voir la liste complète ci-dessous.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3>3. Le modificateur</h3>
+        <p><b>Redstone</b> allonge la durée, <b>poudre lumineuse</b> renforce le niveau. Les deux sont exclusifs :
+          impossible d'avoir une potion II longue durée.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💥</div>
+        <h3>4. La forme</h3>
+        <p><b>Poudre à canon</b> rend la potion jetable, <b>souffle du dragon</b> la rend persistante.
+          C'est toujours la dernière étape.</p>
+      </div>
+    </div>
+    <div class="callout tip">
+      <b>Carburant</b> — un bâton de Blaze placé dans l'emplacement de gauche alimente <b>20 brassages</b>.
+      Un seul générateur de Blaze sécurisé couvre les besoins d'une partie entière.
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <input id="q" class="search" type="search" placeholder="Rechercher une potion, un effet, un ingrédient…  ( / )" autocomplete="off">
+      <span id="count" class="count"></span>
+    </div>
+    <div class="toolbar-row" id="chips" style="margin-top:10px">
+      <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="fav">★ Favoris</button>
+      <button class="chip" data-cat="base">Bases</button>
+      <button class="chip" data-cat="combat">Combat</button>
+      <button class="chip" data-cat="soin">Soin</button>
+      <button class="chip" data-cat="utilite">Utilitaires</button>
+    </div>
+  </div>
+
+  <section class="print-host" style="margin-bottom:20px">
+    <div id="liste" class="grid g2"></div>
+    <div id="vide" class="empty" style="display:none">Aucune potion trouvée. Essayez « feu », « force », « nuit », « chute »…</div>
+  </section>
+
+  <hr>
+
+  <section id="formes">
+    <h2>Les quatre formes d'une potion</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Forme</th><th>Comment l'obtenir</th><th>Effet</th></tr></thead>
+        <tbody id="tbl-formes"></tbody>
+      </table>
+    </div>
+    <div class="callout info">
+      <b>Flèches à effet</b> — posez 8 flèches autour d'une potion persistante dans la grille 3×3 : vous obtenez
+      8 flèches à effet. C'est de loin l'usage le plus rentable d'une potion, surtout avec une ferme à squelettes.
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="modifs">
+    <h2>Les modificateurs</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Ingrédient</th><th>Effet</th><th>À savoir</th></tr></thead>
+        <tbody id="tbl-modifs"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="ingredients">
+    <h2>Où trouver chaque ingrédient</h2>
+    <p class="lead">Le brassage n'est bloqué que par deux ressources : la verrue du Nether et la poudre de Blaze.
+      Sécurisez-les, le reste suit.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Ingrédient</th><th>Source</th><th>Remarque</th></tr></thead>
+        <tbody id="tbl-ing"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="kits">
+    <h2>Les trois kits à emporter</h2>
+    <div class="grid g3">
+      <div class="card">
+        <div class="tags"><span class="tag red">Nether</span></div>
+        <h3>Expédition Nether</h3>
+        <ul>
+          <li><b>4 × Résistance au feu</b> — 8:00 chacune</li>
+          <li><b>2 × Régénération</b></li>
+          <li><b>2 × Rapidité</b> pour fuir les ghasts</li>
+          <li>Armure en or portée (piglins)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="tags"><span class="tag blue">Océan</span></div>
+        <h3>Monument océanique</h3>
+        <ul>
+          <li><b>4 × Respiration aquatique</b> 8:00</li>
+          <li><b>2 × Vision nocturne</b> 8:00</li>
+          <li><b>2 × Soin instantané II</b></li>
+          <li>Lait (annule la Fatigue de minage)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="tags"><span class="tag purple">Raid</span></div>
+        <h3>Raid &amp; manoir</h3>
+        <ul>
+          <li><b>2 × Force II</b></li>
+          <li><b>4 × Soin instantané II</b> (jetables)</li>
+          <li><b>2 × Lenteur jetable</b> pour les ravageurs</li>
+          <li><b>1 × Chute lente</b> de secours</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Codex Minecraft — guide de référence non officiel.</div>
+</footer>
+
+<script src="assets/core.js"></script>
+<script src="assets/data-potions.js"></script>
+<script>
+(function () {
+  var liste = document.getElementById('liste');
+  for (var i = 0; i < POTIONS.length; i++) { liste.appendChild(renderEntry(POTIONS[i])); }
+  fillTable('tbl-formes', FORMES);
+  fillTable('tbl-modifs', MODIFS);
+  fillTable('tbl-ing', INGREDIENTS);
+  setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
+}());
+</script>
+</body>
+</html>

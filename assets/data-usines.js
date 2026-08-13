@@ -4,6 +4,15 @@
    matériaux, montage pas à pas, rendement.
    ============================================================ */
 
+/* Ordre et libellés des groupes du sommaire */
+var GROUPES_USINES = {
+  culture:    'Cultures',
+  animal:     'Élevage',
+  mob:        'Mobs, XP & combat',
+  ressource:  'Ressources & matériaux',
+  logistique: 'Logistique & transport'
+};
+
 var USINES = [
 
   /* ================= NIVEAU 1 — PREMIÈRES AUTOMATISATIONS ================= */
