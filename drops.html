@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drops &amp; lieux — Codex Minecraft</title>
+<meta name="description" content="Ce que lâche chaque mob, où le trouver, à quelle profondeur miner chaque minerai et ce que contient chaque coffre de structure.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-cube"></span>
+      <span>Codex Minecraft<small>Java Edition</small></span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="drops.html">Drops &amp; lieux</a>
+      <a href="craft.html">Artisanat</a>
+      <a href="plans.html">Plans</a>
+      <a href="usines.html">Usines</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Catalogue 1 / 4</span>
+    <h1>Drops &amp; lieux d'apparition</h1>
+    <p>Pour chaque monstre, animal, minerai et structure : <b>ce qui tombe</b>, <b>en quelle quantité</b> et
+      <b>exactement où le chercher</b>. Les taux sont donnés en difficulté Normale, sans enchantement.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <input id="q" class="search" type="search" placeholder="Rechercher un mob, un objet, un lieu…  ( / )" autocomplete="off">
+      <span id="count" class="count"></span>
+    </div>
+    <div class="toolbar-row" id="chips" style="margin-top:10px">
+      <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="hostile">Monstres · Surworld</button>
+      <button class="chip" data-cat="nether">Nether</button>
+      <button class="chip" data-cat="end">End</button>
+      <button class="chip" data-cat="boss">Boss</button>
+      <button class="chip" data-cat="passif">Animaux &amp; PNJ</button>
+      <button class="chip" data-cat="bloc">Minerais &amp; blocs</button>
+      <button class="chip" data-cat="structure">Structures &amp; coffres</button>
+    </div>
+  </div>
+
+  <section id="fiches" style="margin-bottom:20px">
+    <div id="liste" class="grid g2"></div>
+    <div id="vide" class="empty" style="display:none">Aucun résultat. Essayez « diamant », « totem », « élytre », « poudre à canon »…</div>
+  </section>
+
+  <hr>
+
+  <section id="minerais">
+    <h2>Table des minerais</h2>
+    <p class="lead">La distribution en profondeur a été entièrement revue en 1.18 : ce sont ces valeurs qui font la différence
+      entre une session de minage rentable et une perte de temps.</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Minerai</th><th>Profondeur (Y)</th><th>Outil minimum</th><th>Ce qu'il lâche</th><th>Remarque</th></tr>
+        </thead>
+        <tbody id="tbl-minerais"></tbody>
+      </table>
+    </div>
+    <div class="callout tip">
+      <b>Le tunnel rentable</b> — un couloir de 2 blocs de haut à <b>Y = −59</b>, avec des embranchements tous les 3 blocs,
+      couvre simultanément le diamant, la redstone et le lapis. Avec Fortune III, un seul filon de diamant rend jusqu'à 4 gemmes.
+    </div>
+    <div class="callout info">
+      <b>Exposition à l'air</b> — depuis la 1.18, le diamant est plus fréquent dans les blocs exposés à l'air (parois de grottes,
+      ravins, cités antiques) que dans la pierre pleine. Explorer une grotte profonde bat souvent le minage en tunnel.
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="troc">
+    <h2>Troc avec les piglins</h2>
+    <p class="lead">Jetez un lingot d'or à un piglin (ou utilisez un distributeur pour automatiser) : il l'examine 6 secondes
+      puis rend un objet aléatoire. C'est la seule source renouvelable d'obsidienne pleurante et une excellente source de perles de l'Ender.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Objet rendu</th><th>Probabilité</th><th>Quantité</th></tr></thead>
+        <tbody id="tbl-troc"></tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <b>Portez de l'or</b> — une seule pièce d'armure en or suffit pour que les piglins vous ignorent. En revanche, ouvrir un coffre
+      ou casser un bloc d'or devant eux les rend hostiles quoi qu'il arrive.
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="renouvelable">
+    <h2>Ce qui est renouvelable (et ce qui ne l'est pas)</h2>
+    <p class="lead">Savoir ce qui se régénère décide de ce qu'on peut dépenser sans compter.</p>
+    <div class="grid g2">
+      <div class="card">
+        <h3>♻️ Renouvelable à l'infini</h3>
+        <ul>
+          <li><b>Fer</b> — golems de fer (ferme à fer)</li>
+          <li><b>Or</b> — zombies-piglins du Nether</li>
+          <li><b>Cuivre</b> — noyés (11 %)</li>
+          <li><b>Émeraude</b> — commerce avec les villageois</li>
+          <li><b>Diamant</b> — non miné, mais achetable auprès d'un armurier</li>
+          <li><b>Améthyste</b> — les bourgeons repoussent</li>
+          <li><b>Obsidienne</b> — eau versée sur une source de lave</li>
+          <li><b>Bois, nourriture, laine, cuir</b> — élevage et agriculture</li>
+          <li><b>XP</b> — n'importe quelle ferme à mobs</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>⛔ Non renouvelable</h3>
+        <ul>
+          <li><b>Débris antiques / netherite</b> — quantité finie par monde généré (mais le monde est infini)</li>
+          <li><b>Blocs d'améthyste bourgeonnants</b> — irrécupérables une fois cassés</li>
+          <li><b>Générateurs de monstres</b> — détruits, ils ne reviennent jamais</li>
+          <li><b>Œuf de dragon</b> — un seul par monde</li>
+          <li><b>Élytres</b> — limitées au nombre de navires de l'End (donc pratiquement infinies)</li>
+          <li><b>Cadres du portail de l'End</b> — incassables en survie</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Codex Minecraft — guide de référence non officiel.</div>
+</footer>
+
+<script src="assets/core.js"></script>
+<script src="assets/data-drops.js"></script>
+<script>
+(function () {
+  var liste = document.getElementById('liste');
+  for (var i = 0; i < DROPS.length; i++) { liste.appendChild(renderEntry(DROPS[i])); }
+
+  var tb = document.getElementById('tbl-minerais');
+  for (var m = 0; m < MINERAIS.length; m++) {
+    var r = MINERAIS[m];
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td><b>' + esc(r[0]) + '</b></td><td class="num">' + esc(r[1]) + '</td><td>' +
+      esc(r[2]) + '</td><td>' + esc(r[3]) + '</td><td>' + esc(r[4]) + '</td>';
+    tb.appendChild(tr);
+  }
+
+  var tt = document.getElementById('tbl-troc');
+  for (var t = 0; t < TROC.length; t++) {
+    var x = TROC[t];
+    var tr2 = document.createElement('tr');
+    tr2.innerHTML = '<td>' + esc(x[0]) + '</td><td class="num">' + esc(x[1]) + '</td><td class="num">' + esc(x[2]) + '</td>';
+    tt.appendChild(tr2);
+  }
+
+  setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
+}());
+</script>
+</body>
+</html>

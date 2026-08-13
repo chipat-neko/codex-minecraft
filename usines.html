@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Usines &amp; fermes automatiques — Codex Minecraft</title>
+<meta name="description" content="Toutes les fermes et usines automatiques Minecraft Java : fer, or, XP, totems, nourriture, tri automatique, compacteur, ascenseurs.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-cube"></span>
+      <span>Codex Minecraft<small>Java Edition</small></span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="drops.html">Drops &amp; lieux</a>
+      <a href="craft.html">Artisanat</a>
+      <a href="plans.html">Plans</a>
+      <a href="usines.html">Usines</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Catalogue 4 / 4</span>
+    <h1>Usines &amp; fermes automatiques</h1>
+    <p>Le moment où une partie bascule : la base cesse de consommer votre temps et se met à produire pendant que vous jouez.
+      Chaque usine est décrite avec son <b>principe</b>, son <b>schéma</b>, ses <b>matériaux</b>, son <b>montage pas à pas</b>
+      et son <b>rendement réel</b>.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <input id="q" class="search" type="search" placeholder="Rechercher une usine…  ( / )" autocomplete="off">
+      <span id="count" class="count"></span>
+    </div>
+    <div class="toolbar-row" id="chips" style="margin-top:10px">
+      <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="culture">Cultures</button>
+      <button class="chip" data-cat="animal">Élevage</button>
+      <button class="chip" data-cat="mob">Mobs, XP &amp; combat</button>
+      <button class="chip" data-cat="ressource">Ressources &amp; matériaux</button>
+      <button class="chip" data-cat="logistique">Logistique &amp; transport</button>
+    </div>
+  </div>
+
+  <section id="ordre">
+    <h2>Dans quel ordre les construire</h2>
+    <p class="lead">Chaque usine en finance une autre. Cet ordre évite de se retrouver bloqué faute de fer ou de redstone.</p>
+    <div class="grid g3">
+      <div class="card">
+        <div class="tags"><span class="tag ok">Phase 1 · dès le fer</span></div>
+        <h3>Autonomie</h3>
+        <p>Ferme à <a href="#poulet">poulets</a>, à <a href="#canne">canne à sucre</a>, à <a href="#bambou">bambou</a>,
+          <a href="#four-auto">fonderie automatique</a>. Coût : ≈40 lingots de fer. Résultat : plus jamais de problème
+          de nourriture, de papier ni de carburant.</p>
+      </div>
+      <div class="card">
+        <div class="tags"><span class="tag gold">Phase 2 · dès le diamant</span></div>
+        <h3>Multiplication</h3>
+        <p><a href="#mob-spawner">Ferme à XP</a>, <a href="#fer">ferme à fer</a>, <a href="#ble-auto">ferme à blé automatique</a>,
+          <a href="#trading">hall de commerce</a>. À partir d'ici, le fer et les émeraudes cessent d'être une contrainte.</p>
+      </div>
+      <div class="card">
+        <div class="tags"><span class="tag red">Phase 3 · fin de partie</span></div>
+        <h3>Industrie</h3>
+        <p><a href="#raid">Ferme à raids</a>, <a href="#guardian">monument océanique</a>,
+          <a href="#enderman">ferme à endermen</a>, <a href="#trieur">tri automatique</a>,
+          <a href="#nether-hub">réseau du Nether</a>. La base tourne seule.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-bottom:20px">
+    <div id="liste"></div>
+    <div id="vide" class="empty" style="display:none">Aucune usine trouvée. Essayez « fer », « XP », « totem », « tri », « or »…</div>
+  </section>
+
+  <hr>
+
+  <section id="principes">
+    <h2>Les six principes de toute automatisation</h2>
+    <p class="lead">Presque toutes les fermes du jeu combinent ces mêmes briques. Les comprendre permet d'en concevoir
+      soi-même plutôt que de recopier des tutoriels.</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3>① Détecter</h3>
+        <p>L'<b>observateur</b> émet une impulsion quand le bloc devant lui change (culture qui pousse, piston qui bouge, eau qui coule).
+          Le <b>comparateur</b> lit le remplissage d'un conteneur. La <b>plaque de pression</b> et le <b>capteur de sculk</b> détectent les entités.</p>
+      </div>
+      <div class="card">
+        <h3>② Cadencer</h3>
+        <p>Une <b>horloge</b> répète un signal : deux observateurs face à face (le plus rapide), un entonnoir en boucle avec un comparateur
+          (lent et réglable), ou une chaîne de répéteurs. Chaque ferme a besoin de la bonne cadence — trop rapide gaspille, trop lente bride.</p>
+      </div>
+      <div class="card">
+        <h3>③ Agir</h3>
+        <p>Le <b>piston</b> casse ou déplace un bloc. Le <b>distributeur</b> utilise un objet (verse un seau, tire une flèche, tond).
+          Le <b>lanceur</b> éjecte simplement. Le <b>fabricateur</b> assemble une recette.</p>
+      </div>
+      <div class="card">
+        <h3>④ Convoyer</h3>
+        <p>L'<b>eau</b> pousse les objets et les mobs sur 8 blocs par source ; c'est le convoyeur le moins cher du jeu.
+          Les <b>entonnoirs</b> aspirent dans un rayon d'un bloc au-dessus. Les <b>rails</b> et les <b>lanceurs chaînés</b>
+          servent quand l'eau est impossible (Nether).</p>
+      </div>
+      <div class="card">
+        <h3>⑤ Tuer</h3>
+        <p>La <b>chute de 24 blocs</b> laisse le mob à 1 point de vie : vous l'achevez et gagnez toute l'XP.
+          La <b>lame de lave</b> ou la <b>suffocation</b> tuent seuls mais font perdre l'XP et une partie des drops rares.
+          Le choix dépend de ce que vous cherchez : XP ou objets ?</p>
+      </div>
+      <div class="card">
+        <h3>⑥ Trier &amp; stocker</h3>
+        <p>Une ligne d'<b>entonnoirs</b>, des <b>filtres à comparateur</b>, un coffre par catégorie, et un
+          <b>coffre de débordement</b> en bout de ligne. Sans tri, une ferme productive devient rapidement ingérable.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="depannage">
+    <h2>Dépannage : « ma ferme ne produit rien »</h2>
+    <p class="lead">Les six causes qui expliquent la quasi-totalité des pannes, dans l'ordre où il faut les vérifier.</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Symptôme</th><th>Cause la plus probable</th><th>Correctif</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Aucun mob n'apparaît</td>
+            <td>Vous êtes à moins de 24 blocs, ou d'autres zones sombres du décor captent le quota d'apparitions</td>
+            <td>Reculez votre poste d'attente à 30+ blocs et éclairez/dallez toutes les grottes dans un rayon de 128 blocs</td>
+          </tr>
+          <tr>
+            <td>La ferme à fer ne donne rien</td>
+            <td>Les villageois ne dorment pas, ne voient pas le zombie, ou un village naturel est trop proche</td>
+            <td>Vérifiez : 3 villageois, 3 lits accessibles, zombie visible en permanence, et 100+ blocs de tout village</td>
+          </tr>
+          <tr>
+            <td>Les objets restent au sol</td>
+            <td>L'entonnoir ne « voit » pas la case : il n'aspire que dans le bloc directement au-dessus</td>
+            <td>Ajoutez un canal d'eau qui pousse tout au-dessus de la ligne d'entonnoirs</td>
+          </tr>
+          <tr>
+            <td>Le tri fuit vers le débordement</td>
+            <td>Les 18 objets de bourre manquent dans l'entonnoir filtre</td>
+            <td>1 objet cible dans l'emplacement 1, puis 18 objets quelconques répartis dans les 4 autres emplacements</td>
+          </tr>
+          <tr>
+            <td>Les cultures ne poussent pas</td>
+            <td>Lumière insuffisante (&lt; 9) ou terre non hydratée</td>
+            <td>Lanternes tous les 6 blocs, source d'eau à 4 blocs maximum de chaque case</td>
+          </tr>
+          <tr>
+            <td>La ferme tourne quand je suis là, pas sinon</td>
+            <td>Le chunk se décharge dès que vous vous éloignez</td>
+            <td>Restez dans la distance de simulation, ou utilisez un chargeur de chunk (portail du Nether + wagonnet, selon la version)</td>
+          </tr>
+          <tr>
+            <td>Le rendement s'effondre avec le temps</td>
+            <td>Trop d'entités : objets non ramassés, animaux en surnombre</td>
+            <td>Limitez la population (20 animaux max par enclos) et vérifiez que la collecte suit le débit</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout tip">
+      <b>Le test en une minute</b> — cassez temporairement la sortie et posez un coffre juste sous la zone de mise à mort.
+      Si le coffre se remplit, le problème est en aval (convoyage, tri). S'il reste vide, le problème est en amont
+      (apparition, cadence, détection). Ce simple partage divise par deux le temps de diagnostic.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Codex Minecraft — guide de référence non officiel.</div>
+</footer>
+
+<script src="assets/core.js"></script>
+<script src="assets/data-plans.js"></script>
+<script src="assets/data-usines.js"></script>
+<script>
+(function () {
+  var liste = document.getElementById('liste');
+  for (var i = 0; i < USINES.length; i++) { liste.appendChild(renderBlueprint(USINES[i])); }
+  setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
+
+  if (location.hash) {
+    var t = document.getElementById(location.hash.slice(1));
+    if (t) { t.scrollIntoView(); }
+  }
+}());
+</script>
+</body>
+</html>

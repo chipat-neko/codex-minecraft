@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plans de construction — Codex Minecraft</title>
+<meta name="description" content="Plans Minecraft bloc par bloc : abri, maison, tour, château fort, donjon, grange, ferme, salle d'enchantement, portail sécurisé.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-cube"></span>
+      <span>Codex Minecraft<small>Java Edition</small></span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="drops.html">Drops &amp; lieux</a>
+      <a href="craft.html">Artisanat</a>
+      <a href="plans.html">Plans</a>
+      <a href="usines.html">Usines</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Catalogue 3 / 4</span>
+    <h1>Plans de construction</h1>
+    <p>Chaque plan est vu <b>de dessus, couche par couche</b> : une case = un bloc, les hachures = du vide.
+      Survolez une case pour lire le nom du bloc, ou lisez la légende sous chaque plan.</p>
+    <p>Commencez toujours par la couche Y+0 et montez. Les couches identiques successives sont signalées dans leur titre.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <input id="q" class="search" type="search" placeholder="Rechercher un plan…  ( / )" autocomplete="off">
+      <span id="count" class="count"></span>
+    </div>
+    <div class="toolbar-row" id="chips" style="margin-top:10px">
+      <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="maison">Habitations</button>
+      <button class="chip" data-cat="chateau">Châteaux</button>
+      <button class="chip" data-cat="ferme">Agricole</button>
+      <button class="chip" data-cat="technique">Bâtiments techniques</button>
+    </div>
+  </div>
+
+  <section style="margin-bottom:20px">
+    <div id="liste"></div>
+    <div id="vide" class="empty" style="display:none">Aucun plan trouvé. Essayez « château », « ferme », « portail », « enchantement »…</div>
+  </section>
+
+  <hr>
+
+  <section id="methode">
+    <h2>La méthode qui fait la différence</h2>
+    <p class="lead">Ce qui sépare une construction quelconque d'une construction qui impressionne n'est presque jamais
+      la quantité de blocs — c'est la méthode.</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3>1. Volume d'abord, détail ensuite</h3>
+        <p>Montez toute la structure en un seul matériau grossier (pierre, terre). Reculez, regardez la silhouette,
+          corrigez les proportions. <b>Ensuite seulement</b>, remplacez par les matériaux définitifs.
+          Décorer un volume raté ne le sauve jamais.</p>
+      </div>
+      <div class="card">
+        <h3>2. La règle des trois matériaux</h3>
+        <p>Un <b>matériau principal</b> (80 % des surfaces), un <b>matériau de structure</b> (poteaux, encadrements, angles),
+          un <b>matériau de détail</b> (escaliers, dalles, trappes). Au-delà de trois familles, la façade devient illisible de loin.</p>
+      </div>
+      <div class="card">
+        <h3>3. Casser les surfaces plates</h3>
+        <p>Un mur parfaitement lisse fait « boîte ». Ajoutez un décrochement d'un bloc tous les 5 à 7 blocs, une avancée de toit,
+          des poutres en saillie. La profondeur se crée avec <b>un seul bloc</b> de décalage.</p>
+      </div>
+      <div class="card">
+        <h3>4. Le toit fait 50 % du résultat</h3>
+        <p>Un toit doit dépasser des murs d'au moins 1 bloc, et sa pente doit être franche.
+          Un toit plat sur une maison médiévale ruine tout le travail des murs ; un toit trop plat fait « hangar ».</p>
+      </div>
+      <div class="card">
+        <h3>5. Vieillir les matériaux</h3>
+        <p>Remplacez 15 à 20 % des blocs par leurs variantes fissurées, moussues ou d'une teinte voisine — en concentrant
+          l'usure en bas des murs et aux angles, là où l'humidité et les chocs agissent vraiment.</p>
+      </div>
+      <div class="card">
+        <h3>6. Éclairer sans casser l'ambiance</h3>
+        <p>Lanternes suspendues, blocs lumineux dans le sol sous un tapis, froglights encastrés.
+          Une torche plantée sur un mur en pierre taillée casse instantanément l'impression de soin.</p>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <b>Piège classique</b> — toute case intérieure non éclairée d'un bâtiment est un point d'apparition de monstre.
+      Dans un château ou une grande grange, cela signifie des dizaines de zombies au réveil. Éclairez avant de décorer,
+      ou couvrez les surfaces non visibles de dalles inférieures : aucun mob ne peut apparaître dessus.
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="palettes">
+    <h2>Palettes de matériaux qui fonctionnent</h2>
+    <p class="lead">Des combinaisons éprouvées, à copier telles quelles.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Style</th><th>Principal</th><th>Structure</th><th>Détail &amp; toit</th></tr></thead>
+        <tbody>
+          <tr><td><b>Médiéval villageois</b></td><td>Planches de chêne, plâtre (terre cuite blanche)</td><td>Rondins de chêne noir</td><td>Escaliers de bois foncé, tuiles en terre cuite</td></tr>
+          <tr><td><b>Château de pierre</b></td><td>Briques de pierre</td><td>Pierre taillée, briques fissurées</td><td>Murets, escaliers en pierre, briques moussues en pied de mur</td></tr>
+          <tr><td><b>Nordique / taïga</b></td><td>Rondins d'épicéa</td><td>Pierre brute, cobblestone</td><td>Escaliers d'épicéa, toit en terre cuite sombre</td></tr>
+          <tr><td><b>Désert / oriental</b></td><td>Grès lisse et grès taillé</td><td>Terre cuite orange, bois d'acacia</td><td>Escaliers de grès, tapis colorés, verre teinté</td></tr>
+          <tr><td><b>Moderne</b></td><td>Béton blanc et gris</td><td>Quartz lisse, deepslate poli</td><td>Vitres, dalles noires, éclairage encastré</td></tr>
+          <tr><td><b>Nether / infernal</b></td><td>Briques du Nether, pierre noire polie</td><td>Or, obsidienne pleurante</td><td>Chaînes, lanternes des âmes, barreaux de fer</td></tr>
+          <tr><td><b>Elfique / naturel</b></td><td>Bois de cerisier, pierre moussue</td><td>Bloc de mousse, feuillage</td><td>Trappes, clôtures, lanternes, glycines</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Codex Minecraft — guide de référence non officiel.</div>
+</footer>
+
+<script src="assets/core.js"></script>
+<script src="assets/data-plans.js"></script>
+<script>
+(function () {
+  var liste = document.getElementById('liste');
+  for (var i = 0; i < PLANS.length; i++) { liste.appendChild(renderBlueprint(PLANS[i])); }
+  setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
+
+  /* Ouvre directement le plan visé par l'ancre (#chateau, #abri…) */
+  if (location.hash) {
+    var t = document.getElementById(location.hash.slice(1));
+    if (t) { t.scrollIntoView(); }
+  }
+}());
+</script>
+</body>
+</html>

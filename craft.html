@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artisanat — Codex Minecraft</title>
+<meta name="description" content="Toutes les recettes d'artisanat Minecraft Java avec la grille 3×3 dessinée : outils, armures, redstone, postes de travail, nourriture.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-cube"></span>
+      <span>Codex Minecraft<small>Java Edition</small></span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="drops.html">Drops &amp; lieux</a>
+      <a href="craft.html">Artisanat</a>
+      <a href="plans.html">Plans</a>
+      <a href="usines.html">Usines</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Catalogue 2 / 4</span>
+    <h1>Artisanat</h1>
+    <p>La grille est dessinée telle qu'elle doit apparaître dans l'établi. Survolez une case pour lire le nom de l'ingrédient.
+      Les recettes <b>sans forme</b> (livre, lingot de netherite…) acceptent n'importe quelle disposition.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <input id="q" class="search" type="search" placeholder="Rechercher une recette…  ( / )" autocomplete="off">
+      <span id="count" class="count"></span>
+    </div>
+    <div class="toolbar-row" id="chips" style="margin-top:10px">
+      <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="base">Survie de base</button>
+      <button class="chip" data-cat="outil">Outils &amp; armes</button>
+      <button class="chip" data-cat="armure">Armures</button>
+      <button class="chip" data-cat="redstone">Redstone</button>
+      <button class="chip" data-cat="station">Postes de travail</button>
+      <button class="chip" data-cat="nourriture">Nourriture</button>
+      <button class="chip" data-cat="transport">Transport &amp; stockage</button>
+      <button class="chip" data-cat="end">Nether &amp; End</button>
+      <button class="chip" data-cat="deco">Décoration</button>
+    </div>
+  </div>
+
+  <section style="margin-bottom:20px">
+    <div id="liste" class="grid g2"></div>
+    <div id="vide" class="empty" style="display:none">Aucune recette trouvée. Essayez « piston », « balise », « enclume », « fusée »…</div>
+  </section>
+
+  <hr>
+
+  <section id="cuisson">
+    <h2>Cuisson, fusion et brassage</h2>
+    <p class="lead">Tout ne passe pas par l'établi. Trois postes complètent le système d'artisanat.</p>
+
+    <div class="grid g3">
+      <div class="card">
+        <h3>🔥 Fourneau</h3>
+        <p>Minerais bruts → lingots · sable → verre · argile → terre cuite · nourriture crue → cuite ·
+          bûche → charbon de bois · pierre → pierre lisse.</p>
+        <div class="tags">
+          <span class="tag">10 s par objet</span><span class="tag gold">Donne de l'XP</span>
+        </div>
+        <p class="note" style="margin-top:10px">Le <b>haut fourneau</b> va deux fois plus vite mais ne fait que les minerais et les équipements. Le <b>fumoir</b> ne fait que la nourriture, deux fois plus vite.</p>
+      </div>
+
+      <div class="card">
+        <h3>⚗️ Alambic</h3>
+        <p>Base obligatoire : <b>fiole d'eau + verrue du Nether</b> = potion étrange. Ensuite, un ingrédient donne l'effet :</p>
+        <ul style="font-size:14px;color:var(--txt-2);padding-left:18px;margin:8px 0 0">
+          <li>Poudre de Blaze → <b>Force</b></li>
+          <li>Carotte dorée → <b>Vision nocturne</b></li>
+          <li>Sucre → <b>Rapidité</b></li>
+          <li>Crème de magma → <b>Résistance au feu</b></li>
+          <li>Melon scintillant → <b>Soin instantané</b></li>
+          <li>Poisson-globe → <b>Respiration aquatique</b></li>
+          <li>Patte de lapin → <b>Saut</b></li>
+          <li>Larme de Ghast → <b>Régénération</b></li>
+          <li>Écaille de tortue → <b>Lenteur / Résistance</b></li>
+          <li>Araignée fermentée → <b>inverse l'effet</b></li>
+        </ul>
+        <p class="note" style="margin-top:10px">Redstone = durée prolongée · Poudre lumineuse = effet renforcé · Poudre à canon = potion jetable · Souffle du dragon = potion persistante.</p>
+      </div>
+
+      <div class="card">
+        <h3>🔨 Table de forge</h3>
+        <p>Deux usages, jamais interchangeables :</p>
+        <ul style="font-size:14px;color:var(--txt-2);padding-left:18px;margin:8px 0 0">
+          <li><b>Netherite</b> : modèle + équipement en diamant + 1 lingot de netherite. Les enchantements sont conservés.</li>
+          <li><b>Ornement d'armure</b> : modèle (trouvé en structure) + pièce d'armure + matériau (or, cuivre, améthyste, quartz…). Purement esthétique.</li>
+        </ul>
+        <p class="note" style="margin-top:10px">Les modèles d'ornement se dupliquent : 1 modèle + 7 blocs de la structure d'origine + 1 diamant.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="enchantements">
+    <h2>Les enchantements qui comptent vraiment</h2>
+    <p class="lead">Sur des dizaines d'enchantements, une petite dizaine change concrètement la façon de jouer.</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Enchantement</th><th>Sur quoi</th><th>Pourquoi il est prioritaire</th></tr></thead>
+        <tbody>
+          <tr><td><b>Solidité III</b> (Unbreaking)</td><td>Tout</td><td>Multiplie la durée de vie par ≈4. À mettre sur tout, sans exception.</td></tr>
+          <tr><td><b>Raccommodage</b> (Mending)</td><td>Tout</td><td>L'XP répare l'objet. Un équipement avec Raccommodage ne se casse jamais. Uniquement via livre (villageois, pêche, coffres).</td></tr>
+          <tr><td><b>Fortune III</b></td><td>Pioche</td><td>×2 à ×4 sur diamant, redstone, lapis, charbon, améthyste. Rentabilise chaque session de minage.</td></tr>
+          <tr><td><b>Toucher de soie</b></td><td>Pioche</td><td>Récupère le bloc intact : générateurs de sculk, verre, glace, minerais bruts. Incompatible avec Fortune.</td></tr>
+          <tr><td><b>Efficacité V</b></td><td>Pioche, hache, pelle</td><td>Avec Hâte II d'une balise : minage instantané de la pierre. Indispensable sur les grands chantiers.</td></tr>
+          <tr><td><b>Butin III</b> (Looting)</td><td>Épée</td><td>+3 objets par mob et +3 % sur les drops rares (crânes de wither, tridents). Le socle de toute ferme manuelle.</td></tr>
+          <tr><td><b>Protection IV</b></td><td>Armure</td><td>Réduction générale des dégâts. Suffit dans 95 % des situations ; les protections spécialisées sont réservées aux cas précis.</td></tr>
+          <tr><td><b>Chute amortie IV</b></td><td>Bottes</td><td>Supprime quasiment tous les dégâts de chute. Change complètement l'exploration et le vol à l'élytre.</td></tr>
+          <tr><td><b>Infinité</b></td><td>Arc</td><td>Une seule flèche suffit pour toujours. Incompatible avec Raccommodage : choisissez selon votre usage.</td></tr>
+          <tr><td><b>Célérité aquatique III</b></td><td>Casque</td><td>Vitesse de minage normale sous l'eau. Obligatoire pour vider un monument océanique.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout tip">
+      <b>Le raccourci</b> — un villageois <b>bibliothécaire</b> vend n'importe quel livre enchanté contre des émeraudes.
+      Cassez et reposez son lutrin jusqu'à voir l'offre voulue : c'est bien plus rapide et moins coûteux que de tenter sa chance
+      à la table d'enchantement.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Codex Minecraft — guide de référence non officiel.</div>
+</footer>
+
+<script src="assets/core.js"></script>
+<script src="assets/data-craft.js"></script>
+<script>
+(function () {
+  var liste = document.getElementById('liste');
+  for (var i = 0; i < RECETTES.length; i++) { liste.appendChild(renderRecipe(RECETTES[i])); }
+  setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
+}());
+</script>
+</body>
+</html>
