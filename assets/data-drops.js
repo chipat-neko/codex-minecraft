@@ -810,9 +810,15 @@ var DROPS = [
     ],
     ou: 'Créature aquatique (catégorie water_creature), toujours en groupe de 1. Poids 5 dans ocean, warm_ocean, lukewarm_ocean, deep_ocean et deep_lukewarm_ocean ; poids 2 dans cold_ocean, deep_cold_ocean, frozen_ocean et deep_frozen_ocean.',
     drops: [
-      'Coquille de nautile ×1 — uniquement si le mob est tué par le joueur ; 5 % sans enchantement, 6 % avec Butin I puis +1 % par niveau supplémentaire'
+      'Coquille de nautile ×1 — uniquement si le mob est tué par le joueur ; 5 % sans enchantement, 6 % avec Butin I puis +1 % par niveau supplémentaire',
+      'Marchand ambulant — 1 coquille de nautile contre 5 émeraudes, 5 utilisations ; la coquille est de rareté « peu commune »',
+      'Breath of the Nautilus — monter le nautile applique l\'effet au premier passager s\'il s\'agit d\'un joueur : 60 ticks, soit 3 secondes, au niveau I, renouvelé toutes les 40 ticks. Il est donc permanent tant qu\'on reste dessus.',
+      'Ce que l\'effet fait — il compte comme une Respiration aquatique et empêche la noyade',
+      'Ce qu\'il ne fait pas — il ne remplit PAS la barre d\'air, qui reste à zéro, alors que la Respiration aquatique et le conduit la rechargent',
+      'Un effet sans aucun attribut — catégorie bénéfique, couleur cyan, zéro modificateur ; aucune potion ne le produit, la monture est sa seule source',
+      'Monture — résistance à l\'eau 0,9 ; vitesse de 0,0325 monté dans l\'eau contre 0,02 monté sur terre ; ruée rechargée en 40 ticks, 5 ticks de durée minimale, élan de 1,2 dans l\'eau et de 0,5 sur terre ; inventaire de 3 rangées'
     ],
-    note: 'Il figure dans les tags can_equip_saddle, can_wear_nautilus_armor, can_breathe_under_water, aquatic et not_scary_for_pufferfish. nautilus_taming_items ne contient que le poisson-globe et le seau de poisson-globe ; nautilus_food ajoute tous les poissons et les seaux de morue, saumon, poisson tropical et poisson-globe. nautilus_hostiles ne contient que le poisson-globe. Le jar fournit un écran d\'inventaire dédié (textures/gui/container/nautilus.png) et un effet « Breath of the Nautilus » déclaré dans en_us.json.'
+    note: 'Il figure dans les tags can_equip_saddle, can_wear_nautilus_armor, can_breathe_under_water, aquatic et not_scary_for_pufferfish. nautilus_taming_items ne contient que le poisson-globe et le seau de poisson-globe ; nautilus_food ajoute tous les poissons et les seaux de morue, saumon, poisson tropical et poisson-globe. nautilus_hostiles ne contient que le poisson-globe. Un écran d\'inventaire dédié existe (textures/gui/container/nautilus.png). Conséquence directe de « Breath of the Nautilus » : l\'effet s\'éteint 3 secondes après qu\'on a mis pied à terre, et la barre d\'air, jamais rechargée pendant la chevauchée, est alors vide.'
   },
 
   {
@@ -835,14 +841,26 @@ var DROPS = [
     nom: 'Golem de cuivre (Copper Golem)', cat: 'passif',
     tags: [
       { txt: 'Cuivre', cls: 'copper' },
+      { txt: 'Se bâtit en 2 blocs', cls: 'ok' },
       { txt: 'Statues', cls: '' },
       { txt: 'Aucun spawn naturel', cls: 'red' }
     ],
-    ou: 'Aucun fichier de biome ne le déclare dans ses spawners : il n\'apparaît naturellement dans aucun biome d\'après les données. Le jar fournit un œuf d\'apparition (copper_golem_spawn_egg) et une famille de blocs « statue de golem de cuivre » en 4 stades d\'oxydation, chacun décliné en version cirée (tag item/copper_golem_statues, 8 blocs).',
+    ou: 'Aucun fichier de biome ne le déclare dans ses spawners : il n\'apparaît naturellement nulle part. On le bâtit, comme un golem de fer, mais avec deux blocs seulement — une citrouille sculptée posée sur un bloc de cuivre. Le jeu teste les motifs dans l\'ordre golem de neige, golem de fer, golem de cuivre. Le jar fournit aussi un œuf d\'apparition (copper_golem_spawn_egg) et une famille de blocs « statue de golem de cuivre » en 4 stades d\'oxydation, chacun décliné en version cirée (tag item/copper_golem_statues, 8 blocs).',
     drops: [
-      'Lingot de cuivre ×1–3 — +0 à 1 par niveau de Butin ; aucune condition, le butin tombe quelle que soit la cause de la mort'
+      'Construction — colonne verticale de 2 : citrouille sculptée ou Citrouille-lanterne au-dessus, bloc de cuivre en dessous. N\'importe lequel des 8 blocs du tag copper convient, y compris les 4 versions cirées.',
+      'Le bloc de cuivre devient un coffre — il est remplacé par un coffre de cuivre orienté comme la citrouille : c\'est ainsi qu\'on obtient ce coffre',
+      'Oxydation de départ — héritée du bloc employé ; un bloc ciré est d\'abord ramené à son état non ciré, et par défaut le golem naît au stade neuf',
+      'Lingot de cuivre ×1–3 — +0 à 1 par niveau de Butin ; aucune condition, le butin tombe quelle que soit la cause de la mort',
+      'Points de vie — 12, soit 6 cœurs ; vitesse de déplacement 0,2 et hauteur de marche 1,0, il franchit donc un bloc plein sans sauter',
+      'Vieillissement — un cran tous les 504 000 à 552 000 ticks, soit de 7 h à 7 h 40 de jeu, tirés au hasard à chaque palier',
+      'Pétrification — une fois complètement oxydé, 0,58 % de chance par tick de se figer en statue, à condition d\'occuper un bloc d\'air : en pratique de l\'ordre de neuf secondes d\'attente',
+      'Statue produite — oxidized_copper_golem_statue, pose tirée au hasard, orientation reprise de celle du golem',
+      'Remettre une statue en marche — clic droit à la hache sur une statue non oxydée : le bloc disparaît, le golem réapparaît, la hache perd 1 point de durabilité',
+      'Cirer le golem le fige — un rayon de miel arrête définitivement son vieillissement ; la hache le décire et relance le compte à rebours',
+      'Clic droit à mains nues — il vous lance l\'objet qu\'il tient ; aux cisailles, il se laisse tondre et rend un coquelicot',
+      'Animations — rotation de tête toutes les 200 à 240 ticks, temps mort de 60 à 100 ticks après son apparition'
     ],
-    note: 'Il est le seul membre du tag accepts_iron_golem_gift, et le tag shearable_from_copper_golem ne contient que le coquelicot. Il figure aussi dans can_breathe_under_water et fall_damage_immune. Les blocs statue conservent leur nom personnalisé et leur état copper_golem_pose quand on les casse (fonctions copy_components et copy_state de leur table de butin).'
+    note: 'La statue de golem de cuivre n\'a aucune recette (seules les 4 variantes cirées en ont une, et elles prennent une statue en entrée), n\'apparaît dans aucune structure et dans aucun coffre : la laisser s\'oxyder puis se figer est la seule façon d\'en obtenir une. L\'asymétrie mérite d\'être retenue — environ 7 h de jeu par cran d\'oxydation, puis quelques secondes seulement pour la pétrification. Il est par ailleurs le seul membre du tag accepts_iron_golem_gift, figure dans can_breathe_under_water et fall_damage_immune, et les blocs statue conservent leur nom personnalisé et leur état copper_golem_pose quand on les casse.'
   },
 
   {
@@ -892,13 +910,20 @@ var DROPS = [
     tags: [
       { txt: 'Harnais', cls: 'cyan' },
       { txt: 'Vol', cls: 'ok' },
+      { txt: 'Éclot d\'un bloc', cls: 'blue' },
       { txt: 'Aucun butin', cls: 'red' }
     ],
-    ou: 'Aucun spawner de biome ne le déclare. Le jar fournit un œuf d\'apparition (happy_ghast_spawn_egg) et le bloc Dried Ghast, dont l\'état « hydration » va de 0 à 3 et possède une propriété waterlogged.',
+    ou: 'Aucun spawner de biome ne le déclare : on l\'obtient en posant un bloc Ghast desséché dans l\'eau. Immergé, le bloc monte d\'un palier d\'hydratation toutes les 5 000 ticks jusqu\'au niveau 3, puis éclôt en « ghastling » — un ghast joyeux bébé, orienté comme le bloc, qui disparaît alors. Sorti de l\'eau, le bloc redescend d\'un palier à chaque tick programmé : la progression est entièrement réversible. Un œuf d\'apparition existe aussi (happy_ghast_spawn_egg).',
     drops: [
-      'Sa table de butin ne contient AUCUN pool : elle se limite au type et à la séquence aléatoire. Le ghast joyeux ne lâche rien à sa mort.'
+      'Sa table de butin ne contient AUCUN pool : elle se limite au type et à la séquence aléatoire. Le ghast joyeux ne lâche rien à sa mort.',
+      'Éclosion — de l\'ordre de 20 000 ticks, soit environ 16 minutes et 40 secondes, entre le bloc fraîchement immergé et le ghastling',
+      'Taille du bébé — 0,2375 de l\'échelle adulte, laquelle vaut 1,0 : l\'écart est spectaculaire',
+      'Passagers — 4 au maximum une fois harnaché',
+      'Régénération — deux cadences sont définies, une rapide de 20 ticks et une lente de 600 ticks',
+      'Panique — sa vitesse est multipliée par 2 quand il panique',
+      'Croissance vers l\'adulte — sa durée reste inconnue : elle relève de la croissance standard des bébés et n\'a pas été retrouvée dans les fichiers lus'
     ],
-    note: 'Il est le seul membre du tag can_equip_harness ; 16 harnais colorés plus un harnais de base sont déclarés dans en_us.json et dans assets/minecraft/equipment/. Il figure aussi dans dismounts_underwater, fall_damage_immune et followable_friendly_mobs.'
+    note: 'Il est le seul membre du tag can_equip_harness ; 16 harnais colorés plus un harnais de base sont déclarés dans en_us.json et dans assets/minecraft/equipment/. Il figure aussi dans dismounts_underwater, fall_damage_immune et followable_friendly_mobs. Le ghastling apparaît avec la raison d\'apparition « reproduction », ce qui le rattache bien à un cycle de naissance et non à un spawn de monstre.'
   },
 
   {
@@ -919,32 +944,48 @@ var DROPS = [
     nom: 'Lances (Spears)', cat: 'bloc',
     tags: [
       { txt: '7 matériaux', cls: 'ok' },
+      { txt: 'Portée 4,5 blocs', cls: 'cyan' },
       { txt: 'Attaque chargée', cls: 'gold' },
-      { txt: 'Emplacement dédié', cls: 'cyan' }
+      { txt: 'Plus faible que l\'épée', cls: 'red' }
     ],
     ou: 'Fabricables dans les 7 matériaux (bois, pierre, cuivre, fer, or, diamant, netherite). On en trouve aussi en coffre : forge de village (lance en fer poids 5, lance en cuivre poids 7), trésor enfoui (lance en fer), ruines sous-marines petites et grandes (lance en pierre, poids 2), trésor de bastion (lance en diamant, poids 6, usée et enchantée aléatoirement), trésor de cité de l\'End (lance en diamant, poids 3, enchantée à 20–39 niveaux).',
     drops: [
       'Recette commune : motif « X / # / # » en diagonale (pattern " X", " # ", "# ") — une tête de matériau plus deux bâtons',
-      'Lance en netherite : forge uniquement, smithing_transform à partir de la lance en diamant, d\'un modèle de forgeage netherite_upgrade et de netherite_tool_materials',
+      'Lance en netherite : forge uniquement, smithing_transform à partir de la lance en diamant, d\'un modèle de forgeage netherite_upgrade et de netherite_tool_materials ; c\'est la seule des sept à être ignifugée',
+      'Dégâts infligés : 1 en bois, 2 en pierre, 2 en cuivre, 1 en or, 3 en fer, 4 en diamant, 5 en netherite — la lance n\'ajoute strictement aucun bonus par-dessus le matériau',
+      'Toujours plus faible que l\'épée : celle-ci fait 4, 5, 5, 4, 6, 7 et 8 dans les mêmes matériaux, à 1,6 attaque par seconde quel que soit le palier',
+      'Vitesse d\'attaque : 1,54 coup par seconde en bois, 1,33 en pierre, 1,18 en cuivre, 1,05 en or et en fer, 0,95 en diamant, 0,87 en netherite — elle diminue à mesure que le matériau s\'améliore',
+      'Portée : 4,5 blocs au maximum contre 3 pour une arme ordinaire, 2 au minimum, 6,5 en créatif, avec une marge de hitbox de 0,125 — c\'est le vrai gain de la lance',
+      'Charge pleine obligatoire : le coup ne part qu\'à 1,0 de charge, en estoc ; le sprint reste autorisé et la visée n\'impose aucun ralentissement',
+      'Composant PIERCING_WEAPON : la frappe repousse la cible mais ne la désarçonne jamais',
+      'Composant KINETIC_WEAPON : 10 ticks de temps de contact et une poussée vers l\'avant de 0,38, identiques pour les sept matériaux',
+      'Attaque en charge, d\'après le code : le damageMultiplier passe de 0,70 en bois à 1,20 en netherite et le délai de 15 à 8 ticks, tandis que les seuils de vitesse de déclenchement descendent de 14 à 9. La formule finale des dégâts d\'une charge, elle, n\'est pas déterminable à partir du code lu.',
+      'Usure et durabilité : 1 point d\'usure par attaque comme une épée, contre 2 pour un outil ; la durabilité et l\'enchantabilité sont celles du matériau, par exemple 190 et 13 en cuivre, 250 et 14 en fer, 1561 et 10 en diamant',
       'Type de dégâts propre : minecraft:spear, épuisement 0,1, message_id « spear », scaling when_caused_by_living_non_player',
-      'Tag minecraft:spears : les 7 lances y sont regroupées'
+      'Tag des lances : minecraft:spears regroupe les sept ; la version en bois possède ses propres sons, les six autres partagent le même jeu'
     ],
-    note: 'Le progrès adventure/spear_many_mobs (« Mob Kabob », cadre goal, icône lance en fer) demande de toucher cinq mobs dans la même attaque chargée à la lance : les données confirment donc l\'existence d\'une attaque chargée touchant plusieurs cibles. Une texture d\'emplacement d\'inventaire dédiée existe (gui/sprites/container/slot/spear.png), ainsi qu\'un modèle « en main » distinct pour chaque lance.'
+    note: 'Le point contre-intuitif de l\'arme : la lance frappe moins fort que l\'épée dans tous les matériaux, et elle devient plus LENTE à mesure qu\'on progresse — 1,54 coup par seconde en bois contre 0,87 en netherite, l\'inverse de tout le reste du jeu. Son intérêt tient à ses 4,5 blocs de portée et à l\'attaque en charge : le progrès adventure/spear_many_mobs (« Mob Kabob », cadre goal, icône lance en fer) demande justement de toucher cinq mobs dans une même charge. Une texture d\'emplacement d\'inventaire dédiée existe (gui/sprites/container/slot/spear.png), ainsi qu\'un modèle « en main » distinct pour chaque lance.'
   },
 
   {
     nom: 'Armure pour nautile (Nautilus Armor)', cat: 'bloc',
     tags: [
       { txt: '5 matériaux', cls: 'ok' },
+      { txt: 'Indestructible', cls: 'cyan' },
       { txt: 'Butin marin', cls: 'blue' },
       { txt: 'Non fabricable', cls: 'red' }
     ],
     ou: 'Cinq variantes : cuivre, fer, or, diamant, netherite. Aucune recette d\'artisanat n\'existe pour les quatre premières — seul netherite_nautilus_armor_smithing.json est présent dans data/minecraft/recipe/. Elles se trouvent donc uniquement en coffre, dans un même lot partagé par cinq tables : trésor enfoui, épave (carte, réserve, trésor) et ruines sous-marines (petites et grandes).',
     drops: [
+      'Indestructible — aucune durabilité ne lui est attribuée, et elle ne s\'abîme pas non plus quand la monture est blessée',
+      'Protection — 4 points en cuivre, 5 en fer, 7 en or, 11 en diamant, 19 en netherite : l\'or protège mieux que le fer, comme pour les armures de cheval',
+      'Ténacité et recul — 2,0 de ténacité en diamant, 3,0 en netherite avec 0,1 de résistance au recul ; rien du tout en cuivre, fer et or',
+      'Manipulation — elle se pose d\'un clic droit sur le nautile, se retire aux cisailles, occupe l\'emplacement « corps » et ne s\'empile pas',
       'Lot de coffre : rien (poids 148), armure en cuivre pour nautile (20), en fer (10), en or (5), en diamant (2) — un seul tirage, une seule pièce',
-      'Armure en netherite pour nautile : forge uniquement, à partir de la version diamant plus un modèle netherite_upgrade et netherite_tool_materials'
+      'Armure en netherite pour nautile : forge uniquement, à partir de la version diamant plus un modèle netherite_upgrade et netherite_tool_materials ; c\'est la seule des cinq à être ignifugée',
+      'Recyclage — fondues, les versions cuivre, fer et or rendent chacune 1 pépite du métal correspondant'
     ],
-    note: 'Le tag can_wear_nautilus_armor ne contient que deux entités : le nautile et le nautile-zombie. Le jar contient les textures d\'équipement correspondantes (entity/equipment/nautilus_body/ en cuivre, fer, or, diamant, netherite) et une texture de selle séparée (nautilus_saddle). Deux emplacements d\'inventaire dédiés existent aussi (slot/nautilus_armor.png et nautilus_armor_inventory.png).'
+    note: 'Le tag can_wear_nautilus_armor ne contient que deux entités : le nautile et le nautile-zombie. Comparez avec l\'armure de loup, qui possède une durabilité : celle du nautile n\'en a aucune, elle ne s\'use jamais et se récupère intacte aux cisailles. Le jar contient les textures d\'équipement correspondantes (entity/equipment/nautilus_body/ en cuivre, fer, or, diamant, netherite) et une texture de selle séparée (nautilus_saddle). Deux emplacements d\'inventaire dédiés existent aussi (slot/nautilus_armor.png et nautilus_armor_inventory.png).'
   },
 
   {
@@ -968,15 +1009,25 @@ var DROPS = [
     tags: [
       { txt: 'Cuivre', cls: 'copper' },
       { txt: '10 objets', cls: 'ok' },
-      { txt: 'Fabricable', cls: 'ok' }
+      { txt: 'Armure 10 points', cls: 'gold' },
+      { txt: 'Mine comme la pierre', cls: 'red' }
     ],
     ou: 'Dix objets nouveaux fabricables : épée, pioche, hache, pelle, houe et lance en cuivre, plus casque, plastron, jambières et bottes en cuivre. Toutes les recettes sont dans data/minecraft/recipe/, catégorie « equipment ».',
     drops: [
       'Outils : motifs vanilla habituels, avec le tag #minecraft:copper_tool_materials en tête de manche — ce tag ne contient qu\'une valeur, le lingot de cuivre',
       'Armure : motifs vanilla habituels utilisant directement minecraft:copper_ingot (casque « XXX / X X », plastron « X X / XXX / XXX », jambières « XXX / X X / X X », bottes « X X / X X »)',
-      'Un jeu de textures d\'équipement porté est fourni : assets/minecraft/equipment/copper.json'
+      'Points d\'armure — casque 2, plastron 4, jambières 3, bottes 1, soit 10 au total : entre le cuir (7) et les mailles (12), sous l\'or (11) et loin du fer (15)',
+      'Durabilité de l\'armure — 121 pour le casque, 176 pour le plastron, 165 pour les jambières, 143 pour les bottes : plus du double du cuir, et bien plus proche des mailles et du fer que de celui-ci',
+      'Enchantabilité de l\'armure — 8, la plus basse de tous les paliers du jeu (fer 9, diamant 10, mailles 12, cuir et netherite 15, or 25)',
+      'Ni ténacité ni résistance au recul — 0,0 pour les deux, comme le cuir, les mailles, le fer et l\'or ; seuls le diamant et le netherite en ont',
+      'Réparation et fonte — le lingot de cuivre répare toute pièce en cuivre, et n\'importe quel objet en cuivre fondu rend 1 pépite de cuivre',
+      'Outils, palier de minage — le tag incorrect_for_copper_tool a exactement le même contenu que celui de la pierre : une pioche en cuivre mine donc au palier de la pierre et ne récupère ni le minerai de fer, ni celui d\'or, ni le diamant',
+      'Outils, dégâts — épée 5, hache 9, pelle 3,5, pioche 3, houe 1 : exactement les mêmes chiffres qu\'en pierre',
+      'Outils, vitesses d\'attaque — 1,6 pour l\'épée, 1,2 pour la pioche, 1,0 pour la pelle, 0,8 pour la hache, 2,0 pour la houe',
+      'Outils, le vrai apport du cuivre — 190 points de durabilité au lieu de 131, vitesse de minage 5,0 au lieu de 4,0, enchantabilité 13 au lieu de 5',
+      'Textures d\'équipement porté : assets/minecraft/equipment/copper.json'
     ],
-    note: 'Le cuivre s\'insère ainsi comme un palier d\'équipement complet, au même titre que le fer ou l\'or. Les valeurs d\'armure et de durabilité ne figurent dans aucun fichier de données du jar : elles sont définies dans le code, elles ne sont donc pas documentées ici.'
+    note: 'Un outil en cuivre n\'est pas un palier intermédiaire entre la pierre et le fer : c\'est une pierre améliorée. Mêmes dégâts, même palier de minage que la pierre — donc toujours pas de diamant ni même de fer —, mais 45 % de durabilité en plus, 25 % de vitesse de minage en plus et une enchantabilité multipliée par plus de deux. L\'armure, elle, se place bel et bien entre le cuir et les mailles, au prix de la plus mauvaise enchantabilité du jeu.'
   },
 
   {
@@ -992,7 +1043,7 @@ var DROPS = [
       'Table de butin du bloc : il se lâche lui-même, sous la seule condition survives_explosion',
       'Le blocstate expose une propriété « hydration » à 4 valeurs (0 à 3) et une propriété « facing » sur 4 directions ; le bloc est aquifiable (waterlogged)'
     ],
-    note: 'Le progrès husbandry/place_dried_ghast_in_water (« Stay Hydrated! ») se déclenche en posant un bloc Dried Ghast dans l\'eau, c\'est-à-dire à l\'état waterlogged=true. C\'est le seul lien que les données établissent entre ce bloc et le ghast joyeux, qui ne possède ni butin ni apparition naturelle.'
+    note: 'Le progrès husbandry/place_dried_ghast_in_water (« Stay Hydrated! ») se déclenche en posant un bloc Dried Ghast dans l\'eau, c\'est-à-dire à l\'état waterlogged=true. C\'est bien de là que naît le ghast joyeux : immergé, le bloc gagne un palier d\'hydratation toutes les 5 000 ticks jusqu\'au niveau 3, puis éclôt en ghastling — un ghast joyeux bébé — et disparaît. Hors de l\'eau, il redescend d\'un palier à chaque tick programmé, donc rien n\'est perdu si vous le sortez.'
   },
 
   {
