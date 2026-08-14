@@ -24,7 +24,7 @@ var METIERS = [
     ou: 'Bloc de métier : le composteur (7 dalles de bois).',
     drops: [
       'ACHÈTE : blé (20 → 1 émeraude), pommes de terre, carottes, betteraves, citrouilles, melons',
-      'VEND : pain, tartes à la citrouille, cookies, gâteaux, pommes dorées, carottes dorées, potions suspectes',
+      'VEND : pain, pommes (1 émeraude → 4), tartes à la citrouille, cookies, gâteaux, carottes dorées, tranches de melon brillant, potions suspectes',
       'Il sème et récolte tout seul si vous l\'enfermez au-dessus d\'une parcelle'
     ],
     note: 'C\'est lui qui transforme une ferme à blé automatique en machine à émeraudes. Il nourrit aussi les autres villageois, ce qui permet la reproduction.'
@@ -68,7 +68,7 @@ var METIERS = [
     ou: 'Bloc de métier : l\'alambic (1 bâton de Blaze + 3 pierres).',
     drops: [
       'ACHÈTE : chair putréfiée (32 → 1 émeraude !), or',
-      'VEND : redstone, LAPIS, PERLES DE L\'ENDER (≈5 émeraudes l\'unité), poudre lumineuse, bouteille d\'expérience'
+      'VEND : redstone, LAPIS, PERLES DE L\'ENDER (≈5 émeraudes l\'unité), blocs de pierre lumineuse (4 émeraudes), bouteille d\'expérience'
     ],
     note: 'Il achète la chair putréfiée : une ferme à zombies devient directement une source d\'émeraudes. Et il vend des perles de l\'Ender, ce qui évite la chasse aux endermen.'
   },
@@ -77,7 +77,7 @@ var METIERS = [
     tags: [{ txt: 'Table de cartographie', cls: 'gold' }],
     ou: 'Bloc de métier : la table de cartographie (2 papiers + 4 planches).',
     drops: [
-      'ACHÈTE : papier, boussole, verre',
+      'ACHÈTE : papier (24 → 1 émeraude), vitres (11 → 1 émeraude), boussole',
       'VEND : cartes de l\'explorateur des BOIS (manoir) et de l\'OCÉAN (monument), bannières, cadres'
     ],
     note: 'La carte du manoir des bois est presque indispensable : un manoir peut être à plusieurs milliers de blocs et rien ne permet de le trouver autrement.'
@@ -107,8 +107,8 @@ var METIERS = [
     tags: [{ txt: 'Fumoir', cls: '' }],
     ou: 'Bloc de métier : le fumoir (4 bûches + 1 four).',
     drops: [
-      'ACHÈTE : viandes crues, carottes, pommes de terre, betteraves, lapin, poulet',
-      'VEND : viandes cuites, ragoût de lapin, lapin cuit'
+      'ACHÈTE : viandes crues (poulet 14, porc 7, lapin 4, mouton 7, bœuf 10), charbon (15), blocs de kelp séché (10), baies sucrées (10) — les légumes sont pour le fermier',
+      'VEND : ragoût de lapin (1 émeraude, dès novice), porc cuit (1 émeraude → 5) et poulet cuit (1 émeraude → 8) au niveau apprenti'
     ],
     note: 'Le débouché naturel d\'une ferme à poulets ou à vaches : la viande en surplus devient des émeraudes.'
   },
@@ -118,7 +118,7 @@ var METIERS = [
     ou: 'Bloc de métier : le tonneau (6 planches + 2 dalles).',
     drops: [
       'ACHÈTE : ficelle, charbon, poisson cru',
-      'VEND : poisson cuit, cannes à pêche enchantées, seaux de poisson, boussole'
+      'VEND : poisson cuit (6 crus + 1 émeraude → 6 cuits), cannes à pêche enchantées, seaux de poisson, feu de camp (2 émeraudes)'
     ],
     note: 'Sa canne à pêche enchantée (souvent Chance de la mer) revient bien moins cher que d\'enchanter la vôtre au hasard.'
   },
@@ -128,7 +128,7 @@ var METIERS = [
     ou: 'Bloc de métier : le chaudron (7 lingots de fer).',
     drops: [
       'ACHÈTE : cuir, peaux de lapin, écailles de tortue',
-      'VEND : armures de cuir teintes, selles, armures de cheval en fer / or / diamant'
+      'VEND : armures de cuir teintes, armure de cheval EN CUIR teinte (6 émeraudes, expert), et la SELLE au niveau maître (6 émeraudes)'
     ],
     note: 'La SELLE ne se fabrique pas : le tanneur est l\'un des rares moyens fiables d\'en obtenir, avec la pêche et les coffres.'
   },

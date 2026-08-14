@@ -755,7 +755,8 @@ var ADVANCEMENTS = [
     drops: [
       'Préparation — c\'est une opération logistique : il faut une trentaine d\'effets simultanés, dont plusieurs ne durent que quelques secondes',
       'Lieu idéal — au bord d\'un monument océanique (Fatigue de minage par un gardien ancien, Grâce du dauphin, Puissance du conduit), à portée d\'un village (Héros du village) et d\'une balise (Célérité, Vitesse, Résistance, Force, Saut)',
-      'Effets pièges — Lévitation (shulker enfermé dans une boîte à côté de vous), Nausée (poisson-globe), Cécité et Saturation (soupe suspecte), Luminescence (flèche spectrale tirée par un ami ou un lanceur)',
+      'Effets pièges — Lévitation (shulker enfermé dans une boîte à côté de vous), Nausée (poisson-globe), Cécité (soupe suspecte), Obscurité (hurleur sculk), Luminescence (flèche spectrale tirée par un ami ou un lanceur) ; la Saturation ne fait PAS partie de la liste',
+      'Les effets sinistres et la nouveauté 26.2 — Suintement, Tissage, Chargé de vent et Infesté viennent des potions sinistres des chambres d\'épreuve, et le Souffle du nautile s\'y ajoute : 34 effets au total',
       'Potions à préparer — Poison, Régénération, Force, Vitesse, Lenteur, Faiblesse, Chute lente, Vision nocturne, Invisibilité, Respiration aquatique, Résistance au feu, Bonus de vie, Absorption (pomme d\'or)',
       'Ordre — commencez par les effets longs (potions allongées, balise), gardez Lévitation, Wither et Nausée pour la fin',
       'Astuce multijoueur — un second joueur avec un lanceur de potions et un arc à flèches spectrales divise la difficulté par deux'
@@ -910,8 +911,8 @@ var ADVANCEMENTS = [
     ou: 'Tuer un squelette à 50 blocs de distance ou plus, à l\'arc.',
     drops: [
       'Prérequis — un arc, idéalement avec Puissance, et une flèche qui achève la cible à cette distance',
-      'Mesure — appuyez sur F3 et comparez les coordonnées : 50 blocs sur un seul axe, c\'est la distance la plus simple à vérifier',
-      'Terrain — une falaise, une tour de 50 blocs ou un désert plat de nuit ; la portée maximale d\'un tir chargé est d\'environ 64 blocs',
+      'Mesure — seule la distance HORIZONTALE est prise en compte : comparez les X et les Z en F3, l\'altitude est ignorée. 50 blocs d\'écart sur un seul axe suffisent ; tirer 50 blocs plus bas ne valide rien.',
+      'Terrain — un désert plat de nuit, ou toute étendue dégagée : il faut 50 blocs à plat, la hauteur ne compte pas. La portée maximale d\'un tir chargé est d\'environ 64 blocs',
       'Astuce — visez légèrement au-dessus de la cible : la flèche décrit un arc sur cette distance',
       'Attention — un squelette qui meurt du soleil ou d\'une chute ne compte pas : le coup fatal doit venir de votre flèche'
     ],
@@ -991,7 +992,8 @@ var ADVANCEMENTS = [
       'Boss inclus — dragon de l\'End, Wither et gardien ancien font partie de la liste',
       'Les plus oubliés — endermite (5 % de chance à chaque perle de l\'Ender lancée), zoglin (un hoglin ramené dans le Surworld), phantom (trois nuits sans dormir), évocateur et vindicateur (manoir des bois ou raid)',
       'Le WARDEN N\'EN FAIT PAS PARTIE — les 41 créatures exigées ne l\'incluent pas. Inutile d\'affronter une cité antique pour ce succès',
-      'Les plus rares — poisson d\'argent (blocs infestés d\'une forteresse ou d\'une montagne), creaking (bois pâle)',
+      'Les vrais oublis — breeze (chambres d\'épreuve), shulker (cité de l\'End), vex (invoqué par un évocateur), slime, araignée venimeuse, cheval zombie, poisson d\'argent, creaking (jardin pâle)',
+      'Nouveautés 26.2 — parched (variante de squelette), chameau husk et nautile zombie s\'ajoutent à la liste, qui passe à 41 créatures',
       'Nether — piglin brute, hoglin, blaze, ghast, cube de magma, squelette wither, piglin zombifié',
       'Océan — gardien, gardien ancien, noyé ; les variantes de squelettes (stray, bogged) et de zombies (husk) comptent séparément',
       'Chaque version ajoute des créatures : vérifiez la liste dans l\'onglet du jeu, elle affiche précisément ce qui manque'
@@ -1024,7 +1026,8 @@ var ADVANCEMENTS = [
       'Aquatique — axolotl : uniquement avec un seau de poisson tropical',
       'Grenouille — boules de slime, et il faut de l\'eau pour que les têtards éclosent',
       'Sniffer — deux œufs issus du sable suspect des ruines sous-marines chaudes, ou une graine de tourbe reniflée',
-      'Faux amis — les mulets ne se reproduisent pas et ne comptent pas ; l\'ocelot et le chat comptent séparément'
+      'Le mulet COMPTE — croisez un cheval et un âne : la naissance du mulet valide son propre critère, même si le mulet est ensuite stérile. L\'ocelot et le chat comptent séparément.',
+      'Nouveauté 26.2 — le nautile s\'ajoute à la liste, qui passe à 26 espèces'
     ],
     note: 'Construisez un enclos unique compartimenté près de votre base et amenez-y les animaux avec des laisses et des bateaux : les allers-retours entre biomes coûtent bien plus de temps que la reproduction elle-même. Les tortues, elles, doivent pondre sur la plage de sable où elles sont nées.'
   },
@@ -1100,8 +1103,8 @@ var ADVANCEMENTS = [
       'Condition réelle — un allay vous remet en main un objet qu\'il a ramassé. C\'est tout',
       'Aucun succès du jeu ne récompense la duplication d\'un allay',
       'Où trouver un allay — en cage dans un avant-poste de pillards ou dans une salle du manoir des bois',
-      'Prérequis — un juke-box en train de jouer un disque, et un éclat d\'améthyste',
-      'Méthode — l\'allay doit danser près du juke-box ; donnez-lui alors l\'éclat d\'améthyste : il se dédouble',
+      'Marche à suivre — donnez un objet à l\'allay, laissez-le ramasser au sol tous les objets identiques, puis restez à portée : le succès tombe quand il vous les rend',
+      'Duplication — utile, mais aucun succès associé : près d\'un juke-box qui joue un disque, l\'allay danse ; donnez-lui un éclat d\'améthyste et il se dédouble',
       'Délai — la duplication a un temps de recharge de quelques minutes par allay',
       'Utilité — un allay ramasse tous les objets identiques à celui qu\'on lui donne et les rapporte à son point de dépôt : c\'est le meilleur système de tri de récolte du jeu'
     ],
