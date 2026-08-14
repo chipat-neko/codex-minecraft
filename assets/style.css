@@ -828,6 +828,39 @@ hr { border: none; border-top: 1px solid var(--line-soft); margin: 34px 0; }
 .vue-dessin { display: flex; justify-content: center; }
 .vue-dessin .bp-grid { margin: 0; }
 
+/* Vues verticales : une rangée par bloc de hauteur, altitude en marge.
+   Les niveaux qu'aucune couche ne décrit deviennent une bande, plutôt
+   qu'une recopie de l'étage du dessous qui ferait croire qu'on sait. */
+.vue-rangees {
+  display: grid;
+  gap: 1px;
+  align-items: center;
+}
+.vue-y {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--txt-3);
+  text-align: right;
+  padding-right: 8px;
+  white-space: nowrap;
+}
+.vue-y.repet { color: var(--txt-2); }
+.vue-y.repet::after {
+  content: " ⋮";
+  opacity: .6;
+}
+.vue-bande {
+  grid-column: 2 / -1;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--txt-3);
+  padding: 3px 8px;
+  border: 1px dashed var(--line);
+  border-radius: 4px;
+  background: transparent;
+  text-align: left;
+}
+
 /* Curseur de niveau */
 .iso-ctrl {
   display: flex;

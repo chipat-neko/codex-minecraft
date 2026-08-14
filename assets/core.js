@@ -905,6 +905,73 @@ function caseDe(c, o, X, Z) {
   return c.g[z][x];
 }
 
+/* ---- Hauteurs réelles ----
+
+   Les couches ne décrivent que des niveaux CLÉS : la cathédrale en a
+   cinq pour vingt-huit blocs de haut, la tour de guet cinq pour vingt.
+   Les empiler à intervalle régulier donnerait une façade qui ment sur
+   la seule chose qu'on vient y lire — une hauteur.
+
+   Chaque titre porte son altitude (« Y+13 · toitures de la nef »), et
+   les 36 fiches concernées en ont une. On s'en sert pour placer chaque
+   rangée à sa vraie hauteur, et on laisse les rangs non décrits en
+   bandes explicites : mieux vaut dire « sept rangées non détaillées »
+   que de recopier l'étage du dessous en faisant croire qu'on sait. */
+var RE_Y = /Y\s*([+−-])\s*(\d+)/;
+var RE_REP = /répéter\s+(\d+)\s+fois/i;
+
+function niveauxY(couches) {
+  var out = [], precedent = -1;
+  for (var i = 0; i < couches.length; i++) {
+    var t = couches[i].t || '';
+    var m = RE_Y.exec(t);
+    var y = m ? (m[1] === '+' ? 1 : -1) * parseInt(m[2], 10) : precedent + 1;
+    precedent = y;
+    var r = RE_REP.exec(t);
+    out.push({ L: i, y: y, fin: r ? y + parseInt(r[1], 10) - 1 : y });
+  }
+  /* une couche ne peut pas déborder sur la suivante */
+  for (var k = 0; k < out.length - 1; k++) {
+    if (out[k].fin >= out[k + 1].y) { out[k].fin = Math.max(out[k].y, out[k + 1].y - 1); }
+  }
+  return out;
+}
+
+/* Une entrée par rangée de hauteur, du haut vers le bas.
+   `L` vaut null quand aucune couche ne décrit ce niveau. */
+function rangeesY(couches) {
+  var niv = niveauxY(couches);
+  if (!niv.length) { return []; }
+  var bas = niv[0].y, haut = niv[0].fin;
+  niv.forEach(function (n) { bas = Math.min(bas, n.y); haut = Math.max(haut, n.fin); });
+
+  var out = [];
+  for (var Y = haut; Y >= bas; Y--) {
+    var trouve = null;
+    for (var j = 0; j < niv.length; j++) {
+      if (niv[j].y <= Y && Y <= niv[j].fin) { trouve = niv[j]; if (niv[j].y === Y) { break; } }
+    }
+    out.push(trouve
+      ? { y: Y, L: trouve.L, repet: Y !== trouve.y }
+      : { y: Y, L: null });
+  }
+  return out;
+}
+
+/* Regroupe les rangées non décrites consécutives en une seule bande. */
+function grouperTrous(rangees) {
+  var out = [];
+  for (var i = 0; i < rangees.length; i++) {
+    if (rangees[i].L !== null) { out.push(rangees[i]); continue; }
+    var j = i;
+    while (j + 1 < rangees.length && rangees[j + 1].L === null) { j++; }
+    /* les rangées descendent : i est le haut de la bande, j le bas */
+    out.push({ bande: true, haut: rangees[i].y, bas: rangees[j].y, n: j - i + 1 });
+    i = j;
+  }
+  return out;
+}
+
 function elevationLignes(couches) {
   var f = cadreCommun(couches);
   var lignes = [];
@@ -947,6 +1014,50 @@ function profondeurPlan(bp) {
   return couchesY(bp).reduce(function (m, c) { return Math.max(m, c.g.length); }, 0);
 }
 
+/* Rendu d'une vue verticale : une rangée par bloc de hauteur, avec
+   son altitude en marge, et les niveaux non décrits en bandes.
+   `ligneDe(L)` rend la chaîne de caractères de la couche L. */
+function vueVerticaleHTML(couches, ligneDe, chars) {
+  var groupes = grouperTrous(rangeesY(couches));
+  var cols = cadreCommun(couches).maxW;
+  var h = '<div class="vue-rangees" style="grid-template-columns:44px repeat(' + cols + ',17px)">';
+
+  groupes.forEach(function (r) {
+    if (r.bande) {
+      h += '<div class="vue-y">⋯</div>' +
+        '<div class="vue-bande">' + r.n + ' rangée' + (r.n > 1 ? 's' : '') +
+        ' non détaillée' + (r.n > 1 ? 's' : '') + ' · ' +
+        (r.n > 1 ? 'Y+' + r.bas + ' → Y+' + r.haut : 'Y+' + r.bas) + '</div>';
+      return;
+    }
+    h += '<div class="vue-y' + (r.repet ? ' repet' : '') + '">Y' +
+      (r.y < 0 ? '−' + Math.abs(r.y) : '+' + r.y) + '</div>';
+    var ligne = ligneDe(r.L);
+    for (var x = 0; x < cols; x++) {
+      var ch = ligne[x] || '.';
+      var b = BLOCKS[ch];
+      if (!b) { b = { n: 'Bloc « ' + ch + ' »', c: '#4c5566' }; }
+      if (b.c) {
+        if (chars) { chars[ch] = b; }
+        h += '<div class="bp-cell" style="' + texStyle('blocs', ch, b.c) + '" title="' + esc(b.n) + '"></div>';
+      } else {
+        h += '<div class="bp-cell air" title="Air"></div>';
+      }
+    }
+  });
+  return h + '</div>';
+}
+
+/* Ce que la vue verticale annonce sous le dessin. */
+function resumeHauteur(couches) {
+  var rs = rangeesY(couches);
+  if (!rs.length) { return ''; }
+  var trous = rs.filter(function (r) { return r.L === null; }).length;
+  var hi = rs[0].y, lo = rs[rs.length - 1].y;
+  return 'Hauteur réelle : ' + rs.length + ' rangées, Y+' + lo + ' → Y+' + hi +
+    (trous ? ', dont ' + trous + ' non détaillée' + (trous > 1 ? 's' : '') + '.' : '.');
+}
+
 var ORIENTATIONS = ['Face', 'Droite', 'Arrière', 'Gauche'];
 
 /* Construit le contenu du panneau pour l'état courant. */
@@ -965,20 +1076,30 @@ function vueHTML(bp, etat) {
     aide = 'Réduisez le curseur pour retirer les couches hautes et voir l\'intérieur. ' +
       'Faites pivoter pour découvrir l\'arrière.';
   } else if (etat.mode === 'face') {
-    corps = '<div class="vue-dessin">' + gridHTML(elevationLignes(couchesY(pivote)), chars) + '</div>';
+    var cf = couchesY(pivote);
+    var lignesF = elevationLignes(cf);
+    /* elevationLignes rend du haut vers le bas : la couche L y occupe
+       la position (nombre de couches − 1 − L) */
+    corps = '<div class="vue-dessin">' +
+      vueVerticaleHTML(cf, function (L) { return lignesF[cf.length - 1 - L]; }, chars) + '</div>';
     ctrl = '';
     aide = 'La façade telle qu\'on la voit en la construisant : chaque case est le bloc ' +
-      'le plus en avant. Pivotez pour passer aux trois autres côtés.';
+      'le plus en avant, placé à sa hauteur réelle. ' + resumeHauteur(cf) +
+      ' Pivotez pour passer aux trois autres côtés.';
   } else {
     var prof = profondeurPlan(pivote);
     var z = Math.min(etat.tranche, prof - 1);
-    corps = '<div class="vue-dessin">' + gridHTML(coupeLignes(couchesY(pivote), z), chars) + '</div>';
+    var cc = couchesY(pivote);
+    var lignesC = coupeLignes(cc, z);
+    corps = '<div class="vue-dessin">' +
+      vueVerticaleHTML(cc, function (L) { return lignesC[cc.length - 1 - L]; }, chars) + '</div>';
     ctrl = '<label for="cpe-' + esc(bp.id) + '">Profondeur</label>' +
       '<input id="cpe-' + esc(bp.id) + '" type="range" min="0" max="' + (prof - 1) + '" value="' + z + '" ' +
       'data-vue-tranche="' + esc(bp.id) + '">' +
       '<span class="iso-niv">' + (z + 1) + ' / ' + prof + '</span>';
     aide = 'Une tranche verticale, du plus près au plus loin. C\'est la seule vue qui ' +
-      'montre ce qui est enfermé : redstone sous le plancher, pièce sans fenêtre.';
+      'montre ce qui est enfermé : redstone sous le plancher, pièce sans fenêtre. ' +
+      resumeHauteur(cc);
   }
 
   var onglet = function (cle, texte) {
@@ -1082,7 +1203,9 @@ document.addEventListener('input', function (ev) {
   } else {
     e.tranche = v;
     var pivote = pivoterPlan(bp, e.quart);
-    dessin.innerHTML = gridHTML(coupeLignes(couchesY(pivote), v), {});
+    var cc = couchesY(pivote);
+    var lignes = coupeLignes(cc, v);
+    dessin.innerHTML = vueVerticaleHTML(cc, function (L) { return lignes[cc.length - 1 - L]; }, {});
     if (compteur) { compteur.textContent = (v + 1) + ' / ' + profondeurPlan(pivote); }
   }
 });
