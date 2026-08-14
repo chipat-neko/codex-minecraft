@@ -111,11 +111,21 @@ async function testerPlan(p) {
     }
   }
 
-  /* pose en lots : une commande par bloc, mais sans attendre chacune */
+  /* Pose couche par couche, avec une barrière entre chacune. Envoyer
+     tout d'un bloc va plus vite mais pose parfois un rail ou un plant
+     avant que son support n'existe : le jeu le refuse, et l'outil
+     accuse alors le plan d'un défaut qui n'est que de vitesse. */
+  const parNiveau = new Map();
   for (const b of poses) {
-    banc.brut(`setblock ${b.x} ${b.y} ${b.z} minecraft:${b.id} replace`);
+    if (!parNiveau.has(b.y)) { parNiveau.set(b.y, []); }
+    parNiveau.get(b.y).push(b);
   }
-  await banc.cmd('time set noon', 120000);   /* barrière : vide la file */
+  for (const y of [...parNiveau.keys()].sort((a, b) => a - b)) {
+    for (const b of parNiveau.get(y)) {
+      banc.brut(`setblock ${b.x} ${b.y} ${b.z} minecraft:${b.id} replace`);
+    }
+    await banc.cmd('time set noon', 120000);
+  }
 
   /* Relecture : le serveur signale lui-même les positions vides.
      Attendre la réponse de chaque bloc coûterait des dizaines de
@@ -170,6 +180,9 @@ async function testerPlan(p) {
       const d = await banc.cmd(`clone ${b.x} ${b.y} ${b.z} ${b.x} ${b.y} ${b.z} ${b.x} ${b.y} ${b.z}`);
       b.remplace = (d.join(' ').match(/[a-z_]+/g) || ['inconnu']).slice(-1)[0];
     }
+    /* ce qu'il y a dessous explique la plupart des refus */
+    const s = await banc.cmd(`execute if block ${b.x} ${b.y - 1} ${b.z} minecraft:air run say VIDE_DESSOUS`);
+    b.dessous = s.some(l => /VIDE_DESSOUS/.test(l)) ? 'du vide' : 'un bloc';
   }
   return { plan: p, poses: poses.length, absents, cadre, rangees: rangees.length, impairs };
 }
@@ -203,7 +216,7 @@ function rapporter(r) {
     const ex = l[0];
     console.log('       ' + k + ' × ' + l.length +
       '  (ex. Y+' + ex.yPlan + ' en x=' + ex.x + ' z=' + ex.z +
-      (ex.remplace ? ', on y trouve ' + ex.remplace : '') + ')' +
+      (ex.remplace ? ', on y trouve ' + ex.remplace : '') + (ex.dessous ? ', avec ' + ex.dessous + ' dessous' : '') + ')' +
       (EXIGE_APPUI[k] ? '  — demande ' + EXIGE_APPUI[k] : ''));
   }
   return signales + r.absents.length;
