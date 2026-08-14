@@ -122,7 +122,23 @@ var EXIGE_APPUI = {
   'snow': 'un sol'
 };
 
-function identifiant(ch) {
+/* Quelques caractères désignent deux blocs selon ce qu'ils surmontent.
+   « h » est le plus net : « Foin / culture » dans la légende, il vaut
+   botte de foin dans un grenier et blé mûr sur une parcelle. Poser la
+   botte sur de la terre labourée la retasse en terre — c'est le champ
+   entier qui disparaît. */
+var SELON_DESSOUS = {
+  'h': { farmland: 'wheat[age=7]', defaut: 'hay_block' },
+  'u': { sand: 'sugar_cane', dirt: 'sugar_cane', grass_block: 'sugar_cane', defaut: 'sugar_cane' },
+  'p': { sand: 'cactus', defaut: 'cactus' }
+};
+
+function identifiant(ch, dessous) {
+  var contexte = SELON_DESSOUS[ch];
+  if (contexte) {
+    var sous = racine(dessous || '');
+    return contexte[sous] || contexte.defaut;
+  }
   var v = BLOCS_JEU[ch];
   return v === undefined ? null : v;
 }
@@ -132,7 +148,7 @@ function racine(id) {
   return String(id).replace(/\[.*$/, '');
 }
 
-module.exports = { BLOCS_JEU, EXIGE_APPUI, identifiant, racine };
+module.exports = { BLOCS_JEU, EXIGE_APPUI, SELON_DESSOUS, identifiant, racine };
 
 if (require.main === module) {
   var fs = require('fs');

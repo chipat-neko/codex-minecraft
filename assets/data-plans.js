@@ -584,8 +584,11 @@ var PLANS = [
     mats: ['81 blocs de terre', '1 seau d\'eau', '1 houe', '≈80 graines (blé, carottes, pommes de terre ou betteraves)', 'Clôtures ou un mur de 2 blocs autour'],
     couches: [
       {
-        t: 'Y+0 · terre labourée + source d\'eau',
-        g: ['fffffffff', 'fffffffff', 'fffffffff', 'fffffffff', 'ffffwffff', 'fffffffff', 'fffffffff', 'fffffffff', 'fffffffff']
+        /* Les quatre socles de terre battue portent les lanternes.
+           Une lanterne posée à même la terre labourée la retasse : le
+           champ perd sa case, et la culture qui s'y trouve avec. */
+        t: 'Y+0 · terre labourée, source d\'eau et socles des lanternes',
+        g: ['fffffffff', 'ftffffftf', 'fffffffff', 'fffffffff', 'ffffwffff', 'fffffffff', 'fffffffff', 'ftffffftf', 'fffffffff']
       },
       {
         t: 'Y+1 · cultures + éclairage',

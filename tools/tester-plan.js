@@ -64,10 +64,17 @@ async function testerPlan(p) {
     if (r.L === null) { continue; }
     const g = couches[r.L].g;
     const y = SOL + (r.y - bas);
+    /* la couche du dessous, pour les caractères qui changent de bloc
+       selon ce qu'ils surmontent (une gerbe de blé, pas une botte de
+       foin, quand c'est de la terre labourée) */
+    const dessous = (i + 1 < rangees.length && rangees[i + 1].L !== null)
+      ? couches[rangees[i + 1].L].g : null;
+
     for (let z = 0; z < g.length; z++) {
       for (let x = 0; x < g[z].length; x++) {
         const ch = g[z][x];
-        const id = identifiant(ch);
+        const sous = dessous && dessous[z] ? identifiant(dessous[z][x]) : null;
+        const id = identifiant(ch, sous);
         if (!id || id === 'air') { continue; }
         poses.push({ ch, id, x: x0 + x, y, z: z0 + z, yPlan: r.y });
       }
@@ -121,12 +128,49 @@ async function testerPlan(p) {
   }
   await banc.cmd('time set noon', 300000);   /* barrière : vide la file */
 
-  const signales = new Set();
-  for (let i = debutJournal; i < banc.journal.length; i++) {
-    const m = /ABSENT (-?\d+) (-?\d+) (-?\d+)/.exec(banc.journal[i]);
-    if (m) { signales.add(m[1] + ',' + m[2] + ',' + m[3]); }
+  const releve = depuis => {
+    const s = new Set();
+    for (let i = depuis; i < banc.journal.length; i++) {
+      const m = /ABSENT (-?\d+) (-?\d+) (-?\d+)/.exec(banc.journal[i]);
+      if (m) { s.add(m[1] + ',' + m[2] + ',' + m[3]); }
+    }
+    return s;
+  };
+  let manquants = poses.filter(b => releve(debutJournal).has(b.x + ',' + b.y + ',' + b.z));
+
+  /* Seconde passe. Certains blocs refusent d'abord puis acceptent : le
+     blé exige une luminosité d'au moins 8 (CropBlock.hasSufficientLight)
+     et le moteur d'éclairage travaille en tâche de fond, si bien qu'un
+     plant posé trop tôt tombe dans le noir d'un chunk encore sombre.
+     Rejouer les manquants distingue ce qui ne tient pas de ce qui n'a
+     pas pu être posé au moment où on l'a tenté. */
+  if (manquants.length) {
+    for (const b of manquants) {
+      banc.brut(`setblock ${b.x} ${b.y} ${b.z} minecraft:${b.id} replace`);
+    }
+    await banc.cmd('time set noon', 120000);
+    const seconde = banc.journal.length;
+    for (const b of manquants) {
+      banc.brut(`execute unless block ${b.x} ${b.y} ${b.z} minecraft:${racine(b.id)} ` +
+        `run say ABSENT ${b.x} ${b.y} ${b.z}`);
+    }
+    await banc.cmd('time set noon', 120000);
+    const encore = releve(seconde);
+    manquants = manquants.filter(b => encore.has(b.x + ',' + b.y + ',' + b.z));
   }
-  const absents = poses.filter(b => signales.has(b.x + ',' + b.y + ',' + b.z));
+  const absents = manquants;
+
+  /* Savoir qu'un bloc manque ne dit pas pourquoi. On demande donc au
+     serveur ce qu'il y a à la place : de l'air (le bloc n'a pas tenu),
+     ou un autre bloc (quelque chose l'a remplacé). */
+  for (const b of absents.slice(0, 12)) {
+    const r = await banc.cmd(`execute if block ${b.x} ${b.y} ${b.z} minecraft:air run say VIDE`);
+    b.remplace = r.some(l => /VIDE/.test(l)) ? 'air' : '?';
+    if (b.remplace === '?') {
+      const d = await banc.cmd(`clone ${b.x} ${b.y} ${b.z} ${b.x} ${b.y} ${b.z} ${b.x} ${b.y} ${b.z}`);
+      b.remplace = (d.join(' ').match(/[a-z_]+/g) || ['inconnu']).slice(-1)[0];
+    }
+  }
   return { plan: p, poses: poses.length, absents, cadre, rangees: rangees.length, impairs };
 }
 
@@ -158,7 +202,8 @@ function rapporter(r) {
     const l = parBloc[k];
     const ex = l[0];
     console.log('       ' + k + ' × ' + l.length +
-      '  (ex. Y+' + ex.yPlan + ' en x=' + ex.x + ' z=' + ex.z + ')' +
+      '  (ex. Y+' + ex.yPlan + ' en x=' + ex.x + ' z=' + ex.z +
+      (ex.remplace ? ', on y trouve ' + ex.remplace : '') + ')' +
       (EXIGE_APPUI[k] ? '  — demande ' + EXIGE_APPUI[k] : ''));
   }
   return signales + r.absents.length;
