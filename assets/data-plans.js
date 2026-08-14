@@ -2557,6 +2557,26 @@ var PLANS = [
         ]
       },
       {
+        t: 'Y+1 · deuxième rang de rayonnages, dégagement devant la porte',
+        g: [
+          'bbbbbbbbbbbbbbb',
+          'b&&&&&&&&&&&&&b',
+          'b&...........&b',
+          'b&.c.......c.&b',
+          'b&...........&b',
+          'b&...........&b',
+          'b&...........&b',
+          'b&...........&b',
+          'b&...........&b',
+          'b&...........&b',
+          'b&...........&b',
+          'b&.c.......c.&b',
+          'b&...........&b',
+          'b&&&&&&.&&&&&&b',
+          'bbbbbbbDbbbbbbb'
+        ]
+      },
+      {
         t: 'Y+2 · murs, piliers et verrières basses',
         g: [
           'bbGGbbbbbbbGGbb',
@@ -2574,6 +2594,46 @@ var PLANS = [
           'G.............G',
           'G.............G',
           'bbGGbbbDbbbGGbb'
+        ]
+      },
+      {
+        t: 'Y+3 · deuxième assise des verrières basses, piliers',
+        g: [
+          'bbGGbbbbbbbGGbb',
+          'G.............G',
+          'G.............G',
+          'b..c.......c..b',
+          'b.............b',
+          'G.............G',
+          'b.............b',
+          'b.............b',
+          'G.............G',
+          'b.............b',
+          'b.............b',
+          'b..c.......c..b',
+          'G.............G',
+          'G.............G',
+          'bbGGbbbbbbbGGbb'
+        ]
+      },
+      {
+        t: 'Y+4 · murs pleins sous la mezzanine, lanternes suspendues au plancher',
+        g: [
+          'bbbbbbbbbbbbbbb',
+          'b.............b',
+          'b.*.........*.b',
+          'b..c.......c..b',
+          'b.............b',
+          'b.............b',
+          'b.............b',
+          'b.*.........*.b',
+          'b.............b',
+          'b.............b',
+          'b.............b',
+          'b..c.......c..b',
+          'b.*.........*.b',
+          'b.............b',
+          'bbbbbbbbbbbbbbb'
         ]
       },
       {
@@ -2617,6 +2677,46 @@ var PLANS = [
         ]
       },
       {
+        t: 'Y+7 · deuxième rang de rayonnages hauts et verrières hautes',
+        g: [
+          'bbGGGbbbbbGGGbb',
+          'G&&&&&&&&&&&&&G',
+          'b&&.........&&b',
+          'b&...........&b',
+          'G&...........&G',
+          'b&...........&b',
+          'b&...........&b',
+          'G&...........&G',
+          'b&...........&b',
+          'b&...........&b',
+          'G&...........&G',
+          'b&&.........&&b',
+          'b&...........&b',
+          'G&&&&&&&&&&&&&G',
+          'bbGGGbbbbbGGGbb'
+        ]
+      },
+      {
+        t: 'Y+8 → Y+9 · murs pleins au-dessus des rayonnages hauts (à répéter)',
+        g: [
+          'bbbbbbbbbbbbbbb',
+          'b.............b',
+          'b.............b',
+          'b.............b',
+          'b.............b',
+          'b.............b',
+          'b.............b',
+          'b.............b',
+          'b.............b',
+          'b.............b',
+          'b.............b',
+          'b.............b',
+          'b.............b',
+          'b.............b',
+          'bbbbbbbbbbbbbbb'
+        ]
+      },
+      {
         t: 'Y+10 · charpente et lanterneau vitré',
         g: [
           'kkkkkkkkkkkkkkk',
@@ -2634,6 +2734,26 @@ var PLANS = [
           'k.kkkkkkkkkkk.k',
           'k.............k',
           'kkkkkkkkkkkkkkk'
+        ]
+      },
+      {
+        t: 'Y+11 · plafond sur la charpente, corniche en dalles, verrière du lanterneau',
+        g: [
+          'bbbbbbbbbbbbbbb',
+          'b-------------b',
+          'b-###########-b',
+          'b-###########-b',
+          'b-##ggggggg##-b',
+          'b-##ggggggg##-b',
+          'b-##ggggggg##-b',
+          'b-##ggggggg##-b',
+          'b-##ggggggg##-b',
+          'b-##ggggggg##-b',
+          'b-##ggggggg##-b',
+          'b-###########-b',
+          'b-###########-b',
+          'b-------------b',
+          'bbbbbbbbbbbbbbb'
         ]
       },
       {
