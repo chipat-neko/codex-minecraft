@@ -89,6 +89,28 @@ for (const [nom, liste] of SCHEMAS) {
         for (const ch of l) { if (!BLOCKS[ch]) { inconnus.add(`${ch} (${p.id})`); } }
       });
     }
+
+    /* Les niveaux empilés doivent tous avoir la taille du cadre.
+
+       Le rendu recentre sinon la couche, avec un décalage de
+       floor((max − taille) / 2) — invisible dans les données, et
+       arbitraire : un toit plus étroit que la maison se retrouve
+       centré sur le cadre, donc parfois à côté d'elle, et une échelle
+       glisse d'un niveau à l'autre. Trois plans en ont souffert avant
+       que ce contrôle existe. Pour rattraper une fiche : lancez
+       « node tools/normaliser-couches.js », qui étend chaque grille
+       sans changer le dessin. */
+    const empiles = (p.couches || []).filter(c => !c.vue);
+    if (empiles.length >= 2) {
+      const maxW = empiles.reduce((m, c) => Math.max(m, ...c.g.map(l => l.length)), 0);
+      const maxD = empiles.reduce((m, c) => Math.max(m, c.g.length), 0);
+      for (const c of empiles) {
+        if (c.g.length !== maxD || c.g.some(l => l.length !== maxW)) {
+          err(`${nom} / ${p.id} / ${c.t} : ${c.g[0].length}×${c.g.length} au lieu du cadre ` +
+            `${maxW}×${maxD} — la couche sera recentrée, donc décalée`);
+        }
+      }
+    }
   }
 }
 

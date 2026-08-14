@@ -216,6 +216,34 @@ entre toutes les pages, la correspondance filtres ↔ catégories, le rendu sans
 chaque fiche, la génération des vues 3D, et l'encodage UTF-8 de tous les fichiers.
 La commande renvoie un code d'erreur non nul si quelque chose ne va pas.
 
+### Les niveaux d'une construction ont tous la taille du cadre
+
+C'est le contrôle le moins évident, et celui qui a coûté le plus cher avant
+d'exister. Quand les couches d'une même construction n'ont pas la même taille,
+le rendu les recentre — `floor((max − taille) / 2)` sur les deux axes. Ce
+décalage n'apparaît nulle part dans les données et ne correspond à aucune
+intention : un toit plus étroit que la maison se retrouve centré sur le cadre,
+donc décalé si la maison ne l'est pas ; une échelle, un pilier ou une flèche de
+clocher glissent d'un niveau à l'autre.
+
+Trois plans en ont souffert. Le toit de l'auberge tombait trois blocs à l'est du
+bâtiment, au-dessus de la cour, parce que le cadre incluait l'écurie. La flèche
+de la cathédrale atterrissait au-dessus de la nef.
+
+Les grilles portent donc désormais leur pourtour d'air explicitement. Pour
+rattraper une construction saisie autrement :
+
+```
+node tools/normaliser-couches.js          # étend chaque grille au cadre
+node tools/normaliser-couches.js --essai  # montre ce qui changerait
+```
+
+L'outil vérifie que le dessin est identique avant et après — en mémoire, puis
+une seconde fois en relisant les fichiers écrits. Cette relecture n'est pas du
+zèle : la première version ciblait les couches par leur titre, et deux fermes
+partageant dix intitulés mot pour mot, elle en a écrasé une à la place de
+l'autre sans que rien ne le signale.
+
 ## Fonctions de l'interface
 
 | Fonction | Où | Détail |
