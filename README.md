@@ -147,9 +147,50 @@ les écarts, en citant à chaque fois le fichier JSON du `.jar` qui fait foi :
 - **outil requis par chaque minerai** (tags `needs_*_tool`)
 - **table de troc des piglins**
 - **objets cités dans le butin des mobs**
+- **recettes de brassage et durées des potions** (lues dans le bytecode)
+- **contenu des coffres de structure**, objet par objet
 
 À relancer après chaque mise à jour du jeu : c'est ce qui permet de rattraper
 une recette modifiée ou un butin déplacé sans tout relire.
+
+### Lire ce qui n'est pas en JSON
+
+Tout n'est pas exposé en données. Les recettes de brassage, par exemple,
+n'existent nulle part en JSON : `PotionBrewing.addVanillaMixes()` construit la
+table à la main, en Java. Comme le `.jar` n'est pas obfusqué, on peut la lire :
+
+```
+node tools/brassage.js        # les 63 recettes de brassage et les durées
+node tools/classe.js <chemin.class> [filtre]   # désassemble une classe
+node tools/zip.js <motif>     # cherche une entrée dans le .jar
+```
+
+`tools/classe.js` ne décompile pas : il rend la table des constantes et la
+suite des instructions, ce qui suffit à retrouver quelles valeurs une méthode
+enchaîne. `tools/brassage.js` s'en sert pour reconstituer les recettes et les
+durées d'effet, que la section [10] du vérificateur compare ensuite au guide.
+
+Cette voie est plus fragile qu'un JSON : elle dépend de la forme du code
+compilé. Elle échoue franchement (message d'erreur, pas de silence) si Mojang
+renomme la méthode. En contrepartie, elle rend contrôlables des valeurs qui
+ne l'étaient pas du tout.
+
+### Les coffres : comparer de la prose à des données
+
+Les fiches de structures décrivent les coffres en français courant, pas en
+listes. Le contrôle cherche donc dans le texte les objets « décisifs » — ceux
+pour lesquels on fait le déplacement — et vérifie qu'ils sont bien dans la
+table de butin. Deux précautions le rendent utilisable :
+
+- seules les lignes qui **décrivent un coffre** sont lues, pour ne pas
+  confondre le butin avec les blocs récupérables ou ce que lâchent les mobs ;
+- les libellés sont encadrés de **frontières de mots**, sans quoi « seau » se
+  déclencherait sur « ré*seau* » et « os » sur « p*os*ez ». Les noms de matière
+  écartent en plus la forme « en diamant », qui qualifie un objet au lieu de
+  promettre la ressource brute.
+
+Ce contrôle a une contrepartie assumée : reformuler une fiche peut le rendre
+aveugle à un objet. Il attrape les affirmations fausses, pas les oublis.
 
 Une limite connue, volontairement gérée : certains objets ne figurent dans
 aucune table de butin parce qu'ils sont **portés** par le mob et lâchés par le

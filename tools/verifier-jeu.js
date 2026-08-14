@@ -363,6 +363,127 @@ if (structManquants.length) {
     structManquants.join(', '), 'loot_table/chests/');
 }
 
+/* ---- contenu des coffres, item par item ----
+
+   Le guide décrit les coffres en prose. On ne peut donc pas comparer
+   des listes : on cherche dans le texte les objets « décisifs », ceux
+   pour lesquels un joueur fait le déplacement, et on vérifie qu'ils
+   figurent bien dans la table.
+
+   Deux précautions rendent ce contrôle utilisable :
+     · seules les lignes qui décrivent un coffre sont lues, pour ne pas
+       confondre le butin avec les blocs récupérables ou les mobs ;
+     · les libellés sont encadrés de frontières de mots, sans quoi
+       « seau » se déclencherait sur « réseau » et « os » sur « posez ».
+*/
+const FICHE_TABLE = {
+  'Donjon (salle du générateur)': 'simple_dungeon',
+  'Mine abandonnée': 'abandoned_mineshaft',
+  'Temple du désert': 'desert_pyramid',
+  'Temple de la jungle': 'jungle_temple',
+  'Manoir des bois': 'woodland_mansion',
+  'Igloo': 'igloo_chest',
+  'Avant-poste de pillards': 'pillager_outpost',
+  'Forteresse du Nether': 'nether_bridge',
+  'Cité de l\'End': 'end_city_treasure',
+  'Navire de l\'End': 'end_city_treasure',
+  'Trésor enfoui': 'buried_treasure',
+  'Cité antique': 'ancient_city',
+  'Bastion — salle du trésor': 'bastion_treasure',
+  'Bastion — pont': 'bastion_bridge',
+  'Bastion — écuries de hoglins': 'bastion_hoglin_stable',
+  'Bastion — unités d\'habitation': 'bastion_other'
+};
+
+/* Objet décisif annoncé -> identifiant du jeu. */
+const BUTIN_ID = {
+  'selle': 'saddle', 'diamant': 'diamond', 'émeraude': 'emerald',
+  'lingot de netherite': 'netherite_ingot', 'débris antique': 'ancient_debris',
+  'éclat de netherite': 'netherite_scrap', 'pomme d\'or enchantée': 'enchanted_golden_apple',
+  'pomme d\'or': 'golden_apple', 'étiquette': 'name_tag', 'laisse': 'lead',
+  'amas de résine': 'resin_clump', 'cotte de mailles': 'chainmail_chestplate',
+  'corne de chèvre': 'goat_horn', 'cœur de la mer': 'heart_of_the_sea',
+  'éclat d\'écho': 'echo_shard', 'obsidienne pleureuse': 'crying_obsidian',
+  'pierre-aimant': 'lodestone', 'arbalète': 'crossbow', 'briquet': 'flint_and_steel',
+  'flèche spectrale': 'spectral_arrow', 'carotte dorée': 'golden_carrot',
+  'bannière piglin': 'piglin_banner_pattern', 'verrue du nether': 'nether_wart',
+  'cristaux de prismarine': 'prismarine_crystals', 'fiole d\'expérience': 'experience_bottle',
+  'crochet': 'tripwire_hook', 'bambou': 'bamboo', 'rail': 'rail',
+  'baie lumineuse': 'glow_berries', 'torche': 'torch', 'lapis': 'lapis_lazuli',
+  'sac': 'bundle', 'boussole': 'compass', 'pierre noire dorée': 'gilded_blackstone'
+};
+
+/* Lignes de prose qui décrivent bien un contenu de coffre. */
+const EST_COFFRE = /^(coffres?|coffre[- ]fort|deux coffres|armures? pour nautile)\b/i;
+
+/* Un « livre enchanté » est écrit `book` + enchant_randomly dans les
+   tables : on relève donc aussi les objets rendus enchantés. */
+function itemsDeLaTable(obj, acc) {
+  acc = acc || new Set();
+  if (!obj || typeof obj !== 'object') { return acc; }
+  if (Array.isArray(obj)) { obj.forEach(x => itemsDeLaTable(x, acc)); return acc; }
+  if (obj.type === 'minecraft:item' && typeof obj.name === 'string') {
+    acc.add(obj.name.replace('minecraft:', ''));
+  }
+  for (const k in obj) { itemsDeLaTable(obj[k], acc); }
+  return acc;
+}
+
+const idsButin = [...new Set(Object.values(FICHE_TABLE))];
+const tablesButin = lireJson(jar, idsButin.map(i => `data/minecraft/loot_table/chests/${i}.json`));
+
+const LETTRE = /[a-zàâäéèêëîïôöùûüçœ]/i;
+/* Noms qui désignent aussi bien une ressource qu'un matériau. */
+const MATIERE = /^(diamant|or|fer|cuivre|netherite|émeraude)$/;
+
+/* Le libellé est-il annoncé comme objet à part entière dans ce texte ?
+
+   On exige des frontières de mots, sans quoi « seau » se déclencherait
+   sur « réseau » et « os » sur « posez ». Et pour les noms de matière,
+   on écarte « en diamant » ou « de fer », qui qualifient un objet au
+   lieu de promettre la ressource brute. */
+function annonce(lib, texte) {
+  const e = lib.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = new RegExp(e + 's?', 'gi');
+  let m;
+  while ((m = re.exec(texte)) !== null) {
+    const avant = texte[m.index - 1];
+    const apres = texte[m.index + m[0].length];
+    if ((avant && LETTRE.test(avant)) || (apres && LETTRE.test(apres))) { continue; }
+    if (MATIERE.test(lib)) {
+      const precede = texte.slice(0, m.index).match(/(\S+)\s+$/);
+      if (precede && /^(en|de|du|d'|d’)$/i.test(precede[1])) { continue; }
+    }
+    return true;
+  }
+  return false;
+}
+
+let butinVerifs = 0;
+for (const [nomFiche, id] of Object.entries(FICHE_TABLE)) {
+  const fiche = (typeof STRUCTURES_DETAIL !== 'undefined' ? STRUCTURES_DETAIL : [])
+    .find(s => s.nom === nomFiche);
+  const table = tablesButin[`data/minecraft/loot_table/chests/${id}.json`];
+  if (!fiche || !table) { continue; }
+
+  const dedans = itemsDeLaTable(table);
+  const lignes = (fiche.drops || []).filter(l => EST_COFFRE.test(l.trim()));
+  if (!lignes.length) { continue; }
+  const texte = lignes.join(' · ');
+
+  for (const [lib, cible] of Object.entries(BUTIN_ID)) {
+    if (!annonce(lib, texte)) { continue; }
+    butinVerifs++;
+    if (!dedans.has(cible)) {
+      ecart(`${nomFiche} : « ${lib} » annoncé en coffre`,
+        'présent dans le butin', 'absent de la table',
+        `loot_table/chests/${id}.json`);
+    }
+  }
+}
+console.log(`    ${butinVerifs} objets de coffre contrôlés dans ${Object.keys(FICHE_TABLE).length} fiches`);
+verifs += butinVerifs;
+
 /* ============================================================
    8. Métiers de villageois : les blocs de métier existent
    ============================================================ */
@@ -421,6 +542,128 @@ if (succInconnus.length) {
   console.log('      ' + succInconnus.slice(0, 10).join(' · ') + (succInconnus.length > 10 ? ' …' : ''));
   console.log('      (les titres affichés diffèrent souvent des identifiants : à vérifier au cas par cas,');
   console.log('       ce n\'est pas nécessairement une erreur)');
+}
+
+/* ============================================================
+   10. Potions : ingrédient et durées
+
+   Le brassage n'existe sous aucune forme JSON : il est construit en
+   dur dans PotionBrewing. tools/brassage.js lit ce code et rend la
+   table complète, ainsi que la durée de chaque effet en ticks.
+   ============================================================ */
+console.log('\n[10] Potions');
+
+/* Ingrédient annoncé par le guide -> identifiant du jeu.
+   Les libellés sont ceux du champ `ou` de chaque fiche. */
+const INGREDIENT_ID = {
+  'verrue du nether': 'nether_wart', 'poudre lumineuse': 'glowstone_dust',
+  'poudre de blaze': 'blaze_powder', 'sucre': 'sugar', 'crème de magma': 'magma_cream',
+  'carotte dorée': 'golden_carrot', 'poisson-globe': 'pufferfish',
+  'tranche de pastèque scintillante': 'glistering_melon_slice',
+  'larme de ghast': 'ghast_tear', 'patte de lapin': 'rabbit_foot',
+  'œil d\'araignée fermenté': 'fermented_spider_eye', 'œil d\'araignée': 'spider_eye',
+  'membrane de phantom': 'phantom_membrane', 'carapace de tortue': 'turtle_helmet',
+  'bâton de breeze': 'breeze_rod', 'bloc de slime': 'slime_block',
+  'toile d\'araignée': 'cobweb', 'roche': 'stone', 'poudre de redstone': 'redstone'
+};
+
+/* Fiche du guide -> potion produite par le jeu. Une fiche peut en
+   couvrir deux quand les recettes sont jumelles. */
+const POTION_ID = {
+  'Potion étrange': 'awkward', 'Potion épaisse': 'thick', 'Potion banale': 'mundane',
+  'Force': 'strength', 'Rapidité': 'swiftness', 'Résistance au feu': 'fire_resistance',
+  'Vision nocturne': 'night_vision', 'Respiration aquatique': 'water_breathing',
+  'Soin instantané': 'healing', 'Régénération': 'regeneration', 'Saut': 'leaping',
+  'Lenteur': 'slowness', 'Faiblesse': 'weakness', 'Poison': 'poison',
+  'Chute lente': 'slow_falling', 'Maître Tortue': 'turtle_master',
+  'Souffle (Wind Charged)': 'wind_charged', 'Infestation': 'infested',
+  'Invisibilité': 'invisibility', 'Dégâts instantanés': 'harming',
+  'Viscosité et Tissage': ['oozing', 'weaving']
+};
+
+let brassage = null;
+try { brassage = require('./brassage.js'); } catch (e) {
+  console.log('    outil de lecture du bytecode indisponible : ' + e.message);
+}
+
+if (brassage) {
+  const { mixes } = brassage.extraire();
+  const parEffet = brassage.effets();
+  let potVerifs = 0;
+
+  const cibles = nom => [].concat(POTION_ID[nom] || []);
+
+  /* a) l'ingrédient annoncé produit-il bien cette potion ? */
+  for (const p of (typeof POTIONS !== 'undefined' ? POTIONS : [])) {
+    const liste = cibles(p.nom);
+    if (!liste.length || !p.ou) { continue; }
+
+    /* on relève tous les ingrédients cités dans la ligne de recette,
+       du libellé le plus long au plus court pour que « œil d'araignée
+       fermenté » l'emporte sur « œil d'araignée » */
+    const dit = p.ou.toLowerCase();
+    const cites = Object.keys(INGREDIENT_ID)
+      .sort((a, b) => b.length - a.length)
+      .filter(lib => dit.includes(lib))
+      .filter((lib, i, t) => !t.slice(0, i).some(plusLong => plusLong.includes(lib)))
+      .map(lib => INGREDIENT_ID[lib]);
+    if (!cites.length) { continue; }
+
+    potVerifs++;
+    const reels = mixes.filter(m => liste.includes(m.vers)).map(m => m.avec);
+    const faux = cites.filter(c => !reels.includes(c));
+    if (faux.length) {
+      ecart('Potion : ' + p.nom,
+        'obtenue avec ' + faux.join(', '),
+        reels.length ? 'obtenue avec ' + [...new Set(reels)].join(', ') : 'aucune recette vers ' + liste.join('/'),
+        'PotionBrewing.addVanillaMixes');
+    }
+  }
+
+  /* b) les durées annoncées correspondent-elles ? */
+  const LIGNE = /(?:base|durée de base)\s*(\d+:\d{2})(?:[^\d]*redstone\s*(\d+:\d{2}))?/i;
+  for (const p of (typeof POTIONS !== 'undefined' ? POTIONS : [])) {
+    /* pour une fiche double, la durée annoncée vaut pour les deux */
+    const cible = cibles(p.nom)[0];
+    if (!cible || !parEffet[cible] || !parEffet[cible].length) { continue; }
+
+    const m = LIGNE.exec((p.drops || []).join(' · '));
+    if (!m) { continue; }
+    potVerifs++;
+
+    const attendu = brassage.duree(parEffet[cible][0].ticks);
+    if (m[1] !== attendu) {
+      ecart('Durée de base : ' + p.nom, m[1], attendu,
+        'Potions.' + cible.toUpperCase() + ' = ' + parEffet[cible][0].ticks + ' ticks');
+    }
+    if (m[2]) {
+      const longue = parEffet['long_' + cible];
+      if (!longue || !longue.length) {
+        ecart('Durée prolongée : ' + p.nom, m[2],
+          'aucune version prolongée dans le jeu', 'Potions.LONG_' + cible.toUpperCase());
+      } else {
+        const attenduLong = brassage.duree(longue[0].ticks);
+        if (m[2] !== attenduLong) {
+          ecart('Durée prolongée : ' + p.nom, m[2], attenduLong,
+            'Potions.LONG_' + cible.toUpperCase() + ' = ' + longue[0].ticks + ' ticks');
+        }
+      }
+    }
+  }
+
+  /* c) une potion du jeu manque-t-elle au guide ? */
+  const couvertes = new Set([].concat(...Object.values(POTION_ID)));
+  const oubliees = [...new Set(mixes.map(m => m.vers))]
+    .filter(v => !/^long_|^strong_/.test(v))
+    .filter(v => !couvertes.has(v))
+    .filter(v => (parEffet[v] || []).length);
+  if (oubliees.length) {
+    console.log(`    ${oubliees.length} potion(s) brassables absentes du guide : ${oubliees.join(' · ')}`);
+  }
+
+  console.log(`    ${potVerifs} contrôles sur ${Object.keys(POTION_ID).length} fiches, ` +
+    `${mixes.length} recettes de brassage lues dans le code`);
+  verifs += potVerifs;
 }
 
 /* ============================================================ */

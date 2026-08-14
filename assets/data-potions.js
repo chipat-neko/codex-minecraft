@@ -70,11 +70,11 @@ var POTIONS = [
   },
   {
     nom: 'Soin instantané', cat: 'soin',
-    tags: [{ txt: '+4 cœurs', cls: 'ok' }, { txt: 'Instantané', cls: '' }],
+    tags: [{ txt: '+2 cœurs', cls: 'ok' }, { txt: 'Instantané', cls: '' }],
     ou: 'Potion étrange + tranche de pastèque scintillante',
     drops: [
-      'Soin I : 4 cœurs · Soin II (poudre lumineuse) : 8 cœurs',
-      'Inversée (œil fermenté) : Dégâts instantanés — redoutable en version jetable'
+      'Soin I : 2 cœurs · Soin II (poudre lumineuse) : 4 cœurs',
+      'Inversée (œil fermenté) : Dégâts instantanés — 3 cœurs, ou 6 en version II'
     ],
     note: 'Sur les morts-vivants (zombies, squelettes, noyés), le Soin inflige des DÉGÂTS et les Dégâts instantanés les SOIGNENT.'
   },
@@ -82,7 +82,7 @@ var POTIONS = [
     nom: 'Régénération', cat: 'soin',
     tags: [{ txt: 'Soin continu', cls: 'ok' }, { txt: '0:45', cls: '' }],
     ou: 'Potion étrange + larme de Ghast',
-    drops: ['Base 0:45 · redstone 2:00 · poudre lumineuse : Régénération II (0:22)'],
+    drops: ['Base 0:45 · redstone 1:30 · poudre lumineuse : Régénération II (0:22)'],
     note: 'La meilleure potion de survie en combat prolongé : elle soigne pendant que vous encaissez, contrairement au Soin instantané.'
   },
   {
@@ -114,6 +114,26 @@ var POTIONS = [
     note: 'Le Poison ne tue jamais (il s\'arrête à un demi-cœur) et n\'a aucun effet sur les morts-vivants ni sur les araignées.'
   },
   {
+    nom: 'Invisibilité', cat: 'utilite',
+    tags: [{ txt: 'Invisible', cls: 'purple' }, { txt: '3:00', cls: '' }],
+    ou: 'Potion de Vision nocturne + œil d\'araignée fermenté',
+    drops: [
+      'Base 3:00 · redstone 8:00',
+      'Votre armure, vos objets en main et vos flèches plantées restent visibles'
+    ],
+    note: 'Les mobs vous repèrent quand même à 1 bloc, et les Wardens vous entendent toujours. Videz vos emplacements d\'armure pour être vraiment discret.'
+  },
+  {
+    nom: 'Dégâts instantanés', cat: 'combat',
+    tags: [{ txt: '3 cœurs', cls: 'red' }, { txt: 'Instantané', cls: '' }],
+    ou: 'Potion de Soin ou de Poison + œil d\'araignée fermenté',
+    drops: [
+      'Dégâts I : 3 cœurs · Dégâts II (poudre lumineuse) : 6 cœurs',
+      'Sur les morts-vivants, l\'effet s\'inverse : elle les soigne'
+    ],
+    note: 'En version jetable, c\'est l\'arme la plus efficace du jeu contre un joueur ou un mob vivant : aucune armure ne réduit les dégâts de potion.'
+  },
+  {
     nom: 'Chute lente', cat: 'utilite',
     tags: [{ txt: 'Annule la chute', cls: 'cyan' }, { txt: '1:30', cls: '' }],
     ou: 'Potion étrange + membrane de Phantom',
@@ -121,10 +141,13 @@ var POTIONS = [
     note: 'Sauve la vie lors des vols à l\'élytre et permet de descendre d\'une cité de l\'End sans échafaudage. Emportez-en toujours une en poche.'
   },
   {
-    nom: 'Résistance (tortue)', cat: 'combat',
+    nom: 'Maître Tortue', cat: 'combat',
     tags: [{ txt: 'Lenteur IV + Résistance III', cls: 'purple' }, { txt: '0:20', cls: '' }],
-    ou: 'Potion étrange + écaille de tortue',
-    drops: ['Base 0:20 · redstone 0:40 · poudre lumineuse : effets renforcés, durée réduite'],
+    ou: 'Potion étrange + carapace de tortue',
+    drops: [
+      'Base 0:20 · redstone 0:40 · poudre lumineuse : Lenteur VI + Résistance IV, toujours 0:20',
+      'C\'est bien la CARAPACE qu\'il faut, pas l\'écaille : comptez 5 écailles pour la fabriquer'
+    ],
     note: 'Vous devenez presque immobile mais encaissez 60 % de dégâts en moins. Utile face au Warden ou pour survivre à une explosion.'
   },
   {
@@ -135,14 +158,25 @@ var POTIONS = [
     note: 'Introduite avec les chambres d\'épreuve. Surtout utile en version jetable, pour désorganiser un groupe de mobs.'
   },
   {
-    nom: 'Viscosité / Tissage (Oozing, Weaving)', cat: 'combat',
-    tags: [{ txt: 'Chambres d\'épreuve', cls: 'cyan' }],
-    ou: 'Potion étrange + boule de slime (Oozing) ou toile d\'araignée (Weaving)',
+    nom: 'Viscosité et Tissage', cat: 'combat',
+    tags: [{ txt: 'Chambres d\'épreuve', cls: 'cyan' }, { txt: '3:00', cls: '' }],
+    ou: 'Potion étrange + bloc de slime (Viscosité) ou toile d\'araignée (Tissage)',
     drops: [
-      'Oozing : la cible lâche 2 slimes à sa mort',
-      'Weaving : la cible laisse des toiles à sa mort'
+      'Viscosité : la cible lâche 2 slimes à sa mort',
+      'Tissage : la cible laisse des toiles à sa mort',
+      'Attention, c\'est le BLOC de slime qu\'il faut, pas la boule : 9 boules par brassage'
     ],
-    note: 'Oozing en potion jetable sur une ferme à mobs est un moyen inattendu d\'obtenir des boules de slime sans chunk à slime.'
+    note: 'La Viscosité ne remplace pas une ferme à slimes : elle coûte 9 boules pour en rendre quelques-unes. Son intérêt est en combat, pas en production.'
+  },
+  {
+    nom: 'Infestation', cat: 'combat',
+    tags: [{ txt: 'Chambres d\'épreuve', cls: 'cyan' }, { txt: '3:00', cls: '' }],
+    ou: 'Potion étrange + roche',
+    drops: [
+      'La cible libère des silverfish quand elle est blessée',
+      'L\'ingrédient est la roche cuite, pas la pierre brute ni la pierre taillée'
+    ],
+    note: 'La moins chère de toutes les potions : une pierre au four suffit. En version jetable sur un groupe, elle crée un désordre durable.'
   }
 ];
 
@@ -174,7 +208,9 @@ var INGREDIENTS = [
   ['Poisson-globe', 'Pêche en océan chaud, ou capture au seau', 'Une ferme à pêche automatique en fournit régulièrement'],
   ['Patte de lapin', 'Lapins (10 % de drop)', 'Le drop le plus rare des mobs passifs : prévoyez du Butin III'],
   ['Membrane de Phantom', 'Phantoms (3 nuits sans dormir)', 'Sert aussi à réparer l\'élytre à l\'enclume'],
-  ['Écaille de tortue', 'Bébés tortues devenues adultes', 'Ne tuez jamais les tortues : élevez-les sur leur plage natale'],
+  ['Carapace de tortue', '5 écailles, laissées par les bébés tortues devenus adultes', 'C\'est la carapace fabriquée que réclame l\'alambic, pas l\'écaille brute'],
+  ['Bloc de slime', '9 boules de slime', 'Le brassage de la Viscosité consomme le bloc entier'],
+  ['Roche', 'Pierre passée au four', 'Ingrédient de la potion d\'Infestation : le moins cher du jeu'],
   ['Œil d\'araignée', 'Araignées (33 %)', 'Fermenté = œil + sucre + champignon brun'],
   ['Bâton de Breeze', 'Breezes (chambres d\'épreuve)', 'Sert aussi aux charges de vent et à la masse'],
   ['Poudre lumineuse', 'Pierre lumineuse du Nether, ou sorcières', 'Une ferme à sorcières en hutte de marais en produit sans limite'],

@@ -87,7 +87,7 @@ var STRUCTURES_DETAIL = [
     ou: 'Pyramide de grès dans les déserts, à moitié enfouie dans le sable, repérable à ses deux tours orange. Le sol de la salle centrale porte un motif en terre cuite bleue et orange : c\'est le couvercle du puits piégé.',
     drops: [
       'Chambre au trésor — 4 coffres, un à chaque coin du puits, sous le motif du sol',
-      'Coffres — diamants, émeraudes, lingots de fer et d\'or, os, chair putréfiée, poudre à canon, selle, armures de cheval (fer, or, plus rarement diamant), livre enchanté, pomme d\'or et, rarement, pomme d\'or enchantée',
+      'Coffres — diamants, émeraudes, lingots de fer et d\'or, os, chair putréfiée, poudre à canon, armures de cheval (cuivre, fer, or, plus rarement diamant), livre enchanté, pomme d\'or et, rarement, pomme d\'or enchantée',
       'Modèle de forge « dune » — motif d\'armure exclusif au temple du désert, dans l\'un des coffres',
       'Piège — 9 blocs de TNT sous la plaque de pression en pierre au centre du puits : marcher dessus tue un joueur non équipé et détruit une partie du butin',
       'Désamorçage — cassez la plaque de pression depuis le bord du puits (à la main, sans sauter dedans) AVANT de descendre, ou creusez un tunnel latéral qui débouche au niveau des coffres',
@@ -101,7 +101,7 @@ var STRUCTURES_DETAIL = [
     tags: [{ txt: 'Jungle', cls: 'ok' }, { txt: 'Fils de détente', cls: 'red' }],
     ou: 'Jungles et jungles denses, en pierre et pierre moussue, souvent noyé dans la végétation et difficile à repérer depuis le sol. Trois niveaux : terrasse, couloirs pièges, salle basse fermée par une énigme à leviers.',
     drops: [
-      'Coffre du couloir piégé — diamants, émeraudes, fer, or, os, chair putréfiée, selle, armures de cheval, livre enchanté',
+      'Coffre du couloir piégé — diamants, émeraudes, fer, or, os, chair putréfiée, bambou, armures de cheval (cuivre, fer, or, diamant), livre enchanté',
       'Coffre de la salle basse — même butin, accessible seulement après l\'énigme (ou en creusant)',
       'Modèle de forge « sauvage » — motif d\'armure exclusif au temple de la jungle',
       'Piège à flèches — deux fils de détente reliés à des distributeurs chargés de flèches, dans le couloir du bas',
@@ -131,7 +131,8 @@ var STRUCTURES_DETAIL = [
     ou: 'Uniquement en forêt sombre, et très loin : souvent plusieurs milliers de blocs du point de départ. La carte de l\'explorateur des bois, achetée à un cartographe suffisamment monté en niveau, est de loin le moyen le plus fiable de le localiser.',
     drops: [
       'Totems d\'immortalité — chaque évocateur en lâche un, systématiquement : la seule source du jeu hors raids',
-      'Coffres des salles de stockage — lingots de fer et d\'or, diamants, pain, blé, seau, redstone, charbon, livre enchanté, selle',
+      'Coffres des salles de stockage — amas de résine (l\'entrée la plus fréquente, et sa seule source en coffre), laisses, plastron en diamant, cotte de mailles, houe en diamant, lingots de fer et d\'or, pain, blé, seau, redstone, charbon, livre enchanté',
+      'Aucun diamant brut dans ces coffres — le seul diamant du manoir est le bloc caché de la salle secrète',
       'Modèle de forge « vex » — motif d\'armure exclusif au manoir',
       'Salle secrète au bloc de diamant — une pièce sans porte, entourée de laine bleue ou de tapis, abrite un bloc de diamant : sondez les murs et creusez',
       'Salles à énigmes — fausse salle du portail de l\'End, salle aux allays en cage, salle au gâteau, salle à l\'arbre : le butin varie selon les pièces générées',
@@ -146,7 +147,7 @@ var STRUCTURES_DETAIL = [
     tags: [{ txt: 'Près des villages', cls: 'gold' }, { txt: 'Réapparition', cls: 'red' }],
     ou: 'Dans tous les biomes où les villages génèrent, souvent à quelques centaines de blocs d\'un village. Grande tour en chêne noir et pierre, entourée de tentes, de cages et parfois d\'un pieu à bannière.',
     drops: [
-      'Coffre du sommet de la tour — arbalète, livre enchanté, lingots de fer, bûches de chêne noir, crochet, blé, pommes de terre, carottes, fiole d\'expérience',
+      'Coffre du sommet de la tour — arbalète, livre enchanté, corne de chèvre, lingots de fer, bûches de chêne noir, crochet, blé, pommes de terre, carottes, fiole d\'expérience',
       'Modèle de forge « sentinelle » — motif d\'armure exclusif à l\'avant-poste',
       'Cages — certaines contiennent un golem de fer prisonnier (à libérer, il vous suivra le combat), d\'autres un allay',
       'Bannière de mauvais présage — portée par le capitaine, récupérable une fois celui-ci tué',
@@ -216,7 +217,8 @@ var STRUCTURES_DETAIL = [
     tags: [{ txt: 'Souterrain', cls: 'gold' }, { txt: 'Générateur', cls: 'red' }],
     ou: 'Petites salles de pierre et de pierre moussue (7×7 ou 9×9 avec les murs), enfouies partout entre le fond du monde et la surface, souvent branchées sur une grotte. Un générateur de zombies, de squelettes ou d\'araignées au centre, un ou deux coffres contre les murs.',
     drops: [
-      'Coffres — selle, disques de musique (13, Cat, Otherside), pomme d\'or, pomme d\'or enchantée (rare), livre enchanté, étiquette, armures de cheval (fer, or, diamant), lingots de fer et d\'or, poudre de redstone, seau, pain, blé',
+      'Coffres — disques de musique (13, Cat, Otherside), pomme d\'or, pomme d\'or enchantée (rare), livre enchanté, étiquette, armures de cheval en cuivre, en fer, en or et en diamant, lingots de fer et d\'or, poudre de redstone, seau, pain, blé',
+      'Pas de diamant brut dans un donjon : seule l\'armure de cheval en diamant en contient',
       'Générateur — à NE PAS casser : c\'est le cœur d\'une ferme à expérience ou à butin, presque gratuit à aménager',
       'Pierre moussue — non renouvelable sans lianes ; le donjon en fournit une centaine de blocs',
       'Danger — le générateur produit jusqu\'à 4 monstres toutes les 10 à 40 secondes dans un rayon proche tant qu\'un joueur est à moins de 16 blocs',
@@ -261,7 +263,8 @@ var STRUCTURES_DETAIL = [
     tags: [{ txt: 'Deep Dark', cls: 'purple' }, { txt: 'Warden', cls: 'red' }, { txt: 'Butin unique', cls: 'gold' }],
     ou: 'Uniquement dans le biome Deep Dark, autour de Y -52, sous les massifs montagneux et les hauts plateaux. Immense complexe de pierre des profondeurs recouvert de sculk, avec un monument central en pierre des profondeurs renforcée.',
     drops: [
-      'Coffres — livres enchantés dont Marche silencieuse (Swift Sneak), introuvable ailleurs, éclats d\'écho, fragments de disque « 5 », pommes d\'or enchantées, diamants, lingots de fer, bottes en fer enchantées, selles, disque « Otherside »',
+      'Coffres — livres enchantés dont Marche silencieuse (Swift Sneak), introuvable ailleurs, éclats d\'écho, fragments de disque « 5 », pommes d\'or enchantées, jambières en fer et en diamant enchantées, houe en diamant enchantée, armure de cheval en diamant, disques « 13 », « Cat » et « Otherside »',
+      'Ne comptez pas y trouver de diamants bruts : la table n\'en contient aucun, uniquement des objets déjà taillés',
       'Modèles de forge « gardien » et « silence » — deux motifs exclusifs, le « silence » étant l\'un des plus rares du jeu',
       'Éclats d\'écho — les 8 éclats nécessaires à la boussole de récupération ne se trouvent QUE dans ces coffres',
       'Blocs de sculk — sculk, veines, catalyseurs, capteurs et hurleurs : à récupérer au Toucher de soie, sinon ils ne lâchent que de l\'expérience',
@@ -340,6 +343,7 @@ var STRUCTURES_DETAIL = [
       'Coffre de la carte (cabine arrière) — carte au trésor enfoui presque systématiquement, plus boussole, papier, cartes vierges, horloge',
       'Coffre de ravitaillement (avant) — nourriture, pommes de terre empoisonnées, charbon, bambou, poudre à canon, TNT, pièces d\'armure en cuir, seau',
       'Coffre du trésor (cale) — lingots de fer et d\'or, pépites, émeraudes, lapis, diamant (rare), bouteilles d\'expérience',
+      'Armures pour nautile — cuivre, fer, or et diamant : avec le trésor enfoui, les épaves en sont la seule source en coffre',
       'Modèle de forge « côte » (coast) — motif d\'armure exclusif aux épaves',
       'Blocs récupérables — planches, escaliers et clôtures de la coque, souvent d\'un bois qu\'on n\'a pas encore chez soi',
       'Danger — noyés autour de l\'épave, dont certains portent un trident ; le manque d\'air est le vrai risque',
@@ -366,7 +370,8 @@ var STRUCTURES_DETAIL = [
     ou: 'Un unique coffre enterré sous le sable, le gravier ou la pierre d\'une plage ou d\'un fond marin. Introuvable sans la carte au trésor obtenue dans une épave ou des ruines sous-marines : la croix rouge marque le bloc exact.',
     drops: [
       'Cœur de la mer — systématiquement présent, et introuvable ailleurs : c\'est l\'ingrédient unique du conduit',
-      'Coffre — lingots d\'or et de fer, diamants, émeraudes, TNT, cristaux de prismarine, poisson cuit, pièces d\'armure en cuir',
+      'Coffre — lingots d\'or et de fer, diamants, émeraudes, TNT, cristaux de prismarine, poisson cuit, lance en fer, potion',
+      'Armures pour nautile — cuivre surtout, puis fer, or et diamant : c\'est la deuxième entrée la plus fréquente de la table, juste après le fer',
       'Conduit — 1 cœur de la mer + 8 coquilles de nautile (pêche ou noyés) : donne respiration, vision et vitesse de minage sous l\'eau dans un large rayon',
       'Méthode — placez-vous au centre exact de la croix (le marqueur du joueur doit se superposer à la croix) puis creusez un puits 3×3 : le coffre est rarement à plus de dix blocs sous la surface',
       'Piège — le coffre peut être noyé sous l\'eau ou coincé dans la pierre : gardez une pelle ET une pioche, ainsi qu\'un seau pour l\'eau'
@@ -409,7 +414,7 @@ var STRUCTURES_DETAIL = [
     tags: [{ txt: 'Nether', cls: 'red' }, { txt: 'Débris antiques', cls: 'purple' }, { txt: 'La plus riche', cls: 'gold' }],
     ou: 'Variante de bastion la plus recherchée : une grande construction de pierre noire dont le cœur est une salle à or, gardée par plusieurs piglins brutes et souvent surplombée d\'un pont. Les blocs d\'or sont visibles depuis l\'extérieur, incrustés dans les murs.',
     drops: [
-      'Coffres du trésor — le butin le plus riche du jeu : lingots de netherite, débris antiques, blocs d\'or, pommes d\'or enchantées, épées et pioches en diamant enchantées, arbalètes, flèches spectrales, obsidienne pleureuse',
+      'Coffres du trésor — le butin le plus riche du jeu : lingots de netherite en tête de table, débris antiques, éclats de netherite, épées et lances en diamant (enchantées ou non), l\'armure en diamant complète, pommes d\'or enchantées, blocs d\'or et de fer',
       'Modèle de forge « amélioration en netherite » — introuvable hors des bastions, et obligatoire pour améliorer chaque pièce d\'équipement en netherite',
       'Duplication du modèle — 1 modèle + 7 blocs de netherrack + 1 diamant sur la table de forge : dupliquez-le avant tout, un seul modèle suffit pour une panoplie entière',
       'Modèle de forge « groin » (snout) — motif d\'armure exclusif aux bastions',
@@ -425,7 +430,7 @@ var STRUCTURES_DETAIL = [
     tags: [{ txt: 'Nether', cls: 'red' }, { txt: 'Danger de chute', cls: 'red' }],
     ou: 'Bastion organisé autour d\'un immense pont de pierre noire enjambant le vide ou une mer de lave, avec une rampe à chaque extrémité et une tête de pont fortifiée.',
     drops: [
-      'Coffres du pont — lingots et blocs d\'or, arbalètes, pommes d\'or, obsidienne pleureuse, flèches, cordes, selles, briquet',
+      'Coffres du pont — lingots et blocs d\'or, arbalètes, obsidienne pleureuse, pierre noire dorée, flèches, ficelle, cuir, et une pierre-aimant (introuvable ailleurs en coffre)',
       'Modèle de forge « groin » — comme dans tous les bastions',
       'Modèle « amélioration en netherite » — possible ici aussi, mais nettement plus rare que dans la salle du trésor',
       'Blocs récupérables — pierre noire (polie, ciselée, briques), chaînes, lanternes, blocs d\'or',
@@ -439,7 +444,7 @@ var STRUCTURES_DETAIL = [
     tags: [{ txt: 'Nether', cls: 'red' }, { txt: 'Hoglins', cls: 'gold' }],
     ou: 'Bastion en forme de grande halle ouverte avec des rampes et des enclos où les piglins parquent des hoglins. On le reconnaît aux enclos clôturés et aux couloirs en pente.',
     drops: [
-      'Coffres des écuries — lingots d\'or, arbalètes, selles, pommes d\'or, obsidienne pleureuse, cordes, flèches, briquet',
+      'Coffres des écuries — débris antiques et blocs d\'or en tête de table, pelle et pioche en diamant enchantées, selles, carottes et pommes dorées, éclats de netherite',
       'Modèle de forge « groin » — motif exclusif des bastions',
       'Hoglins vivants — viande de porc crue en quantité, et surtout du cuir : la seule source de cuir renouvelable du Nether',
       'Champignon écarlate — sert à attirer et à reproduire les hoglins ; une houe cueille les champignons du biome écarlate voisin',
@@ -453,7 +458,7 @@ var STRUCTURES_DETAIL = [
     tags: [{ txt: 'Nether', cls: 'red' }, { txt: 'Labyrinthe', cls: '' }],
     ou: 'Bastion en forme de tours d\'habitation empilées, reliées par des passerelles et des escaliers étroits : la variante la plus labyrinthique, avec des coffres répartis sur plusieurs niveaux.',
     drops: [
-      'Coffres des logements — lingots d\'or, arbalètes, pommes d\'or, obsidienne pleureuse, flèches, selles, cordes, briquet',
+      'Coffres des logements — débris antiques, carottes dorées, flèches spectrales, livres enchantés, bannière piglin, pommes d\'or, pioche en diamant enchantée, disque « Pigstep » (sa seule source)',
       'Modèle de forge « groin » — motif exclusif des bastions',
       'Modèle « amélioration en netherite » — possible mais rare dans cette variante',
       'Blocs récupérables — pierre noire sous toutes ses formes, blocs et briques d\'or, chaînes, lanternes, tapis',
@@ -469,10 +474,10 @@ var STRUCTURES_DETAIL = [
     tags: [{ txt: 'Îles extérieures', cls: 'purple' }, { txt: 'Shulkers', cls: 'red' }],
     ou: 'Uniquement sur les îles extérieures de l\'End, au-delà du vide qui entoure l\'île centrale : on y accède par une passerelle de l\'End (après la mort du dragon) en y lançant une perle de l\'Ender. Tours de purpur et de briques d\'end stone, souvent hautes de 50 blocs.',
     drops: [
-      'Coffres — diamants, lingots de fer et d\'or, émeraudes, béryl (bâtons de fin), pommes d\'or enchantées, épées, pioches et pelles en diamant enchantées, armure de cheval en fer et en diamant, selles, plastrons en diamant',
+      'Coffres — diamants, lingots de fer et d\'or, émeraudes, selles, armures de cheval (cuivre, fer, or, diamant), et surtout la panoplie en diamant ENCHANTÉE au complet : épée, lance, pioche, pelle, casque, plastron, jambières, bottes',
       'Modèle de forge « flèche » (spire) — motif d\'armure exclusif aux cités de l\'End',
       'Carapaces de shulker — deux carapaces font une boîte de shulker : le seul conteneur transportable du jeu, celui qui change réellement la gestion d\'inventaire',
-      'Blocs récupérables — purpur (blocs, piliers, escaliers, dalles), briques d\'end stone, verre teinté magenta, tiges de chorus (à cuire en béryl)',
+      'Blocs récupérables — purpur (blocs, piliers, escaliers, dalles), briques d\'end stone, verre teinté magenta, barres de l\'End (source de lumière qui ne fond pas la neige), tiges de chorus (à cuire en purpur)',
       'Danger — les shulkers infligent Lévitation puis une chute mortelle : le vide de l\'End est en dessous',
       'Contre-mesure — potion de Chute lente, un seau d\'eau inutile ici, et surtout des blocs pour boucher les fenêtres avant de traverser une salle',
       'Astuce — les shulkers se téléportent sur les murs : fermez la pièce avant de les tuer, sinon ils se déplacent hors de portée'
@@ -485,7 +490,7 @@ var STRUCTURES_DETAIL = [
     ou: 'Vaisseau flottant à côté de certaines cités de l\'End seulement, en général à hauteur de la plus haute tour et légèrement à l\'écart. Il faut souvent construire une passerelle de 20 à 30 blocs ou lancer une perle pour l\'atteindre.',
     drops: [
       'Élytres — dans un cadre d\'objet au fond de la cale : l\'objet le plus important du jeu après la fin du dragon, et un seul par navire',
-      'Deux coffres du pont — diamants, lingots d\'or et de fer, émeraudes, béryl, armures de cheval en diamant, pommes d\'or enchantées, outils en diamant enchantés',
+      'Deux coffres du pont — même table que les coffres de la cité : diamants, lingots d\'or et de fer, émeraudes, selles, armures de cheval et panoplie en diamant enchantée',
       'Alambic de la cale — chargé de potions de Soin instantané II, à récupérer telles quelles',
       'Tête de dragon — sur la proue : décoration unique et non renouvelable hors têtes de joueur',
       'Blocs récupérables — obsidienne de la coque, purpur, briques d\'end stone',
