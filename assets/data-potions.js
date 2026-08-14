@@ -23,7 +23,7 @@ var POTIONS = [
     note: 'Si vous obtenez ça, vous avez inversé l\'ordre : la verrue du Nether vient TOUJOURS en premier.'
   },
   {
-    nom: 'Potion maladroite', cat: 'base',
+    nom: 'Potion banale', cat: 'base',
     tags: [{ txt: 'Impasse', cls: 'red' }],
     ou: 'Fiole d\'eau + presque n\'importe quel ingrédient sans verrue',
     drops: ['Aucun effet, aucune suite'],
@@ -66,12 +66,12 @@ var POTIONS = [
     tags: [{ txt: 'Apnée illimitée', cls: 'blue' }, { txt: '3:00', cls: '' }],
     ou: 'Potion étrange + poisson-globe',
     drops: ['Base 3:00 · redstone 8:00'],
-    note: 'Un conduit (8 coquillages nautiles + 1 cœur de la mer) rend cette potion inutile dans un rayon de 96 blocs : préférez-le pour un gros chantier.'
+    note: 'Un conduit (8 coquilles de nautile + 1 cœur de la mer) rend cette potion inutile dans un rayon de 96 blocs : préférez-le pour un gros chantier.'
   },
   {
     nom: 'Soin instantané', cat: 'soin',
     tags: [{ txt: '+4 cœurs', cls: 'ok' }, { txt: 'Instantané', cls: '' }],
-    ou: 'Potion étrange + melon scintillant',
+    ou: 'Potion étrange + tranche de pastèque scintillante',
     drops: [
       'Soin I : 4 cœurs · Soin II (poudre lumineuse) : 8 cœurs',
       'Inversée (œil fermenté) : Dégâts instantanés — redoutable en version jetable'
@@ -128,14 +128,14 @@ var POTIONS = [
     note: 'Vous devenez presque immobile mais encaissez 60 % de dégâts en moins. Utile face au Warden ou pour survivre à une explosion.'
   },
   {
-    nom: 'Force du vent (Wind Charged)', cat: 'combat',
+    nom: 'Souffle (Wind Charged)', cat: 'combat',
     tags: [{ txt: 'Chambres d\'épreuve', cls: 'cyan' }, { txt: '3:00', cls: '' }],
-    ou: 'Potion étrange + tige de Breeze',
+    ou: 'Potion étrange + bâton de Breeze',
     drops: ['La cible projette une rafale de vent quand elle est touchée'],
     note: 'Introduite avec les chambres d\'épreuve. Surtout utile en version jetable, pour désorganiser un groupe de mobs.'
   },
   {
-    nom: 'Infestation / Toile (Oozing, Weaving)', cat: 'combat',
+    nom: 'Viscosité / Tissage (Oozing, Weaving)', cat: 'combat',
     tags: [{ txt: 'Chambres d\'épreuve', cls: 'cyan' }],
     ou: 'Potion étrange + boule de slime (Oozing) ou toile d\'araignée (Weaving)',
     drops: [
@@ -150,7 +150,7 @@ var POTIONS = [
 var FORMES = [
   ['Potion buvable', 'La potion de base', 'Effet complet sur vous seul, à boire (1,3 s d\'animation)'],
   ['Potion jetable (splash)', '+ poudre à canon', 'Se lance ; touche plusieurs cibles ; durée réduite à 75 %'],
-  ['Potion persistante (lingering)', 'Potion jetable + souffle du dragon', 'Crée un nuage au sol pendant 30 s ; durée par contact réduite à 25 %'],
+  ['Potion persistante (lingering)', 'Potion jetable + souffle de dragon', 'Crée un nuage au sol pendant 30 s ; durée par contact réduite à 25 %'],
   ['Flèche à effet', '8 flèches autour d\'une potion persistante', 'Applique l\'effet à la cible touchée ; durée à 12,5 % (mais 8 flèches par potion)']
 ];
 
@@ -159,7 +159,7 @@ var MODIFS = [
   ['Poudre de redstone', 'Prolonge la durée', 'Annule l\'effet de la poudre lumineuse — les deux sont exclusifs'],
   ['Poudre lumineuse', 'Renforce le niveau (II)', 'Réduit fortement la durée'],
   ['Poudre à canon', 'Rend la potion jetable', 'S\'applique en dernier, après les autres modificateurs'],
-  ['Souffle du dragon', 'Rend la potion persistante', 'Se récolte en fiole dans le nuage d\'haleine du dragon de l\'End'],
+  ['Souffle de dragon', 'Rend la potion persistante', 'Se récolte en fiole dans le nuage d\'haleine de l\'Ender Dragon'],
   ['Œil d\'araignée fermenté', 'Inverse l\'effet', 'Sucre → Lenteur · Soin → Dégâts · Vision nocturne → Invisibilité · Saut → Lenteur']
 ];
 
@@ -167,16 +167,16 @@ var MODIFS = [
 var INGREDIENTS = [
   ['Verrue du Nether', 'Escaliers des forteresses du Nether', 'Se replante sur du sable des âmes : ressource renouvelable'],
   ['Poudre de Blaze', 'Bâtons de Blaze (forteresse du Nether)', '1 bâton = 2 poudres ; sert aussi de carburant à l\'alambic'],
-  ['Crème de magma', 'Magma cubes, ou poudre de Blaze + boule de slime', 'Craftable : c\'est souvent plus rapide que la chasse'],
+  ['Crème de magma', 'Cubes de magma, ou poudre de Blaze + boule de slime', 'Craftable : c\'est souvent plus rapide que la chasse'],
   ['Larme de Ghast', 'Ghasts (mers de lave, deltas de basalte)', '50 % de drop ; visez-les à l\'arc depuis un abri'],
-  ['Melon scintillant', '8 pépites d\'or + 1 tranche de melon', 'Ferme à melons + ferme à or = production illimitée'],
+  ['Tranche de pastèque scintillante', '8 pépites d\'or + 1 tranche de pastèque', 'Ferme à pastèques + ferme à or = production illimitée'],
   ['Carotte dorée', '8 pépites d\'or + 1 carotte', 'Aussi le meilleur aliment du jeu : produisez-en en masse'],
   ['Poisson-globe', 'Pêche en océan chaud, ou capture au seau', 'Une ferme à pêche automatique en fournit régulièrement'],
   ['Patte de lapin', 'Lapins (10 % de drop)', 'Le drop le plus rare des mobs passifs : prévoyez du Butin III'],
   ['Membrane de Phantom', 'Phantoms (3 nuits sans dormir)', 'Sert aussi à réparer l\'élytre à l\'enclume'],
   ['Écaille de tortue', 'Bébés tortues devenues adultes', 'Ne tuez jamais les tortues : élevez-les sur leur plage natale'],
   ['Œil d\'araignée', 'Araignées (33 %)', 'Fermenté = œil + sucre + champignon brun'],
-  ['Tige de Breeze', 'Breezes (chambres d\'épreuve)', 'Sert aussi aux charges de vent et à la masse'],
+  ['Bâton de Breeze', 'Breezes (chambres d\'épreuve)', 'Sert aussi aux charges de vent et à la masse'],
   ['Poudre lumineuse', 'Pierre lumineuse du Nether, ou sorcières', 'Une ferme à sorcières en hutte de marais en produit sans limite'],
-  ['Souffle du dragon', 'Nuage du dragon de l\'End, en fiole vide', 'Le dragon est réinvocable avec 4 cristaux de l\'End']
+  ['Souffle de dragon', 'Nuage de l\'Ender Dragon, en fiole vide', 'Le dragon est réinvocable avec 4 cristaux de l\'End']
 ];

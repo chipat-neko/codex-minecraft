@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mécaniques du jeu — Codex Minecraft</title>
-<meta name="description" content="Les mécaniques de fond de Minecraft Java : faim et saturation, délai d'attaque, niveau de lumière, distances d'apparition, ticks, expérience.">
+<title>Décoration &amp; aménagement — Codex Minecraft</title>
+<meta name="description" content="Meubler et habiller ses constructions Minecraft : montages concrets de mobilier, aménagement des pièces, extérieurs, éclairage et détails.">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -40,44 +40,44 @@
 <main class="wrap">
 
   <div class="hero">
-    <span class="eyebrow">Catalogue 1 / 14</span>
-    <h1>Mécaniques du jeu</h1>
-    <p>Les règles de fond qui expliquent tout le reste : pourquoi une ferme fonctionne ou non,
-      pourquoi frapper vite fait <b>moins</b> de dégâts, pourquoi le steak vaut mieux que le pain.
-      C'est le socle sur lequel reposent les onze autres catalogues.</p>
+    <span class="eyebrow">Catalogue 11 / 14</span>
+    <h1>Décoration &amp; aménagement</h1>
+    <p>Les <a href="plans.html">plans</a> disent comment bâtir, les <a href="blocs.html">blocs</a> avec quoi.
+      Cette page dit comment <b>meubler</b> : chaque fiche décrit un montage concret — quels blocs,
+      dans quelle disposition — plutôt qu'une image à recopier.</p>
   </div>
 
   <div class="toolbar">
     <div class="toolbar-row">
-      <input id="q" class="search" type="search" placeholder="Rechercher une mécanique…  ( / )" autocomplete="off">
+      <input id="q" class="search" type="search" placeholder="Rechercher un meuble, une pièce…  ( / )" autocomplete="off">
       <span id="count" class="count"></span>
     </div>
     <div class="toolbar-row" id="chips" style="margin-top:10px">
       <button class="chip on" data-cat="all">Tout</button>
       <button class="chip" data-cat="fav">★ Favoris</button>
-      <button class="chip" data-cat="survie">Survie</button>
-      <button class="chip" data-cat="combat">Combat</button>
-      <button class="chip" data-cat="monde">Monde</button>
-      <button class="chip" data-cat="progression">Progression</button>
-      <button class="chip" data-cat="technique">Technique</button>
+      <button class="chip" data-cat="mobilier">Mobilier</button>
+      <button class="chip" data-cat="piece">Pièces</button>
+      <button class="chip" data-cat="exterieur">Extérieurs</button>
+      <button class="chip" data-cat="lumiere">Éclairage</button>
+      <button class="chip" data-cat="detail">Détails</button>
     </div>
   </div>
 
   <section class="print-host" style="margin-bottom:20px">
     <div id="liste" class="grid g2"></div>
-    <div id="vide" class="empty" style="display:none">Aucune mécanique trouvée. Essayez « faim », « lumière », « tick », « armure »…</div>
+    <div id="vide" class="empty" style="display:none">Rien trouvé. Essayez « cuisine », « chaise », « lustre », « jardin »…</div>
   </section>
 
   <hr>
 
-  <section id="reperes">
-    <h2>Les constantes à connaître par cœur</h2>
-    <p class="lead">Ces valeurs reviennent en permanence. Les connaître évite la moitié des erreurs
-      de conception d'une ferme ou d'une base.</p>
+  <section id="ambiances">
+    <h2>Composer une ambiance</h2>
+    <p class="lead">Une pièce réussie tient à la cohérence entre trois choses : les matériaux, la lumière
+      et deux ou trois détails qui signent le lieu. Ces combinaisons fonctionnent telles quelles.</p>
     <div class="table-scroll">
       <table>
-        <thead><tr><th>Règle</th><th>Valeur</th><th>Pourquoi ça compte en jeu</th></tr></thead>
-        <tbody id="tbl-reperes"></tbody>
+        <thead><tr><th>Ambiance</th><th>Blocs et couleurs</th><th>Éclairage</th><th>Détails qui la signent</th></tr></thead>
+        <tbody id="tbl-ambiances"></tbody>
       </table>
     </div>
   </section>
@@ -85,19 +85,18 @@
   <hr>
 
   <section id="erreurs">
-    <h2>Erreurs courantes</h2>
-    <p class="lead">Des réflexes très répandus, et pourtant contre-productifs.</p>
+    <h2>Ce qui rate le plus souvent</h2>
+    <p class="lead">Presque tous les intérieurs ratés le sont pour les mêmes raisons.</p>
     <div class="table-scroll">
       <table>
-        <thead><tr><th>Ce que font beaucoup de joueurs</th><th>Pourquoi c'est contre-productif</th><th>À faire à la place</th></tr></thead>
+        <thead><tr><th>Erreur fréquente</th><th>Pourquoi ça rate</th><th>À faire à la place</th></tr></thead>
         <tbody id="tbl-erreurs"></tbody>
       </table>
     </div>
-    <div class="callout info">
-      <b>Sur la précision des chiffres</b> — les valeurs de cette page proviennent des mécaniques
-      documentées du jeu. Quelques données (dégâts par seconde du feu, distance de détection selon
-      les mobs, chance de désactivation d'un bouclier) ne sont pas exposées dans les fichiers de
-      données du jeu : elles sont décrites qualitativement plutôt qu'avec un chiffre incertain.
+    <div class="callout tip">
+      <b>La règle qui résume tout</b> — un intérieur se remplit par les BORDS. Meubles contre les murs,
+      circulation au centre, et au moins un vide assumé. Une pièce entièrement meublée paraît plus petite
+      et moins habitée qu'une pièce à moitié vide bien éclairée.
     </div>
   </section>
 
@@ -112,13 +111,13 @@
 <script src="assets/textures-libres/index.js"></script>
 <script src="assets/textures/index.js" onerror="void 0"></script>
 <script src="assets/core.js"></script>
-<script src="assets/data-mecaniques.js"></script>
+<script src="assets/data-deco.js"></script>
 <script>
 (function () {
   var liste = document.getElementById('liste');
-  for (var i = 0; i < MECANIQUES_JEU.length; i++) { liste.appendChild(renderEntry(MECANIQUES_JEU[i])); }
-  fillTable('tbl-reperes', REPERES_CHIFFRES);
-  fillTable('tbl-erreurs', ERREURS_COURANTES);
+  for (var i = 0; i < DECO.length; i++) { liste.appendChild(renderEntry(DECO[i])); }
+  fillTable('tbl-ambiances', AMBIANCES);
+  fillTable('tbl-erreurs', ERREURS_DECO);
   setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
 }());
 </script>

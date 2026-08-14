@@ -60,13 +60,13 @@ console.log('[1] Enchantements');
 const ENCH_ID = {
   'Solidité': 'unbreaking', 'Raccommodage': 'mending', 'Tranchant': 'sharpness',
   'Châtiment': 'smite', 'Fléau des arthropodes': 'bane_of_arthropods', 'Butin': 'looting',
-  'Aura de feu': 'fire_aspect', 'Recul': 'knockback', 'Balayage': 'sweeping_edge',
+  'Aura de feu': 'fire_aspect', 'Recul': 'knockback', 'Affilage': 'sweeping_edge',
   'Efficacité': 'efficiency', 'Fortune': 'fortune', 'Toucher de soie': 'silk_touch',
-  'Puissance': 'power', 'Infinité': 'infinity', 'Flamme': 'flame', 'Perforation': 'punch',
+  'Puissance': 'power', 'Infinité': 'infinity', 'Flamme': 'flame', 'Frappe': 'punch',
   'Protection': 'protection', 'Chute amortie': 'feather_falling', 'Épines': 'thorns',
-  'Respiration': 'respiration', 'Affinité aquatique': 'aqua_affinity',
-  'Agilité aquatique': 'depth_strider', 'Marche aquatique': 'frost_walker',
-  'Âme rapide': 'soul_speed', 'Foulée légère': 'swift_sneak'
+  'Apnée': 'respiration', 'Affinité aquatique': 'aqua_affinity',
+  'Agilité aquatique': 'depth_strider', 'Semelles givrantes': 'frost_walker',
+  'Agilité des âmes': 'soul_speed', 'Furtivité rapide': 'swift_sneak'
 };
 const ROMAIN = { I: 1, II: 2, III: 3, IV: 4, V: 5 };
 
@@ -221,10 +221,10 @@ console.log('\n[5] Butin des mobs');
 const MOB_ID = {
   'Zombie': 'zombie', 'Squelette': 'skeleton', 'Creeper': 'creeper', 'Araignée': 'spider',
   'Enderman': 'enderman', 'Sorcière': 'witch', 'Noyé (Drowned)': 'drowned',
-  'Blaze': 'blaze', 'Ghast': 'ghast', 'Squelette wither': 'wither_skeleton',
+  'Blaze': 'blaze', 'Ghast': 'ghast', 'Wither squelette': 'wither_skeleton',
   'Shulker': 'shulker', 'Warden': 'warden', 'Gardien (Guardian)': 'guardian',
   'Évocateur': 'evoker', 'Ravageur': 'ravager', 'Phantom': 'phantom',
-  'Magma cube': 'magma_cube', 'Strider': 'strider', 'Hoglin': 'hoglin'
+  'Cube de magma': 'magma_cube', 'Arpenteur (Strider)': 'strider', 'Hoglin': 'hoglin'
 };
 const idsMob = Object.values(MOB_ID);
 const jsonMob = lireJson(jar, idsMob.map(i => `data/minecraft/loot_table/entities/${i}.json`));
@@ -241,7 +241,7 @@ const MOTS = [
   [/éclat d'écho/i, 'echo_shard'], [/catalyseur de sculk/i, 'sculk_catalyst'],
   [/totem d'immortalité/i, 'totem_of_undying'],
   [/membrane de phantom/i, 'phantom_membrane'], [/crème de magma/i, 'magma_cream'],
-  [/crâne de squelette wither/i, 'wither_skeleton_skull'], [/éclat de prismarine/i, 'prismarine_shard']
+  [/crâne de wither squelette/i, 'wither_skeleton_skull'], [/éclat de prismarine/i, 'prismarine_shard']
 ];
 
 let mobVerifs = 0;

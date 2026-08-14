@@ -58,7 +58,7 @@ var ENCHANTS = [
     tags: [{ txt: 'Niveau max V', cls: 'red' }],
     ou: 'Épée et hache.',
     drops: [
-      '+2,5 dégâts par niveau contre les morts-vivants : zombies, squelettes, noyés, husks, strays, phantoms, wither, zombies-piglins',
+      '+2,5 dégâts par niveau contre les morts-vivants : zombies, squelettes, noyés, momifiés, vagabonds, phantoms, wither, piglins zombifiés',
       'Aucun effet sur les autres mobs'
     ],
     note: 'Une épée dédiée « anti-mort-vivant » avec Châtiment V est le meilleur outil pour vider une ferme à zombies ou affronter le Wither.'
@@ -79,11 +79,11 @@ var ENCHANTS = [
     ou: 'Épée uniquement.',
     drops: [
       '+1 objet maximum par niveau sur les drops courants',
-      '+1 point de pourcentage par niveau sur les drops rares : crâne de squelette wither (2,5 % → 5,5 %), trident, coquillage nautile',
+      '+1 point de pourcentage par niveau sur les drops rares : crâne de Wither squelette (2,5 % → 5,5 %), trident, coquille de nautile',
       'Il augmente AUSSI la chance qu\'un mob lâche son équipement porté : +1 % par niveau, à condition que le coup fatal vienne d\'un joueur',
       'Il n\'affecte pas l\'XP'
     ],
-    note: 'Indispensable sur toute ferme à mise à mort manuelle. Sans Butin III, une ferme à squelettes wither produit deux fois moins de crânes.'
+    note: 'Indispensable sur toute ferme à mise à mort manuelle. Sans Butin III, une ferme à withers squelettes produit deux fois moins de crânes.'
   },
   {
     nom: 'Aura de feu II (Fire Aspect)', cat: 'arme',
@@ -100,7 +100,7 @@ var ENCHANTS = [
     note: 'Excellent pour survivre en début de partie (repousser un creeper avant l\'explosion), gênant sur une ferme où les mobs doivent rester groupés.'
   },
   {
-    nom: 'Balayage III (Sweeping Edge)', cat: 'arme',
+    nom: 'Affilage III (Sweeping Edge)', cat: 'arme',
     tags: [{ txt: 'Java uniquement', cls: 'cyan' }],
     ou: 'Épée.',
     drops: ['Le coup balayant inflige 50 / 67 / 75 % des dégâts de l\'attaque aux mobs adjacents'],
@@ -114,7 +114,7 @@ var ENCHANTS = [
     ou: 'Pioche, hache, pelle, cisaille.',
     drops: [
       'Accélère fortement le minage : vitesse + (niveau² + 1)',
-      'Avec une pioche en diamant Efficacité V + Hâte II d\'une balise : minage instantané de la pierre'
+      'Avec une pioche en diamant Efficacité V + Célérité II d\'une balise : minage instantané de la pierre'
     ],
     note: 'C\'est l\'enchantement qui transforme les grands chantiers. Une tour à mobs se creuse en une soirée au lieu d\'une semaine.'
   },
@@ -123,7 +123,7 @@ var ENCHANTS = [
     tags: [{ txt: 'Niveau max III', cls: 'gold' }],
     ou: 'Pioche, hache (récolte), pelle, houe.',
     drops: [
-      'Multiplie les drops : diamant, émeraude, charbon, lapis, redstone, améthyste, quartz, glowstone, melon, carottes, pommes de terre',
+      'Multiplie les drops : diamant, émeraude, charbon, lapis, redstone, améthyste, quartz, pierre lumineuse, pastèque, carottes, pommes de terre',
       'Diamant : 1 → jusqu\'à 4 par filon',
       'Aucun effet sur les blocs qui se récupèrent tels quels (pierre, minerai de fer/or bruts — sauf en version brute)',
       'Incompatible avec Toucher de soie'
@@ -136,10 +136,10 @@ var ENCHANTS = [
     ou: 'Les outils de minage : pioche, hache, pelle, houe. PAS la cisaille.',
     drops: [
       'Récupère le bloc tel quel : minerai intact, verre, vitres, glace, bloc d\'améthyste, catalyseur de sculk, ruche pleine',
-      'Le SEUL moyen d\'obtenir : catalyseur / capteur / shrieker de sculk, glace compactée, bloc de mousse, nid d\'abeilles avec ses abeilles',
+      'Le SEUL moyen d\'obtenir : catalyseur de sculk, capteur sculk, hurleur sculk, glace compactée, bloc de mousse, nid d\'abeilles avec ses abeilles',
       'Incompatible avec Fortune'
     ],
-    note: 'Casser un générateur de monstres au Toucher de soie ne le récupère PAS : aucun enchantement ne permet de le déplacer.'
+    note: 'Casser un générateur de créatures au Toucher de soie ne le récupère PAS : aucun enchantement ne permet de le déplacer.'
   },
 
   /* ---------------- ARC & PROJECTILES ---------------- */
@@ -172,43 +172,43 @@ var ENCHANTS = [
     note: 'Pratique pour allumer un portail du Nether à distance… mais impossible sans briquet : la flèche enflammée n\'allume pas l\'obsidienne.'
   },
   {
-    nom: 'Perforation II (Punch)', cat: 'projectile',
+    nom: 'Frappe II (Punch)', cat: 'projectile',
     tags: [{ txt: 'Niveau max II', cls: '' }],
     ou: 'Arc.',
     drops: ['Augmente le recul infligé par la flèche'],
     note: 'Utile pour faire tomber les mobs d\'une plateforme ou repousser un ravageur pendant un raid.'
   },
   {
-    nom: 'Multi-tir / Perforation IV / Charge rapide III', cat: 'projectile',
+    nom: 'Tir multiple / Perforation IV / Charge rapide III', cat: 'projectile',
     tags: [{ txt: 'Arbalète', cls: 'cyan' }],
     ou: 'Arbalète.',
     drops: [
-      'Multi-tir : tire 3 flèches pour le prix d\'une (incompatible avec Perforation)',
+      'Tir multiple : tire 3 flèches pour le prix d\'une (incompatible avec Perforation)',
       'Perforation IV : la flèche traverse jusqu\'à 5 entités alignées',
       'Charge rapide III : rechargement nettement plus rapide'
     ],
-    note: 'Arbalète Multi-tir + fusée de feu d\'artifice = l\'arme la plus dévastatrice du jeu contre un groupe. Attention aux dégâts sur vous-même.'
+    note: 'Arbalète Tir multiple + fusée de feu d\'artifice = l\'arme la plus dévastatrice du jeu contre un groupe. Attention aux dégâts sur vous-même.'
   },
   {
-    nom: 'Loyauté III / Propulsion III / Empaleur V / Conduction', cat: 'projectile',
+    nom: 'Loyauté III / Impulsion III / Empalement V / Canalisation', cat: 'projectile',
     tags: [{ txt: 'Trident', cls: 'blue' }],
     ou: 'Trident (drop des noyés).',
     drops: [
       'Loyauté III : le trident revient dans votre main après le lancer',
-      'Propulsion aquatique (Riptide) III : vous propulse avec le trident sous la pluie ou dans l\'eau — incompatible avec Loyauté et Conduction',
-      'Empaleur V : +2,5 dégâts par niveau contre les créatures aquatiques',
-      'Conduction (Channeling) : appelle la foudre sur la cible par temps d\'orage'
+      'Impulsion (Riptide) III : vous propulse avec le trident sous la pluie ou dans l\'eau — incompatible avec Loyauté et Canalisation',
+      'Empalement V : +2,5 dégâts par niveau contre les créatures aquatiques',
+      'Canalisation (Channeling) : appelle la foudre sur la cible par temps d\'orage'
     ],
-    note: 'Trident + Conduction + orage = le moyen le plus simple de créer un creeper chargé, donc d\'obtenir les têtes de mobs.'
+    note: 'Trident + Canalisation + orage = le moyen le plus simple de créer un creeper chargé, donc d\'obtenir les têtes de mobs.'
   },
   {
-    nom: 'Densité V / Écrasement IV / Vent en rafale III', cat: 'projectile',
+    nom: 'Densité V / Brèche IV / Rafale de vent III', cat: 'projectile',
     tags: [{ txt: 'Masse (1.21)', cls: 'purple' }],
     ou: 'Masse (mace).',
     drops: [
       'Densité V : augmente fortement les dégâts liés à la hauteur de chute',
-      'Écrasement IV : ignore une partie de l\'armure de la cible',
-      'Vent en rafale III : vous relance en l\'air après un coup, pour enchaîner'
+      'Brèche IV : ignore une partie de l\'armure de la cible',
+      'Rafale de vent III : vous relance en l\'air après un coup, pour enchaîner'
     ],
     note: 'La masse inflige des dégâts proportionnels à votre hauteur de chute. Avec Densité V et une chute de 20 blocs, elle dépasse toutes les autres armes du jeu.'
   },
@@ -250,7 +250,7 @@ var ENCHANTS = [
     note: 'Déconseillé : l\'usure supplémentaire ne vaut pas les dégâts renvoyés, sauf sur une armure avec Raccommodage et une ferme à XP.'
   },
   {
-    nom: 'Respiration III', cat: 'armure',
+    nom: 'Apnée III', cat: 'armure',
     tags: [{ txt: 'Casque', cls: 'blue' }],
     ou: 'Casque.',
     drops: ['+15 s d\'apnée par niveau, et réduit les dégâts de noyade'],
@@ -267,25 +267,25 @@ var ENCHANTS = [
     nom: 'Agilité aquatique III (Depth Strider)', cat: 'armure',
     tags: [{ txt: 'Bottes', cls: 'blue' }],
     ou: 'Bottes.',
-    drops: ['Réduit le ralentissement dans l\'eau ; au niveau III, on se déplace à vitesse normale', 'Incompatible avec Marche aquatique'],
+    drops: ['Réduit le ralentissement dans l\'eau ; au niveau III, on se déplace à vitesse normale', 'Incompatible avec Semelles givrantes'],
     note: 'Indispensable pour explorer un océan ou un monument à pied plutôt qu\'en bateau.'
   },
   {
-    nom: 'Marche aquatique II (Frost Walker)', cat: 'armure',
+    nom: 'Semelles givrantes II (Frost Walker)', cat: 'armure',
     tags: [{ txt: 'Bottes', cls: 'cyan' }, { txt: 'Livre / troc', cls: 'gold' }],
     ou: 'Bottes.',
     drops: ['Gèle l\'eau sous vos pieds : vous marchez sur les océans', 'Incompatible avec Agilité aquatique'],
     note: 'Ne s\'obtient pas à la table d\'enchantement : livre uniquement (troc piglin, pêche, coffres). Traverser un océan à pied devient trivial.'
   },
   {
-    nom: 'Âme rapide III (Soul Speed)', cat: 'armure',
+    nom: 'Agilité des âmes III (Soul Speed)', cat: 'armure',
     tags: [{ txt: 'Bottes', cls: 'gold' }, { txt: 'Troc piglin', cls: 'red' }],
     ou: 'Bottes.',
     drops: ['Accélère fortement la marche sur le sable des âmes et la terre des âmes', 'Consomme de la durabilité en marchant'],
     note: 'Uniquement par troc avec les piglins. Transforme les vallées de sable des âmes, sinon quasi impraticables.'
   },
   {
-    nom: 'Foulée légère III (Swift Sneak)', cat: 'armure',
+    nom: 'Furtivité rapide III (Swift Sneak)', cat: 'armure',
     tags: [{ txt: 'Jambières', cls: 'purple' }, { txt: 'Cité antique', cls: 'red' }],
     ou: 'Jambières.',
     drops: ['Marcher accroupi devient presque aussi rapide que marcher normalement'],
@@ -308,10 +308,10 @@ var ENCHANTS = [
     tags: [{ txt: 'Canne à pêche', cls: 'blue' }],
     ou: 'Canne à pêche.',
     drops: [
-      'Chance de la mer III : augmente nettement la part de « trésors » (arc et canne enchantés, selle, étiquette, livre enchanté, coquillage nautile)',
+      'Chance de la mer III : augmente nettement la part de « trésors » (arc et canne enchantés, selle, étiquette, livre enchanté, coquille de nautile)',
       'Appât III : réduit fortement le temps d\'attente entre deux prises'
     ],
-    note: 'Une canne Chance de la mer III + Appât III + Raccommodage est une source passive de livres enchantés et de coquillages nautiles (pour le conduit).'
+    note: 'Une canne Chance de la mer III + Appât III + Raccommodage est une source passive de livres enchantés et de coquilles de nautile (pour le conduit).'
   }
 ];
 

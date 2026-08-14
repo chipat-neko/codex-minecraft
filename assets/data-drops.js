@@ -17,12 +17,12 @@ var DROPS = [
       'Équipement porté (5–8,5 %) : l\'armure ou l\'arme qu\'il tient, avec durabilité aléatoire',
       'Tête de zombie : uniquement s\'il est tué par un creeper chargé'
     ],
-    note: '5 % des zombies apparaissent en « zombie bébé » : plus rapides, donnent 12 XP, peuvent chevaucher un poulet.'
+    note: '5 % des zombies apparaissent en « zombie bébé » : plus rapides, donnent 12 XP, peuvent chevaucher une poule.'
   },
   {
     nom: 'Squelette', cat: 'hostile',
     tags: [{ txt: 'Surworld', cls: 'ok' }, { txt: '5 XP', cls: 'gold' }],
-    ou: 'Zones sombres du Surworld, grottes, donjons, générateurs. Dans le Nether : forteresses (squelettes wither).',
+    ou: 'Zones sombres du Surworld, grottes, donjons, générateurs. Dans le Nether : forteresses (withers squelettes).',
     drops: [
       'Os ×0–2 — jusqu\'à 5 avec Butin III',
       'Flèche ×0–2 — jusqu\'à 5 avec Butin III',
@@ -80,13 +80,13 @@ var DROPS = [
     drops: [
       'Chair putréfiée ×0–2',
       'Trident (8,5 % de ceux qui en portent — environ 6,25 % des noyés en tiennent un)',
-      'Coquillage nautile (3 % ; 100 % s\'il en tient un dans la main gauche) — 8 coquillages + cœur de la mer = conduit',
-      'Cuivre ×0–1 (11 %) — seule source renouvelable de cuivre'
+      'Coquille de nautile (3 % ; 100 % s\'il en tient un dans la main gauche) — 8 coquilles + cœur de la mer = conduit',
+      'Lingot de cuivre ×0–1 (11 %) — seule source renouvelable de cuivre'
     ],
     note: 'Les noyés issus de la conversion d\'un zombie ne lâchent jamais de trident : il faut des noyés apparus naturellement.'
   },
   {
-    nom: 'Husk (zombie du désert)', cat: 'hostile',
+    nom: 'Momifié (Husk)', cat: 'hostile',
     tags: [{ txt: 'Déserts', cls: 'gold' }, { txt: '5 XP', cls: 'gold' }],
     ou: 'Déserts, à n\'importe quelle heure — il ne brûle pas au soleil.',
     drops: [
@@ -96,7 +96,7 @@ var DROPS = [
     note: 'Ses coups infligent la Faim : emportez de la nourriture en excès quand vous traversez un désert la nuit.'
   },
   {
-    nom: 'Stray (squelette des neiges)', cat: 'hostile',
+    nom: 'Vagabond (Stray)', cat: 'hostile',
     tags: [{ txt: 'Biomes glacés', cls: 'cyan' }, { txt: '5 XP', cls: 'gold' }],
     ou: 'Plaines enneigées, pics glacés, toundra — à ciel ouvert.',
     drops: [
@@ -106,7 +106,7 @@ var DROPS = [
     note: 'Piège à joueur : ses flèches ralentissent, ce qui rend la fuite très difficile en terrain découvert.'
   },
   {
-    nom: 'Bogged (squelette des marais)', cat: 'hostile',
+    nom: 'Embourbé (Bogged)', cat: 'hostile',
     tags: [{ txt: 'Marais / chambres', cls: 'ok' }, { txt: '5 XP', cls: 'gold' }],
     ou: 'Marais, marais de mangrove, et générateurs des chambres d\'épreuve.',
     drops: [
@@ -133,7 +133,7 @@ var DROPS = [
     note: 'Le bloc de slime est la pierre angulaire des machines volantes, ascenseurs à pistons et fermes à TNT.'
   },
   {
-    nom: 'Silverfish (poisson d\'argent)', cat: 'hostile',
+    nom: 'Poisson d\'argent (Silverfish)', cat: 'hostile',
     tags: [{ txt: 'Monts / forteresse', cls: '' }, { txt: '5 XP', cls: 'gold' }],
     ou: 'Blocs infestés en montagne et dans les forteresses (près du portail de l\'End).',
     drops: ['Aucun objet — seulement de l\'XP'],
@@ -147,12 +147,12 @@ var DROPS = [
     note: 'Seule source de membranes : gardez volontairement 3 nuits sans dormir avant une session de chasse.'
   },
   {
-    nom: 'Creaking (le Craquant)', cat: 'hostile',
+    nom: 'Grinceur (Creaking)', cat: 'hostile',
     tags: [{ txt: 'Forêt pâle', cls: 'purple' }, { txt: 'Invincible', cls: 'red' }],
-    ou: 'Forêt pâle (pale garden), la nuit, engendré par un « cœur du Craquant » (creaking heart) présent dans les troncs de chêne pâle.',
+    ou: 'Forêt pâle (pale garden), la nuit, engendré par un « cœur de grinceur » (creaking heart) présent dans les troncs de chêne pâle.',
     drops: [
       'Le mob lui-même ne lâche rien — il est indestructible tant que son cœur existe',
-      'Détruire le cœur du Craquant (pioche + Toucher de soie) : le mob disparaît en particules'
+      'Détruire le cœur de grinceur (pioche + Toucher de soie) : le mob disparaît en particules'
     ],
     note: 'Il ne bouge que lorsque vous ne le regardez pas. Pour l\'éliminer : suivez ses particules jusqu\'au tronc contenant le cœur et cassez-le.'
   },
@@ -202,7 +202,7 @@ var DROPS = [
     nom: 'Breeze', cat: 'hostile',
     tags: [{ txt: 'Chambres d\'épreuve', cls: 'cyan' }, { txt: '10 XP', cls: 'gold' }],
     ou: 'Générateurs d\'épreuve dans les chambres d\'épreuve (trial chambers).',
-    drops: ['Tige de Breeze (wind charge) — fabrique les charges de vent et le brise-vent (mace / masse)'],
+    drops: ['Bâton de Breeze (wind charge) — fabrique les charges de vent et la masse (mace)'],
     note: 'Ses projectiles activent boutons, leviers et plaques : les salles d\'épreuve exploitent cette mécanique dans leurs pièges.'
   },
   {
@@ -211,26 +211,26 @@ var DROPS = [
     ou: 'Uniquement dans et autour des monuments océaniques.',
     drops: [
       'Éclat de prismarine ×0–2',
-      'Cristal de prismarine ×0–1 (40 %) — sert aux lanternes marines',
-      'Poisson cru (2,5 %)'
+      'Cristal de prismarine ×0–1 (40 %) — sert aux lanternes aquatiques',
+      'Morue crue (2,5 %)'
     ],
     note: 'Une ferme à gardiens sur monument vidé produit prismarine, cristaux et XP en quantités industrielles.'
   },
   {
-    nom: 'Gardien ancien (Elder Guardian)', cat: 'hostile',
+    nom: 'Grand gardien (Elder Guardian)', cat: 'hostile',
     tags: [{ txt: 'Monument marin', cls: 'blue' }, { txt: 'Mini-boss', cls: 'red' }],
     ou: 'Trois par monument océanique : un au sommet, deux dans les ailes.',
     drops: [
       'Éclat de prismarine ×0–2, cristal de prismarine ×0–1',
       'Éponge mouillée (100 %) — à cuire au four pour absorber l\'eau',
-      'Poisson cru (2,5 %)'
+      'Morue crue (2,5 %)'
     ],
-    note: 'Inflige « Fatigue de minage III » à 50 blocs. Buvez du lait, ou tuez les trois anciens avant de vider le monument.'
+    note: 'Inflige « Fatigue de minage III » à 50 blocs. Buvez du lait, ou tuez les trois grands gardiens avant de vider le monument.'
   },
   {
     nom: 'Warden', cat: 'hostile',
     tags: [{ txt: 'Cité antique', cls: 'purple' }, { txt: 'Danger extrême', cls: 'red' }],
-    ou: 'Cité antique (deep dark), invoqué par 3 alertes de « shrieker » à sculk. Ne peut pas apparaître naturellement autrement.',
+    ou: 'Cité antique (deep dark), invoqué par 3 alertes de « hurleur sculk ». Ne peut pas apparaître naturellement autrement.',
     drops: [
       'Catalyseur de sculk ×1 — c\'est son SEUL butin',
       'Il ne lâche AUCUN éclat d\'écho : ceux-ci se trouvent uniquement dans les coffres de la cité antique. Inutile de le combattre pour eux'
@@ -257,12 +257,12 @@ var DROPS = [
     note: 'Ses boules de feu peuvent être renvoyées d\'un coup d\'épée ou d\'un projectile : c\'est aussi ainsi qu\'on allume un portail sans briquet.'
   },
   {
-    nom: 'Squelette wither', cat: 'nether',
+    nom: 'Wither squelette', cat: 'nether',
     tags: [{ txt: 'Forteresse', cls: 'red' }, { txt: '5 XP', cls: 'gold' }],
     ou: 'Forteresses du Nether, sur les blocs de briques du Nether (lumière ≤ 11).',
     drops: [
       'Charbon ×0–1 (33 %), os ×0–2',
-      'Crâne de squelette wither (2,5 %, +1 % par niveau de Butin) — il en faut 3 pour invoquer le Wither',
+      'Crâne de Wither squelette (2,5 %, +1 % par niveau de Butin) — il en faut 3 pour invoquer le Wither',
       'Épée en pierre (8,5 %)'
     ],
     note: 'Sa taille de 2,4 blocs : un plafond à 2 blocs de haut l\'empêche d\'apparaître, très utile pour aménager une forteresse.'
@@ -278,7 +278,7 @@ var DROPS = [
     note: 'Portez au moins une pièce d\'armure en or pour ne pas être attaqué. Ouvrir un coffre ou casser de l\'or les rend hostiles quand même.'
   },
   {
-    nom: 'Piglin brute', cat: 'nether',
+    nom: 'Piglin barbare', cat: 'nether',
     tags: [{ txt: 'Bastion', cls: 'red' }, { txt: '20 XP', cls: 'gold' }],
     ou: 'Bastions uniquement.',
     drops: ['Hache en or (8,5 %)'],
@@ -288,11 +288,11 @@ var DROPS = [
     nom: 'Hoglin', cat: 'nether',
     tags: [{ txt: 'Forêt écarlate', cls: 'red' }, { txt: '5 XP', cls: 'gold' }],
     ou: 'Forêts écarlates et bastions.',
-    drops: ['Longe de porc crue ×2–4 (jusqu\'à 7 avec Butin III)', 'Cuir ×0–1'],
-    note: 'Seule source de viande élevable du Nether : ils se reproduisent avec des champignons difformes (crimson fungus).'
+    drops: ['Côtelette de porc crue ×2–4 (jusqu\'à 7 avec Butin III)', 'Cuir ×0–1'],
+    note: 'Seule source de viande élevable du Nether : ils se reproduisent avec des champignons carmin (crimson fungus).'
   },
   {
-    nom: 'Zombie-piglin (zombified piglin)', cat: 'nether',
+    nom: 'Piglin zombifié (Zombified Piglin)', cat: 'nether',
     tags: [{ txt: 'Nether', cls: 'gold' }, { txt: 'Neutre', cls: '' }],
     ou: 'Partout dans le Nether ; apparaît aussi dans le Surworld près d\'un portail actif, ou quand un cochon est frappé par la foudre.',
     drops: [
@@ -302,18 +302,18 @@ var DROPS = [
     note: 'Neutre jusqu\'à provocation — puis TOUT le groupe attaque. Base des fermes à or via portail du Nether.'
   },
   {
-    nom: 'Magma cube', cat: 'nether',
+    nom: 'Cube de magma', cat: 'nether',
     tags: [{ txt: 'Nether', cls: 'red' }, { txt: '1–4 XP', cls: 'gold' }],
     ou: 'Partout dans le Nether, surtout dans les deltas de basalte et les bastions.',
     drops: ['Crème de magma ×0–1 (seulement les tailles moyenne et grande)'],
     note: 'La crème de magma sert à la potion de Résistance au feu : indispensable pour explorer le Nether sereinement.'
   },
   {
-    nom: 'Strider', cat: 'nether',
+    nom: 'Arpenteur (Strider)', cat: 'nether',
     tags: [{ txt: 'Lave', cls: 'red' }, { txt: 'Monture', cls: 'ok' }],
     ou: 'Sur les mers de lave du Nether.',
     drops: ['Ficelle ×2–5'],
-    note: 'Sellez-le et dirigez-le avec un champignon difforme au bout d\'une canne à pêche : le meilleur moyen de traverser un océan de lave.'
+    note: 'Sellez-le et dirigez-le avec un champignon biscornu au bout d\'une canne à pêche : le meilleur moyen de traverser un océan de lave.'
   },
 
   /* ---------------- MONSTRES — END ---------------- */
@@ -335,24 +335,24 @@ var DROPS = [
     note: 'Utilisé comme appât dans certaines fermes à enderman : les endermans le chassent, ce qui les attire vers la zone de mise à mort.'
   },
   {
-    nom: 'Dragon de l\'End', cat: 'boss',
+    nom: 'Ender Dragon', cat: 'boss',
     tags: [{ txt: 'Boss', cls: 'red' }, { txt: '12 000 XP', cls: 'gold' }],
     ou: 'Île centrale de l\'End. Réinvocable avec 4 cristaux de l\'End posés sur les bords du portail de sortie.',
     drops: [
       'Œuf de dragon ×1 (première victoire seulement) — se récupère en le poussant avec un piston',
       'Portail de sortie + passerelle vers les îles extérieures',
       '12 000 points d\'expérience (500 pour les invocations suivantes)',
-      'Souffle du dragon : à récolter dans une fiole en verre dans son nuage d\'haleine → potions persistantes'
+      'Souffle de dragon : à récolter dans une fiole en verre dans son nuage d\'haleine → potions persistantes'
     ],
     note: 'Détruisez d\'abord les cristaux de guérison sur les tours d\'obsidienne (arc, boule de neige ou pioche pour les cages en fer).'
   },
   {
     nom: 'Wither', cat: 'boss',
     tags: [{ txt: 'Boss invoqué', cls: 'red' }, { txt: '50 XP', cls: 'gold' }],
-    ou: 'Invoqué : 4 blocs de sable des âmes en T + 3 crânes de squelette wither au sommet.',
+    ou: 'Invoqué : 4 blocs de sable des âmes en T + 3 crânes de Wither squelette au sommet.',
     drops: [
       'Étoile du Nether ×1 (100 %) — étoile + 3 verres + 5 blocs d\'obsidienne = balise',
-      'Laisse derrière lui des blocs de débris de wither rose là où il tue des mobs'
+      'Laisse derrière lui des roses de Wither là où il tue des mobs'
     ],
     note: 'Invoquez-le dans le End ou dans un caisson d\'obsidienne/bedrock : il détruit presque tous les blocs et vole.'
   },
@@ -384,18 +384,18 @@ var DROPS = [
     note: 'Colorez le mouton avec une teinture avant de le tondre : la laine repousse dans la couleur. Base des fermes à laine.'
   },
   {
-    nom: 'Poulet', cat: 'passif',
+    nom: 'Poule', cat: 'passif',
     tags: [{ txt: 'Élevage', cls: 'ok' }],
     ou: 'Plaines et forêts.',
     drops: ['Poulet cru ×1', 'Plume ×0–2 (flèches)', 'Pond un œuf toutes les 5–10 minutes'],
-    note: 'Les œufs sont automatisables à 100 % : la ferme à poulets auto-cuiseur est la première « usine » à monter.'
+    note: 'Les œufs sont automatisables à 100 % : la ferme à poules auto-cuiseur est la première « usine » à monter.'
   },
   {
     nom: 'Cochon', cat: 'passif',
     tags: [{ txt: 'Élevage', cls: 'ok' }],
     ou: 'Plaines et forêts.',
-    drops: ['Longe de porc crue ×1–3'],
-    note: 'Se selle et se dirige à la carotte sur un bâton. Frappé par la foudre → zombie-piglin.'
+    drops: ['Côtelette de porc crue ×1–3'],
+    note: 'Se selle et se dirige à la carotte sur un bâton. Frappé par la foudre → piglin zombifié.'
   },
   {
     nom: 'Lapin', cat: 'passif',
@@ -404,7 +404,7 @@ var DROPS = [
     drops: [
       'Lapin cru ×0–1, peau de lapin ×0–1',
       'Patte de lapin (10 %) — potion de Saut',
-      'Le lapin « le Tueur » (skin killer bunny) : très rare, hostile'
+      'Le « Lapin tueur » (killer bunny) : très rare, hostile'
     ],
     note: '4 peaux de lapin = 1 cuir. Le ragoût de lapin est l\'un des aliments les plus nourrissants du jeu.'
   },
@@ -428,7 +428,7 @@ var DROPS = [
   {
     nom: 'Marchand ambulant', cat: 'passif',
     tags: [{ txt: 'Aléatoire', cls: '' }],
-    ou: 'Apparaît aléatoirement près du joueur, accompagné de 2 lamas commerçants.',
+    ou: 'Apparaît aléatoirement près du joueur, accompagné de 2 lamas de marchand.',
     drops: ['Lait (via ses lamas : laine), et ses échanges : plants rares, coraux, sable rouge, semis de tous les biomes'],
     note: 'Il vend souvent des plants et des blocs impossibles à trouver autrement dans votre région : très utile en début de partie.'
   },
@@ -451,24 +451,24 @@ var DROPS = [
     tags: [{ txt: 'Apprivoisable', cls: 'ok' }],
     ou: 'Forêts, taïgas, toundras, bosquets — variantes visuelles selon le biome.',
     drops: ['Rien', 'Apprivoisement : os (plusieurs essais)'],
-    note: 'Équipez-le d\'une armure de loup (écailles d\'armadillo) : il devient un compagnon de combat sérieux.'
+    note: 'Équipez-le d\'une armure pour loup (écailles de tatou) : il devient un compagnon de combat sérieux.'
   },
   {
-    nom: 'Armadillo', cat: 'passif',
+    nom: 'Tatou (Armadillo)', cat: 'passif',
     tags: [{ txt: 'Savane', cls: 'gold' }],
     ou: 'Savanes et savanes en plateau.',
     drops: [
-      'Écaille d\'armadillo : à récolter à la brosse (brush) toutes les 5 min, sans le tuer',
-      '4 écailles + 2… → armure de loup'
+      'Écaille de tatou : à récolter au pinceau (brush) toutes les 5 min, sans le tuer',
+      '4 écailles + 2… → armure pour loup'
     ],
-    note: 'Se reproduit avec des araignées en boule (spider eyes). Ne le tuez pas : la brosse est renouvelable, la mort ne l\'est pas.'
+    note: 'Se reproduit avec des yeux d\'araignée (spider eyes). Ne le tuez pas : le pinceau est renouvelable, la mort ne l\'est pas.'
   },
   {
-    nom: 'Sniffer', cat: 'passif',
+    nom: 'Renifleur (Sniffer)', cat: 'passif',
     tags: [{ txt: 'Archéologie', cls: 'gold' }],
-    ou: 'Éclos d\'un œuf de sniffer, obtenu en brossant le SABLE suspect des ruines sous-marines chaudes (et non les ruines de sentier).',
-    drops: ['Rien', 'Il fouille le sol et déterre des graines de plantes anciennes : torchflower et pitcher pod'],
-    note: 'Les seules sources de torchflower et de pitcher plant du jeu passent par le sniffer.'
+    ou: 'Éclos d\'un œuf de renifleur, obtenu en brossant le SABLE suspect des ruines sous-marines chaudes (et non les ruines de sentier).',
+    drops: ['Rien', 'Il fouille le sol et déterre des graines de plantes anciennes : torche-fleur et gousse de planturne'],
+    note: 'Les seules sources de torche-fleur et de planturne du jeu passent par le renifleur.'
   },
   {
     nom: 'Axolotl', cat: 'passif',
@@ -488,7 +488,7 @@ var DROPS = [
     nom: 'Tortue', cat: 'passif',
     tags: [{ txt: 'Plages', cls: 'ok' }],
     ou: 'Plages chaudes ; pond ses œufs sur le sable de sa plage natale.',
-    drops: ['Écaille de tortue (bébé devenu adulte) — 5 écailles = carapace (respiration +10 s)'],
+    drops: ['Écaille de tortue (bébé devenu adulte) — 5 écailles = carapace de tortue (respiration +10 s)'],
     note: 'Protégez les œufs : les zombies les piétinent volontairement. Entourez-les de blocs et éclairez la plage.'
   },
   {
@@ -497,33 +497,33 @@ var DROPS = [
     ou: 'Marais et marais de mangrove ; 3 variantes selon le biome où le têtard grandit (tempéré, froid, chaud).',
     drops: [
       'Rien',
-      'Elle mange les petits magma cubes → lâche une « froglight » (verte / perlée / ocre)'
+      'Elle mange les petits cubes de magma → lâche une « grelampe » (verdoyante / nacrée / ocrée)'
     ],
-    note: 'Les froglights sont les meilleurs blocs de lumière décoratifs (niveau 15). Faites grandir vos têtards dans 3 biomes différents pour les 3 couleurs.'
+    note: 'Les grelampes sont les meilleurs blocs de lumière décoratifs (niveau 15). Faites grandir vos têtards dans 3 biomes différents pour les 3 couleurs.'
   },
   {
     nom: 'Allay', cat: 'passif',
     tags: [{ txt: 'Utilitaire', cls: 'cyan' }],
     ou: 'Cages des avant-postes de pillards et des manoirs des bois.',
     drops: ['Rien', 'Il ramasse et rapporte tous les objets identiques à celui qu\'on lui donne'],
-    note: 'Donnez-lui un objet, il collecte tout ce qui lui ressemble au sol et le rapporte vers un bloc de note qu\'on a fait sonner. Se duplique avec une amethyste + une danse au disque de musique.'
+    note: 'Donnez-lui un objet, il collecte tout ce qui lui ressemble au sol et le rapporte vers un bloc de note qu\'on a fait sonner. Se duplique avec un éclat d\'améthyste + une danse au disque de musique.'
   },
   {
-    nom: 'Poissons (cabillaud, saumon, poisson-globe, tropical)', cat: 'passif',
+    nom: 'Poissons (morue, saumon, poisson-globe, tropical)', cat: 'passif',
     tags: [{ txt: 'Océans', cls: 'blue' }],
     ou: 'Océans selon leur température ; le saumon aussi en rivières et rivières glacées.',
     drops: [
-      'Poisson cru correspondant, arête ×0–1',
+      'Poisson cru correspondant, poudre d\'os ×0–1',
       'Capture au seau : garde l\'espèce et la variante exacte'
     ],
     note: 'Le poisson-globe est l\'ingrédient de la potion de Respiration aquatique. Le tropical sert au colorant et aux aquariums.'
   },
   {
-    nom: 'Calmar / calmar luisant', cat: 'passif',
+    nom: 'Poulpe / poulpe luisant', cat: 'passif',
     tags: [{ txt: 'Eau', cls: 'blue' }],
-    ou: 'Calmar : toute eau sous Y = 63. Calmar luisant : grottes noyées, dans le noir.',
-    drops: ['Poche d\'encre ×1–3 (colorant noir, livre et plume)', 'Sac d\'encre luisant (cadre lumineux, panneaux éclairés)'],
-    note: 'Une ferme à calmars fournit une quantité illimitée de colorant noir pour les bannières et les panneaux.'
+    ou: 'Poulpe : toute eau sous Y = 63. Poulpe luisant : grottes noyées, dans le noir.',
+    drops: ['Poche d\'encre ×1–3 (colorant noir, livre et plume)', 'Poche d\'encre luisante (cadre lumineux, panneaux éclairés)'],
+    note: 'Une ferme à poulpes fournit une quantité illimitée de colorant noir pour les bannières et les panneaux.'
   },
 
   /* ---------------- BLOCS & MINAGE ---------------- */
@@ -608,9 +608,9 @@ var DROPS = [
     tags: [{ txt: 'Deep dark', cls: 'purple' }],
     ou: 'Biome deep dark, généralement sous Y = 0, sous les montagnes.',
     drops: [
-      'Catalyseur de sculk / shrieker / capteur : uniquement au Toucher de soie',
+      'Catalyseur de sculk, hurleur sculk, capteur sculk : uniquement au Toucher de soie',
       'Le sculk lâche 1 XP à la pioche',
-      'Coffres des cités : disque « otherside », patron d\'armure « silence », enchantements Toucher de soie, houe en diamant enchantée, bougies bleues'
+      'Coffres des cités : disque « otherside », ornement du silence, enchantements Toucher de soie, houe en diamant enchantée, bougies bleues'
     ],
     note: 'Le catalyseur de sculk pose du sculk là où un mob meurt : c\'est la base des fermes à XP les plus compactes.'
   },
@@ -628,7 +628,7 @@ var DROPS = [
     tags: [{ txt: 'Surface', cls: 'ok' }],
     ou: 'Plaines, déserts, savanes, taïgas, toundras enneigées.',
     drops: [
-      'Coffres selon le métier : forgeron (fer, diamant, obsidienne, pomme d\'or), fermier (graines, blé, émeraude), boucher, berger, cartographe, pêcheur',
+      'Coffres selon le métier : forgeron (fer, diamant, obsidienne, pomme dorée), fermier (graines, blé, émeraude), boucher, berger, cartographe, pêcheur',
       'Blocs à métier réutilisables : établi, alambic, table de cartographie, chaudron, tonneau, forge…',
       'Lits, cloches, cultures gratuites'
     ],
@@ -637,9 +637,9 @@ var DROPS = [
   {
     nom: 'Donjon (salle du générateur)', cat: 'structure',
     tags: [{ txt: 'Souterrain', cls: 'gold' }],
-    ou: 'Petites salles de cobblestone moussue sous terre, avec un générateur de zombies, squelettes ou araignées, et 1–2 coffres.',
+    ou: 'Petites salles de pierres moussues sous terre, avec un générateur de zombies, squelettes ou araignées, et 1–2 coffres.',
     drops: [
-      'Coffres : selle, disques de musique (13 et cat), pomme d\'or, lingot de fer/or, poudre de redstone, livre enchanté, étiquette, œuf d\'or (golden apple)',
+      'Coffres : selle, disques de musique (13 et cat), pomme dorée, lingot de fer/or, poudre de redstone, livre enchanté, étiquette, pomme dorée (golden apple)',
       'Générateur : à convertir en ferme à XP (ne pas le casser !)'
     ],
     note: 'Éclairez le générateur avec des torches pour le désactiver le temps d\'aménager la pièce.'
@@ -649,7 +649,7 @@ var DROPS = [
     tags: [{ txt: 'Souterrain', cls: 'gold' }],
     ou: 'Réseaux de tunnels avec rails, entre Y -60 et 30 (jusqu\'en surface dans les badlands).',
     drops: [
-      'Wagons-coffres : rails, rails motorisés/détecteurs, diamants, lapis, fer, or, pain, graines de melon, pastèque',
+      'Wagonnets de stockage : rails, rails de propulsion/détecteurs, diamants, lapis, fer, or, pain, graines de pastèque, pastèque',
       'Rails à récupérer directement (des centaines)',
       'Générateurs d\'araignées venimeuses'
     ],
@@ -661,7 +661,7 @@ var DROPS = [
     ou: 'Entre 128 et 3 000 blocs du centre du monde, en anneaux ; localisée en lançant des yeux de l\'Ender.',
     drops: [
       'Bibliothèque : livres enchantés, papier, livres, pain',
-      'Coffres du couloir : pomme d\'or enchantée (rare), fer, redstone',
+      'Coffres du couloir : pomme dorée enchantée (rare), fer, redstone',
       'Le portail de l\'End : 12 cadres, certains déjà pourvus d\'un œil'
     ],
     note: 'Ne cassez JAMAIS un cadre de portail (bloc incassable en survie). Prévoyez 15 yeux : ils ont 20 % de chance de se briser au lancer.'
@@ -671,7 +671,7 @@ var DROPS = [
     tags: [{ txt: 'Désert', cls: 'gold' }, { txt: 'Piège TNT', cls: 'red' }],
     ou: 'Pyramides de grès dans les déserts.',
     drops: [
-      '4 coffres : diamant, émeraude, or, fer, poudre à canon, os, pourriture, selle, pomme d\'or enchantée (rare)',
+      '4 coffres : diamant, émeraude, or, fer, poudre à canon, os, chair putréfiée, selle, pomme dorée enchantée (rare)',
       'Beaucoup de grès taillé récupérable'
     ],
     note: 'Une plaque de pression au centre déclenche 9 blocs de TNT. Cassez un bloc sur le côté et désamorcez la plaque AVANT de descendre.'
@@ -679,8 +679,8 @@ var DROPS = [
   {
     nom: 'Temple de la jungle', cat: 'structure',
     tags: [{ txt: 'Jungle', cls: 'ok' }, { txt: 'Pièges à flèches', cls: 'red' }],
-    ou: 'Jungles denses, en pierre moussue.',
-    drops: ['2 coffres : diamant, émeraude, fer, or, os, moisissure, selle', 'Distributeurs, plaques, leviers et redstone à récupérer'],
+    ou: 'Jungles denses, en pierres moussues.',
+    drops: ['2 coffres : diamant, émeraude, fer, or, os, chair putréfiée, selle', 'Distributeurs, plaques, leviers et redstone à récupérer'],
     note: 'Le puzzle à 3 leviers ouvre la salle du bas ; les fils de détente déclenchent des distributeurs de flèches.'
   },
   {
@@ -689,7 +689,7 @@ var DROPS = [
     ou: 'Uniquement en forêt sombre, souvent à plusieurs milliers de blocs ; localisable via la carte de l\'explorateur des bois (cartographe).',
     drops: [
       'Totems d\'immortalité (évocateurs)',
-      'Coffres : pomme d\'or enchantée, patron d\'armure « vex », diamants, livres enchantés, selle',
+      'Coffres : pomme dorée enchantée, ornement des Vex, diamants, livres enchantés, selle',
       'Salles secrètes : bloc de diamant caché derrière de la laine bleue, allays en cage'
     ],
     note: 'Structure la plus dangereuse hors boss : venez avec armure en diamant, boucliers, potions et un totem si possible.'
@@ -697,11 +697,11 @@ var DROPS = [
   {
     nom: 'Monument océanique', cat: 'structure',
     tags: [{ txt: 'Océan profond', cls: 'blue' }],
-    ou: 'Océans profonds, en prismarine, gardé par 3 gardiens anciens.',
+    ou: 'Océans profonds, en prismarine, gardé par 3 grands gardiens.',
     drops: [
       '8 blocs d\'or dans la chambre centrale (sous du prismarine sombre)',
       'Éponges (salle aux éponges) — utiles pour vider un chantier sous-marin',
-      'Prismarine, lanternes marines, et des gardiens à l\'infini'
+      'Prismarine, lanternes aquatiques, et des gardiens à l\'infini'
     ],
     note: 'Emportez potions de Respiration aquatique + Vision nocturne, une éponge et un conduit. Vidé, il devient une ferme à gardiens idéale.'
   },
@@ -710,10 +710,10 @@ var DROPS = [
     tags: [{ txt: 'Nether', cls: 'red' }],
     ou: 'Nether, tous biomes sauf mers de lave. Quatre types : trésor, pont, écuries de hoglin, salle des piglins.',
     drops: [
-      'Coffres : lingots d\'or, blocs d\'or, débris antiques (bastion trésor), patron d\'armure « groin » (snout), pommes d\'or enchantées, arcs enchantés, selles',
-      'Blocs de pierre noire et briques d\'or récupérables'
+      'Coffres : lingots d\'or, blocs d\'or, débris antiques (bastion trésor), ornement des groins (snout), pommes dorées enchantées, arcs enchantés, selles',
+      'Blocs de roche noire et briques d\'or récupérables'
     ],
-    note: 'Le bastion trésor (coffres gardés par des piglins brutes, derrière un pont) est la meilleure source de débris antiques sans minage.'
+    note: 'Le bastion trésor (coffres gardés par des piglins barbares, derrière un pont) est la meilleure source de débris antiques sans minage.'
   },
   {
     nom: 'Forteresse du Nether', cat: 'structure',
@@ -721,9 +721,9 @@ var DROPS = [
     ou: 'Nether, en bandes traversant plusieurs biomes ; visible de loin grâce à ses ponts.',
     drops: [
       'Générateurs de Blaze (poudre de Blaze)',
-      'Squelettes wither (crânes)',
+      'Withers squelettes (crânes)',
       'Verrue du Nether dans les escaliers (indispensable au brassage)',
-      'Coffres : selle, épée en diamant, cheval en or, obsidienne, or, patron d\'armure « côte » (rib)'
+      'Coffres : selle, épée en diamant, armure en or pour cheval, obsidienne, or, ornement des côtes (rib)'
     ],
     note: 'Récupérez la verrue du Nether + le sable des âmes : elles se replantent chez vous et alimentent toutes vos potions.'
   },
@@ -733,7 +733,7 @@ var DROPS = [
     ou: 'Îles extérieures de l\'End (après la passerelle du portail de sortie ou une perle de l\'Ender).',
     drops: [
       'Élytres : dans le cadre d\'objet du « navire de l\'End » (End ship)',
-      'Coffres : diamants, lingots de fer/or, pommes d\'or enchantées, patron « spire », épées et pioches en diamant enchantées, bâtons de sel de béryl',
+      'Coffres : diamants, lingots de fer/or, pommes dorées enchantées, ornement des tours (spire), épées et pioches en diamant enchantées, bâtons de sel de béryl',
       'Carapaces de shulker, blocs de purpur, tiges de chorus'
     ],
     note: 'Toutes les cités n\'ont pas de navire. Cherchez la tour la plus haute : l\'élytre est là, gardée par un shulker et une tête de dragon.'
@@ -741,12 +741,12 @@ var DROPS = [
   {
     nom: 'Chambres d\'épreuve (Trial Chambers)', cat: 'structure',
     tags: [{ txt: 'Souterrain', cls: 'cyan' }, { txt: '1.21+', cls: 'ok' }],
-    ou: 'Complexes en tuff et cuivre, entre Y -40 et +20, dans la plupart des biomes du Surworld.',
+    ou: 'Complexes en tuf et cuivre, entre Y -40 et +20, dans la plupart des biomes du Surworld.',
     drops: [
-      'Coffres-forts (vaults) : à ouvrir avec une clé d\'épreuve (trial key) — armures enchantées, diamants, émeraudes, disques, potions',
-      'Coffres-forts ominous : clé ominous (après une bouteille de mauvais présage) — objets uniques, fragment de masse (mace)',
-      'Générateurs d\'épreuve : vagues de mobs, lâchent des clés d\'épreuve',
-      'Blocs de cuivre, tuff, chandeliers, lanceurs (crafters)'
+      'Coffres-forts (vaults) : à ouvrir avec une clé des épreuves (trial key) — armures enchantées, diamants, émeraudes, disques, potions',
+      'Coffres-forts funestes : clé des épreuves funeste (après une fiole funeste) — objets uniques, noyau lourd (heavy core)',
+      'Générateurs des épreuves : vagues de mobs, lâchent des clés des épreuves',
+      'Blocs de cuivre, tuf, bougies, fabricateurs (crafters)'
     ],
     note: 'Le coffre-fort ne se vide qu\'une fois par joueur : en multijoueur, chacun peut l\'ouvrir. Reproductible à l\'infini en revenant avec des clés.'
   },
@@ -755,10 +755,10 @@ var DROPS = [
     tags: [{ txt: 'Archéologie', cls: 'gold' }],
     ou: 'Enterrées dans les taïgas, jungles, forêts de bouleaux, marais de mangrove, plaines enneigées.',
     drops: [
-      'Brosse sur gravier suspect : tessons de poterie, perles d\'ambre, plants de bois rares (mais PAS d\'œufs de sniffer : ceux-là viennent des ruines sous-marines chaudes)',
+      'Pinceau sur gravier suspect : tessons de poterie, perles d\'ambre, plants de bois rares (mais PAS d\'œufs de renifleur : ceux-là viennent des ruines sous-marines chaudes)',
       'Blocs décoratifs uniques'
     ],
-    note: 'Il faut une brosse (plume + cuivre + bâton). Une seule structure fournit assez de tessons pour composer des jarres décoratives.'
+    note: 'Il faut un pinceau (plume + cuivre + bâton). Une seule structure fournit assez de tessons pour composer des jarres décoratives.'
   },
   {
     nom: 'Trésor enfoui', cat: 'structure',
@@ -783,7 +783,7 @@ var DROPS = [
     tags: [{ txt: 'Deux dimensions', cls: 'purple' }],
     ou: 'Partout dans le Surworld et le Nether, entouré d\'or brut et de blocs corrompus.',
     drops: [
-      'Coffre : pommes d\'or enchantées, obsidienne, briquet, lingots d\'or, bottes en fer enchantées, carottes dorées',
+      'Coffre : pommes dorées enchantées, obsidienne, briquet, lingots d\'or, bottes en fer enchantées, carottes dorées',
       'Obsidienne du cadre récupérable',
       'De l\'or brut / blocs de gravier autour'
     ],
@@ -794,7 +794,7 @@ var DROPS = [
     tags: [{ txt: 'Toundra', cls: 'cyan' }],
     ou: 'Plaines enneigées et taïgas enneigées.',
     drops: [
-      'Sous-sol (1 sur 2) : un villageois zombifié en cellule + un villageois, une pomme d\'or et une potion de Faiblesse dans un coffre',
+      'Sous-sol (1 sur 2) : un villageois zombifié en cellule + un villageois, une pomme dorée et une potion de Faiblesse dans un coffre',
       'Coffre : charbon, pomme, blé, or, pierre, hache en pierre'
     ],
     note: 'Le kit du sous-sol est exactement ce qu\'il faut pour SOIGNER un villageois zombifié : votre premier commerce à prix cassé.'
@@ -821,7 +821,7 @@ var DROPS = [
       { txt: 'Squelette', cls: '' },
       { txt: 'Mort-vivant', cls: 'purple' }
     ],
-    ou: 'Uniquement dans le biome desert, catégorie monster, poids 50, par groupes de 4 exactement (minCount = maxCount = 4). Il cohabite avec le zombie momifié (poids 80) déjà présent dans ce biome.',
+    ou: 'Uniquement dans le biome desert, catégorie monster, poids 50, par groupes de 4 exactement (minCount = maxCount = 4). Il cohabite avec le momifié (poids 80) déjà présent dans ce biome.',
     drops: [
       'Flèche ×0–2 — +0 à 1 par niveau de Butin',
       'Os ×0–2 — +0 à 1 par niveau de Butin',
@@ -845,21 +845,21 @@ var DROPS = [
   },
 
   {
-    nom: 'Chameau momifié (Camel Husk)', cat: 'hostile',
+    nom: 'Dromadaire momifié (Camel Husk)', cat: 'hostile',
     tags: [
       { txt: 'Monture', cls: 'gold' },
       { txt: 'Mort-vivant', cls: 'purple' },
       { txt: 'Aucun spawn de biome', cls: 'red' }
     ],
-    ou: 'Aucun fichier de worldgen/biome ne le liste dans ses spawners. En revanche la table de butin du zombie momifié le désigne comme monture : un husk tué alors qu\'il chevauche un camel_husk lâche un butin supplémentaire.',
+    ou: 'Aucun fichier de worldgen/biome ne le liste dans ses spawners. En revanche la table de butin du momifié le désigne comme monture : un momifié tué alors qu\'il chevauche un camel_husk lâche un butin supplémentaire.',
     drops: [
       'Chair putréfiée ×2–3 — +0 à 1 par niveau de Butin ; aucune condition de mise à mort'
     ],
-    note: 'Il fait partie du tag entity_type/zombies (donc undead), ainsi que de can_equip_saddle et can_float_while_ridden. camel_husk_food ne contient qu\'un seul objet : la patte de lapin. Le zombie momifié qui le chevauche lâche justement une patte de lapin ×0–1 (+0 à 1 avec Butin), butin qui n\'existe que dans cette configuration.'
+    note: 'Il fait partie du tag entity_type/zombies (donc undead), ainsi que de can_equip_saddle et can_float_while_ridden. camel_husk_food ne contient qu\'un seul objet : la patte de lapin. Le momifié qui le chevauche lâche justement une patte de lapin ×0–1 (+0 à 1 avec Butin), butin qui n\'existe que dans cette configuration.'
   },
 
   {
-    nom: 'Nautile zombie (Zombie Nautilus)', cat: 'hostile',
+    nom: 'Nautile-zombie (Zombie Nautilus)', cat: 'hostile',
     tags: [
       { txt: 'Aquatique', cls: 'blue' },
       { txt: 'Mort-vivant', cls: 'purple' },
@@ -869,7 +869,7 @@ var DROPS = [
     drops: [
       'Chair putréfiée ×0–3 — uniquement si le mob est tué par le joueur ; +0 à 1 par niveau de Butin'
     ],
-    note: 'Il figure dans burn_in_daylight, entity_type/zombies (donc undead), aquatic, can_equip_saddle, can_wear_nautilus_armor, cannot_be_pushed_onto_boats et not_scary_for_pufferfish. Comme le nautile vivant, il peut donc porter une selle et une armure de nautile.'
+    note: 'Il figure dans burn_in_daylight, entity_type/zombies (donc undead), aquatic, can_equip_saddle, can_wear_nautilus_armor, cannot_be_pushed_onto_boats et not_scary_for_pufferfish. Comme le nautile vivant, il peut donc porter une selle et une armure pour nautile.'
   },
 
   {
@@ -932,7 +932,7 @@ var DROPS = [
   },
 
   {
-    nom: 'Armure de nautile (Nautilus Armor)', cat: 'bloc',
+    nom: 'Armure pour nautile (Nautilus Armor)', cat: 'bloc',
     tags: [
       { txt: '5 matériaux', cls: 'ok' },
       { txt: 'Butin marin', cls: 'blue' },
@@ -940,14 +940,14 @@ var DROPS = [
     ],
     ou: 'Cinq variantes : cuivre, fer, or, diamant, netherite. Aucune recette d\'artisanat n\'existe pour les quatre premières — seul netherite_nautilus_armor_smithing.json est présent dans data/minecraft/recipe/. Elles se trouvent donc uniquement en coffre, dans un même lot partagé par cinq tables : trésor enfoui, épave (carte, réserve, trésor) et ruines sous-marines (petites et grandes).',
     drops: [
-      'Lot de coffre : rien (poids 148), armure de nautile en cuivre (20), en fer (10), en or (5), en diamant (2) — un seul tirage, une seule pièce',
-      'Armure de nautile en netherite : forge uniquement, à partir de la version diamant plus un modèle netherite_upgrade et netherite_tool_materials'
+      'Lot de coffre : rien (poids 148), armure en cuivre pour nautile (20), en fer (10), en or (5), en diamant (2) — un seul tirage, une seule pièce',
+      'Armure en netherite pour nautile : forge uniquement, à partir de la version diamant plus un modèle netherite_upgrade et netherite_tool_materials'
     ],
-    note: 'Le tag can_wear_nautilus_armor ne contient que deux entités : le nautile et le nautile zombie. Le jar contient les textures d\'équipement correspondantes (entity/equipment/nautilus_body/ en cuivre, fer, or, diamant, netherite) et une texture de selle séparée (nautilus_saddle). Deux emplacements d\'inventaire dédiés existent aussi (slot/nautilus_armor.png et nautilus_armor_inventory.png).'
+    note: 'Le tag can_wear_nautilus_armor ne contient que deux entités : le nautile et le nautile-zombie. Le jar contient les textures d\'équipement correspondantes (entity/equipment/nautilus_body/ en cuivre, fer, or, diamant, netherite) et une texture de selle séparée (nautilus_saddle). Deux emplacements d\'inventaire dédiés existent aussi (slot/nautilus_armor.png et nautilus_armor_inventory.png).'
   },
 
   {
-    nom: 'Armure de cheval en cuivre (Copper Horse Armor)', cat: 'bloc',
+    nom: 'Armure en cuivre pour cheval (Copper Horse Armor)', cat: 'bloc',
     tags: [
       { txt: 'Cuivre', cls: 'copper' },
       { txt: 'Coffres', cls: 'gold' },
@@ -956,7 +956,7 @@ var DROPS = [
     ou: 'Aucune recette dans data/minecraft/recipe/. On la trouve exclusivement en coffre : pyramide du désert (poids 15, à égalité avec l\'armure en fer), temple de la jungle, pont du Nether, donjon simple, couloir de forteresse, trésor de cité de l\'End et forge de village.',
     drops: [
       'Un exemplaire par tirage, sans fonction de dégâts ni d\'enchantement dans les tables consultées',
-      'Dans la pyramide du désert, elle partage le même poids (15) que l\'armure de cheval en fer, devant l\'or et le diamant',
+      'Dans la pyramide du désert, elle partage le même poids (15) que l\'armure en fer pour cheval, devant l\'or et le diamant',
       'Dans la forge de village et le trésor de cité de l\'End, elle est listée juste avant les armures en fer, or et diamant, au même poids par défaut'
     ],
     note: 'Elle complète la gamme existante (fer, or, diamant) par le bas. C\'est le seul objet « cuivre » de 26.2 qui ne dispose d\'aucune recette : tous les autres (outils, armure, lance) se fabriquent.'
@@ -1003,13 +1003,13 @@ var DROPS = [
     ],
     ou: 'Les deux blocs constituent la matière des grottes de soufre : les règles de surface du Surworld les placent dans ce seul biome, selon le bruit sulfur_cave_gradient. Les deux figurent dans le tag mineable/pickaxe.',
     drops: [
-      'Soufre : famille complète — dalle, escalier, mur, version polie (dalle, escalier, mur), briques (dalle, escalier, mur) et version ciselée ; chaque bloc se lâche lui-même',
+      'Soufre : famille complète — dalle, escalier, muret, version polie (dalle, escalier, muret), version taillée (dalle, escalier, muret) et version sculptée ; chaque bloc se lâche lui-même',
       'Pointe de soufre (sulfur_spike) : bloc de type spéléothème, généré vers le haut comme vers le bas ; 4 pointes en carré 2×2 redonnent 1 bloc de soufre',
       'Soufre concentré (potent_sulfur) : 9 blocs de soufre sans forme imposée ; il apparaît naturellement à l\'état « wet » au fond des bassins de soufre',
-      'Cinabre : mêmes déclinaisons que le soufre (poli, briques, ciselé, dalles, escaliers, murs) ; aucune recette ne le produit, il ne s\'obtient qu\'en le minant',
+      'Cinabre : mêmes déclinaisons que le soufre (poli, taillé, sculpté, dalles, escaliers, murets) ; aucune recette ne le produit, il ne s\'obtient qu\'en le minant',
       'Marchand ambulant : 1 émeraude → 2 pointes de soufre (5 utilisations)'
     ],
-    note: 'sulfur_spike_replaceable_blocks ne contient que deux blocs, le soufre et le cinabre : les pointes ne poussent que dans cette matière. Toutes les variantes taillées sont accessibles à la scie de pierre en plus de l\'établi.'
+    note: 'sulfur_spike_replaceable_blocks ne contient que deux blocs, le soufre et le cinabre : les pointes ne poussent que dans cette matière. Toutes les variantes taillées sont accessibles au tailleur de pierre en plus de l\'établi.'
   }
 ];
 
@@ -1034,22 +1034,22 @@ var MINERAIS = [
    19 résultats possibles, pour un total de poids de 469. */
 var TROC = [
   ['Obsidienne',                              '8,53 %', '1'],
-  ['Obsidienne pleurante',                    '8,53 %', '1–3'],
-  ['Boule de feu',                            '8,53 %', '1'],
+  ['Obsidienne pleureuse',                    '8,53 %', '1–3'],
+  ['Charge de feu',                            '8,53 %', '1'],
   ['Cuir',                                    '8,53 %', '2–4'],
   ['Sable des âmes',                          '8,53 %', '2–8'],
   ['Brique du Nether',                        '8,53 %', '2–8'],
   ['Flèches spectrales',                      '8,53 %', '6–12'],
   ['Gravier',                                 '8,53 %', '8–16'],
-  ['Pierre noire',                            '8,53 %', '8–16'],
+  ['Roche noire',                            '8,53 %', '8–16'],
   ['Ficelle',                                 '4,26 %', '3–9'],
   ['Quartz du Nether',                        '4,26 %', '5–12'],
   ['Fiole d\'eau',                            '2,13 %', '1'],
   ['Pépites de fer',                          '2,13 %', '10–36'],
   ['Perles de l\'Ender',                      '2,13 %', '2–4'],
   ['Ghast desséché',                          '2,13 %', '1'],
-  ['Bottes en fer (Vitesse des âmes)',        '1,71 %', '1'],
+  ['Bottes en fer (Agilité des âmes)',        '1,71 %', '1'],
   ['Potion de Résistance au feu',             '1,71 %', '1'],
   ['Potion jetable de Résistance au feu',     '1,71 %', '1'],
-  ['Livre enchanté (Vitesse des âmes)',       '1,07 %', '1']
+  ['Livre enchanté (Agilité des âmes)',       '1,07 %', '1']
 ];

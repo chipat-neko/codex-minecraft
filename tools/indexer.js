@@ -46,6 +46,7 @@ const SOURCES = [
   ['structures.html', 'Structure', dispo('STRUCTURES_DETAIL'), false],
   ['succes.html', 'Succès', dispo('ADVANCEMENTS'), false],
   ['blocs.html', 'Bloc', dispo('FAMILLES_BLOCS'), false],
+  ['deco.html', 'Déco', dispo('DECO'), false],
   ['plans.html', 'Plan', dispo('PLANS'), true],
   ['usines.html', 'Usine', dispo('USINES'), true]
 ];
