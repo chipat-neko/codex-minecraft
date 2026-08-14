@@ -9,6 +9,14 @@
      · les objets cités dans les tables de butin des mobs
      · les outils requis par les minerais
      · la table de troc des piglins
+     · le contenu des coffres de structure, objet par objet
+     · les achats et les ventes de chaque métier de villageois
+     · les incompatibilités entre enchantements
+     · les recettes de brassage et les durées de potion
+
+   Les deux derniers points ne figurent dans aucun JSON : ils sont lus
+   dans le bytecode via tools/classe.js. Le README explique les limites
+   de cette approche.
 
    Sort en erreur si un écart est trouvé, pour pouvoir être
    relancé après chaque mise à jour du jeu.
@@ -434,7 +442,7 @@ const tablesButin = lireJson(jar, idsButin.map(i => `data/minecraft/loot_table/c
 
 const LETTRE = /[a-zàâäéèêëîïôöùûüçœ]/i;
 /* Noms qui désignent aussi bien une ressource qu'un matériau. */
-const MATIERE = /^(diamant|or|fer|cuivre|netherite|émeraude)$/;
+const MATIERE = /^(diamant|or|fer|cuivre|netherite|émeraude|cuir|laine|pierre|quartz)$/;
 
 /* Le libellé est-il annoncé comme objet à part entière dans ce texte ?
 
@@ -542,6 +550,139 @@ if (succInconnus.length) {
   console.log('      ' + succInconnus.slice(0, 10).join(' · ') + (succInconnus.length > 10 ? ' …' : ''));
   console.log('      (les titres affichés diffèrent souvent des identifiants : à vérifier au cas par cas,');
   console.log('       ce n\'est pas nécessairement une erreur)');
+}
+
+/* ============================================================
+   10. Villageois : qui achète quoi, qui vend quoi
+
+   Les échanges ne sont pas en JSON : VillagerTrades les enregistre en
+   Java. Mais chaque échange porte un identifiant parlant, et le sens
+   se lit dans l'ordre des mots — `paper_emerald` veut dire qu'on donne
+   du papier contre des émeraudes (le villageois achète), `emerald_lantern`
+   qu'on donne des émeraudes contre une lanterne (il vend).
+
+   C'est exactement la confusion que fait le plus souvent un guide :
+   annoncer à l'achat ce qui est en vente. On contrôle donc les deux
+   sens séparément.
+   ============================================================ */
+console.log('\n[10] Villageois — achats et ventes');
+
+const METIER_PREFIXE = {
+  'Bibliothécaire': 'LIBRARIAN', 'Fermier': 'FARMER', 'Armurier': 'ARMORER',
+  'Forgeron d\'outils': 'TOOLSMITH', 'Forgeron d\'armes': 'WEAPONSMITH',
+  'Clerc (prêtre)': 'CLERIC', 'Cartographe': 'CARTOGRAPHER', 'Fléchier': 'FLETCHER',
+  'Berger': 'SHEPHERD', 'Boucher': 'BUTCHER', 'Pêcheur': 'FISHERMAN',
+  'Tanneur': 'LEATHERWORKER', 'Maçon': 'MASON'
+};
+
+/* Objet cité par le guide -> identifiant du jeu. */
+const ECHANGE_ID = {
+  /* le pluriel français porte sur le premier mot : les deux formes
+     doivent figurer pour que « pommes de terre » ne se lise pas « pomme » */
+  'pommes de terre': 'potato', 'pomme de terre': 'potato', 'papier': 'paper', 'livre et plume': 'writable_book', 'livre': 'book', 'encre': 'ink_sac',
+  'bibliothèque': 'bookshelf', 'lanterne': 'lantern', 'horloge': 'clock',
+  'boussole': 'compass', 'bougie': 'candle', 'verre': 'glass',
+  'blé': 'wheat', 'pomme de terre': 'potato', 'carotte': 'carrot', 'betterave': 'beetroot',
+  'pain': 'bread', 'citrouille': 'pumpkin', 'pastèque': 'melon', 'gâteau': 'cake',
+  'ragoût suspect': 'suspicious_stew', 'pomme': 'apple', 'cookie': 'cookie',
+  'chair putréfiée': 'rotten_flesh', 'lingot d\'or': 'gold_ingot',
+  'patte de lapin': 'rabbit_foot', 'écaille de tortue': 'turtle_scute',
+  'fiole en verre': 'glass_bottle', 'verrue du nether': 'nether_wart',
+  'perle de l\'ender': 'ender_pearl', 'pierre lumineuse': 'glowstone',
+  'lapis': 'lapis_lazuli', 'seau de lave': 'lava_bucket', 'bouclier': 'shield',
+  'diamant': 'diamond', 'silex': 'flint', 'argile': 'clay_ball', 'brique': 'brick',
+  'quartz': 'quartz', 'terre cuite': 'terracotta', 'ficelle': 'string',
+  'charbon': 'coal', 'cisaille': 'shears', 'laine': 'wool', 'tapis': 'carpet',
+  'lit': 'bed', 'bannière': 'banner', 'tableau': 'painting', 'cuir': 'leather',
+  'selle': 'saddle', 'étiquette': 'name_tag', 'plume': 'feather',
+  'algue séchée': 'dried_kelp_block', 'baies': 'sweet_berries', 'canne à sucre': 'sugar_cane'
+};
+
+/* Les trois métiers de forge partagent des échanges, rangés sous le
+   préfixe COMMON_SMITH : charbon, lingot de fer et cloche. Les
+   oublier ferait passer pour fausses des affirmations exactes. */
+const PARTAGES = { COMMON_SMITH: ['ARMORER', 'TOOLSMITH', 'WEAPONSMITH'] };
+
+const echangesParMetier = {};
+try {
+  const { charger: chargerClasse } = require('./classe.js');
+  const vt = chargerClasse('net/minecraft/world/item/trading/VillagerTrades.class');
+  const prefixes = Object.values(METIER_PREFIXE).concat(Object.keys(PARTAGES));
+  for (const champ of vt.champs) {
+    /* du préfixe le plus long au plus court, pour qu'aucun métier
+       n'absorbe les échanges d'un autre */
+    const p = prefixes.filter(x => champ.nom.startsWith(x + '_'))
+      .sort((a, b) => b.length - a.length)[0];
+    if (!p) { continue; }
+    const reste = champ.nom.slice(p.length + 1).replace(/^\d_/, '').toLowerCase();
+    for (const cible of (PARTAGES[p] || [p])) {
+      const e = (echangesParMetier[cible] = echangesParMetier[cible] ||
+        { achete: new Set(), vend: new Set() });
+      if (reste.startsWith('emerald_')) { e.vend.add(reste.replace(/^emerald_(and_[a-z_]+?_)?/, '')); }
+      else if (reste.endsWith('_emerald')) { e.achete.add(reste.replace(/_emerald$/, '')); }
+    }
+  }
+} catch (err) {
+  console.log('    lecture du bytecode indisponible : ' + err.message);
+}
+
+/* Un identifiant du jeu correspond-il à un objet cité ?
+   On accepte les variantes de couleur et de matériau — « laine » vaut
+   pour white_wool, « bougie » pour yellow_candle — et le pluriel des
+   identifiants groupés, comme `carpets`. */
+function correspond(cible, ensemble) {
+  /* On essaie la forme telle quelle ET sans son « s » final : certains
+     identifiants sont au pluriel (`carpets`), et beaucoup d'autres
+     finissent par un s qui n'en est pas un (`compass`, `glass`). */
+  const test = x => x === cible || x.endsWith('_' + cible) || x.startsWith(cible + '_');
+  for (const brut of ensemble) {
+    if (test(brut) || test(brut.replace(/s$/, ''))) { return true; }
+  }
+  return false;
+}
+
+let vilVerifs = 0;
+if (Object.keys(echangesParMetier).length) {
+  for (const [nomFiche, prefixe] of Object.entries(METIER_PREFIXE)) {
+    const fiche = (typeof METIERS !== 'undefined' ? METIERS : []).find(m => m.nom === nomFiche);
+    const e = echangesParMetier[prefixe];
+    if (!fiche || !e) { continue; }
+
+    for (const ligne of (fiche.drops || [])) {
+      const achat = /^ACHÈTE\s*:/.test(ligne.trim());
+      const vente = /^VEND(\s+aussi)?\s*:/.test(ligne.trim());
+      if (!achat && !vente) { continue; }
+      const ensemble = achat ? e.achete : e.vend;
+
+      /* Du libellé le plus long au plus court, puis on écarte ceux
+         qu'un libellé déjà retenu contient : sans quoi « pommes de
+         terre » se lirait aussi comme « pomme ». `annonce` refuse en
+         plus les matières précédées de « en » ou « de », qui
+         qualifient un objet au lieu de le désigner. */
+      const cites = Object.keys(ECHANGE_ID)
+        .sort((a, b) => b.length - a.length)
+        .filter(lib => annonce(lib, ligne))
+        .filter((lib, i, t) => !t.slice(0, i).some(plusLong => plusLong.includes(lib)));
+
+      for (const lib of cites) {
+        const cible = ECHANGE_ID[lib];
+        vilVerifs++;
+        if (!correspond(cible, ensemble)) {
+          const autre = achat ? e.vend : e.achete;
+          ecart(`${nomFiche} : « ${lib} » ${achat ? 'donné comme acheté' : 'donné comme vendu'}`,
+            achat ? 'il l\'achète' : 'il le vend',
+            correspond(cible, autre)
+              ? (achat ? 'il le VEND, il ne l\'achète pas' : 'il l\'ACHÈTE, il ne le vend pas')
+              : 'cet échange n\'existe pas pour ce métier',
+            'VillagerTrades.' + prefixe + '_*');
+        }
+      }
+    }
+  }
+  const total = Object.values(echangesParMetier)
+    .reduce((n, e) => n + e.achete.size + e.vend.size, 0);
+  console.log(`    ${vilVerifs} mentions contrôlées, ${total} échanges lus dans le code`);
+  verifs += vilVerifs;
 }
 
 /* ============================================================
@@ -668,13 +809,13 @@ console.log(`    ${enchVerifs} fiches contrôlées, ${Object.keys(membresDuGroup
 verifs += enchVerifs;
 
 /* ============================================================
-   10. Potions : ingrédient et durées
+   12. Potions : ingrédient et durées
 
    Le brassage n'existe sous aucune forme JSON : il est construit en
    dur dans PotionBrewing. tools/brassage.js lit ce code et rend la
    table complète, ainsi que la durée de chaque effet en ticks.
    ============================================================ */
-console.log('\n[10] Potions');
+console.log('\n[12] Potions');
 
 /* Ingrédient annoncé par le guide -> identifiant du jeu.
    Les libellés sont ceux du champ `ou` de chaque fiche. */

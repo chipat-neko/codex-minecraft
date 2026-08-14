@@ -430,8 +430,16 @@ var DROPS = [
     nom: 'Marchand ambulant', cat: 'passif',
     tags: [{ txt: 'Aléatoire', cls: '' }],
     ou: 'Apparaît aléatoirement près du joueur, accompagné de 2 lamas de marchand.',
-    drops: ['Lait (via ses lamas : laine), et ses échanges : plants rares, coraux, sable rouge, semis de tous les biomes'],
-    note: 'Il vend souvent des plants et des blocs impossibles à trouver autrement dans votre région : très utile en début de partie.'
+    drops: [
+      'Il tire ses 6 échanges au hasard dans une liste de plus de 80 : ce qu\'il propose change à chaque apparition',
+      'À ne pas manquer — l\'ÉTIQUETTE : depuis qu\'elle a quitté le bibliothécaire, il en est la seule source commerciale',
+      'Aussi rares — potion d\'Invisibilité prolongée, pioche en fer enchantée, coquille de nautile, glace compactée et glace bleue',
+      'Semis et plants de tous les biomes : les neuf essences d\'arbre, les fleurs, les coraux, le bambou, le cactus, le varech, les nénuphars',
+      'Blocs difficiles à rapporter — podzol, terre enracinée, mousse, mousse pâle, sable rouge, stalactite, pointe de soufre',
+      'Il ACHÈTE peu de choses : eau en bouteille, seau d\'eau, seau de lait, pomme de terre cuite, bloc de foin, œil d\'araignée fermenté',
+      'Ses deux lamas se tuent pour de la laine, et la laisse qu\'ils portent se récupère'
+    ],
+    note: 'Ne le laissez pas repartir sans regarder ses six offres : l\'étiquette et la potion d\'Invisibilité prolongée ne s\'obtiennent nulle part ailleurs par le commerce. Le reste est surtout utile pour rapporter chez soi des plants d\'un biome qu\'on n\'a pas.'
   },
   {
     nom: 'Golem de fer', cat: 'passif',
