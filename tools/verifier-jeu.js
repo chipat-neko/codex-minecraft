@@ -120,7 +120,28 @@ const RECETTE_ID = {
   'Longe (laisse)': 'lead', 'Wagonnet-coffre': 'chest_minecart', 'Lampe de redstone': 'redstone_lamp',
   'Bloc de foin': 'hay_block', 'Bloc de charbon': 'coal_block', 'Barreaux de fer': 'iron_bars',
   'Pot de fleurs': 'flower_pot', 'Support à armure': 'armor_stand', 'Jukebox': 'jukebox',
-  'Bloc de note': 'note_block', 'Étiquette (name tag)': 'name_tag', 'Lance (spear)': 'iron_spear'
+  'Bloc de note': 'note_block', 'Étiquette (name tag)': 'name_tag', 'Lance (spear)': 'iron_spear',
+  /* Recettes à matériau générique : on contrôle sur la variante en fer
+     ou en chêne, la disposition et la quantité étant les mêmes. */
+  'Planches': 'oak_planks', 'Bâton': 'stick', 'Lit': 'white_bed',
+  'Porte en bois': 'oak_door', 'Bateau': 'oak_boat', 'Pioche': 'iron_pickaxe',
+  'Hache': 'iron_axe', 'Pelle': 'iron_shovel', 'Houe': 'iron_hoe',
+  'Épée': 'iron_sword', 'Canne à pêche': 'fishing_rod', 'Brosse (archéologie)': 'brush',
+  'Casque': 'iron_helmet', 'Plastron': 'iron_chestplate', 'Jambières': 'iron_leggings',
+  'Bottes': 'iron_boots', 'Lingot de netherite': 'netherite_ingot',
+  'Escaliers': 'oak_stairs', 'Dalles': 'oak_slab', 'Muret': 'cobblestone_wall',
+  'Briques de pierre': 'stone_bricks', 'Bloc de briques': 'bricks',
+  'Tapis': 'white_carpet', 'Verre teinté': 'white_stained_glass',
+  'Pierre lumineuse': 'glowstone', 'Torche des âmes': 'soul_torch',
+  'Feu de camp': 'campfire', 'Citrouille-lanterne': 'jack_o_lantern',
+  'Pot décoré': 'decorated_pot', 'Cadre lumineux': 'glow_item_frame',
+  'Panneau': 'oak_sign', 'Détecteur de lumière du jour': 'daylight_detector',
+  'Rail détecteur': 'detector_rail', 'Rail activateur': 'activator_rail',
+  'Tarte à la citrouille': 'pumpkin_pie', 'Carte vierge': 'map',
+  'Livre et plume': 'writable_book', 'Soupe de champignons': 'mushroom_stew',
+  'Melon scintillant': 'glistering_melon_slice', 'Cristal de l\'End': 'end_crystal',
+  'Bannière': 'white_banner', 'Poudre de béton': 'white_concrete_powder',
+  'Fusée de feu d\'artifice': 'firework_rocket', 'Verre': 'glass'
 };
 
 const idsRec = Object.values(RECETTE_ID);
