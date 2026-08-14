@@ -3812,7 +3812,7 @@ var USINES = [
           'c..+..c',
           'c.....c',
           'c*...*c',
-          'ccccccc'
+          'cccDccc'
         ]
       }
     ],
