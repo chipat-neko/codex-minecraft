@@ -723,8 +723,11 @@ function renderIso(bp, limite) {
   var TW = 16, TH = 8, TZ = 13;          /* demi-largeur, demi-profondeur, hauteur d'un cube */
   var toutes = couchesY(bp);
   var couches = toutes.slice(0, limite || toutes.length);
+  /* le cadre se mesure sur TOUTES les couches, jamais sur celles que
+     le curseur laisse voir : sinon le dessin saute latéralement dès
+     qu'on masque l'étage le plus large */
   var maxW = 0, maxD = 0;
-  couches.forEach(function (c) {
+  toutes.forEach(function (c) {
     maxD = Math.max(maxD, c.g.length);
     c.g.forEach(function (l) { maxW = Math.max(maxW, l.length); });
   });
@@ -846,7 +849,13 @@ function pivoterPlan(bp, quart) {
   var copie = {};
   for (var k in bp) { if (bp.hasOwnProperty(k)) { copie[k] = bp[k]; } }
   copie.couches = (bp.couches || []).map(function (c) {
-    return { t: c.t, nom: c.nom, g: pivoterGrille(c.g, quart) };
+    /* on recopie TOUS les champs et on ne remplace que la grille :
+       n'en lister que quelques-uns perdait le drapeau `vue`, et la
+       cathédrale gagnait une couche fantôme au premier clic sur ⟳ */
+    var n = {};
+    for (var j in c) { if (c.hasOwnProperty(j)) { n[j] = c[j]; } }
+    n.g = pivoterGrille(c.g, quart);
+    return n;
   });
   return copie;
 }
@@ -867,19 +876,46 @@ function estVide(ch) {
    vers le fond et on garde le premier bloc rencontré — c'est lui
    qui masque les autres. Combinée à pivoterPlan, cette seule
    fonction donne les quatre façades. */
-function elevationLignes(couches) {
-  var maxW = 0;
+/* Cadre commun à toutes les couches, et décalage de recentrage d'une
+   couche donnée. Les étages n'ont pas tous la même empreinte : un toit
+   plus étroit que ses murs est centré, exactement comme le fait
+   renderIso. Sans ce décalage, la façade d'une maison à toit pentu
+   part en escalier vers la gauche au lieu de faire une pyramide.
+   Le Math.floor reprend la formule de renderIso, arrondi compris. */
+function cadreCommun(couches) {
+  var f = { maxW: 0, maxD: 0 };
   couches.forEach(function (c) {
-    c.g.forEach(function (l) { maxW = Math.max(maxW, l.length); });
+    f.maxD = Math.max(f.maxD, c.g.length);
+    c.g.forEach(function (l) { f.maxW = Math.max(f.maxW, l.length); });
   });
+  return f;
+}
+
+function decalage(c, f) {
+  var w = c.g.reduce(function (m, l) { return Math.max(m, l.length); }, 0);
+  return { x: Math.floor((f.maxW - w) / 2), z: Math.floor((f.maxD - c.g.length) / 2) };
+}
+
+/* Case lue dans le repère commun ; hors de l'emprise de la couche,
+   c'est de l'air. */
+function caseDe(c, o, X, Z) {
+  var z = Z - o.z, x = X - o.x;
+  if (z < 0 || z >= c.g.length) { return ' '; }
+  if (x < 0 || x >= c.g[z].length) { return ' '; }
+  return c.g[z][x];
+}
+
+function elevationLignes(couches) {
+  var f = cadreCommun(couches);
   var lignes = [];
   for (var L = couches.length - 1; L >= 0; L--) {
-    var g = couches[L].g;
+    var o = decalage(couches[L], f);
     var ligne = '';
-    for (var x = 0; x < maxW; x++) {
+    for (var X = 0; X < f.maxW; X++) {
       var vu = '.';
-      for (var z = g.length - 1; z >= 0; z--) {
-        if (!estVide(g[z][x])) { vu = g[z][x]; break; }
+      for (var Z = f.maxD - 1; Z >= 0; Z--) {
+        var ch = caseDe(couches[L], o, X, Z);
+        if (!estVide(ch)) { vu = ch; break; }
       }
       ligne += vu;
     }
@@ -891,11 +927,17 @@ function elevationLignes(couches) {
 /* Coupe : une tranche verticale à une profondeur donnée.
    C'est la seule vue qui montre l'intérieur sans rien retirer —
    indispensable pour la redstone enterrée sous un plancher. */
-function coupeLignes(couches, z) {
+function coupeLignes(couches, Z) {
+  var f = cadreCommun(couches);
   var lignes = [];
   for (var L = couches.length - 1; L >= 0; L--) {
-    var g = couches[L].g;
-    lignes.push(z < g.length ? g[z] : '');
+    var o = decalage(couches[L], f);
+    var ligne = '';
+    for (var X = 0; X < f.maxW; X++) {
+      var ch = caseDe(couches[L], o, X, Z);
+      ligne += (ch === ' ' ? '.' : ch);
+    }
+    lignes.push(ligne);
   }
   return lignes;
 }
