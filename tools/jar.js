@@ -26,7 +26,10 @@ function trouverJar(argument) {
   return candidats[0].chemin;
 }
 
-/* Liste les entrées dont le chemin correspond à une expression régulière. */
+/* Liste les entrées dont le chemin correspond à une expression régulière .NET.
+   ATTENTION : le motif traverse JSON.stringify puis PowerShell, où le
+   backslash n'est PAS un caractère d'échappement. Écrivez donc `[.]`
+   plutôt que `\.` — sinon la regex arrive doublée et ne correspond à rien. */
 function lister(jar, motif) {
   const ps = `
 Add-Type -AssemblyName System.IO.Compression.FileSystem

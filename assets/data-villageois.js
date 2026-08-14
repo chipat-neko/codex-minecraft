@@ -12,8 +12,9 @@ var METIERS = [
     drops: [
       'ACHÈTE : papier (24 → 1 émeraude), livres, encre',
       'VEND : livres enchantés — n\'importe lequel, y compris Raccommodage, Efficacité V, Fortune III, Toucher de soie',
-      'VEND aussi : bibliothèque dès le niveau novice (9 émeraudes), lanternes, verre, horloge, et des bougies au niveau maître',
-      'Il ne vend NI plume NI étiquette : l\'étiquette est passée au marchand ambulant'
+      'VEND aussi : bibliothèque dès le niveau novice (9 émeraudes), lanternes, verre, horloge, BOUSSOLE, et des bougies au niveau maître',
+      'Il ne vend NI plume NI étiquette : l\'étiquette est passée au marchand ambulant',
+      'C\'est le SEUL villageois à vendre une boussole — indispensable pour les cartes de l\'explorateur'
     ],
     note: 'LE métier à installer en priorité. Une ferme à canne à sucre lui fournit du papier à l\'infini, et il vous rend des livres enchantés impossibles à obtenir autrement.'
   },

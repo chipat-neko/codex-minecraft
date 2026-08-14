@@ -58,7 +58,7 @@ var POTIONS = [
     nom: 'Vision nocturne', cat: 'utilite',
     tags: [{ txt: 'Voir dans le noir', cls: 'blue' }, { txt: '3:00', cls: '' }],
     ou: 'Potion étrange + carotte dorée',
-    drops: ['Base 3:00 · redstone 8:00', 'Inversée (œil d\'araignée fermenté) : Cécité'],
+    drops: ['Base 3:00 · redstone 8:00', 'Inversée (œil d\'araignée fermenté) : INVISIBILITÉ — il n\'existe aucune potion de Cécité'],
     note: 'Indispensable sous l\'eau et dans les cités antiques. Combinée à la Respiration aquatique, elle transforme l\'exploration océanique.'
   },
   {
@@ -89,7 +89,7 @@ var POTIONS = [
     nom: 'Saut', cat: 'utilite',
     tags: [{ txt: 'Saut renforcé', cls: '' }, { txt: '3:00', cls: '' }],
     ou: 'Potion étrange + patte de lapin',
-    drops: ['Base 3:00 · redstone 8:00 · poudre lumineuse : Saut II', 'Inversée : Nausée'],
+    drops: ['Base 3:00 · redstone 8:00 · poudre lumineuse : Saut II', 'Inversée : LENTEUR — il n\'existe aucune potion de Nausée'],
     note: 'Saut II permet de franchir 2 blocs de hauteur : pratique pour explorer une montagne sans creuser d\'escalier.'
   },
   {
@@ -160,7 +160,7 @@ var MODIFS = [
   ['Poudre lumineuse', 'Renforce le niveau (II)', 'Réduit fortement la durée'],
   ['Poudre à canon', 'Rend la potion jetable', 'S\'applique en dernier, après les autres modificateurs'],
   ['Souffle du dragon', 'Rend la potion persistante', 'Se récolte en fiole dans le nuage d\'haleine du dragon de l\'End'],
-  ['Œil d\'araignée fermenté', 'Inverse l\'effet', 'Sucre → Lenteur · Soin → Dégâts · Vision nocturne → Cécité']
+  ['Œil d\'araignée fermenté', 'Inverse l\'effet', 'Sucre → Lenteur · Soin → Dégâts · Vision nocturne → Invisibilité · Saut → Lenteur']
 ];
 
 /* Où trouver les ingrédients */

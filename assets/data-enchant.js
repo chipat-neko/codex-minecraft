@@ -11,8 +11,8 @@ var ENCHANTS = [
     tags: [{ txt: 'Niveau max III', cls: 'ok' }, { txt: 'Table', cls: '' }],
     ou: 'Tout objet ayant une durabilité : outils, armes, armures, arc, canne à pêche, briquet, cisaille, élytre.',
     drops: [
-      'Chaque point de durabilité a une chance de ne pas être consommé — au niveau III, l\'objet dure environ 4 fois plus longtemps',
-      'Sur une armure, l\'effet est encore plus fort : la durée de vie est multipliée par ≈ (niveau + 1) × 2'
+      'Sur un OUTIL ou une arme : environ 75 % de l\'usure évitée au niveau III — l\'objet dure à peu près quatre fois plus longtemps',
+      'Sur une ARMURE : seulement 30 % d\'usure évitée au niveau III. L\'effet y est deux fois moins fort, contrairement à une idée répandue'
     ],
     note: 'À mettre sur absolument tout, sans exception. C\'est l\'enchantement le moins cher et le plus rentable du jeu.'
   },
@@ -80,7 +80,8 @@ var ENCHANTS = [
     drops: [
       '+1 objet maximum par niveau sur les drops courants',
       '+1 point de pourcentage par niveau sur les drops rares : crâne de squelette wither (2,5 % → 5,5 %), trident, coquillage nautile',
-      'N\'affecte PAS l\'XP ni les drops d\'équipement porté'
+      'Il augmente AUSSI la chance qu\'un mob lâche son équipement porté : +1 % par niveau, à condition que le coup fatal vienne d\'un joueur',
+      'Il n\'affecte pas l\'XP'
     ],
     note: 'Indispensable sur toute ferme à mise à mort manuelle. Sans Butin III, une ferme à squelettes wither produit deux fois moins de crânes.'
   },
@@ -132,7 +133,7 @@ var ENCHANTS = [
   {
     nom: 'Toucher de soie', cat: 'outil',
     tags: [{ txt: 'Niveau max I', cls: 'cyan' }],
-    ou: 'Pioche, hache, pelle, cisaille.',
+    ou: 'Les outils de minage : pioche, hache, pelle, houe. PAS la cisaille.',
     drops: [
       'Récupère le bloc tel quel : minerai intact, verre, vitres, glace, bloc d\'améthyste, catalyseur de sculk, ruche pleine',
       'Le SEUL moyen d\'obtenir : catalyseur / capteur / shrieker de sculk, glace compactée, bloc de mousse, nid d\'abeilles avec ses abeilles',
@@ -146,7 +147,10 @@ var ENCHANTS = [
     nom: 'Puissance V (Power)', cat: 'projectile',
     tags: [{ txt: 'Niveau max V', cls: 'red' }],
     ou: 'Arc.',
-    drops: ['+25 % de dégâts par niveau (arrondi au supérieur)', 'Un tir chargé au niveau V tue la plupart des mobs d\'une flèche'],
+    drops: [
+      '+1 dégât au niveau I, puis +0,5 par niveau supplémentaire — soit +3 au niveau V. C\'est un bonus PLAT, pas un pourcentage',
+      'Même formule que Tranchant sur l\'épée. Un tir chargé au niveau V tue la plupart des mobs d\'une flèche'
+    ],
     note: 'Avec Infinité, l\'arc devient l\'arme la plus rentable du jeu : dégâts maximaux et une seule flèche dans l\'inventaire.'
   },
   {
@@ -289,6 +293,16 @@ var ENCHANTS = [
   },
 
   /* ---------------- DIVERS ---------------- */
+  {
+    nom: 'Élan III (Lunge)', cat: 'arme',
+    tags: [{ txt: 'Niveau max III', cls: 'cyan' }, { txt: 'Nouveauté', cls: 'ok' }],
+    ou: 'Lance (spear) — l\'arme d\'hast introduite avec cette version.',
+    drops: [
+      'Enchantement propre aux lances, obtenable à la table d\'enchantement',
+      'Les lances acceptent aussi Tranchant, Châtiment, Fléau des arthropodes, Butin, Recul et Aura de feu'
+    ],
+    note: 'La lance frappe plus loin que l\'épée mais plus lentement : elle demande de jouer sur la portée plutôt que sur la cadence.'
+  },
   {
     nom: 'Chance de la mer III / Appât III', cat: 'divers',
     tags: [{ txt: 'Canne à pêche', cls: 'blue' }],

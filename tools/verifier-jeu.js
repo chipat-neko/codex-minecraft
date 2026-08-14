@@ -267,6 +267,141 @@ for (const fiche of (typeof DROPS !== 'undefined' ? DROPS : [])) {
 }
 console.log(`    ${mobVerifs} mobs contrôlés`);
 
+/* ============================================================
+   6. Recettes : contrôle exhaustif par déduction du nom
+   ============================================================
+   Au-delà de la table de correspondance ci-dessus, on tente de
+   retrouver automatiquement chaque recette restante grâce au nom
+   de l'objet produit. Ce qui reste introuvable est listé pour
+   qu'on puisse compléter la table à la main. */
+console.log('\n[6] Recettes restantes (couverture)');
+
+const toutesRecettes = new Set(
+  lister(jar, '^data/minecraft/recipe/[a-z_]+[.]json$')
+    .map(p => p.replace('data/minecraft/recipe/', '').replace('.json', ''))
+);
+
+const nonMappees = (typeof RECETTES !== 'undefined' ? RECETTES : [])
+  .filter(r => !RECETTE_ID[r.nom]);
+
+/* recettes du guide qui décrivent volontairement autre chose qu'un craft */
+const HORS_CRAFT = /construction|ne se craft plus|clic droit|durcissement|cuisson|forge/i;
+
+let devinees = 0, aCompleter = [];
+for (const r of nonMappees) {
+  if (HORS_CRAFT.test(r.station || '') || HORS_CRAFT.test(r.nom)) { continue; }
+  /* essai : le nom du guide, sans accent ni parenthèse, en identifiant */
+  const base = r.nom.toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/\([^)]*\)/g, '').trim()
+    .replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+  if (toutesRecettes.has(base)) { devinees++; }
+  else { aCompleter.push(r.nom); }
+}
+console.log(`    ${devinees} recette(s) retrouvée(s) automatiquement`);
+if (aCompleter.length) {
+  console.log(`    ${aCompleter.length} recette(s) non contrôlées faute de correspondance :`);
+  console.log('      ' + aCompleter.slice(0, 12).join(' · ') + (aCompleter.length > 12 ? ' …' : ''));
+  console.log('      (ajoutez-les à RECETTE_ID dans ce fichier pour les couvrir)');
+}
+
+/* ============================================================
+   7. Structures : les coffres cités existent-ils ?
+   ============================================================ */
+console.log('\n[7] Structures');
+
+const STRUCT_ID = {
+  'donjon': 'simple_dungeon', 'mine abandonnée': 'abandoned_mineshaft',
+  'temple du désert': 'desert_pyramid', 'temple de la jungle': 'jungle_temple',
+  'manoir des bois': 'woodland_mansion', 'igloo': 'igloo_chest',
+  'avant-poste': 'pillager_outpost', 'forteresse du nether': 'nether_bridge',
+  'cité de l\'end': 'end_city_treasure', 'trésor enfoui': 'buried_treasure',
+  'cité antique': 'ancient_city', 'bastion': 'bastion_treasure'
+};
+/* les ruines de sentier ne sont pas des coffres mais des sites de fouille */
+const STRUCT_AUTRES = { 'ruines de sentier': 'archaeology/trail_ruins_common' };
+
+const idsStruct = [...new Set(Object.values(STRUCT_ID))];
+const jsonStruct = Object.assign(
+  lireJson(jar, idsStruct.map(i => `data/minecraft/loot_table/chests/${i}.json`)),
+  lireJson(jar, Object.values(STRUCT_AUTRES).map(i => `data/minecraft/loot_table/${i}.json`))
+);
+for (const cle in STRUCT_AUTRES) {
+  const c = `data/minecraft/loot_table/${STRUCT_AUTRES[cle]}.json`;
+  if (!jsonStruct[c]) { ecart(`site de fouille « ${cle} »`, 'attendu', 'introuvable', c); }
+}
+let structVerifs = 0, structManquants = [];
+for (const cle in STRUCT_ID) {
+  const chemin = `data/minecraft/loot_table/chests/${STRUCT_ID[cle]}.json`;
+  if (jsonStruct[chemin]) { structVerifs++; }
+  else { structManquants.push(STRUCT_ID[cle]); }
+}
+console.log(`    ${structVerifs} tables de coffre trouvées`);
+if (structManquants.length) {
+  ecart('tables de coffre introuvables', 'attendues par le contrôle',
+    structManquants.join(', '), 'loot_table/chests/');
+}
+
+/* ============================================================
+   8. Métiers de villageois : les blocs de métier existent
+   ============================================================ */
+console.log('\n[8] Métiers');
+
+const METIER_BLOC = {
+  'Bibliothécaire': 'lectern', 'Fermier': 'composter', 'Armurier': 'blast_furnace',
+  'Forgeron d\'outils': 'smithing_table', 'Forgeron d\'armes': 'grindstone',
+  'Clerc (prêtre)': 'brewing_stand', 'Cartographe': 'cartography_table',
+  'Fléchier': 'fletching_table', 'Berger': 'loom', 'Boucher': 'smoker',
+  'Pêcheur': 'barrel', 'Tanneur': 'cauldron', 'Maçon': 'stonecutter'
+};
+const idsBloc = Object.values(METIER_BLOC);
+const jsonBloc = lireJson(jar, idsBloc.map(i => `data/minecraft/loot_table/blocks/${i}.json`));
+let metVerifs = 0;
+for (const m of (typeof METIERS !== 'undefined' ? METIERS : [])) {
+  const bloc = METIER_BLOC[m.nom];
+  if (!bloc) { continue; }
+  metVerifs++;
+  if (!jsonBloc[`data/minecraft/loot_table/blocks/${bloc}.json`]) {
+    ecart(`métier « ${m.nom} » : bloc de métier`,
+      bloc, 'ce bloc n\'existe pas dans cette version', `loot_table/blocks/${bloc}.json`);
+  }
+}
+console.log(`    ${metVerifs} blocs de métier contrôlés`);
+
+/* ============================================================
+   9. Succès : les noms anglais cités existent-ils ?
+   ============================================================ */
+console.log('\n[9] Succès');
+
+const tousSucces = new Set(
+  lister(jar, '^data/minecraft/advancement/(story|nether|end|adventure|husbandry)/[a-z_]+[.]json$')
+    .map(p => p.replace(/.*\//, '').replace('.json', ''))
+);
+let succVerifs = 0, succInconnus = [];
+for (const s of (typeof ADVANCEMENTS !== 'undefined' ? ADVANCEMENTS : [])) {
+  /* le guide écrit « Nom français (English Name) » */
+  const m = s.nom.match(/\(([^)]+)\)\s*$/);
+  if (!m) { continue; }
+  succVerifs++;
+  const id = m[1].toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+  /* on cherche une correspondance approchée : les identifiants ne
+     reprennent pas toujours le titre affiché */
+  let trouve = tousSucces.has(id);
+  if (!trouve) {
+    for (const cand of tousSucces) {
+      if (cand.includes(id) || id.includes(cand)) { trouve = true; break; }
+    }
+  }
+  if (!trouve) { succInconnus.push(m[1]); }
+}
+console.log(`    ${succVerifs} succès contrôlés, ${tousSucces.size} succès dans le jeu`);
+if (succInconnus.length) {
+  console.log(`    ${succInconnus.length} nom(s) sans correspondance directe d'identifiant :`);
+  console.log('      ' + succInconnus.slice(0, 10).join(' · ') + (succInconnus.length > 10 ? ' …' : ''));
+  console.log('      (les titres affichés diffèrent souvent des identifiants : à vérifier au cas par cas,');
+  console.log('       ce n\'est pas nécessairement une erreur)');
+}
+
 /* ============================================================ */
 console.log('\n' + '─'.repeat(60));
 if (ecarts) {

@@ -560,9 +560,10 @@ var ADVANCEMENTS = [
   {
     nom: 'Couvert de diamants (Cover Me with Diamonds)', cat: 'surworld',
     tags: [{ txt: 'Onglet Minecraft', cls: 'ok' }, { txt: 'Moyen', cls: 'gold' }],
-    ou: 'Porter simultanément casque, plastron, jambières et bottes en diamant.',
+    ou: 'Obtenir UNE seule pièce d\'armure en diamant — le succès se valide sur n\'importe laquelle des quatre, et il n\'est même pas nécessaire de la porter.',
     drops: [
-      'Prérequis — 24 diamants au total (5 + 8 + 7 + 4)',
+      'Prérequis réel — 4 diamants pour une paire de bottes, la pièce la moins chère. Pas 24 comme le laisse croire le nom du succès',
+      'Les quatre pièces figurent dans un même groupe de conditions : c\'est un OU, pas un ET',
       'Économie — passez par un commerce : un armurier villageois de haut niveau vend des pièces en diamant enchantées contre des émeraudes',
       'Ordre conseillé — plastron puis jambières d\'abord : ce sont les deux pièces qui absorbent le plus de dégâts',
       'Piège — la pomme d\'or enchantée ne remplace pas l\'armure : sans Inébranlable, une armure en diamant s\'use vite'
@@ -914,7 +915,7 @@ var ADVANCEMENTS = [
       'Astuce — visez légèrement au-dessus de la cible : la flèche décrit un arc sur cette distance',
       'Attention — un squelette qui meurt du soleil ou d\'une chute ne compte pas : le coup fatal doit venir de votre flèche'
     ],
-    note: 'Le plus simple est de construire une plateforme au-dessus d\'une ferme à monstres et de tirer sur les squelettes en contrebas : la distance verticale compte, et vous avez des cibles en continu sans les chercher.'
+    note: 'Seule la distance HORIZONTALE est mesurée : tirer du haut d\'une tour sur une cible en contrebas ne validera jamais le succès, quelle que soit la hauteur. Il faut 50 blocs de distance au sol — un désert plat de nuit est le terrain idéal.'
   },
   {
     nom: 'Arbalistique (Arbalistic)', cat: 'aventure',
@@ -989,7 +990,8 @@ var ADVANCEMENTS = [
     drops: [
       'Boss inclus — dragon de l\'End, Wither et gardien ancien font partie de la liste',
       'Les plus oubliés — endermite (5 % de chance à chaque perle de l\'Ender lancée), zoglin (un hoglin ramené dans le Surworld), phantom (trois nuits sans dormir), évocateur et vindicateur (manoir des bois ou raid)',
-      'Les plus rares — warden (cité antique), poisson d\'argent (blocs infestés d\'une forteresse ou d\'une montagne), creaking (bois pâle)',
+      'Le WARDEN N\'EN FAIT PAS PARTIE — les 41 créatures exigées ne l\'incluent pas. Inutile d\'affronter une cité antique pour ce succès',
+      'Les plus rares — poisson d\'argent (blocs infestés d\'une forteresse ou d\'une montagne), creaking (bois pâle)',
       'Nether — piglin brute, hoglin, blaze, ghast, cube de magma, squelette wither, piglin zombifié',
       'Océan — gardien, gardien ancien, noyé ; les variantes de squelettes (stray, bogged) et de zombies (husk) comptent séparément',
       'Chaque version ajoute des créatures : vérifiez la liste dans l\'onglet du jeu, elle affiche précisément ce qui manque'
@@ -1093,8 +1095,10 @@ var ADVANCEMENTS = [
   {
     nom: 'Tu as un ami en moi (You\'ve Got a Friend in Me)', cat: 'elevage',
     tags: [{ txt: 'Onglet Élevage', cls: 'ok' }, { txt: 'Technique', cls: 'gold' }],
-    ou: 'Dupliquer un allay.',
+    ou: 'Recevoir un objet rapporté par un allay — le succès ne demande PAS de le dupliquer, contrairement à ce qu\'on lit souvent.',
     drops: [
+      'Condition réelle — un allay vous remet en main un objet qu\'il a ramassé. C\'est tout',
+      'Aucun succès du jeu ne récompense la duplication d\'un allay',
       'Où trouver un allay — en cage dans un avant-poste de pillards ou dans une salle du manoir des bois',
       'Prérequis — un juke-box en train de jouer un disque, et un éclat d\'améthyste',
       'Méthode — l\'allay doit danser près du juke-box ; donnez-lui alors l\'éclat d\'améthyste : il se dédouble',
