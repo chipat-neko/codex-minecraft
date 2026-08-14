@@ -25,9 +25,10 @@ Trois règles pratiques, apprises à leurs dépens :
 2. **Un faux positif coûte plus cher qu'un oubli.** Un outil de vérification qui crie au loup
    finit par être ignoré, et c'est alors qu'il laisse passer les vrais écarts. Quand une donnée
    n'est pas déterminable, il vaut mieux l'écrire « inconnue » que de la deviner.
-3. **Certaines valeurs ne sont pas dans les données** : dégâts, durabilité, vitesses et durées
-   d'effet sont codés en Java. Le guide les décrit alors qualitativement et le dit explicitement,
-   plutôt que d'avancer un chiffre invérifiable.
+3. **Certaines valeurs ne sont pas dans les données** : dégâts, durabilité, vitesses et recettes
+   de brassage sont codés en Java. Elles restent lisibles — le `.jar` n'est pas obfusqué et
+   `tools/classe.js` désassemble les classes concernées — mais cette voie est plus fragile qu'un
+   JSON. Ce qui n'est déterminable ni par l'un ni par l'autre s'écrit « inconnu », jamais deviné.
 
 ```
 node tools/verifier-jeu.js    # compare le guide au .jar installé
@@ -82,7 +83,7 @@ parcours.html          Parcours guidé — 24 étapes ordonnées, 16 jalons
 mecaniques.html        32 mécaniques de fond, 24 constantes, 16 erreurs courantes
 drops.html             101 fiches de drops + table des minerais + troc piglin
 craft.html             129 recettes avec grille 3×3 dessinée
-potions.html           18 potions, toute la chaîne de brassage
+potions.html           21 potions, toute la chaîne de brassage
 enchantements.html     33 enchantements, optimisation de l'enclume
 redstone.html          10 composants, 13 circuits, dépannage
 villageois.html        14 métiers, commerce, remise permanente par soin
@@ -117,7 +118,10 @@ tools/
   png.js               Décodeur PNG minimal (couleur moyenne d'une texture)
   valider.js           Validation complète : données, rendus, pages, encodage
   verifier-jeu.js      Compare le contenu aux données réelles du .jar
-  jar.js               Lecture du .jar (liste et extrait des entrées)
+  jar.js               Lecture du .jar en texte, via PowerShell (JSON, listes)
+  zip.js               Lecture du .jar en binaire, en Node pur (fichiers .class)
+  classe.js            Désassemble une classe Java : constantes et instructions
+  brassage.js          Recettes de brassage et durées d'effet, lues dans le code
   indexer.js           Construit l'index de la recherche globale
   generer-textures.js  Produit les textures originales publiables
   png-encode.js        Encodeur PNG minimal (pour le générateur)
@@ -149,6 +153,7 @@ les écarts, en citant à chaque fois le fichier JSON du `.jar` qui fait foi :
 - **objets cités dans le butin des mobs**
 - **recettes de brassage et durées des potions** (lues dans le bytecode)
 - **contenu des coffres de structure**, objet par objet
+- **incompatibilités entre enchantements** (tags `exclusive_set`)
 
 À relancer après chaque mise à jour du jeu : c'est ce qui permet de rattraper
 une recette modifiée ou un butin déplacé sans tout relire.

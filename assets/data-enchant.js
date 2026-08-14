@@ -49,7 +49,7 @@ var ENCHANTS = [
     ou: 'Épée et hache.',
     drops: [
       '+1 dégât au niveau I, puis +0,5 par niveau supplémentaire (soit +3 au niveau V)',
-      'Incompatible avec Châtiment et Fléau des arthropodes'
+      'Incompatible avec Châtiment, Fléau des arthropodes, Empalement, Densité et Brèche : tous les enchantements de dégâts s\'excluent entre eux'
     ],
     note: 'Le choix par défaut : il fonctionne sur tout. Les enchantements spécialisés frappent plus fort mais seulement sur une famille de mobs.'
   },
@@ -59,7 +59,8 @@ var ENCHANTS = [
     ou: 'Épée et hache.',
     drops: [
       '+2,5 dégâts par niveau contre les morts-vivants : zombies, squelettes, noyés, momifiés, vagabonds, phantoms, wither, piglins zombifiés',
-      'Aucun effet sur les autres mobs'
+      'Aucun effet sur les autres mobs',
+      'Incompatible avec Tranchant, Fléau des arthropodes, Empalement, Densité et Brèche'
     ],
     note: 'Une épée dédiée « anti-mort-vivant » avec Châtiment V est le meilleur outil pour vider une ferme à zombies ou affronter le Wither.'
   },
@@ -69,7 +70,8 @@ var ENCHANTS = [
     ou: 'Épée et hache.',
     drops: [
       '+2,5 dégâts par niveau contre araignées, araignées venimeuses, poissons d\'argent, endermites, abeilles',
-      'Applique aussi une Lenteur IV de 1 à 1,5 s'
+      'Applique aussi une Lenteur IV : 1,5 s au niveau I, puis 0,5 s de plus par niveau, soit 3,5 s au niveau V',
+      'Incompatible avec Tranchant, Châtiment, Empalement, Densité et Brèche'
     ],
     note: 'Très situationnel. Utile surtout pour nettoyer une mine abandonnée pleine de générateurs d\'araignées venimeuses.'
   },
@@ -220,7 +222,8 @@ var ENCHANTS = [
     ou: 'Toutes les pièces d\'armure.',
     drops: [
       'Réduit tous les types de dégâts (sauf la faim et le vide)',
-      'Incompatible avec les protections spécialisées (feu, explosion, projectile) sur une même pièce'
+      '1 point de protection par niveau, soit 4 au niveau IV',
+      'Incompatible sur une même pièce avec Protection contre le feu, Protection contre les explosions et Protection contre les projectiles'
     ],
     note: 'Protection IV sur les 4 pièces couvre 95 % des situations. Les protections spécialisées ne valent le coup que sur une armure dédiée (Nether, raid).'
   },
@@ -229,7 +232,8 @@ var ENCHANTS = [
     tags: [{ txt: 'Niveau max IV', cls: '' }],
     ou: 'Toutes les pièces d\'armure.',
     drops: [
-      'Protection contre le feu : lave, feu, boules de feu de blaze et de ghast',
+      '2 points de protection par niveau, soit 8 au niveau IV : DEUX FOIS ce que donne Protection IV, mais seulement contre leur type de dégâts',
+      'Protection contre le feu : lave, feu, boules de feu de blaze et de ghast. Réduit en plus la durée de combustion de 15 % par niveau, soit 60 % au niveau IV',
       'Protection contre les explosions : creepers, TNT, lits dans le Nether',
       'Protection contre les projectiles : flèches, tirs de pillards, boules de feu'
     ],
@@ -299,6 +303,8 @@ var ENCHANTS = [
     ou: 'Lance (spear) — l\'arme d\'hast introduite avec cette version.',
     drops: [
       'Enchantement propre aux lances, obtenable à la table d\'enchantement',
+      'Vous propulse vers l\'avant après une attaque perforante réussie : c\'est un enchantement de déplacement, pas de dégâts',
+      'Coûte 4 points d\'épuisement par niveau (12 au niveau III) et 1 point de durabilité à chaque déclenchement : mangez avant de l\'utiliser en série',
       'Les lances acceptent aussi Tranchant, Châtiment, Fléau des arthropodes, Butin, Recul et Aura de feu'
     ],
     note: 'La lance frappe plus loin que l\'épée mais plus lentement : elle demande de jouer sur la portée plutôt que sur la cadence.'

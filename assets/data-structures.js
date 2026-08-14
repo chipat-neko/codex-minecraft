@@ -263,7 +263,7 @@ var STRUCTURES_DETAIL = [
     tags: [{ txt: 'Deep Dark', cls: 'purple' }, { txt: 'Warden', cls: 'red' }, { txt: 'Butin unique', cls: 'gold' }],
     ou: 'Uniquement dans le biome Deep Dark, autour de Y -52, sous les massifs montagneux et les hauts plateaux. Immense complexe de pierre des profondeurs recouvert de sculk, avec un monument central en pierre des profondeurs renforcée.',
     drops: [
-      'Coffres — livres enchantés dont Marche silencieuse (Swift Sneak), introuvable ailleurs, éclats d\'écho, fragments de disque « 5 », pommes d\'or enchantées, jambières en fer et en diamant enchantées, houe en diamant enchantée, armure de cheval en diamant, disques « 13 », « Cat » et « Otherside »',
+      'Coffres — livres enchantés dont Furtivité rapide (Swift Sneak), introuvable ailleurs, éclats d\'écho, fragments de disque « 5 », pommes d\'or enchantées, jambières en fer et en diamant enchantées, houe en diamant enchantée, armure de cheval en diamant, disques « 13 », « Cat » et « Otherside »',
       'Ne comptez pas y trouver de diamants bruts : la table n\'en contient aucun, uniquement des objets déjà taillés',
       'Modèles de forge « gardien » et « silence » — deux motifs exclusifs, le « silence » étant l\'un des plus rares du jeu',
       'Éclats d\'écho — les 8 éclats nécessaires à la boussole de récupération ne se trouvent QUE dans ces coffres',
@@ -959,7 +959,7 @@ var ADVANCEMENTS = [
       'Méthode — posez le capteur, accroupissez-vous et déplacez-vous lentement à moins de 8 blocs : aucune vibration ne doit se déclencher',
       'Piège — jeter un objet, poser un bloc ou frapper émet une vibration même accroupi'
     ],
-    note: 'L\'enchantement Marche silencieuse (Swift Sneak), trouvable uniquement dans les coffres des cités antiques, supprime la lenteur de l\'accroupissement : c\'est lui, plus que le succès, qui rend le Deep Dark praticable.'
+    note: 'L\'enchantement Furtivité rapide (Swift Sneak), trouvable uniquement dans les coffres des cités antiques, supprime la lenteur de l\'accroupissement : c\'est lui, plus que le succès, qui rend le Deep Dark praticable.'
   },
   {
     nom: 'Sous clé (Under Lock and Key) / Coffre-fort sinistre (Revaulting)', cat: 'aventure',

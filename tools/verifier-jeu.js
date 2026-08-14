@@ -545,6 +545,129 @@ if (succInconnus.length) {
 }
 
 /* ============================================================
+   11. Enchantements : incompatibilités
+
+   Chaque enchantement peut déclarer un `exclusive_set`, qui pointe
+   vers un tag listant ceux avec lesquels il ne se cumule pas. Le
+   guide écrit ces incompatibilités en toutes lettres : on compare.
+
+   L'exclusion est symétrique en jeu même quand elle n'est déclarée
+   que d'un côté (Impulsion cite Loyauté, l'inverse n'est pas écrit) :
+   on reconstruit donc les deux sens avant de comparer.
+   ============================================================ */
+console.log('\n[11] Enchantements — incompatibilités');
+
+/* Fiche du guide -> identifiants concernés. Une fiche peut en
+   regrouper plusieurs quand ils se jouent ensemble. */
+const FICHE_ENCH = {
+  'Tranchant V (Sharpness)': ['sharpness'], 'Châtiment V (Smite)': ['smite'],
+  'Fléau des arthropodes V': ['bane_of_arthropods'], 'Fortune III': ['fortune'],
+  'Toucher de soie': ['silk_touch'], 'Infinité': ['infinity'],
+  'Raccommodage (Mending)': ['mending'], 'Protection IV': ['protection'],
+  'Agilité aquatique III (Depth Strider)': ['depth_strider'],
+  'Efficacité V': ['efficiency'], 'Butin III (Looting)': ['looting'],
+  'Puissance V (Power)': ['power'], 'Solidité III (Unbreaking)': ['unbreaking'],
+  'Épines III (Thorns)': ['thorns'], 'Aura de feu II (Fire Aspect)': ['fire_aspect'],
+  'Semelles givrantes II (Frost Walker)': ['frost_walker']
+};
+
+const jsonExclu = lireJson(jar, [...new Set([].concat(...Object.values(FICHE_ENCH)))]
+  .map(i => `data/minecraft/enchantment/${i}.json`));
+
+/* Résolution des tags d'exclusion. */
+const tagsEnch = lister(jar, '^data/minecraft/tags/enchantment/exclusive_set/[a-z_]+[.]json$');
+const jsonTags = lireJson(jar, tagsEnch);
+const membresDuGroupe = {};
+for (const t in jsonTags) {
+  const nom = t.replace('data/minecraft/tags/enchantment/', '').replace('.json', '');
+  membresDuGroupe[nom] = ((jsonTags[t] || {}).values || [])
+    .map(v => String(v).replace('minecraft:', ''));
+}
+
+/* Qui est incompatible avec quoi, dans les deux sens. */
+const incompatibles = {};
+const ajouter = (a, b) => {
+  if (a === b) { return; }
+  (incompatibles[a] = incompatibles[a] || new Set()).add(b);
+  (incompatibles[b] = incompatibles[b] || new Set()).add(a);
+};
+for (const chemin in jsonExclu) {
+  const e = jsonExclu[chemin];
+  if (!e || !e.exclusive_set) { continue; }
+  const id = chemin.replace(/.*\//, '').replace('.json', '');
+  const ref = String(e.exclusive_set);
+  const membres = ref.startsWith('#')
+    ? (membresDuGroupe[ref.replace('#minecraft:', '')] || [])
+    : [ref.replace('minecraft:', '')];
+  membres.forEach(m => ajouter(id, m));
+}
+
+/* Nom français officiel -> identifiant, pour lire les fiches. */
+/* Nom français officiel -> identifiant, pour lire les fiches.
+   Les 43 enchantements du jeu y figurent : sans cela, le contrôle ne
+   verrait pas une incompatibilité inventée avec un nom absent de la
+   table. Triés du libellé le plus long au plus court, pour que
+   « Protection contre le feu » l'emporte sur « Protection ». */
+const NOM_ENCH = {
+  'protection contre les projectiles': 'projectile_protection', 'protection contre les explosions': 'blast_protection',
+  'malédiction du lien éternel': 'binding_curse', 'malédiction de disparition': 'vanishing_curse',
+  'protection contre le feu': 'fire_protection', 'fléau des arthropodes': 'bane_of_arthropods',
+  'affinité aquatique': 'aqua_affinity', 'semelles givrantes': 'frost_walker',
+  'agilité aquatique': 'depth_strider', 'chance de la mer': 'luck_of_the_sea',
+  'agilité des âmes': 'soul_speed', 'furtivité rapide': 'swift_sneak',
+  'toucher de soie': 'silk_touch', 'rafale de vent': 'wind_burst',
+  'chute amortie': 'feather_falling', 'charge rapide': 'quick_charge',
+  'canalisation': 'channeling', 'raccommodage': 'mending',
+  'tir multiple': 'multishot', 'aura de feu': 'fire_aspect',
+  'perforation': 'piercing', 'efficacité': 'efficiency',
+  'empalement': 'impaling', 'protection': 'protection',
+  'puissance': 'power', 'impulsion': 'riptide',
+  'tranchant': 'sharpness', 'châtiment': 'smite',
+  'infinité': 'infinity', 'affilage': 'sweeping_edge',
+  'solidité': 'unbreaking', 'densité': 'density',
+  'fortune': 'fortune', 'loyauté': 'loyalty',
+  'brèche': 'breach', 'flamme': 'flame',
+  'frappe': 'punch', 'épines': 'thorns',
+  'recul': 'knockback', 'butin': 'looting',
+  'appât': 'lure', 'apnée': 'respiration',
+  'élan': 'lunge'
+};
+
+let enchVerifs = 0;
+for (const [nomFiche, ids] of Object.entries(FICHE_ENCH)) {
+  const fiche = (typeof ENCHANTS !== 'undefined' ? ENCHANTS : []).find(e => e.nom === nomFiche);
+  if (!fiche) { continue; }
+  /* « Incompatible avec X » mais aussi « Incompatible sur une même
+     pièce avec X » : on ne suppose rien de la tournure. */
+  const ligne = (fiche.drops || []).find(d => /incompatible/i.test(d));
+  if (!ligne) { continue; }
+
+  /* ce que le guide annonce, une fois la phrase réduite aux noms */
+  const dit = new Set();
+  for (const [lib, id] of Object.entries(NOM_ENCH)) {
+    if (new RegExp('\\b' + lib.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i').test(ligne)) { dit.add(id); }
+  }
+  for (const id of ids) {
+    const reel = incompatibles[id] || new Set();
+    dit.delete(id);
+    enchVerifs++;
+
+    const enTrop = [...dit].filter(x => !reel.has(x));
+    const oublies = [...reel].filter(x => !dit.has(x));
+    if (enTrop.length) {
+      ecart(`${nomFiche} : incompatibilité annoncée à tort`,
+        enTrop.join(', '), 'cumulable en jeu', `enchantment/${id}.json`);
+    }
+    if (oublies.length) {
+      ecart(`${nomFiche} : incompatibilité non signalée`,
+        'rien pour ' + oublies.join(', '), 'ne se cumulent pas', `enchantment/${id}.json`);
+    }
+  }
+}
+console.log(`    ${enchVerifs} fiches contrôlées, ${Object.keys(membresDuGroupe).length} groupes d'exclusion lus`);
+verifs += enchVerifs;
+
+/* ============================================================
    10. Potions : ingrédient et durées
 
    Le brassage n'existe sous aucune forme JSON : il est construit en
