@@ -34,6 +34,7 @@ const dispo = n => typeof global[n] !== 'undefined' ? global[n] : null;
 
 /* page, libellé de catégorie, liste, et si les entrées ont une ancre */
 const SOURCES = [
+  ['mecaniques.html', 'Mécanique', dispo('MECANIQUES_JEU'), false],
   ['drops.html', 'Drops', dispo('DROPS'), false],
   ['craft.html', 'Recette', dispo('RECETTES'), false],
   ['potions.html', 'Potion', dispo('POTIONS'), false],

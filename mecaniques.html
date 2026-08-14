@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mécaniques du jeu — Codex Minecraft</title>
+<meta name="description" content="Les mécaniques de fond de Minecraft Java : faim et saturation, délai d'attaque, niveau de lumière, distances d'apparition, ticks, expérience.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-cube"></span>
+      <span>Codex Minecraft<small>Java Edition</small></span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="mecaniques.html">Mécaniques</a>
+      <a href="drops.html">Drops</a>
+      <a href="craft.html">Artisanat</a>
+      <a href="potions.html">Potions</a>
+      <a href="enchantements.html">Enchant.</a>
+      <a href="redstone.html">Redstone</a>
+      <a href="villageois.html">Villageois</a>
+      <a href="biomes.html">Biomes</a>
+      <a href="structures.html">Structures</a>
+      <a href="blocs.html">Blocs</a>
+      <a href="succes.html">Succès</a>
+      <a href="plans.html">Plans</a>
+      <a href="usines.html">Usines</a>
+    </nav>
+    <button id="rg-btn" class="icon-btn" title="Rechercher sur tout le site (Ctrl+K)" aria-label="Recherche globale">🔍</button>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Catalogue 1 / 13</span>
+    <h1>Mécaniques du jeu</h1>
+    <p>Les règles de fond qui expliquent tout le reste : pourquoi une ferme fonctionne ou non,
+      pourquoi frapper vite fait <b>moins</b> de dégâts, pourquoi le steak vaut mieux que le pain.
+      C'est le socle sur lequel reposent les onze autres catalogues.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <input id="q" class="search" type="search" placeholder="Rechercher une mécanique…  ( / )" autocomplete="off">
+      <span id="count" class="count"></span>
+    </div>
+    <div class="toolbar-row" id="chips" style="margin-top:10px">
+      <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="fav">★ Favoris</button>
+      <button class="chip" data-cat="survie">Survie</button>
+      <button class="chip" data-cat="combat">Combat</button>
+      <button class="chip" data-cat="monde">Monde</button>
+      <button class="chip" data-cat="progression">Progression</button>
+      <button class="chip" data-cat="technique">Technique</button>
+    </div>
+  </div>
+
+  <section class="print-host" style="margin-bottom:20px">
+    <div id="liste" class="grid g2"></div>
+    <div id="vide" class="empty" style="display:none">Aucune mécanique trouvée. Essayez « faim », « lumière », « tick », « armure »…</div>
+  </section>
+
+  <hr>
+
+  <section id="reperes">
+    <h2>Les constantes à connaître par cœur</h2>
+    <p class="lead">Ces valeurs reviennent en permanence. Les connaître évite la moitié des erreurs
+      de conception d'une ferme ou d'une base.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Règle</th><th>Valeur</th><th>Pourquoi ça compte en jeu</th></tr></thead>
+        <tbody id="tbl-reperes"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="erreurs">
+    <h2>Erreurs courantes</h2>
+    <p class="lead">Des réflexes très répandus, et pourtant contre-productifs.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Ce que font beaucoup de joueurs</th><th>Pourquoi c'est contre-productif</th><th>À faire à la place</th></tr></thead>
+        <tbody id="tbl-erreurs"></tbody>
+      </table>
+    </div>
+    <div class="callout info">
+      <b>Sur la précision des chiffres</b> — les valeurs de cette page proviennent des mécaniques
+      documentées du jeu. Quelques données (dégâts par seconde du feu, distance de détection selon
+      les mobs, chance de désactivation d'un bouclier) ne sont pas exposées dans les fichiers de
+      données du jeu : elles sont décrites qualitativement plutôt qu'avec un chiffre incertain.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Codex Minecraft — guide de référence non officiel.</div>
+</footer>
+
+<script src="assets/index-global.js"></script>
+<script src="assets/couleurs.js"></script>
+<script src="assets/textures-libres/index.js"></script>
+<script src="assets/textures/index.js" onerror="void 0"></script>
+<script src="assets/core.js"></script>
+<script src="assets/data-mecaniques.js"></script>
+<script>
+(function () {
+  var liste = document.getElementById('liste');
+  for (var i = 0; i < MECANIQUES_JEU.length; i++) { liste.appendChild(renderEntry(MECANIQUES_JEU[i])); }
+  fillTable('tbl-reperes', REPERES_CHIFFRES);
+  fillTable('tbl-erreurs', ERREURS_COURANTES);
+  setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
+}());
+</script>
+</body>
+</html>
