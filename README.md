@@ -77,6 +77,11 @@ tools/
   texture-map.js       Correspondance clés du site → noms de textures du jeu
   png.js               Décodeur PNG minimal (couleur moyenne d'une texture)
   valider.js           Validation complète : données, rendus, pages, encodage
+  verifier-jeu.js      Compare le contenu aux données réelles du .jar
+  jar.js               Lecture du .jar (liste et extrait des entrées)
+  indexer.js           Construit l'index de la recherche globale
+  generer-textures.js  Produit les textures originales publiables
+  png-encode.js        Encodeur PNG minimal (pour le générateur)
 ```
 
 ## Après avoir ajouté du contenu
@@ -88,6 +93,31 @@ node tools/valider.js      # contrôle tout le site
 
 L'index de recherche n'est pas régénéré automatiquement : sans cette commande,
 les nouvelles entrées restent introuvables depuis <kbd>Ctrl</kbd>+<kbd>K</kbd>.
+
+## Vérifier le contenu contre le jeu
+
+```
+node tools/verifier-jeu.js
+```
+
+Compare le guide aux données réelles de votre installation Minecraft et signale
+les écarts, en citant à chaque fois le fichier JSON du `.jar` qui fait foi :
+
+- **niveaux maximaux des enchantements** (`data/minecraft/enchantment/`)
+- **recettes** : existence, quantité produite, nombre de lignes du motif
+- **outil requis par chaque minerai** (tags `needs_*_tool`)
+- **table de troc des piglins**
+- **objets cités dans le butin des mobs**
+
+À relancer après chaque mise à jour du jeu : c'est ce qui permet de rattraper
+une recette modifiée ou un butin déplacé sans tout relire.
+
+Une limite connue, volontairement gérée : certains objets ne figurent dans
+aucune table de butin parce qu'ils sont **portés** par le mob et lâchés par le
+mécanisme d'équipement — le trident et le coquillage nautile du noyé, par
+exemple. Les signaler produirait de faux écarts, ils sont donc exclus du
+contrôle. Toute correction proposée par l'outil doit être relue dans le JSON
+cité avant d'être appliquée.
 
 ## Vérifier le site
 
