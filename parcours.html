@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parcours guidé — Codex Minecraft</title>
+<meta name="description" content="Les étapes d'une partie de Minecraft Java dans l'ordre : première nuit, fer, diamant, Nether, End, industrialisation — avec un objectif vérifiable à chaque étape.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-cube"></span>
+      <span>Codex Minecraft<small>Java Edition</small></span>
+    </a>
+    <nav class="nav"></nav>
+    <button id="rg-btn" class="icon-btn" title="Rechercher sur tout le site (Ctrl+K)" aria-label="Recherche globale">🔍</button>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Parcours</span>
+    <h1>Par où commencer, et dans quel ordre</h1>
+    <p>Le reste du site est un ouvrage de référence : on y cherche un sujet. Cette page est un
+      <b>parcours</b> : 24 étapes dans l'ordre réel d'une partie, chacune avec un
+      <b>objectif vérifiable</b> et des liens vers les fiches à consulter au bon moment.</p>
+    <p>Chaque étape distingue ce qui est <b>bloquant</b> de ce qui est optionnel, et signale le
+      raccourci quand il en existe un.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <input id="q" class="search" type="search" placeholder="Rechercher une étape…  ( / )" autocomplete="off">
+      <span id="count" class="count"></span>
+    </div>
+    <div class="toolbar-row" id="chips" style="margin-top:10px">
+      <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="fav">★ Favoris</button>
+      <button class="chip" data-cat="debut">Premiers jours</button>
+      <button class="chip" data-cat="installation">S'installer</button>
+      <button class="chip" data-cat="equipement">Diamant &amp; enchantement</button>
+      <button class="chip" data-cat="nether">Nether</button>
+      <button class="chip" data-cat="end">End</button>
+      <button class="chip" data-cat="industrie">Industrialiser</button>
+    </div>
+  </div>
+
+  <section class="print-host" style="margin-bottom:20px">
+    <div class="layout-toc">
+      <aside id="toc" class="toc-side"></aside>
+      <div>
+        <div id="liste" class="grid g2"></div>
+        <div id="vide" class="empty" style="display:none">Aucune étape trouvée. Essayez « lit », « diamant », « portail », « élytre »…</div>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="jalons">
+    <h2>Les jalons</h2>
+    <p class="lead">Seize repères qui découpent une partie. Si vous ne savez pas où vous en êtes,
+      cherchez le dernier que vous avez franchi.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Jalon</th><th>Comment savoir qu'il est franchi</th><th>Ce qu'il débloque</th></tr></thead>
+        <tbody id="tbl-jalons"></tbody>
+      </table>
+    </div>
+    <div class="callout tip">
+      <b>Le seul ordre qui compte vraiment</b> — lit, puis fer, puis diamant, puis Nether, puis End.
+      Tout le reste peut se faire quand vous voulez. Beaucoup de joueurs bloquent parce qu'ils
+      industrialisent avant d'avoir un équipement correct : les fermes coûtent du fer, et le fer
+      demande de survivre confortablement.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Codex Minecraft — guide de référence non officiel.</div>
+</footer>
+
+<script src="assets/index-global.js"></script>
+<script src="assets/couleurs.js"></script>
+<script src="assets/textures-libres/index.js"></script>
+<script src="assets/textures/index.js" onerror="void 0"></script>
+<script src="assets/core.js"></script>
+<script src="assets/data-parcours.js"></script>
+<script>
+(function () {
+  var liste = document.getElementById('liste');
+  for (var i = 0; i < PARCOURS.length; i++) {
+    /* seules ces fiches contiennent des liens dans leurs puces */
+    PARCOURS[i].html = true;
+    liste.appendChild(renderEntry(PARCOURS[i]));
+  }
+  buildToc('toc', PARCOURS, GROUPES_PARCOURS);
+  fillTable('tbl-jalons', JALONS);
+  setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
+
+  if (location.hash) {
+    var t = document.getElementById(location.hash.slice(1));
+    if (t) { t.scrollIntoView(); }
+  }
+}());
+</script>
+</body>
+</html>

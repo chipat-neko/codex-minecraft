@@ -156,10 +156,11 @@ for (const p of PAGES) {
   for (const m of html.matchAll(/href="(?:plans|usines|redstone)\.html#([a-z0-9-]+)"/g)) {
     if (!ids.has(m[1])) { err(`${p} : ancre inexistante #${m[1]}`); }
   }
-  for (const autre of PAGES) {
-    if (autre !== p && !html.includes(`href="${autre}"`)) { err(`${p} : lien de nav manquant vers ${autre}`); }
-  }
+  /* la barre de navigation est construite par core.js : le HTML ne
+     contient plus qu'un conteneur vide, c'est voulu */
+  if (!/<nav class="nav"><\/nav>/.test(html)) { err(`${p} : conteneur de navigation absent ou non vide`); }
   if (!html.includes('id="theme-btn"')) { err(`${p} : bouton de thème absent`); }
+  if (!html.includes('id="rg-btn"')) { err(`${p} : bouton de recherche globale absent`); }
   if (!html.includes('assets/couleurs.js')) { err(`${p} : couleurs du jeu non chargées`); }
   if (html.includes('setupFilter')) {
     for (const id of ['q', 'chips', 'count', 'vide', 'liste']) {
@@ -176,6 +177,23 @@ for (const p of PAGES) {
     const reelles = new Set(src.map(x => x.cat));
     for (const c of chips) { if (!reelles.has(c)) { err(`${p} : filtre "${c}" sans donnée`); } }
     for (const c of reelles) { if (!chips.has(c)) { err(`${p} : catégorie "${c}" sans filtre`); } }
+  }
+}
+
+/* --- 6 bis. la navigation couvre-t-elle toutes les pages ? --- */
+{
+  const core = fs.readFileSync(A('core.js'), 'utf8');
+  const cites = new Set();
+  const bloc = core.match(/var NAVIGATION = \[[\s\S]*?\n\];/);
+  if (!bloc) { err('core.js : NAVIGATION introuvable'); }
+  else {
+    for (const m of bloc[0].matchAll(/'([a-z-]+\.html)'/g)) { cites.add(m[1]); }
+    for (const p of PAGES) {
+      if (!cites.has(p)) { err(`navigation : ${p} n'est dans aucun groupe de NAVIGATION`); }
+    }
+    for (const c of cites) {
+      if (!PAGES.includes(c)) { err(`navigation : ${c} est cité mais la page n'existe pas`); }
+    }
   }
 }
 

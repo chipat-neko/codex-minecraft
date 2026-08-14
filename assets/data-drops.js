@@ -161,11 +161,12 @@ var DROPS = [
     tags: [{ txt: 'Avant-postes / raids', cls: 'red' }, { txt: '5 XP', cls: 'gold' }],
     ou: 'Avant-postes de pillards, patrouilles aléatoires en surface, vagues de raid.',
     drops: [
+      'Fiole funeste (100 %) — capitaine uniquement, celui qui porte la bannière ; c\'est le seul butin de sa table',
       'Arbalète (8,5 %) — parfois enchantée',
       'Flèches (uniquement celles chargées dans l\'arbalète)',
       'Butin de raid : émeraudes, objets de vague (uniquement pendant un raid)'
     ],
-    note: 'Tuer un capitaine (celui qui porte la bannière) donne « Mauvais présage » : entrer dans un village déclenche alors un raid.'
+    note: 'Tuer un capitaine (celui qui porte la bannière) fait tomber une FIOLE FUNESTE : l\'effet « Mauvais présage » ne s\'applique plus tout seul, il faut boire la fiole avant d\'entrer dans un village pour déclencher un raid.'
   },
   {
     nom: 'Vindicateur', cat: 'hostile',
@@ -212,7 +213,7 @@ var DROPS = [
     drops: [
       'Éclat de prismarine ×0–2',
       'Cristal de prismarine ×0–1 (40 %) — sert aux lanternes aquatiques',
-      'Morue crue (2,5 %)'
+      'Morue crue (40 %) — même lot que le cristal de prismarine : le gardien lâche l\'un OU l\'autre, jamais les deux'
     ],
     note: 'Une ferme à gardiens sur monument vidé produit prismarine, cristaux et XP en quantités industrielles.'
   },
@@ -221,9 +222,9 @@ var DROPS = [
     tags: [{ txt: 'Monument marin', cls: 'blue' }, { txt: 'Mini-boss', cls: 'red' }],
     ou: 'Trois par monument océanique : un au sommet, deux dans les ailes.',
     drops: [
-      'Éclat de prismarine ×0–2, cristal de prismarine ×0–1',
+      'Éclat de prismarine ×0–2 (garanti à chaque mort)',
       'Éponge mouillée (100 %) — à cuire au four pour absorber l\'eau',
-      'Morue crue (2,5 %)'
+      'Morue crue (50 %) — ou cristal de prismarine (33 %) : les deux sortent du même lot, jamais ensemble'
     ],
     note: 'Inflige « Fatigue de minage III » à 50 blocs. Buvez du lait, ou tuez les trois grands gardiens avant de vider le monument.'
   },
@@ -402,7 +403,7 @@ var DROPS = [
     tags: [{ txt: 'Désert / neige', cls: 'gold' }],
     ou: 'Déserts, plaines enneigées, taïgas, forêts de fleurs.',
     drops: [
-      'Lapin cru ×0–1, peau de lapin ×0–1',
+      'Lapin cru ×1 (toujours au moins un), peau de lapin ×0–1',
       'Patte de lapin (10 %) — potion de Saut',
       'Le « Lapin tueur » (killer bunny) : très rare, hostile'
     ],
@@ -513,7 +514,7 @@ var DROPS = [
     tags: [{ txt: 'Océans', cls: 'blue' }],
     ou: 'Océans selon leur température ; le saumon aussi en rivières et rivières glacées.',
     drops: [
-      'Poisson cru correspondant, poudre d\'os ×0–1',
+      'Poisson cru correspondant ×1, poudre d\'os ×1 (5 %)',
       'Capture au seau : garde l\'espèce et la variante exacte'
     ],
     note: 'Le poisson-globe est l\'ingrédient de la potion de Respiration aquatique. Le tropical sert au colorant et aux aquariums.'
@@ -610,7 +611,7 @@ var DROPS = [
     drops: [
       'Catalyseur de sculk, hurleur sculk, capteur sculk : uniquement au Toucher de soie',
       'Le sculk lâche 1 XP à la pioche',
-      'Coffres des cités : disque « otherside », ornement du silence, enchantements Toucher de soie, houe en diamant enchantée, bougies bleues'
+      'Coffres des cités : livre de Furtivité rapide (swift sneak), seul enchantement fixe de la table et introuvable ailleurs, éclats d\'écho ×1–3, disque « otherside » et fragments de disque « 5 », ornement des abîmes (ward) et ornement du silence, houe en diamant enchantée (niveau 30–50), bougies ordinaires'
     ],
     note: 'Le catalyseur de sculk pose du sculk là où un mob meurt : c\'est la base des fermes à XP les plus compactes.'
   },
@@ -628,7 +629,7 @@ var DROPS = [
     tags: [{ txt: 'Surface', cls: 'ok' }],
     ou: 'Plaines, déserts, savanes, taïgas, toundras enneigées.',
     drops: [
-      'Coffres selon le métier : forgeron (fer, diamant, obsidienne, pomme dorée), fermier (graines, blé, émeraude), boucher, berger, cartographe, pêcheur',
+      'Coffres selon le métier : forgeron d\'armes (fer, diamant, obsidienne, lances en cuivre et en fer, selle, armures de cheval), forgeron d\'outils (diamant, pioche et pelle en fer), fermier (graines, blé, émeraude), boucher, berger, cartographe, pêcheur — aucun coffre de village ne contient de pomme dorée',
       'Blocs à métier réutilisables : établi, alambic, table de cartographie, chaudron, tonneau, forge…',
       'Lits, cloches, cultures gratuites'
     ],
@@ -639,7 +640,7 @@ var DROPS = [
     tags: [{ txt: 'Souterrain', cls: 'gold' }],
     ou: 'Petites salles de pierres moussues sous terre, avec un générateur de zombies, squelettes ou araignées, et 1–2 coffres.',
     drops: [
-      'Coffres : selle, disques de musique (13 et cat), pomme dorée, lingot de fer/or, poudre de redstone, livre enchanté, étiquette, pomme dorée (golden apple)',
+      'Coffres : armures de cheval (cuivre, fer, or, diamant), disques de musique (13, cat, otherside), pomme dorée, pomme dorée enchantée (rare), étiquette, livre enchanté, seau, lingots de fer et d\'or, poudre de redstone, charbon, graines — aucune selle',
       'Générateur : à convertir en ferme à XP (ne pas le casser !)'
     ],
     note: 'Éclairez le générateur avec des torches pour le désactiver le temps d\'aménager la pièce.'
@@ -649,7 +650,7 @@ var DROPS = [
     tags: [{ txt: 'Souterrain', cls: 'gold' }],
     ou: 'Réseaux de tunnels avec rails, entre Y -60 et 30 (jusqu\'en surface dans les badlands).',
     drops: [
-      'Wagonnets de stockage : rails, rails de propulsion/détecteurs, diamants, lapis, fer, or, pain, graines de pastèque, pastèque',
+      'Wagonnets de stockage : rails, rails de propulsion/détecteurs, diamants, lapis, fer, or, pain, baies lumineuses, graines de pastèque, de citrouille et de betterave, torches ×1–16',
       'Rails à récupérer directement (des centaines)',
       'Générateurs d\'araignées venimeuses'
     ],
@@ -660,8 +661,8 @@ var DROPS = [
     tags: [{ txt: 'Souterrain', cls: 'purple' }],
     ou: 'Entre 128 et 3 000 blocs du centre du monde, en anneaux ; localisée en lançant des yeux de l\'Ender.',
     drops: [
-      'Bibliothèque : livres enchantés, papier, livres, pain',
-      'Coffres du couloir : pomme dorée enchantée (rare), fer, redstone',
+      'Bibliothèque : livres, papier, livres enchantés (niveau 30), carte vierge, boussole, ornement de l\'œil (eye) — aucun pain, il est dans le couloir',
+      'Coffres du couloir : perles de l\'Ender, panoplie et outils en fer, diamants ×1–3, redstone, pomme dorée ORDINAIRE (il n\'y a pas de version enchantée), disque « otherside », ornement de l\'œil (eye)',
       'Le portail de l\'End : 12 cadres, certains déjà pourvus d\'un œil'
     ],
     note: 'Ne cassez JAMAIS un cadre de portail (bloc incassable en survie). Prévoyez 15 yeux : ils ont 20 % de chance de se briser au lancer.'
@@ -671,7 +672,7 @@ var DROPS = [
     tags: [{ txt: 'Désert', cls: 'gold' }, { txt: 'Piège TNT', cls: 'red' }],
     ou: 'Pyramides de grès dans les déserts.',
     drops: [
-      '4 coffres : diamant, émeraude, or, fer, poudre à canon, os, chair putréfiée, selle, pomme dorée enchantée (rare)',
+      '4 coffres : diamant, émeraude, or, fer, poudre à canon, os, chair putréfiée, armures de cheval, pomme dorée enchantée (rare), ornement des dunes (dune) dans un coffre sur sept — aucune selle',
       'Beaucoup de grès taillé récupérable'
     ],
     note: 'Une plaque de pression au centre déclenche 9 blocs de TNT. Cassez un bloc sur le côté et désamorcez la plaque AVANT de descendre.'
@@ -680,7 +681,7 @@ var DROPS = [
     nom: 'Temple de la jungle', cat: 'structure',
     tags: [{ txt: 'Jungle', cls: 'ok' }, { txt: 'Pièges à flèches', cls: 'red' }],
     ou: 'Jungles denses, en pierres moussues.',
-    drops: ['2 coffres : diamant, émeraude, fer, or, os, chair putréfiée, selle', 'Distributeurs, plaques, leviers et redstone à récupérer'],
+    drops: ['2 coffres : diamant, émeraude, fer, or, os, chair putréfiée, bambou, armures de cheval, livre enchanté (niveau 30), ornement des jungles (wild) dans un coffre sur trois — aucune selle', 'Distributeurs, plaques, leviers et redstone à récupérer'],
     note: 'Le puzzle à 3 leviers ouvre la salle du bas ; les fils de détente déclenchent des distributeurs de flèches.'
   },
   {
@@ -689,7 +690,7 @@ var DROPS = [
     ou: 'Uniquement en forêt sombre, souvent à plusieurs milliers de blocs ; localisable via la carte de l\'explorateur des bois (cartographe).',
     drops: [
       'Totems d\'immortalité (évocateurs)',
-      'Coffres : pomme dorée enchantée, ornement des Vex, diamants, livres enchantés, selle',
+      'Coffres : pomme dorée enchantée, ornement des Vex (un coffre sur deux), houe et plastron en diamant, cotte de mailles, amas de résine ×2–4 (l\'objet le plus fréquent), laisse, disques 13 et cat, livres enchantés — ni selle ni diamant brut',
       'Salles secrètes : bloc de diamant caché derrière de la laine bleue, allays en cage'
     ],
     note: 'Structure la plus dangereuse hors boss : venez avec armure en diamant, boucliers, potions et un totem si possible.'

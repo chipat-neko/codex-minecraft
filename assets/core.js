@@ -467,6 +467,8 @@ function renderEntry(e) {
     (e.drops || []).join(' ') + ' ' + (e.note || '')).toLowerCase();
   el.dataset.cat = e.cat || '';
   el.dataset.fav = isFav(e.nom) ? '1' : '0';
+  /* les fiches ordonnées (parcours) portent un id : il sert d'ancre au sommaire */
+  if (e.id) { el.id = e.id; }
 
   var tags = '';
   (e.tags || []).forEach(function (t) {
@@ -476,7 +478,10 @@ function renderEntry(e) {
   var html = '<div class="entry-head"><h3>' + esc(e.nom) + '</h3>' + tags + favBtnHTML(e.nom) + '</div>';
   if (e.ou) { html += '<div class="where">📍 ' + esc(e.ou) + '</div>'; }
   if (e.drops && e.drops.length) {
-    html += '<ul>' + e.drops.map(function (d) { return '<li>' + boldFirst(d) + '</li>'; }).join('') + '</ul>';
+    /* `e.html` autorise les liens dans les puces (parcours guidé) */
+    html += '<ul>' + e.drops.map(function (d) {
+      return '<li>' + boldFirst(d, e.html) + '</li>';
+    }).join('') + '</ul>';
   }
   if (e.note) { html += '<div class="note">💡 ' + esc(e.note) + '</div>'; }
 
@@ -511,12 +516,17 @@ function esc(s) {
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-/* Met en gras la partie avant « : » ou « — » puis échappe le reste. */
-function boldFirst(s) {
+/* Met en gras la partie avant « : » ou « — » puis échappe le reste.
+
+   `riche` autorise le HTML APRÈS le séparateur — uniquement pour les
+   jeux de données qui en contiennent volontairement (le parcours guidé
+   pose des liens vers les autres pages). L'intitulé, lui, reste toujours
+   échappé, et rien n'est jamais interprété avant le séparateur. */
+function boldFirst(s, riche) {
   s = String(s);
-  var m = s.match(/^([^:—]{2,42})(\s*[:—]\s*)([\s\S]+)$/);
-  if (m) { return '<b>' + esc(m[1]) + '</b>' + esc(m[2]) + esc(m[3]); }
-  return esc(s);
+  var m = s.match(/^([^:—<]{2,42})(\s*[:—]\s*)([\s\S]+)$/);
+  if (m) { return '<b>' + esc(m[1]) + '</b>' + esc(m[2]) + (riche ? m[3] : esc(m[3])); }
+  return riche ? s : esc(s);
 }
 
 function norm(s) {
@@ -1066,17 +1076,101 @@ document.addEventListener('keydown', function (ev) {
   }
 });
 
-/* Surligne l'onglet actif et installe le bouton de thème */
-document.addEventListener('DOMContentLoaded', function () {
-  initTheme();
-  var rg = document.getElementById('rg-btn');
-  if (rg) { rg.addEventListener('click', ouvrirRechercheGlobale); }
+/* -----------------------------------------------------------
+   14. Navigation
+   ---------------------------------------------------------------
+   Une barre plate deviendrait illisible avec quinze catalogues :
+   ils sont donc regroupés par usage, en menus déroulants.
+   La barre est construite ici pour rester identique sur toutes
+   les pages sans avoir à les modifier une par une.
+   ----------------------------------------------------------- */
+var NAVIGATION = [
+  { page: 'index.html', titre: 'Accueil' },
+  { page: 'parcours.html', titre: 'Par où commencer' },
+  { titre: 'Jouer', liens: [
+    ['mecaniques.html', 'Mécaniques du jeu'],
+    ['drops.html', 'Drops & lieux'],
+    ['biomes.html', 'Biomes'],
+    ['structures.html', 'Structures & butin'],
+    ['succes.html', 'Succès']
+  ] },
+  { titre: 'Fabriquer', liens: [
+    ['craft.html', 'Artisanat'],
+    ['potions.html', 'Potions & brassage'],
+    ['enchantements.html', 'Enchantements'],
+    ['villageois.html', 'Villageois & commerce']
+  ] },
+  { titre: 'Construire', liens: [
+    ['plans.html', 'Plans de construction'],
+    ['blocs.html', 'Blocs de construction'],
+    ['deco.html', 'Décoration']
+  ] },
+  { titre: 'Automatiser', liens: [
+    ['usines.html', 'Usines & fermes'],
+    ['redstone.html', 'Redstone']
+  ] }
+];
+
+function construireNav() {
+  var nav = document.querySelector('.nav');
+  if (!nav) { return; }
   var page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
-  var links = document.querySelectorAll('.nav a');
-  for (var i = 0; i < links.length; i++) {
-    var href = (links[i].getAttribute('href') || '').toLowerCase();
-    if (href === page || (page === '' && href === 'index.html')) {
-      links[i].classList.add('is-active');
+  var h = '';
+
+  for (var i = 0; i < NAVIGATION.length; i++) {
+    var e = NAVIGATION[i];
+    if (e.page) {
+      /* une page seule n'est affichée que si elle existe vraiment */
+      h += '<a href="' + e.page + '"' + (e.page === page ? ' class="is-active"' : '') + '>' +
+        esc(e.titre) + '</a>';
+      continue;
+    }
+    var liens = e.liens.filter(function (l) { return DISPONIBLES[l[0]] !== false; });
+    if (!liens.length) { continue; }
+    var actif = liens.some(function (l) { return l[0] === page; });
+    h += '<div class="nav-groupe' + (actif ? ' actif' : '') + '">' +
+      '<button class="nav-titre" type="button" aria-expanded="false">' + esc(e.titre) + '</button>' +
+      '<div class="nav-menu">' +
+      liens.map(function (l) {
+        return '<a href="' + l[0] + '"' + (l[0] === page ? ' class="is-active"' : '') + '>' + esc(l[1]) + '</a>';
+      }).join('') +
+      '</div></div>';
+  }
+  nav.innerHTML = h;
+
+  /* ouverture au clic, fermeture au clic extérieur ou à Échap */
+  var groupes = nav.querySelectorAll('.nav-groupe');
+  function fermerTout(sauf) {
+    for (var j = 0; j < groupes.length; j++) {
+      if (groupes[j] === sauf) { continue; }
+      groupes[j].classList.remove('ouvert');
+      groupes[j].querySelector('.nav-titre').setAttribute('aria-expanded', 'false');
     }
   }
+  for (var k = 0; k < groupes.length; k++) {
+    (function (g) {
+      var b = g.querySelector('.nav-titre');
+      b.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        var ouvert = g.classList.toggle('ouvert');
+        b.setAttribute('aria-expanded', ouvert ? 'true' : 'false');
+        fermerTout(g);
+      });
+    }(groupes[k]));
+  }
+  document.addEventListener('click', function () { fermerTout(null); });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape') { fermerTout(null); }
+  });
+}
+
+/* Pages absentes du site : renseigné par les pages elles-mêmes si besoin. */
+var DISPONIBLES = {};
+
+/* Construit la barre et installe le reste */
+document.addEventListener('DOMContentLoaded', function () {
+  initTheme();
+  construireNav();
+  var rg = document.getElementById('rg-btn');
+  if (rg) { rg.addEventListener('click', ouvrirRechercheGlobale); }
 });
