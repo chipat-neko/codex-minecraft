@@ -708,9 +708,12 @@ function shade(hex, f) {
   return 'rgb(' + cl(r) + ',' + cl(g) + ',' + cl(b) + ')';
 }
 
-function renderIso(bp) {
+/* `limite` : nombre de couches à dessiner en partant du bas.
+   Masquer les couches hautes est le seul moyen de voir l'intérieur
+   d'un bâtiment fermé. */
+function renderIso(bp, limite) {
   var TW = 16, TH = 8, TZ = 13;          /* demi-largeur, demi-profondeur, hauteur d'un cube */
-  var couches = bp.couches || [];
+  var couches = (bp.couches || []).slice(0, limite || (bp.couches || []).length);
   var maxW = 0, maxD = 0;
   couches.forEach(function (c) {
     maxD = Math.max(maxD, c.g.length);
@@ -743,10 +746,13 @@ function renderIso(bp) {
     });
   }
 
+  /* la hauteur du cadre reste celle du plan complet : ainsi le dessin
+     ne saute pas quand on masque des couches */
+  var total = (bp.couches || []).length;
   var w = (maxW + maxD) * TW + 40;
-  var h = (maxW + maxD) * TH + couches.length * TZ + 40;
+  var h = (maxW + maxD) * TH + total * TZ + 40;
   var ox = maxD * TW + 20;
-  var oy = 20 + couches.length * TZ;
+  var oy = 20 + total * TZ;
 
   /* un motif par bloc texturé, réutilisé par toutes ses faces */
   var defs = '';
@@ -804,14 +810,36 @@ document.addEventListener('click', function (ev) {
   if (!box.dataset.built) {
     var bp = (window.__isoIndex || {})[b.dataset.iso];
     if (!bp) { return; }
-    box.innerHTML = renderIso(bp) +
-      '<p class="iso-hint">Couches empilées du bas vers le haut · survolez un bloc pour son nom<br>' +
-      'Sur un bâtiment fermé, les couches hautes masquent l\'intérieur : les plans ci-dessus restent la référence.</p>';
+    var n = (bp.couches || []).length;
+    box.innerHTML =
+      '<div class="iso-svg">' + renderIso(bp) + '</div>' +
+      '<div class="iso-ctrl">' +
+      '<label for="niv-' + esc(bp.id) + '">Couches visibles</label>' +
+      '<input id="niv-' + esc(bp.id) + '" type="range" min="1" max="' + n + '" value="' + n + '" ' +
+      'data-iso-niveau="' + esc(bp.id) + '">' +
+      '<span class="iso-niv">' + n + ' / ' + n + '</span>' +
+      '</div>' +
+      '<p class="iso-hint">Réduisez le curseur pour retirer les couches hautes et voir l\'intérieur.<br>' +
+      'Survolez un bloc pour lire son nom.</p>';
     box.dataset.built = '1';
   }
   var open = box.classList.toggle('open');
   b.classList.toggle('on', open);
   b.textContent = open ? '◾ Masquer la vue 3D' : '🧊 Vue 3D';
+});
+
+/* Curseur de niveau : redessine le plan avec moins de couches */
+document.addEventListener('input', function (ev) {
+  var s = ev.target;
+  if (!s || !s.dataset || !s.dataset.isoNiveau) { return; }
+  var bp = (window.__isoIndex || {})[s.dataset.isoNiveau];
+  if (!bp) { return; }
+  var box = s.closest('.iso-wrap');
+  var svg = box.querySelector('.iso-svg');
+  var etiquette = box.querySelector('.iso-niv');
+  var n = parseInt(s.value, 10);
+  svg.innerHTML = renderIso(bp, n);
+  if (etiquette) { etiquette.textContent = n + ' / ' + (bp.couches || []).length; }
 });
 
 /* -----------------------------------------------------------

@@ -336,7 +336,7 @@ var TEXTURES_LIBRES = {
    "f": "bloc_slime.png"
   },
   "miel": {
-   "f": "bloc_miel.png"
+   "f": "fiole_larme.png"
   },
   "bambou": {
    "f": "bambou.png"
@@ -379,6 +379,231 @@ var TEXTURES_LIBRES = {
   },
   "scrap": {
    "f": "lingot_netherite.png"
+  },
+  "silex": {
+   "f": "eclat_silex.png"
+  },
+  "ficelle": {
+   "f": "fibre_ficelle.png"
+  },
+  "cuir": {
+   "f": "feuille_cuir.png"
+  },
+  "plume": {
+   "f": "feuille_plume.png"
+  },
+  "oeuf": {
+   "f": "bille_oeuf.png"
+  },
+  "sucre": {
+   "f": "tas_sucre.png"
+  },
+  "canne": {
+   "f": "tige_canne.png"
+  },
+  "papier": {
+   "f": "feuille_papier.png"
+  },
+  "livre": {
+   "f": "feuille_livre.png"
+  },
+  "livreEnc": {
+   "f": "feuille_livre.png"
+  },
+  "argile": {
+   "f": "bille_argile.png"
+  },
+  "brique": {
+   "f": "eclat_brique.png"
+  },
+  "perle": {
+   "f": "bille_perle.png"
+  },
+  "larme": {
+   "f": "fiole_larme.png"
+  },
+  "chair": {
+   "f": "feuille_chair.png"
+  },
+  "araignee": {
+   "f": "bille_oeil.png"
+  },
+  "bol": {
+   "f": "fiole_bol.png"
+  },
+  "pomme": {
+   "f": "bille_pomme.png"
+  },
+  "echo": {
+   "f": "eclat_echo.png"
+  },
+  "citrouille": {
+   "f": "bille_citrouille.png"
+  },
+  "citrouilleB": {
+   "f": "bille_citrouille.png"
+  },
+  "tete": {
+   "f": "eclat_crane.png"
+  },
+  "crampon": {
+   "f": "eclat_nautile.png"
+  },
+  "carapace": {
+   "f": "eclat_nautile.png"
+  },
+  "coeurMer": {
+   "f": "bille_coeur.png"
+  },
+  "prisma": {
+   "f": "eclat_prisma.png"
+  },
+  "encre": {
+   "f": "bille_encre.png"
+  },
+  "encreLum": {
+   "f": "bille_encre.png"
+  },
+  "cire": {
+   "f": "eclat_cire.png"
+  },
+  "corde": {
+   "f": "fibre_corde.png"
+  },
+  "fleche": {
+   "f": "tige_fleche.png"
+  },
+  "bouteille": {
+   "f": "fiole_vide.png"
+  },
+  "nether": {
+   "f": "grain_nether.png"
+  },
+  "ecaille": {
+   "f": "eclat_ecaille.png"
+  },
+  "scute": {
+   "f": "eclat_tortue.png"
+  },
+  "membrane": {
+   "f": "feuille_membrane.png"
+  },
+  "ame_torch": {
+   "f": "grain_ame.png"
+  },
+  "oeil": {
+   "f": "bille_perle.png"
+  },
+  "boussole": {
+   "f": "bille_coeur.png"
+  },
+  "colorant": {
+   "f": "tas_poudre.png"
+  },
+  "fleur": {
+   "f": "bille_pomme.png"
+  },
+  "fleurR": {
+   "f": "bille_pomme.png"
+  },
+  "patate": {
+   "f": "bille_argile.png"
+  },
+  "lapinC": {
+   "f": "feuille_chair.png"
+  },
+  "melon": {
+   "f": "bille_pomme.png"
+  },
+  "carotte": {
+   "f": "tige_canne.png"
+  },
+  "cacao": {
+   "f": "bille_argile.png"
+  },
+  "etoile": {
+   "f": "gemme_quartz.png"
+  },
+  "lourd": {
+   "f": "eclat_crane.png"
+  },
+  "tige": {
+   "f": "tige_blaze.png"
+  },
+  "lance": {
+   "f": "tige_fleche.png"
+  },
+  "etiquette": {
+   "f": "feuille_papier.png"
+  },
+  "wagonnet": {
+   "f": "lingot_fer.png"
+  },
+  "seau": {
+   "f": "lingot_fer.png"
+  },
+  "arc": {
+   "f": "tige_baton.png"
+  },
+  "cadre": {
+   "f": "feuille_papier.png"
+  },
+  "banniere": {
+   "f": "feuille_papier.png"
+  },
+  "bouclier": {
+   "f": "feuille_cuir.png"
+  },
+  "disque": {
+   "f": "bille_encre.png"
+  },
+  "tesson": {
+   "f": "eclat_brique.png"
+  },
+  "modele": {
+   "f": "feuille_papier.png"
+  },
+  "armeD": {
+   "f": "gemme_diamant.png"
+  },
+  "chorus": {
+   "f": "bille_pomme.png"
+  },
+  "chaine": {
+   "f": "lingot_fer.png"
+  },
+  "poudreLum": {
+   "f": "tas_poudre.png"
+  },
+  "plaque": {
+   "f": "pierre.png"
+  },
+  "torche": {
+   "f": "tige_blaze.png"
+  },
+  "torcheR": {
+   "f": "tige_blaze.png"
+  },
+  "torcheA": {
+   "f": "tige_blaze.png"
+  },
+  "piston": {
+   "f": "planches_epicea.png"
+  },
+  "dropper": {
+   "f": "cobblestone.png"
+  },
+  "coffre": {
+   "f": "planches_epicea.png"
+  },
+  "four": {
+   "f": "cobblestone.png"
+  },
+  "etabli": {
+   "f": "planches_chene.png"
+  },
+  "bibli": {
+   "f": "planches_chene.png"
   }
  }
 };

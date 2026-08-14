@@ -287,6 +287,76 @@ function tas(t, base, r) {
   }
 }
 
+/* Pastille ronde : perles, yeux, œufs, cœurs. */
+function pastille(t, base, r) {
+  const clair = eclaircir(base, 1.3), sombre = eclaircir(base, 0.62);
+  for (let y = 0; y < T; y++) {
+    for (let x = 0; x < T; x++) {
+      const d = Math.hypot(x - 7.5, y - 7.5);
+      if (d > 5.6) { continue; }
+      let c = base;
+      if (d > 4.6) { c = sombre; }
+      else if (x + y < 13) { c = clair; }
+      t.set(x, y, eclaircir(c, 1 + (r() - 0.5) * 0.1));
+    }
+  }
+  t.set(5, 5, eclaircir(clair, 1.15));
+}
+
+/* Feuille plate : papier, cuir, membrane. */
+function feuille(t, base, r) {
+  const bord = eclaircir(base, 0.72);
+  for (let y = 2; y < 14; y++) {
+    for (let x = 2; x < 14; x++) {
+      const cadre = x === 2 || x === 13 || y === 2 || y === 13;
+      t.set(x, y, cadre ? bord : eclaircir(base, 1 + (r() - 0.5) * 0.09));
+    }
+  }
+  /* pli en diagonale */
+  for (let i = 0; i < 5; i++) { t.set(9 + i, 3 + i, eclaircir(base, 0.85)); }
+}
+
+/* Fiole : contenant en verre avec un fond coloré. */
+function fiole(t, base, r) {
+  const verre = [190, 205, 215];
+  for (let y = 3; y < 14; y++) {
+    const largeur = y < 6 ? 2 : 4;
+    for (let x = 7 - largeur; x <= 8 + largeur - 1; x++) {
+      const bord = x === 7 - largeur || x === 8 + largeur - 1;
+      if (y >= 9) { t.set(x, y, eclaircir(base, bord ? 0.8 : 1)); }
+      else { t.set(x, y, eclaircir(verre, bord ? 0.85 : 1.05), bord ? 235 : 150); }
+    }
+  }
+  for (let x = 6; x <= 9; x++) { t.set(x, 2, eclaircir(verre, 0.9)); }
+}
+
+/* Éclat anguleux : silex, échos, prismarine, écailles. */
+function eclat(t, base, r) {
+  const clair = eclaircir(base, 1.28), sombre = eclaircir(base, 0.66);
+  const pts = [[7, 3], [10, 5], [11, 9], [8, 12], [5, 10], [4, 6]];
+  for (let y = 0; y < T; y++) {
+    for (let x = 0; x < T; x++) {
+      /* test d'appartenance au polygone */
+      let dedans = false;
+      for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+        const [xi, yi] = pts[i], [xj, yj] = pts[j];
+        if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) { dedans = !dedans; }
+      }
+      if (!dedans) { continue; }
+      t.set(x, y, x + y < 14 ? clair : (x + y > 19 ? sombre : base));
+    }
+  }
+}
+
+/* Fibre enroulée : ficelle, corde. */
+function fibre(t, base, r) {
+  for (let i = 0; i < 40; i++) {
+    const a = r() * Math.PI * 2, d = 2 + r() * 3.6;
+    t.set(Math.round(7.5 + Math.cos(a) * d), Math.round(7.5 + Math.sin(a) * d * 0.8),
+      eclaircir(base, 0.85 + r() * 0.35));
+  }
+}
+
 /* Tige en diagonale. */
 function tige(t, base, r) {
   const clair = eclaircir(base, 1.2), sombre = eclaircir(base, 0.72);
@@ -386,7 +456,50 @@ const CATALOGUE = {
   tas_ble:          ['tas', '#d3b23c'],
   tige_baton:       ['tige', '#8a6a3e'],
   tige_blaze:       ['tige', '#f0b429'],
-  tige_os:          ['tige', '#e8e4d8']
+  tige_os:          ['tige', '#e8e4d8'],
+
+  /* objets ronds */
+  bille_perle:      ['pastille', '#1c7a6e'],
+  bille_oeil:       ['pastille', '#8c3232'],
+  bille_oeuf:       ['pastille', '#e9dcc0'],
+  bille_coeur:      ['pastille', '#79d6d0'],
+  bille_pomme:      ['pastille', '#c93b2e'],
+  bille_argile:     ['pastille', '#a3a8b8'],
+  bille_encre:      ['pastille', '#22222a'],
+  bille_citrouille: ['pastille', '#d97a20'],
+
+  /* objets plats */
+  feuille_papier:   ['feuille', '#efeade'],
+  feuille_cuir:     ['feuille', '#8a5f34'],
+  feuille_livre:    ['feuille', '#a8763c'],
+  feuille_membrane: ['feuille', '#6a6a80'],
+  feuille_chair:    ['feuille', '#7a5a44'],
+  feuille_plume:    ['feuille', '#f2f2f2'],
+
+  /* contenants */
+  fiole_vide:       ['fiole', '#a8d8e8'],
+  fiole_larme:      ['fiole', '#dff0ee'],
+  fiole_bol:        ['fiole', '#8a6a3e'],
+
+  /* fragments */
+  eclat_silex:      ['eclat', '#565660'],
+  eclat_echo:       ['eclat', '#1b3a45'],
+  eclat_prisma:     ['eclat', '#6fd0bc'],
+  eclat_ecaille:    ['eclat', '#8a6a4a'],
+  eclat_tortue:     ['eclat', '#5aa84a'],
+  eclat_crane:      ['eclat', '#3a3a3a'],
+  eclat_nautile:    ['eclat', '#c8b88c'],
+  eclat_brique:     ['eclat', '#a05a48'],
+  eclat_cire:       ['eclat', '#c08a3e'],
+
+  /* fibres et divers */
+  fibre_ficelle:    ['fibre', '#e8e8e8'],
+  fibre_corde:      ['fibre', '#9a9a9a'],
+  tas_sucre:        ['tas', '#f0f0f0'],
+  tige_canne:       ['tige', '#8ec96a'],
+  tige_fleche:      ['tige', '#b8b8b8'],
+  grain_nether:     ['grain', '#8c2020'],
+  grain_ame:        ['grain', '#4a3a30']
 };
 
 /* Correspondance entre les clés du site et ces textures.
@@ -430,7 +543,35 @@ const POUR_ITEMS = {
   pierreL: 'pierre', dalle: 'pierre', dalleP: 'pierre', bloc: 'pierre',
   ressource: 'lingot_fer', outil: 'lingot_fer', pepiteFer: 'lingot_fer',
   pepite: 'lingot_or', tnt: 'briques_rouges', debris: 'lingot_netherite',
-  scrap: 'lingot_netherite'
+  scrap: 'lingot_netherite',
+
+  /* objets ajoutés pour couvrir tout le catalogue de recettes */
+  silex: 'eclat_silex', ficelle: 'fibre_ficelle', cuir: 'feuille_cuir',
+  plume: 'feuille_plume', oeuf: 'bille_oeuf', sucre: 'tas_sucre',
+  canne: 'tige_canne', papier: 'feuille_papier', livre: 'feuille_livre',
+  livreEnc: 'feuille_livre', argile: 'bille_argile', brique: 'eclat_brique',
+  perle: 'bille_perle', larme: 'fiole_larme', chair: 'feuille_chair',
+  araignee: 'bille_oeil', bol: 'fiole_bol', pomme: 'bille_pomme',
+  echo: 'eclat_echo', citrouille: 'bille_citrouille', citrouilleB: 'bille_citrouille',
+  tete: 'eclat_crane', crampon: 'eclat_nautile', carapace: 'eclat_nautile',
+  coeurMer: 'bille_coeur', prisma: 'eclat_prisma', encre: 'bille_encre',
+  encreLum: 'bille_encre', cire: 'eclat_cire', corde: 'fibre_corde',
+  fleche: 'tige_fleche', bouteille: 'fiole_vide', nether: 'grain_nether',
+  ecaille: 'eclat_ecaille', scute: 'eclat_tortue', membrane: 'feuille_membrane',
+  ame_torch: 'grain_ame', oeil: 'bille_perle', boussole: 'bille_coeur',
+  colorant: 'tas_poudre', fleur: 'bille_pomme', fleurR: 'bille_pomme',
+  patate: 'bille_argile', lapinC: 'feuille_chair', melon: 'bille_pomme',
+  carotte: 'tige_canne', cacao: 'bille_argile', miel: 'fiole_larme',
+  etoile: 'gemme_quartz', lourd: 'eclat_crane', tige: 'tige_blaze',
+  lance: 'tige_fleche', etiquette: 'feuille_papier', wagonnet: 'lingot_fer',
+  pepiteFer: 'lingot_fer', seau: 'lingot_fer', arc: 'tige_baton',
+  cadre: 'feuille_papier', banniere: 'feuille_papier', bouclier: 'feuille_cuir',
+  disque: 'bille_encre', tesson: 'eclat_brique', modele: 'feuille_papier',
+  armeD: 'gemme_diamant', chorus: 'bille_pomme', chaine: 'lingot_fer',
+  glowstone: 'glowstone', poudreLum: 'tas_poudre', plaque: 'pierre',
+  torche: 'tige_blaze', torcheR: 'tige_blaze', torcheA: 'tige_blaze',
+  piston: 'planches_epicea', dropper: 'cobblestone', coffre: 'planches_epicea',
+  four: 'cobblestone', etabli: 'planches_chene', bibli: 'planches_chene'
 };
 
 /* Tous les motifs exposent la même signature (toile, couleur, aléa),
@@ -439,7 +580,8 @@ const MOTIFS = {
   grain: function (t, base, r) { grain(t, base, 0.22, r, 0.08); },
   cailloux, briques, planches, rondin, feuillage, metal, verre, liquide, lumineux, tissu,
   minerai, poussiere,
-  lingot, gemme, tas, tige
+  lingot, gemme, tas, tige,
+  pastille, feuille, fiole, eclat, fibre
 };
 
 /* ---------- production ---------- */
