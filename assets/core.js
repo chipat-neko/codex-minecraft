@@ -413,7 +413,7 @@ function renderBlueprint(bp) {
   html += '<div class="bp-actions">' +
     '<button class="act" data-print="1">🖨 Imprimer cette fiche</button>' +
     '<button class="act" data-mat="' + esc(bp.id) + '">📦 Calculer les matériaux</button>' +
-    (isoPossible(bp) ? '<button class="act" data-iso="' + esc(bp.id) + '">🧊 Vue 3D</button>' : '') +
+    (isoPossible(bp) ? '<button class="act" data-iso="' + esc(bp.id) + '">🧊 Voir en volume</button>' : '') +
     '</div><div class="mat-wrap"></div><div class="iso-wrap"></div>';
 
   el.innerHTML = html;
@@ -691,13 +691,21 @@ document.addEventListener('click', function (ev) {
    ----------------------------------------------------------- */
 
 /* Une couche « vue de côté / de face / en coupe » ne s'empile pas : pas d'iso. */
+/* Beaucoup de fiches mêlent aux niveaux Y des projections dessinées à
+   la main — « Vue de côté », « Coupe d'un tunnel ». Elles portent un
+   `vue: 1` dans les données : les empiler comme des étages donnerait
+   n'importe quoi.
+
+   Ne restent donc que les vrais niveaux, et il en faut au moins deux
+   pour qu'un volume ait un sens. Les 43 fiches entièrement décrites
+   en vues de côté — la plupart des usines à redstone — n'en ont
+   aucun, et gardent leurs schémas d'origine. */
+function couchesY(bp) {
+  return (bp.couches || []).filter(function (c) { return !c.vue; });
+}
+
 function isoPossible(bp) {
-  var c = bp.couches || [];
-  if (c.length < 2) { return false; }
-  for (var i = 0; i < c.length; i++) {
-    if (/c[oô]t[ée]|face|coupe|profil/i.test(c[i].t)) { return false; }
-  }
-  return true;
+  return couchesY(bp).length >= 2;
 }
 
 function shade(hex, f) {
@@ -713,7 +721,8 @@ function shade(hex, f) {
    d'un bâtiment fermé. */
 function renderIso(bp, limite) {
   var TW = 16, TH = 8, TZ = 13;          /* demi-largeur, demi-profondeur, hauteur d'un cube */
-  var couches = (bp.couches || []).slice(0, limite || (bp.couches || []).length);
+  var toutes = couchesY(bp);
+  var couches = toutes.slice(0, limite || toutes.length);
   var maxW = 0, maxD = 0;
   couches.forEach(function (c) {
     maxD = Math.max(maxD, c.g.length);
@@ -748,7 +757,7 @@ function renderIso(bp, limite) {
 
   /* la hauteur du cadre reste celle du plan complet : ainsi le dessin
      ne saute pas quand on masque des couches */
-  var total = (bp.couches || []).length;
+  var total = toutes.length;
   var w = (maxW + maxD) * TW + 40;
   var h = (maxW + maxD) * TH + total * TZ + 40;
   var ox = maxD * TW + 20;
@@ -800,46 +809,240 @@ function cube(x, y, tw, th, tz, col, nom, ch) {
     poly(l, shade(col, .72)) + poly(r, shade(col, .9)) + poly(t, shade(col, 1.15)) + '</g>';
 }
 
-/* Bouton « vue 3D » : le SVG n'est construit qu'au premier clic */
-document.addEventListener('click', function (ev) {
-  var b = ev.target.closest ? ev.target.closest('[data-iso]') : null;
-  if (!b) { return; }
-  var host = b.closest('[data-search]');
-  var box = host && host.querySelector('.iso-wrap');
-  if (!box) { return; }
-  if (!box.dataset.built) {
-    var bp = (window.__isoIndex || {})[b.dataset.iso];
-    if (!bp) { return; }
-    var n = (bp.couches || []).length;
-    box.innerHTML =
-      '<div class="iso-svg">' + renderIso(bp) + '</div>' +
-      '<div class="iso-ctrl">' +
-      '<label for="niv-' + esc(bp.id) + '">Couches visibles</label>' +
-      '<input id="niv-' + esc(bp.id) + '" type="range" min="1" max="' + n + '" value="' + n + '" ' +
-      'data-iso-niveau="' + esc(bp.id) + '">' +
-      '<span class="iso-niv">' + n + ' / ' + n + '</span>' +
-      '</div>' +
-      '<p class="iso-hint">Réduisez le curseur pour retirer les couches hautes et voir l\'intérieur.<br>' +
-      'Survolez un bloc pour lire son nom.</p>';
-    box.dataset.built = '1';
+/* -----------------------------------------------------------
+   11 bis. Les autres axes de vue
+
+   La vue de dessus et l'isométrie ne suffisent pas à bâtir : on
+   monte un mur en le regardant DE FACE, et on ne voit jamais ce
+   qu'il y a derrière ni sous le plancher. D'où trois ajouts qui
+   dérivent tous des mêmes grilles, sans nouvelle donnée à saisir.
+   ----------------------------------------------------------- */
+
+/* Pivote une grille d'un quart de tour horaire, `quart` fois.
+   La ligne du haut devient la colonne de droite : g'[x][z] prend
+   g[hauteur-1-z][x], et largeur et profondeur s'échangent.
+   Quatre quarts ramènent exactement à la grille d'origine. */
+function pivoterGrille(g, quart) {
+  var r = g.slice();
+  var n = ((quart % 4) + 4) % 4;
+  for (var k = 0; k < n; k++) {
+    var h = r.length;
+    var w = r.reduce(function (m, l) { return Math.max(m, l.length); }, 0);
+    var out = [];
+    for (var x = 0; x < w; x++) {
+      var ligne = '';
+      for (var z = h - 1; z >= 0; z--) {
+        ligne += (r[z][x] !== undefined ? r[z][x] : ' ');
+      }
+      out.push(ligne);
+    }
+    r = out;
   }
-  var open = box.classList.toggle('open');
-  b.classList.toggle('on', open);
-  b.textContent = open ? '◾ Masquer la vue 3D' : '🧊 Vue 3D';
+  return r;
+}
+
+function pivoterPlan(bp, quart) {
+  if (!(((quart % 4) + 4) % 4)) { return bp; }
+  var copie = {};
+  for (var k in bp) { if (bp.hasOwnProperty(k)) { copie[k] = bp[k]; } }
+  copie.couches = (bp.couches || []).map(function (c) {
+    return { t: c.t, nom: c.nom, g: pivoterGrille(c.g, quart) };
+  });
+  return copie;
+}
+
+/* Le caractère occupe-t-il vraiment de l'espace ?
+   Les grilles notent le vide par un point ou un espace ; tout autre
+   caractère absent de BLOCKS reste considéré comme plein, pour ne
+   pas faire disparaître un bloc à cause d'une légende manquante. */
+function estVide(ch) {
+  if (ch === undefined || ch === ' ' || ch === '.') { return true; }
+  var b = BLOCKS[ch];
+  return !!(b && !b.c);
+}
+
+/* Élévation : la façade, vue depuis le bas de la grille.
+
+   Pour chaque colonne et chaque niveau, on remonte du premier plan
+   vers le fond et on garde le premier bloc rencontré — c'est lui
+   qui masque les autres. Combinée à pivoterPlan, cette seule
+   fonction donne les quatre façades. */
+function elevationLignes(couches) {
+  var maxW = 0;
+  couches.forEach(function (c) {
+    c.g.forEach(function (l) { maxW = Math.max(maxW, l.length); });
+  });
+  var lignes = [];
+  for (var L = couches.length - 1; L >= 0; L--) {
+    var g = couches[L].g;
+    var ligne = '';
+    for (var x = 0; x < maxW; x++) {
+      var vu = '.';
+      for (var z = g.length - 1; z >= 0; z--) {
+        if (!estVide(g[z][x])) { vu = g[z][x]; break; }
+      }
+      ligne += vu;
+    }
+    lignes.push(ligne);
+  }
+  return lignes;
+}
+
+/* Coupe : une tranche verticale à une profondeur donnée.
+   C'est la seule vue qui montre l'intérieur sans rien retirer —
+   indispensable pour la redstone enterrée sous un plancher. */
+function coupeLignes(couches, z) {
+  var lignes = [];
+  for (var L = couches.length - 1; L >= 0; L--) {
+    var g = couches[L].g;
+    lignes.push(z < g.length ? g[z] : '');
+  }
+  return lignes;
+}
+
+/* Profondeur maximale, toutes couches confondues. */
+function profondeurPlan(bp) {
+  return couchesY(bp).reduce(function (m, c) { return Math.max(m, c.g.length); }, 0);
+}
+
+var ORIENTATIONS = ['Face', 'Droite', 'Arrière', 'Gauche'];
+
+/* Construit le contenu du panneau pour l'état courant. */
+function vueHTML(bp, etat) {
+  var n = couchesY(bp).length;
+  var pivote = pivoterPlan(bp, etat.quart);
+  var chars = {};
+  var corps, ctrl, aide;
+
+  if (etat.mode === 'iso') {
+    corps = '<div class="vue-dessin">' + renderIso(pivote, etat.niveau) + '</div>';
+    ctrl = '<label for="niv-' + esc(bp.id) + '">Couches visibles</label>' +
+      '<input id="niv-' + esc(bp.id) + '" type="range" min="1" max="' + n + '" value="' + etat.niveau + '" ' +
+      'data-vue-niveau="' + esc(bp.id) + '">' +
+      '<span class="iso-niv">' + etat.niveau + ' / ' + n + '</span>';
+    aide = 'Réduisez le curseur pour retirer les couches hautes et voir l\'intérieur. ' +
+      'Faites pivoter pour découvrir l\'arrière.';
+  } else if (etat.mode === 'face') {
+    corps = '<div class="vue-dessin">' + gridHTML(elevationLignes(couchesY(pivote)), chars) + '</div>';
+    ctrl = '';
+    aide = 'La façade telle qu\'on la voit en la construisant : chaque case est le bloc ' +
+      'le plus en avant. Pivotez pour passer aux trois autres côtés.';
+  } else {
+    var prof = profondeurPlan(pivote);
+    var z = Math.min(etat.tranche, prof - 1);
+    corps = '<div class="vue-dessin">' + gridHTML(coupeLignes(couchesY(pivote), z), chars) + '</div>';
+    ctrl = '<label for="cpe-' + esc(bp.id) + '">Profondeur</label>' +
+      '<input id="cpe-' + esc(bp.id) + '" type="range" min="0" max="' + (prof - 1) + '" value="' + z + '" ' +
+      'data-vue-tranche="' + esc(bp.id) + '">' +
+      '<span class="iso-niv">' + (z + 1) + ' / ' + prof + '</span>';
+    aide = 'Une tranche verticale, du plus près au plus loin. C\'est la seule vue qui ' +
+      'montre ce qui est enfermé : redstone sous le plancher, pièce sans fenêtre.';
+  }
+
+  var onglet = function (cle, texte) {
+    return '<button class="vue-tab' + (etat.mode === cle ? ' on' : '') + '" data-vue-mode="' + cle +
+      '" data-vue-id="' + esc(bp.id) + '">' + texte + '</button>';
+  };
+
+  return '<div class="vue-tabs">' +
+      onglet('iso', '🧊 Isométrie') + onglet('face', '🧱 Façade') + onglet('coupe', '✂️ Coupe') +
+      '<button class="vue-tab vue-pivot" data-vue-pivot="' + esc(bp.id) + '" ' +
+      'title="Faire pivoter d\'un quart de tour">⟳ ' + ORIENTATIONS[etat.quart] + '</button>' +
+    '</div>' +
+    corps +
+    (Object.keys(chars).length ? legendHTML(chars) : '') +
+    (ctrl ? '<div class="iso-ctrl">' + ctrl + '</div>' : '') +
+    '<p class="iso-hint">' + aide + '<br>Survolez un bloc pour lire son nom.</p>';
+}
+
+/* État de chaque panneau, par identifiant de plan. */
+var etatsVue = {};
+function etatDe(bp) {
+  if (!etatsVue[bp.id]) {
+    etatsVue[bp.id] = { mode: 'iso', quart: 0, niveau: couchesY(bp).length, tranche: 0 };
+  }
+  return etatsVue[bp.id];
+}
+
+function redessinerVue(bp) {
+  var box = document.getElementById('vues-' + bp.id);
+  if (box) { box.innerHTML = vueHTML(bp, etatDe(bp)); }
+}
+
+/* Bouton « Vues » : le panneau n'est construit qu'au premier clic */
+document.addEventListener('click', function (ev) {
+  if (!ev.target.closest) { return; }
+
+  var b = ev.target.closest('[data-iso]');
+  if (b) {
+    var host = b.closest('[data-search]');
+    var box = host && host.querySelector('.iso-wrap');
+    if (!box) { return; }
+    if (!box.dataset.built) {
+      var bp = (window.__isoIndex || {})[b.dataset.iso];
+      if (!bp) { return; }
+      box.id = 'vues-' + bp.id;
+      box.innerHTML = vueHTML(bp, etatDe(bp));
+      box.dataset.built = '1';
+    }
+    var open = box.classList.toggle('open');
+    b.classList.toggle('on', open);
+    b.textContent = open ? '◾ Masquer les vues' : '🧊 Voir en volume';
+    return;
+  }
+
+  var t = ev.target.closest('[data-vue-mode]');
+  if (t) {
+    var bpm = (window.__isoIndex || {})[t.dataset.vueId];
+    if (!bpm) { return; }
+    etatDe(bpm).mode = t.dataset.vueMode;
+    redessinerVue(bpm);
+    return;
+  }
+
+  var p = ev.target.closest('[data-vue-pivot]');
+  if (p) {
+    var bpp = (window.__isoIndex || {})[p.dataset.vuePivot];
+    if (!bpp) { return; }
+    var e = etatDe(bpp);
+    e.quart = (e.quart + 1) % 4;
+    /* la profondeur change avec l'orientation : on ramène la coupe
+       dans les bornes plutôt que de la laisser hors champ */
+    e.tranche = Math.min(e.tranche, profondeurPlan(pivoterPlan(bpp, e.quart)) - 1);
+    redessinerVue(bpp);
+  }
 });
 
-/* Curseur de niveau : redessine le plan avec moins de couches */
+/* Curseurs : couches visibles en isométrie, profondeur en coupe.
+
+   On ne redessine ici QUE le dessin et son compteur : refaire tout le
+   panneau détruirait le curseur en cours de glissement, et le geste
+   s'interromprait au premier cran. */
 document.addEventListener('input', function (ev) {
   var s = ev.target;
-  if (!s || !s.dataset || !s.dataset.isoNiveau) { return; }
-  var bp = (window.__isoIndex || {})[s.dataset.isoNiveau];
+  if (!s || !s.dataset) { return; }
+  var id = s.dataset.vueNiveau || s.dataset.vueTranche;
+  if (!id) { return; }
+  var bp = (window.__isoIndex || {})[id];
   if (!bp) { return; }
+
   var box = s.closest('.iso-wrap');
-  var svg = box.querySelector('.iso-svg');
-  var etiquette = box.querySelector('.iso-niv');
-  var n = parseInt(s.value, 10);
-  svg.innerHTML = renderIso(bp, n);
-  if (etiquette) { etiquette.textContent = n + ' / ' + (bp.couches || []).length; }
+  var dessin = box && box.querySelector('.vue-dessin');
+  var compteur = box && box.querySelector('.iso-niv');
+  if (!dessin) { return; }
+
+  var e = etatDe(bp);
+  var v = parseInt(s.value, 10);
+  if (s.dataset.vueNiveau) {
+    e.niveau = v;
+    dessin.innerHTML = renderIso(pivoterPlan(bp, e.quart), v);
+    if (compteur) { compteur.textContent = v + ' / ' + couchesY(bp).length; }
+  } else {
+    e.tranche = v;
+    var pivote = pivoterPlan(bp, e.quart);
+    dessin.innerHTML = gridHTML(coupeLignes(couchesY(pivote), v), {});
+    if (compteur) { compteur.textContent = (v + 1) + ' / ' + profondeurPlan(pivote); }
+  }
 });
 
 /* -----------------------------------------------------------
@@ -910,9 +1113,20 @@ var RECOMPOSITION = {
   'G': ['blocs de verre', 16 / 6]
 };
 
+/* Une vue de côté montre les mêmes blocs qu'un niveau, sous un autre
+   angle : les compter tous les deux double le total. Quand la fiche a
+   de vrais niveaux, on s'en tient à eux.
+
+   Reste le cas des 43 usines décrites uniquement en vues de côté :
+   là, il n'y a rien d'autre à compter. Le total est alors approché,
+   et `approche` sert à le dire au lieu de le taire. */
 function calculerMateriaux(bp) {
   var total = {}, repetees = [];
-  (bp.couches || []).forEach(function (c) {
+  var niveaux = couchesY(bp);
+  var approche = niveaux.length === 0;
+  var source = approche ? (bp.couches || []) : niveaux;
+
+  source.forEach(function (c) {
     if (/répéter|répète|à empiler/i.test(c.t)) { repetees.push(c.t); }
     c.g.forEach(function (ligne) {
       for (var i = 0; i < ligne.length; i++) {
@@ -927,7 +1141,7 @@ function calculerMateriaux(bp) {
     return { ch: ch, nom: (BLOCKS[ch] || {}).n || ch, n: total[ch], c: (BLOCKS[ch] || {}).c };
   });
   liste.sort(function (a, b) { return b.n - a.n; });
-  return { liste: liste, repetees: repetees };
+  return { liste: liste, repetees: repetees, approche: approche };
 }
 
 function renderMateriaux(bp) {
@@ -957,6 +1171,12 @@ function renderMateriaux(bp) {
 
   h += '<p class="mat-note"><b>' + somme + ' blocs</b> au total dans les couches dessinées, soit ' +
     Math.ceil(somme / 64) + ' pile' + (somme > 64 ? 's' : '') + ' à transporter.</p>';
+
+  if (r.approche) {
+    h += '<p class="mat-note avert">⚠ Cette fiche est décrite en vues de côté, qui montrent ' +
+      'les mêmes blocs sous plusieurs angles : le total ci-dessus les compte donc plusieurs fois. ' +
+      'Prenez-le comme un ordre de grandeur, pas comme une liste de courses.</p>';
+  }
 
   if (r.repetees.length) {
     h += '<p class="mat-note avert">⚠ ' + r.repetees.length + ' couche' + (r.repetees.length > 1 ? 's sont marquées' : ' est marquée') +

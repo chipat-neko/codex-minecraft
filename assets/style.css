@@ -797,6 +797,37 @@ hr { border: none; border-top: 1px solid var(--line-soft); margin: 34px 0; }
   font-family: var(--mono);
 }
 
+/* Onglets des axes de vue */
+.vue-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.vue-tab {
+  font: inherit;
+  font-size: 12.5px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--txt-2);
+  cursor: pointer;
+}
+.vue-tab:hover { color: var(--txt); border-color: var(--txt-3); }
+.vue-tab.on {
+  background: rgba(47,212,122,.14);
+  border-color: rgba(47,212,122,.5);
+  color: var(--emerald);
+}
+/* le pivot n'est pas un onglet : il agit sur la vue en cours */
+.vue-pivot { margin-left: 10px; font-family: var(--mono); }
+
+/* Le dessin lui-même, quel que soit l'axe de vue */
+.vue-dessin { display: flex; justify-content: center; }
+.vue-dessin .bp-grid { margin: 0; }
+
 /* Curseur de niveau */
 .iso-ctrl {
   display: flex;

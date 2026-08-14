@@ -137,7 +137,7 @@ var CIRCUITS = [
     taille: '3 × 1', diff: 'Débutant',
     desc: 'Le circuit le plus simple et le plus utilisé : la sortie est allumée quand l\'entrée est éteinte.',
     mats: ['1 torche de redstone', '1 bloc plein', 'poudre de redstone'],
-    couches: [{ t: 'Vue de dessus', g: ['RBR', '.X.'] }],
+    couches: [{ t: 'Vue de dessus', vue: 1, g: ['RBR', '.X.'] }],
     etapes: [
       'Amenez le signal d\'entrée dans un bloc plein.',
       'Fixez une torche de redstone sur la face opposée de ce bloc.',
@@ -150,7 +150,7 @@ var CIRCUITS = [
     taille: '5 × 3', diff: 'Intermédiaire',
     desc: 'La sortie ne s\'allume que si les DEUX entrées sont actives. Sert à conditionner une machine à deux verrous.',
     mats: ['2 torches de redstone (les inverseurs d\'entrée)', '1 torche de sortie', '3 blocs pleins', 'poudre'],
-    couches: [{ t: 'Vue de dessus', g: ['R.B.X', '....R', 'R.B.X'] }],
+    couches: [{ t: 'Vue de dessus', vue: 1, g: ['R.B.X', '....R', 'R.B.X'] }],
     etapes: [
       'Inversez chaque entrée avec une torche sur un bloc plein.',
       'Réunissez les deux sorties inversées sur un même bloc plein.',
@@ -164,7 +164,7 @@ var CIRCUITS = [
     taille: '3 × 3', diff: 'Débutant',
     desc: 'La sortie s\'allume si AU MOINS une entrée est active. C\'est simplement deux fils qui se rejoignent.',
     mats: ['Poudre de redstone uniquement'],
-    couches: [{ t: 'Vue de dessus', g: ['R..', '.RR', 'R..'] }],
+    couches: [{ t: 'Vue de dessus', vue: 1, g: ['R..', '.RR', 'R..'] }],
     etapes: [
       'Faites converger les deux lignes de poudre vers une même ligne de sortie.',
       'C\'est tout : la redstone se combine naturellement en OU.',
@@ -177,7 +177,7 @@ var CIRCUITS = [
     taille: '5 × 3', diff: 'Avancé',
     desc: 'La sortie s\'allume si UNE SEULE entrée est active. C\'est le circuit d\'un interrupteur « va-et-vient » : deux leviers commandent la même lampe.',
     mats: ['2 comparateurs', '1 répéteur', 'poudre', 'blocs pleins'],
-    couches: [{ t: 'Vue de dessus', g: ['R.V.R', '..R..', 'R.V.R'] }],
+    couches: [{ t: 'Vue de dessus', vue: 1, g: ['R.V.R', '..R..', 'R.V.R'] }],
     etapes: [
       'Placez deux comparateurs en mode soustraction, chacun recevant une entrée à l\'arrière et l\'autre sur le côté.',
       'Réunissez leurs sorties : le signal ne passe que si les deux entrées diffèrent.',
@@ -190,7 +190,7 @@ var CIRCUITS = [
     taille: '2 × 1', diff: 'Débutant',
     desc: 'L\'horloge la plus rapide et la plus compacte du jeu : deux observateurs qui se regardent.',
     mats: ['2 observateurs'],
-    couches: [{ t: 'Vue de dessus', g: ['QQ'] }],
+    couches: [{ t: 'Vue de dessus', vue: 1, g: ['QQ'] }],
     etapes: [
       'Posez un observateur, puis un second collé à lui, face à face (chaque « visage » regarde l\'autre).',
       'Ils se déclenchent mutuellement à l\'infini dès la pose.',
@@ -204,7 +204,7 @@ var CIRCUITS = [
     taille: '4 × 3', diff: 'Débutant',
     desc: 'Une boucle de poudre et de répéteurs : le délai se règle au clic. L\'horloge polyvalente par défaut.',
     mats: ['2 à 8 répéteurs', 'poudre de redstone', '1 levier', '1 torche de redstone (amorçage)'],
-    couches: [{ t: 'Vue de dessus', g: ['RZRR', 'R..Z', 'RRZR'] }],
+    couches: [{ t: 'Vue de dessus', vue: 1, g: ['RZRR', 'R..Z', 'RRZR'] }],
     etapes: [
       'Formez une boucle fermée de poudre avec au moins deux répéteurs orientés dans le même sens de circulation.',
       'Amorcez la boucle : posez brièvement une torche de redstone, ou coupez puis rétablissez un segment.',
@@ -219,7 +219,7 @@ var CIRCUITS = [
     taille: '3 × 2', diff: 'Intermédiaire',
     desc: 'Des objets font l\'aller-retour entre deux entonnoirs ; un comparateur lit le passage. La façon la plus économique de cadencer une ferme à la minute.',
     mats: ['2 entonnoirs', '1 comparateur', 'poudre de redstone', 'des objets quelconques (le nombre règle le délai)'],
-    couches: [{ t: 'Vue de dessus', g: ['HH', 'V.'] }],
+    couches: [{ t: 'Vue de dessus', vue: 1, g: ['HH', 'V.'] }],
     etapes: [
       'Placez deux entonnoirs face à face, chacun pointant vers l\'autre.',
       'Mettez des objets dans l\'un d\'eux : ils vont faire la navette indéfiniment.',
@@ -234,7 +234,7 @@ var CIRCUITS = [
     taille: '4 × 2', diff: 'Intermédiaire',
     desc: 'Transforme un signal long (levier, plaque) en une impulsion brève. Indispensable pour les pistons collants et les portes automatiques.',
     mats: ['1 répéteur', '1 torche de redstone', '1 bloc plein', 'poudre'],
-    couches: [{ t: 'Vue de dessus', g: ['RZRR', '.BX.'] }],
+    couches: [{ t: 'Vue de dessus', vue: 1, g: ['RZRR', '.BX.'] }],
     etapes: [
       'Séparez le signal en deux chemins : un direct, un passant par un répéteur puis un inverseur.',
       'Réunissez-les : la sortie n\'est active que pendant le délai du répéteur.',
@@ -247,7 +247,7 @@ var CIRCUITS = [
     taille: '5 × 3', diff: 'Avancé',
     desc: 'Chaque impulsion bascule l\'état : allumé, éteint, allumé… C\'est ce qui transforme un bouton en interrupteur.',
     mats: ['1 piston collant', '1 bloc de redstone', '2 répéteurs', '1 observateur', 'poudre'],
-    couches: [{ t: 'Vue de dessus', g: ['R.S.R', '..B..', '..Q..'] }],
+    couches: [{ t: 'Vue de dessus', vue: 1, g: ['R.S.R', '..B..', '..Q..'] }],
     etapes: [
       'Un piston collant pousse et tire un bloc de redstone entre deux positions.',
       'Chaque impulsion en entrée fait avancer ou reculer le bloc.',
@@ -261,7 +261,7 @@ var CIRCUITS = [
     taille: '3 × 2', diff: 'Débutant',
     desc: 'Un comparateur lit le remplissage d\'un conteneur. Sert à couper une ferme quand le stockage est saturé, ou à allumer un voyant.',
     mats: ['1 comparateur', 'poudre', '1 lampe de redstone ou 1 répéteur'],
-    couches: [{ t: 'Vue de dessus', g: ['EVR', '...'] }],
+    couches: [{ t: 'Vue de dessus', vue: 1, g: ['EVR', '...'] }],
     etapes: [
       'Placez le comparateur directement derrière le coffre, dans le sens de sortie.',
       'La force du signal est proportionnelle au remplissage : 0 (vide) à 15 (plein).',
@@ -276,8 +276,8 @@ var CIRCUITS = [
     desc: 'Un pan de mur qui s\'ouvre sans laisser voir de mécanisme. Le classique de toute base secrète.',
     mats: ['4 pistons collants', '4 blocs de façade identiques au mur', 'poudre, répéteurs, blocs pleins', '2 leviers ou 2 plaques de pression'],
     couches: [
-      { t: 'Vue de face · le mur fermé', g: ['bbbb', 'bBBb', 'bBBb', 'bbbb'] },
-      { t: 'Vue de dessus · mécanisme (derrière le mur)', g: ['.SS.', 'RRRR', '.ZZ.'] }
+      { t: 'Vue de face · le mur fermé', vue: 1, g: ['bbbb', 'bBBb', 'bBBb', 'bbbb'] },
+      { t: 'Vue de dessus · mécanisme (derrière le mur)', vue: 1, g: ['.SS.', 'RRRR', '.ZZ.'] }
     ],
     etapes: [
       'Réservez une cavité de 2 blocs de profondeur derrière le pan de mur à ouvrir.',
@@ -296,7 +296,7 @@ var CIRCUITS = [
     taille: '3 × 2', diff: 'Débutant',
     desc: 'Vos lampes s\'allument seules au coucher du soleil et s\'éteignent à l\'aube. Le montage de confort le plus rentable d\'une base.',
     mats: ['1 détecteur de lumière du jour', 'poudre de redstone', 'lampes de redstone', 'répéteurs si la distance dépasse 15 blocs'],
-    couches: [{ t: 'Vue de dessus', g: ['KRR', '...'] }],
+    couches: [{ t: 'Vue de dessus', vue: 1, g: ['KRR', '...'] }],
     etapes: [
       'Posez un détecteur de lumière du jour à ciel ouvert.',
       'Faites un clic droit dessus : il passe en mode inversé et s\'active la NUIT.',
@@ -310,7 +310,7 @@ var CIRCUITS = [
     taille: '5 × 3', diff: 'Intermédiaire',
     desc: 'Un distributeur verse et reprend l\'eau à la demande : rideau d\'entrée, piège, ou évacuation d\'un couloir de ferme.',
     mats: ['1 distributeur', '1 seau d\'eau', '1 plaque de pression ou 1 levier', 'poudre de redstone'],
-    couches: [{ t: 'Vue de côté', g: ['.U..', '.w..', '._..'] }],
+    couches: [{ t: 'Vue de côté', vue: 1, g: ['.U..', '.w..', '._..'] }],
     etapes: [
       'Placez un distributeur avec un seau d\'eau à l\'intérieur, orienté vers la zone à inonder.',
       'Un signal le déclenche : il verse la source d\'eau. Un second signal la reprend dans le seau.',

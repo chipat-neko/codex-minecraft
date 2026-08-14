@@ -430,10 +430,10 @@ var PLANS = [
     desc: 'Un module de tri par type d\'objet, à répliquer autant de fois que nécessaire. Les objets circulent dans une ligne d\'entonnoirs et tombent dans le bon coffre.',
     mats: ['Par module : 5 entonnoirs, 1 coffre (ou double coffre), 1 comparateur, 1 torche de redstone, 4 blocs pleins, 1 poudre de redstone', '18 objets « filtre » par module (voir étapes)'],
     couches: [
-      { t: 'Vue de dessus · Y+2 (ligne d\'apport)', g: ['HHHHHH', '......', '......'] },
-      { t: 'Vue de dessus · Y+1 (filtres)', g: ['HHHHHH', 'HHHHHH', '......'] },
-      { t: 'Vue de dessus · Y+0 (coffres)', g: ['EEEEEE', '......', '......'] },
-      { t: 'Vue de côté · un module', g: ['..H...', '.BHB..', '.VRV..', '.E.E..'] }
+      { t: 'Vue de dessus · Y+2 (ligne d\'apport)', vue: 1, g: ['HHHHHH', '......', '......'] },
+      { t: 'Vue de dessus · Y+1 (filtres)', vue: 1, g: ['HHHHHH', 'HHHHHH', '......'] },
+      { t: 'Vue de dessus · Y+0 (coffres)', vue: 1, g: ['EEEEEE', '......', '......'] },
+      { t: 'Vue de côté · un module', vue: 1, g: ['..H...', '.BHB..', '.VRV..', '.E.E..'] }
     ],
     etapes: [
       'Ligne d\'apport : une rangée d\'entonnoirs à Y+2 qui pointent tous vers l\'entonnoir suivant, alimentée depuis votre ferme ou un coffre de dépôt.',
@@ -533,7 +533,7 @@ var PLANS = [
     mats: ['≈350 briques de pierre', '≈80 escaliers en pierre (courbe des arches)', '≈40 murets (parapets)', '6 lanternes + 6 clôtures (lampadaires)', 'Quelques briques moussues pour vieillir les piles'],
     couches: [
       {
-        t: 'Vue de côté · l\'arche',
+        t: 'Vue de côté · l\'arche', vue: 1,
         g: [
           '.---------------.',
           'M...............M',
@@ -545,7 +545,7 @@ var PLANS = [
         ]
       },
       {
-        t: 'Vue de dessus · tablier',
+        t: 'Vue de dessus · tablier', vue: 1,
         g: [
           'MMMMMMMMMMMMMMMMM',
           '-----------------',
@@ -592,7 +592,7 @@ var PLANS = [
         ]
       },
       {
-        t: 'Vue de côté · un ponton',
+        t: 'Vue de côté · un ponton', vue: 1,
         g: ['..--..', '..||..', '..||..', 'wwwwww']
       }
     ],
@@ -615,19 +615,19 @@ var PLANS = [
     mats: ['≈700 blocs verts (mousse, béton vert, feuillage compact)', '≈80 blocs sombres (deepslate, béton noir) pour le visage', 'Échafaudages en quantité', 'Optionnel : blocs lumineux dans les yeux'],
     couches: [
       {
-        t: 'Vue de face · tête (8 × 8)',
+        t: 'Vue de face · tête (8 × 8)', vue: 1,
         g: ['NNNNNNNN', 'NnnNNnnN', 'NnnNNnnN', 'NNNnnNNN', 'NNnnnnNN', 'NNnNNnNN', 'NNNNNNNN', 'NNNNNNNN']
       },
       {
-        t: 'Vue de face · corps (8 × 8)',
+        t: 'Vue de face · corps (8 × 8)', vue: 1,
         g: ['NNNNNNNN', 'NNNNNNNN', 'NNNNNNNN', 'NNNNNNNN', 'NNNNNNNN', 'NNNNNNNN', 'NNNNNNNN', 'NNNNNNNN']
       },
       {
-        t: 'Vue de face · pattes (8 × 4)',
+        t: 'Vue de face · pattes (8 × 4)', vue: 1,
         g: ['NN....NN', 'NN....NN', 'NN....NN', 'NN....NN']
       },
       {
-        t: 'Vue de dessus · emprise des pattes',
+        t: 'Vue de dessus · emprise des pattes', vue: 1,
         g: ['NN....NN', 'NN....NN', '........', '........', '........', '........', 'NN....NN', 'NN....NN']
       }
     ],
@@ -665,7 +665,7 @@ var PLANS = [
         ]
       },
       {
-        t: 'Vue de côté · accès en escalier',
+        t: 'Vue de côté · accès en escalier', vue: 1,
         g: ['e*.......', 'cc/......', 'ccc/.....', 'cccc/....', 'ccccc/...', 'cccccc/..', 'ccccccc*.']
       }
     ],
@@ -915,7 +915,7 @@ var PLANS = [
         ]
       },
       {
-        t: 'Vue de face · rosace de la façade ouest (11 × 11)',
+        t: 'Vue de face · rosace de la façade ouest (11 × 11)', vue: 1,
         g: [
           'bbbbbbbbbbb',
           'bbbbGGGbbbb',
@@ -1684,7 +1684,7 @@ var PLANS = [
         ]
       },
       {
-        t: 'Vue de face · roue des quatre ailes (13 × 13)',
+        t: 'Vue de face · roue des quatre ailes (13 × 13)', vue: 1,
         g: [
           '+k.........k+',
           '.+k.......k+.',

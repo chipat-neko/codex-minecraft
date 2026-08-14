@@ -22,8 +22,8 @@ var USINES = [
     desc: 'Un four alimenté par trois entonnoirs : un pour le minerai, un pour le charbon, un pour la sortie. Vous déposez 3 piles de fer brut et vous revenez plus tard. À multiplier par 8 ou 16 fours pour une vraie fonderie.',
     mats: ['Par four : 1 fourneau, 3 entonnoirs (15 lingots de fer), 2 coffres', 'Fonderie 8 fours : 8 fourneaux, 24 entonnoirs (120 fer), 3 grands coffres', 'Carburant : bloc de charbon, ou bambou/kelp séché produit en ferme'],
     couches: [
-      { t: 'Vue de côté · un module', g: ['.E.', '.H.', 'EHU', '.H.', '.E.'] },
-      { t: 'Vue de dessus · batterie de 4 fours', g: ['EEEE', 'HHHH', 'UUUU', 'HHHH', 'EEEE'] }
+      { t: 'Vue de côté · un module', vue: 1, g: ['.E.', '.H.', 'EHU', '.H.', '.E.'] },
+      { t: 'Vue de dessus · batterie de 4 fours', vue: 1, g: ['EEEE', 'HHHH', 'UUUU', 'HHHH', 'EEEE'] }
     ],
     etapes: [
       'Placez le fourneau. Un entonnoir au-dessus, orienté vers le bas, alimente l\'emplacement du minerai.',
@@ -44,8 +44,8 @@ var USINES = [
     desc: 'La ferme entièrement automatique la plus simple du jeu. La canne pousse jusqu\'au 3ᵉ bloc, un observateur détecte la pousse et un piston la casse. Papier illimité pour les livres et les fusées.',
     mats: ['Par bloc de canne : 1 observateur, 1 piston, 1 bloc plein', '1 ligne d\'entonnoirs ou un canal d\'eau + entonnoir en bout', 'Sable ou terre au bord d\'un canal d\'eau', 'Coffre de collecte'],
     couches: [
-      { t: 'Vue de côté · un module', g: ['..P Q', '..u..', '..u..', '.Auw.', '.HHH.', '.E...'] },
-      { t: 'Vue de dessus · ligne de 6', g: ['QQQQQQ', 'PPPPPP', 'uuuuuu', 'AAAAAA', 'wwwwww'] }
+      { t: 'Vue de côté · un module', vue: 1, g: ['..P Q', '..u..', '..u..', '.Auw.', '.HHH.', '.E...'] },
+      { t: 'Vue de dessus · ligne de 6', vue: 1, g: ['QQQQQQ', 'PPPPPP', 'uuuuuu', 'AAAAAA', 'wwwwww'] }
     ],
     etapes: [
       'Creusez un canal d\'eau d\'un bloc de large ; à côté, alignez des blocs de sable au même niveau.',
@@ -66,7 +66,7 @@ var USINES = [
     desc: 'Même principe que la canne à sucre, mais le bambou pousse jusqu\'à 16 blocs de haut et très vite. Combiné à un fabricateur, il produit des blocs de bambou séché : le carburant de vos fours.',
     mats: ['1 observateur, 1 piston, 1 bloc plein par colonne', '1 pousse de bambou (jungle ou coffre d\'épave)', 'Entonnoirs + coffre', 'Optionnel : 1 fabricateur (crafter) pour les blocs de bambou'],
     couches: [
-      { t: 'Vue de côté', g: ['.z.', '.z.', 'Qz.', 'Pz.', '.z.', 'tHE'] }
+      { t: 'Vue de côté', vue: 1, g: ['.z.', '.z.', 'Qz.', 'Pz.', '.z.', 'tHE'] }
     ],
     etapes: [
       'Plantez le bambou sur de la terre, du sable ou du gravier ; il n\'a pas besoin d\'eau.',
@@ -87,8 +87,8 @@ var USINES = [
     desc: 'Les poulets pondent, les œufs sont ramassés par un entonnoir et relancés par un distributeur : les poussins éclosent, grandissent, et la lave au-dessus les cuit à l\'instant où ils deviennent adultes. Poulet rôti + plumes en continu.',
     mats: ['2 distributeurs, ≈8 entonnoirs, 2 coffres', '1 seau de lave + 1 bloc de verre/dalle', '1 horloge de redstone (2 répéteurs en boucle, ou comparateur + entonnoir)', '≈20 blocs pleins pour la chambre', '2 poulets de départ'],
     couches: [
-      { t: 'Vue de côté', g: ['.ccc.', '.clc.', '.c.c.', 'RcYc.', '.cHc.', '.cEc.'] },
-      { t: 'Vue de dessus · chambre à poulets', g: ['ccccc', 'cHHHc', 'cHHHc', 'cHHHc', 'ccccc'] }
+      { t: 'Vue de côté', vue: 1, g: ['.ccc.', '.clc.', '.c.c.', 'RcYc.', '.cHc.', '.cEc.'] },
+      { t: 'Vue de dessus · chambre à poulets', vue: 1, g: ['ccccc', 'cHHHc', 'cHHHc', 'cHHHc', 'ccccc'] }
     ],
     etapes: [
       'Construisez une chambre fermée de 3 × 3 avec un plancher entièrement en entonnoirs, reliés à un coffre.',
@@ -133,8 +133,8 @@ var USINES = [
     desc: 'La tige pousse et fait apparaître un melon ou une citrouille sur une case adjacente. Un observateur détecte l\'apparition, un piston le casse.',
     mats: ['Par module : 1 observateur, 1 piston, 1 bloc plein', 'Terre labourée + eau', 'Canal d\'eau ou entonnoirs + coffre', 'Graines de melon (mines abandonnées) ou de citrouille'],
     couches: [
-      { t: 'Vue de côté', g: ['.QP.', 'fh..', 'wHE.'] },
-      { t: 'Vue de dessus · ligne', g: ['ffffff', 'wwwwww', 'QQQQQQ', 'PPPPPP', 'HHHHHH'] }
+      { t: 'Vue de côté', vue: 1, g: ['.QP.', 'fh..', 'wHE.'] },
+      { t: 'Vue de dessus · ligne', vue: 1, g: ['ffffff', 'wwwwww', 'QQQQQQ', 'PPPPPP', 'HHHHHH'] }
     ],
     etapes: [
       'Alternez : une case de terre labourée avec la tige, une case de terre nue où poussera le fruit.',
@@ -156,9 +156,9 @@ var USINES = [
     desc: 'Trois villageois effrayés par un zombie appellent un golem de fer, qui apparaît dans une zone de spawn contrôlée puis tombe dans un broyeur. Le fer devient une ressource illimitée.',
     mats: ['3 villageois + 3 lits + 1 zombie (dans un bateau ou derrière des vitres)', '≈10 entonnoirs, 2 grands coffres', 'Eau (canaux de convoyage)', 'Lave ou chute de 24 blocs pour la mise à mort', '≈200 blocs pleins'],
     couches: [
-      { t: 'Étage 1 · cellule des villageois (vue de dessus)', g: ['bbbbbbb', 'b<.<.<b', 'b.....b', 'b..x..b', 'b.....b', 'b..@..b', 'bbbbbbb'] },
+      { t: 'Étage 1 · cellule des villageois (vue de dessus)', vue: 1, g: ['bbbbbbb', 'b<.<.<b', 'b.....b', 'b..x..b', 'b.....b', 'b..@..b', 'bbbbbbb'] },
       { t: 'Étage 2 · plateforme de spawn', g: ['bbbbbbb', 'b.....b', 'b.www.b', 'b.www.b', 'b.www.b', 'b..H..b', 'bbbbbbb'] },
-      { t: 'Étage 3 · broyeur & collecte (vue de côté)', g: ['..w..', '..w..', '..I..', '..l..', '.HHH.', '..E..'] }
+      { t: 'Étage 3 · broyeur & collecte (vue de côté)', vue: 1, g: ['..w..', '..w..', '..I..', '..l..', '.HHH.', '..E..'] }
     ],
     etapes: [
       'Enfermez 3 villageois dans une cellule avec 3 lits : ils doivent pouvoir voir leur lit et dormir, sinon aucun golem n\'apparaît.',
@@ -182,7 +182,7 @@ var USINES = [
     mats: ['1 générateur de donjon (ne PAS le casser)', '2 seaux d\'eau', '≈15 entonnoirs, 1 grand coffre', '≈150 blocs pleins', '1 panneau ou 1 trappe pour bloquer l\'eau'],
     couches: [
       { t: 'Y+0 · salle de spawn (générateur au centre)', g: ['bbbbbbbbb', 'b~~~~~~~b', 'b~.....~b', 'b~..@..~b', 'b~.....~b', 'b~~~~~~~b', 'bbbb.bbbb', 'bbbbbbbbb', 'bbbbbbbbb'] },
-      { t: 'Vue de côté · colonne de chute & mise à mort', g: ['b@b', 'b~b', 'b.b', 'b.b', 'b.b', 'b.b', 'b.b', 'bxb', 'bHb', 'bEb'] }
+      { t: 'Vue de côté · colonne de chute & mise à mort', vue: 1, g: ['b@b', 'b~b', 'b.b', 'b.b', 'b.b', 'b.b', 'b.b', 'bxb', 'bHb', 'bEb'] }
     ],
     etapes: [
       'Creusez la salle du donjon jusqu\'à 4 blocs autour du générateur dans toutes les directions — c\'est son rayon d\'apparition.',
@@ -204,8 +204,8 @@ var USINES = [
     desc: 'Des plateformes obscures suspendues au-dessus de l\'océan ou du vide : tous les monstres du Surworld y apparaissent, sont convoyés par l\'eau puis tués par la chute. Poudre à canon, os, flèches, chair, XP.',
     mats: ['≈2 000 blocs pleins (pierre, terre, n\'importe quoi)', '≈20 seaux d\'eau', '≈20 entonnoirs, 2 grands coffres', '≈30 dalles ou trappes (anti-apparition)', 'Beaucoup d\'échafaudages'],
     couches: [
-      { t: 'Une plateforme (vue de dessus)', g: ['bbbbbbbbbbbbb', 'b~~~~~.~~~~~b', 'b...........b', 'b...........b', 'b...........b', 'b~~~~~.~~~~~b', 'bbbbbb.bbbbbb', 'bbbbbbbbbbbbb'] },
-      { t: 'Vue de côté · empilement', g: ['bbbbb', 'b~~~b', 'bbbbb', 'b...b', 'bbbbb', 'b~~~b', 'bbbbb', 'b...b', '..|..', '..|..', '..|..', '..x..', '.HHH.', '..E..'] }
+      { t: 'Une plateforme (vue de dessus)', vue: 1, g: ['bbbbbbbbbbbbb', 'b~~~~~.~~~~~b', 'b...........b', 'b...........b', 'b...........b', 'b~~~~~.~~~~~b', 'bbbbbb.bbbbbb', 'bbbbbbbbbbbbb'] },
+      { t: 'Vue de côté · empilement', vue: 1, g: ['bbbbb', 'b~~~b', 'bbbbb', 'b...b', 'bbbbb', 'b~~~b', 'bbbbb', 'b...b', '..|..', '..|..', '..|..', '..x..', '.HHH.', '..E..'] }
     ],
     etapes: [
       'Choisissez l\'emplacement : au-dessus d\'un océan à Y ≈ 130, ou dans le vide de l\'End. Rien d\'autre ne doit pouvoir engendrer de mobs dans un rayon de 128 blocs.',
@@ -228,7 +228,7 @@ var USINES = [
     desc: 'Une tour à mobs dont le plafond est bas de 2 blocs seulement : seuls les creepers et les araignées passent. Avec des chats à proximité, on élimine aussi les araignées. Poudre à canon en flux continu = fusées à l\'infini.',
     mats: ['≈1 200 blocs pleins', 'Plafond à exactement 2 blocs de hauteur au-dessus des plateformes', '1 à 4 chats apprivoisés (éloignent les creepers, ce qui les pousse vers les canaux)', 'Entonnoirs + coffres', 'Chute de 24 blocs'],
     couches: [
-      { t: 'Plateforme · plafond bas (vue de côté)', g: ['bbbbbbb', 'b.....b', 'b~...~b', 'bbb.bbb'] },
+      { t: 'Plateforme · plafond bas (vue de côté)', vue: 1, g: ['bbbbbbb', 'b.....b', 'b~...~b', 'bbb.bbb'] },
       { t: 'Zone de mise à mort', g: ['..|..', '..|..', '..x..', '.HHH.', '..E..'] }
     ],
     etapes: [
@@ -251,8 +251,8 @@ var USINES = [
     desc: 'Dans une vallée de sable des âmes ou sur une plateforme au-dessus du vide du Nether, les zombies-piglins apparaissent en masse. Convoyés et tués, ils fournissent or, pépites, épées en or et une XP énorme.',
     mats: ['≈1 500 blocs (préférez des blocs résistants aux ghasts : briques du Nether, pierre)', 'Trappes ou dalles pour bloquer les apparitions ailleurs', 'Entonnoirs + coffres', 'Chute de 24 blocs ou un broyeur à magma', 'Potion de Résistance au feu pour la construction'],
     couches: [
-      { t: 'Plateforme de spawn (vue de dessus)', g: ['rrrrrrrrr', 'r~~~~~~~r', 'r~.....~r', 'r~..H..~r', 'r~.....~r', 'r~~~~~~~r', 'rrrrrrrrr'] },
-      { t: 'Vue de côté', g: ['rrrrr', 'r~~~r', 'r...r', '..|..', '..|..', '..x..', '.HHH.', '..E..'] }
+      { t: 'Plateforme de spawn (vue de dessus)', vue: 1, g: ['rrrrrrrrr', 'r~~~~~~~r', 'r~.....~r', 'r~..H..~r', 'r~.....~r', 'r~~~~~~~r', 'rrrrrrrrr'] },
+      { t: 'Vue de côté', vue: 1, g: ['rrrrr', 'r~~~r', 'r...r', '..|..', '..|..', '..x..', '.HHH.', '..E..'] }
     ],
     etapes: [
       'Choisissez une zone du Nether au-dessus du vide (sous la bedrock) ou une grande vallée de sable des âmes, loin d\'un bastion.',
@@ -274,7 +274,7 @@ var USINES = [
     mats: ['≈2 000 blocs de briques du Nether (récupérés sur place)', 'Dalles et trappes en quantité', 'Épée avec Butin III (indispensable)', 'Potion de Résistance au feu', 'Entonnoirs + coffres'],
     couches: [
       { t: 'Plateforme de spawn (dessus)', g: ['rrrrrrrrr', 'rrrrrrrrr', 'rr.....rr', 'rr.....rr', 'rr..H..rr', 'rr.....rr', 'rrrrrrrrr'] },
-      { t: 'Vue de côté · plafond 2 blocs', g: ['rrrrrrr', 'r.....r', 'r.....r', 'rrr.rrr', '..|....', '..x....', '.HHH...', '..E....'] }
+      { t: 'Vue de côté · plafond 2 blocs', vue: 1, g: ['rrrrrrr', 'r.....r', 'r.....r', 'rrr.rrr', '..|....', '..x....', '.HHH...', '..E....'] }
     ],
     etapes: [
       'Trouvez un grand carrefour de forteresse — plus la surface de briques du Nether est vaste, meilleur est le rendement.',
@@ -296,7 +296,7 @@ var USINES = [
     mats: ['1 villageois + 1 lit + 1 cloche', '≈500 blocs pleins', 'Canaux d\'eau + entonnoirs + coffres', 'Chute de mise à mort de 24 blocs', 'Bouteilles de mauvais présage (ou capitaines pillards à tuer)'],
     couches: [
       { t: 'Y+0 · village artificiel', g: ['bbbbbbb', 'b~~~~~b', 'b~...~b', 'b~.x.~b', 'b~...~b', 'b~~~~~b', 'bbb.bbb'] },
-      { t: 'Vue de côté', g: ['b<b', 'bxb', 'b~b', 'b.b', 'b.b', 'b.b', 'bxb', 'bHb', 'bEb'] }
+      { t: 'Vue de côté', vue: 1, g: ['b<b', 'bxb', 'b~b', 'b.b', 'b.b', 'b.b', 'bxb', 'bHb', 'bEb'] }
     ],
     etapes: [
       'Construisez une petite plateforme de village en hauteur, contenant 1 villageois et 1 lit — c\'est le minimum pour que le jeu la considère comme un village.',
@@ -319,8 +319,8 @@ var USINES = [
     desc: 'Dans les plaines de l\'End, seuls les endermen apparaissent. Une plateforme au-dessus du vide avec un endermite en appât : c\'est la ferme d\'XP la plus rapide du jeu.',
     mats: ['≈600 blocs (transportés depuis le Surworld ou faits sur place)', '1 endermite en wagonnet (appât)', 'Entonnoirs + coffres', 'Casque ou citrouille sculptée (pour ne pas provoquer les endermen)', 'Chute de 43 blocs'],
     couches: [
-      { t: 'Plateforme (vue de dessus)', g: ['..bbbbb..', '.bbbbbbb.', 'bbbb.bbbb', 'bbb...bbb', 'bbbb.bbbb', '.bbbbbbb.', '..bbbbb..'] },
-      { t: 'Vue de côté', g: ['bbbbb', 'b...b', 'b.=.b', 'b...b', '..|..', '..|..', '..|..', '..x..', '.HHH.', '..E..'] }
+      { t: 'Plateforme (vue de dessus)', vue: 1, g: ['..bbbbb..', '.bbbbbbb.', 'bbbb.bbbb', 'bbb...bbb', 'bbbb.bbbb', '.bbbbbbb.', '..bbbbb..'] },
+      { t: 'Vue de côté', vue: 1, g: ['bbbbb', 'b...b', 'b.=.b', 'b...b', '..|..', '..|..', '..|..', '..x..', '.HHH.', '..E..'] }
     ],
     etapes: [
       'Allez sur les îles principales de l\'End, à au moins 200 blocs de l\'île centrale, ou construisez au-dessus du vide.',
@@ -342,7 +342,7 @@ var USINES = [
     mats: ['≈15 éponges (récupérées sur place)', '≈3 000 blocs pour boucher les ouvertures', 'Potions de Respiration aquatique + Vision nocturne', '1 conduit (8 coquillages nautiles + 1 cœur de la mer)', 'Entonnoirs + coffres, lave ou chute de mise à mort'],
     couches: [
       { t: 'Zone de spawn (schéma simplifié)', g: ['wwwwwwwww', 'w.......w', 'w.......w', 'w...H...w', 'w.......w', 'w.......w', 'wwwwwwwww'] },
-      { t: 'Vue de côté · collecte', g: ['wwwww', 'w...w', 'w.|.w', '..|..', '..x..', '.HHH.', '..E..'] }
+      { t: 'Vue de côté · collecte', vue: 1, g: ['wwwww', 'w...w', 'w.|.w', '..|..', '..x..', '.HHH.', '..E..'] }
     ],
     etapes: [
       'Tuez d\'abord les 3 gardiens anciens : leur Fatigue de minage III rend tout chantier impossible (ou buvez du lait en boucle).',
@@ -365,8 +365,8 @@ var USINES = [
     desc: 'Le système nerveux d\'une base : toutes vos fermes déversent dans une ligne d\'entonnoirs, et chaque objet finit dans son coffre dédié, sans intervention.',
     mats: ['Par catégorie : 5 entonnoirs, 1 grand coffre, 1 comparateur, 1 torche de redstone, 1 poudre de redstone, 4 blocs pleins', '18 objets « bourre » par filtre', 'Cadres d\'objet pour l\'étiquetage'],
     couches: [
-      { t: 'Vue de côté · deux modules', g: ['HHHHHH', 'B.BB.B', 'VRRVRR', 'H..H..', 'E..E..'] },
-      { t: 'Vue de dessus · ligne principale', g: ['EHHHHHHHHE', '.HH.HH.HH.', '.EE.EE.EE.'] }
+      { t: 'Vue de côté · deux modules', vue: 1, g: ['HHHHHH', 'B.BB.B', 'VRRVRR', 'H..H..', 'E..E..'] },
+      { t: 'Vue de dessus · ligne principale', vue: 1, g: ['EHHHHHHHHE', '.HH.HH.HH.', '.EE.EE.EE.'] }
     ],
     etapes: [
       'Ligne principale : une rangée d\'entonnoirs chaînés qui traverse toute la salle de stockage, alimentée par vos fermes.',
@@ -388,7 +388,7 @@ var USINES = [
     desc: 'Le fabricateur (crafter) de la 1.21 transforme automatiquement 9 lingots en 1 bloc. Placé en amont du stockage, il divise par neuf le volume à ranger.',
     mats: ['1 fabricateur (5 fer, 2 redstone, 1 établi, 1 lanceur)', '2 entonnoirs, 2 coffres', '1 comparateur, 1 bloc plein, 1 poudre de redstone'],
     couches: [
-      { t: 'Vue de côté', g: ['.E.', '.H.', 'RY.', 'VB.', '.H.', '.E.'] }
+      { t: 'Vue de côté', vue: 1, g: ['.E.', '.H.', 'RY.', 'VB.', '.H.', '.E.'] }
     ],
     etapes: [
       'Coffre d\'entrée → entonnoir → fabricateur : les objets remplissent la grille 3 × 3 du fabricateur.',
@@ -409,8 +409,8 @@ var USINES = [
     desc: 'Lave + eau = pierre, à l\'infini. Un piston casse le bloc formé, un entonnoir le collecte : la ressource de construction illimitée, pour les remblais et les tours à mobs.',
     mats: ['1 seau de lave, 1 seau d\'eau', '1 piston, 1 observateur (ou horloge de redstone)', '≈10 blocs pleins résistants (pierre)', 'Entonnoirs + coffre', 'Optionnel : 1 fabricateur pour transformer en pierre taillée'],
     couches: [
-      { t: 'Vue de côté', g: ['clcwc', 'c.P.c', 'cQHEc'] },
-      { t: 'Vue de dessus', g: ['ccccc', 'clcwc', 'c.P.c', 'cHHHc', 'ccEcc'] }
+      { t: 'Vue de côté', vue: 1, g: ['clcwc', 'c.P.c', 'cQHEc'] },
+      { t: 'Vue de dessus', vue: 1, g: ['ccccc', 'clcwc', 'c.P.c', 'cHHHc', 'ccEcc'] }
     ],
     etapes: [
       'Creusez un canal : une source de lave d\'un côté, une source d\'eau de l\'autre, séparées par une case vide.',
@@ -431,8 +431,8 @@ var USINES = [
     desc: 'La véritable « usine à ressources » du jeu : des villageois enfermés en cellules individuelles, chacun avec son bloc de métier. Enchantements, diamants, émeraudes, nourriture, tout devient achetable.',
     mats: ['1 cellule de 1 × 1 par villageois (vitres + dalle)', '1 bloc de métier par villageois (lutrin, forge, étal…)', '1 lit par villageois si vous voulez les reproduire', 'Rails ou bateaux pour le transport', '1 zombie enfermé (pour les remises permanentes)'],
     couches: [
-      { t: 'Vue de dessus · rangée de cellules', g: ['bbbbbbbbbbb', 'bGbGbGbGbGb', 'b?b?b?b?b?b', 'bbbbbbbbbbb', ',,,,,,,,,,,'] },
-      { t: 'Vue de côté · une cellule', g: ['bbb', 'bGb', 'b?b', 'b-b'] }
+      { t: 'Vue de dessus · rangée de cellules', vue: 1, g: ['bbbbbbbbbbb', 'bGbGbGbGbGb', 'b?b?b?b?b?b', 'bbbbbbbbbbb', ',,,,,,,,,,,'] },
+      { t: 'Vue de côté · une cellule', vue: 1, g: ['bbb', 'bGb', 'b?b', 'b-b'] }
     ],
     etapes: [
       'Transportez les villageois en bateau, en wagonnet ou par un couloir d\'eau jusqu\'à vos cellules.',
@@ -454,8 +454,8 @@ var USINES = [
     desc: 'Le moyen le plus rapide et le moins cher de monter ou descendre de 100 blocs. Deux colonnes côte à côte : une pour monter, une pour descendre.',
     mats: ['1 bloc de sable des âmes (montée) ou 1 bloc de magma (descente)', '1 seau d\'eau par 2 blocs de hauteur (ou des kelp pour figer la source)', 'Blocs pleins pour la gaine', '2 portes ou trappes en entrée/sortie'],
     couches: [
-      { t: 'Vue de côté · colonne montante', g: ['b.b', 'bwb', 'bwb', 'bwb', 'bwb', 'bAb'] },
-      { t: 'Vue de dessus · double colonne', g: ['bbbbb', 'bw.wb', 'bbbbb'] }
+      { t: 'Vue de côté · colonne montante', vue: 1, g: ['b.b', 'bwb', 'bwb', 'bwb', 'bwb', 'bAb'] },
+      { t: 'Vue de dessus · double colonne', vue: 1, g: ['bbbbb', 'bw.wb', 'bbbbb'] }
     ],
     etapes: [
       'Creusez une gaine de 1 × 1 sur toute la hauteur voulue, entourée de blocs pleins.',
@@ -476,7 +476,7 @@ var USINES = [
     desc: 'Ce n\'est pas une machine mais l\'infrastructure la plus rentable du jeu : 1 bloc parcouru dans le Nether = 8 blocs en surface. Un réseau de tunnels relie toute votre carte en quelques secondes.',
     mats: ['Blocs résistants (briques du Nether, pierre) pour les tunnels', 'Glace bleue + bateau (autoroute à grande vitesse) ou rails motorisés', 'Panneaux pour la signalétique et les coordonnées', 'Portails sécurisés (voir le plan correspondant)'],
     couches: [
-      { t: 'Coupe d\'un tunnel', g: ['rrrrr', 'r...r', 'r...r', 'riiir'] },
+      { t: 'Coupe d\'un tunnel', vue: 1, g: ['rrrrr', 'r...r', 'r...r', 'riiir'] },
       { t: 'Plan du hub central', g: ['rrr^rrr', 'r.....r', 'r.....r', '^..}..^', 'r.....r', 'r.....r', 'rrr^rrr'] }
     ],
     etapes: [
@@ -498,8 +498,8 @@ var USINES = [
     desc: 'Un dispensateur avec une bouteille ou une cisaille récolte automatiquement la ruche quand elle atteint le niveau de miel 5, détecté par un comparateur.',
     mats: ['1 à 4 ruches (3 rayons de miel + 6 planches)', '1 distributeur par ruche + bouteilles ou cisailles', '1 comparateur + redstone par ruche', '1 feu de camp sous chaque ruche', 'Fleurs et abeilles'],
     couches: [
-      { t: 'Vue de côté', g: ['.y.', 'VyH', '.F.', '.E.'] },
-      { t: 'Vue de dessus · module', g: ['.yyy.', 'V.y.H', '.FFF.', '.EEE.'] }
+      { t: 'Vue de côté', vue: 1, g: ['.y.', 'VyH', '.F.', '.E.'] },
+      { t: 'Vue de dessus · module', vue: 1, g: ['.yyy.', 'V.y.H', '.FFF.', '.EEE.'] }
     ],
     etapes: [
       'Attirez des abeilles avec des fleurs, ou déplacez un nid entier avec une pioche à Toucher de soie (attention : les abeilles à l\'intérieur viennent avec).',
@@ -520,8 +520,8 @@ var USINES = [
     desc: 'Bois, pousses et pommes en continu. La version simple utilise la poudre d\'os et une hache ; la version automatique utilise du TNT ou une machine volante à pistons.',
     mats: ['Pousses d\'arbre (chêne noir pour la version compacte)', 'Poudre d\'os (ferme à squelettes ou composteur)', 'Version auto : ≈10 observateurs, pistons, TNT ou machine volante', 'Entonnoirs + coffres + canaux d\'eau'],
     couches: [
-      { t: 'Vue de dessus · 4 emplacements', g: ['bbbbbbbbb', 'b..%.%..b', 'b.%%.%%.b', 'b...o...b', 'b.%%.%%.b', 'b..%.%..b', 'bHHHHHHHb', 'bbbbEbbbb'] },
-      { t: 'Vue de côté', g: ['..%..', '.%%%.', '..o..', '..o..', '..t..', '.HHH.', '..E..'] }
+      { t: 'Vue de dessus · 4 emplacements', vue: 1, g: ['bbbbbbbbb', 'b..%.%..b', 'b.%%.%%.b', 'b...o...b', 'b.%%.%%.b', 'b..%.%..b', 'bHHHHHHHb', 'bbbbEbbbb'] },
+      { t: 'Vue de côté', vue: 1, g: ['..%..', '.%%%.', '..o..', '..o..', '..t..', '.HHH.', '..E..'] }
     ],
     etapes: [
       'Préparez une plateforme de terre avec un espacement correct : 2 blocs entre chaque pousse pour un chêne, 5 × 5 pour un chêne noir (qui exige 4 pousses).',
@@ -542,8 +542,8 @@ var USINES = [
     desc: 'Les bourgeons d\'améthyste repoussent indéfiniment sur le bloc d\'améthyste en gemme. Un piston les récolte au stade final, un canal d\'eau les convoie.',
     mats: ['1 géode d\'améthyste (Y -64 à 30)', 'Blocs d\'améthyste en gemme (budding amethyst) — NON déplaçables', '≈20 pistons + observateurs ou une horloge lente', 'Canaux d\'eau + entonnoirs + coffre'],
     couches: [
-      { t: 'Vue de côté · un module', g: ['bPb', 'b*b', 'bwb', 'bHb', 'bEb'] },
-      { t: 'Vue de dessus · mur de récolte', g: ['PPPPP', '*****', 'wwwww', 'HHHHH'] }
+      { t: 'Vue de côté · un module', vue: 1, g: ['bPb', 'b*b', 'bwb', 'bHb', 'bEb'] },
+      { t: 'Vue de dessus · mur de récolte', vue: 1, g: ['PPPPP', '*****', 'wwwww', 'HHHHH'] }
     ],
     etapes: [
       'Repérez une géode : sphère de calcite et de basalte lisse, souvent visible depuis un océan ou une grande grotte.',
@@ -564,8 +564,8 @@ var USINES = [
     desc: 'Un catalyseur de sculk placé sous une zone de mise à mort convertit les morts en blocs de sculk. On les mine ensuite pour récupérer une XP considérable, concentrée et déplaçable.',
     mats: ['1 catalyseur de sculk (Toucher de soie, dans une cité antique)', 'Une ferme à mobs existante', 'Houe avec Toucher de soie ou pioche', 'Blocs pleins autour pour contenir la propagation'],
     couches: [
-      { t: 'Vue de côté', g: ['b.b', 'bxb', 'bNb', 'bbb'] },
-      { t: 'Vue de dessus · zone de conversion', g: ['bbbbb', 'bNNNb', 'bNNNb', 'bNNNb', 'bbbbb'] }
+      { t: 'Vue de côté', vue: 1, g: ['b.b', 'bxb', 'bNb', 'bbb'] },
+      { t: 'Vue de dessus · zone de conversion', vue: 1, g: ['bbbbb', 'bNNNb', 'bNNNb', 'bNNNb', 'bbbbb'] }
     ],
     etapes: [
       'Récupérez un catalyseur de sculk dans une cité antique, obligatoirement avec une pioche à Toucher de soie.',
@@ -588,7 +588,7 @@ var USINES = [
     desc: 'Une plateforme d\'eau totalement obscure posée dans un biome de rivière : les noyés qui y apparaissent naturellement sont les seuls du jeu à pouvoir tenir un trident. Ils sont convoyés par le courant, affaiblis par une chute, puis achevés à l\'épée.',
     mats: ['≈1 200 blocs pleins pour la cuve et le blindage', '≈30 seaux d\'eau (ou du kelp pour figer les sources)', '≈12 entonnoirs, 2 grands coffres', '1 épée avec Butin III (obligatoire pour le rendement)', '≈40 dalles ou trappes pour condamner les autres surfaces d\'apparition'],
     couches: [
-      { t: 'Vue de dessus · cuve d\'apparition immergée', g: [
+      { t: 'Vue de dessus · cuve d\'apparition immergée', vue: 1, g: [
         'bbbbbbbbbbb',
         'b~~~~~~~~~b',
         'b~wwwwwww~b',
@@ -599,7 +599,7 @@ var USINES = [
         'b~~~~~~~~~b',
         'bbbbbbbbbbb'
       ] },
-      { t: 'Vue de côté · chute et poste de mise à mort', g: [
+      { t: 'Vue de côté · chute et poste de mise à mort', vue: 1, g: [
         'bwwwb',
         'b...b',
         '..|..',
@@ -634,7 +634,7 @@ var USINES = [
     desc: 'Les slimes n\'apparaissent que dans certains chunks tirés au sort par la graine du monde (environ 1 sur 10), sous Y = 40, quelle que soit la lumière. On vide entièrement le chunk sur plusieurs niveaux et on laisse les courants pousser les slimes vers un golem de fer qui les broie.',
     mats: ['≈3 000 blocs pleins (murs, plafonds, plateformes)', '≈24 seaux d\'eau', '1 golem de fer (4 blocs de fer + 1 citrouille sculptée)', '≈10 entonnoirs, 2 grands coffres', 'Beaucoup d\'échafaudages et de torches pour le chantier'],
     couches: [
-      { t: 'Vue de dessus · une plateforme (un chunk entier, 16 × 16)', g: [
+      { t: 'Vue de dessus · une plateforme (un chunk entier, 16 × 16)', vue: 1, g: [
         'cccccccccccccccc',
         'c~~~~~~~~~~~~~~c',
         'c~cccccccccccc~c',
@@ -646,7 +646,7 @@ var USINES = [
         'c~~~~~~~~~~~~~~c',
         'cccccccccccccccc'
       ] },
-      { t: 'Vue de côté · empilement des niveaux et broyeur', g: [
+      { t: 'Vue de côté · empilement des niveaux et broyeur', vue: 1, g: [
         'ccccc',
         'c...c',
         'ccccc',
@@ -683,14 +683,14 @@ var USINES = [
     desc: 'Quand le projectile d\'un shulker touche un autre shulker, celui-ci a une chance d\'en engendrer un nouveau : c\'est la seule duplication de mob du jeu. Deux shulkers enfermés face à face se tirent dessus en boucle et alimentent une chambre de mise à mort.',
     mats: ['2 shulkers vivants (récupérés dans une cité de l\'End)', '≈400 blocs de purpur ou de pierre de l\'End', 'Dalles et escaliers pour supprimer les points de téléportation', '≈8 entonnoirs, 2 coffres', '1 épée avec Butin III, 1 arc pour la manipulation'],
     couches: [
-      { t: 'Vue de dessus · cellule de duplication', g: [
+      { t: 'Vue de dessus · cellule de duplication', vue: 1, g: [
         'qqqqqqqqq',
         'q.......q',
         'q.1...2.q',
         'q.......q',
         'qqqq.qqqq'
       ] },
-      { t: 'Vue de côté · éjection et mise à mort', g: [
+      { t: 'Vue de côté · éjection et mise à mort', vue: 1, g: [
         'qqqqqqq',
         'q1...2q',
         'qqq.qqq',
@@ -724,7 +724,7 @@ var USINES = [
     desc: 'Une grenouille qui avale un PETIT cube de magma le transforme en bloc de lumigrenouille. On monte donc une plateforme à cubes de magma dans un delta de basalte, on découpe les gros cubes, et on envoie les petits dans un enclos de grenouilles.',
     mats: ['≈1 000 blocs de briques du Nether (résistants aux ghasts)', '3 à 6 grenouilles amenées en seau de têtard', '≈12 pistons pour le broyeur, redstone et observateurs', '≈15 entonnoirs, 2 grands coffres', '≈30 trappes pour la plateforme et le blindage', 'Potion de Résistance au feu pour le chantier'],
     couches: [
-      { t: 'Vue de dessus · enclos des grenouilles', g: [
+      { t: 'Vue de dessus · enclos des grenouilles', vue: 1, g: [
         'rrrrrrrrr',
         'r.......r',
         'r.HHHHH.r',
@@ -733,7 +733,7 @@ var USINES = [
         'r.......r',
         'rrrrErrrr'
       ] },
-      { t: 'Vue de côté · plateforme, broyeur et enclos', g: [
+      { t: 'Vue de côté · plateforme, broyeur et enclos', vue: 1, g: [
         'rrrrrrr',
         'r.....r',
         'rrr.rrr',
@@ -744,7 +744,7 @@ var USINES = [
         'rHHHHHr',
         'rrrErrr'
       ] },
-      { t: 'Vue de dessus · plateforme d\'apparition à trappes', g: [
+      { t: 'Vue de dessus · plateforme d\'apparition à trappes', vue: 1, g: [
         'rrrrrrrrrrr',
         'r.........r',
         'r.........r',
@@ -778,7 +778,7 @@ var USINES = [
     desc: 'Le sable et le gravier tombent dès qu\'on retire leur support. Une rangée de pistons collants arrache la base d\'une dune, toute la colonne s\'effondre sur des rails, et un bloc qui tombe sur un rail se transforme instantanément en objet ramassé par l\'entonnoir du dessous.',
     mats: ['≈16 pistons collants + 16 blocs pleins de soutien', '≈16 rails (6 lingots de fer pour 16)', '≈16 entonnoirs, 2 grands coffres', '1 levier, ≈20 poudres de redstone', '≈100 blocs pleins pour le bâti'],
     couches: [
-      { t: 'Vue de côté · effondrement de la colonne', g: [
+      { t: 'Vue de côté · effondrement de la colonne', vue: 1, g: [
         '.AAAAA.',
         '.AAAAA.',
         '.AAAAA.',
@@ -787,13 +787,13 @@ var USINES = [
         'cHHHHHc',
         'ccccEcc'
       ] },
-      { t: 'Vue de dessus · ligne de collecte', g: [
+      { t: 'Vue de dessus · ligne de collecte', vue: 1, g: [
         'ccccccccc',
         'c=======c',
         'cHHHHHHHc',
         'ccccEcccc'
       ] },
-      { t: 'Vue de côté · commande des pistons', g: [
+      { t: 'Vue de côté · commande des pistons', vue: 1, g: [
         '!RRRR',
         'SBBBB',
         '=====',
@@ -822,7 +822,7 @@ var USINES = [
     desc: 'Une stalactite pointue suspendue sous une source de lave remplit un chaudron sans jamais consommer la source : la lave devient renouvelable. Des distributeurs versent cette lave dans un mur de cellules, l\'eau la fige en obsidienne, et il ne reste qu\'à miner.',
     mats: ['1 stalactite pointue + 1 chaudron par générateur (10 à 20 générateurs)', '≈20 distributeurs + seaux (2 fer par générateur)', '1 source de lave « mère » par générateur', '≈12 entonnoirs, 2 coffres, 1 seau d\'eau', '1 pioche en netherite avec Efficacité V (et une balise en Célérité II)'],
     couches: [
-      { t: 'Vue de côté · générateur de lave renouvelable', g: [
+      { t: 'Vue de côté · générateur de lave renouvelable', vue: 1, g: [
         'bblbb',
         'bbbbb',
         'bb|bb',
@@ -830,7 +830,7 @@ var USINES = [
         'bb.bb',
         'bbCbb'
       ] },
-      { t: 'Vue de côté · mur de coulée et collecte', g: [
+      { t: 'Vue de côté · mur de coulée et collecte', vue: 1, g: [
         'bbbbbbbbb',
         'bYYYYYYYb',
         'b~~~~~~~b',
@@ -840,7 +840,7 @@ var USINES = [
         'bHHHHHHHb',
         'bbbbEbbbb'
       ] },
-      { t: 'Vue de dessus · cellules de coulée', g: [
+      { t: 'Vue de dessus · cellules de coulée', vue: 1, g: [
         'bbbbbbbbbbb',
         'bYbYbYbYbYb',
         'bObObObObOb',
@@ -874,7 +874,7 @@ var USINES = [
     desc: 'Deux couples de villageois nourris automatiquement se reproduisent en boucle. Les bébés, deux fois moins hauts que les adultes, s\'échappent seuls par un passage d\'un bloc de haut que les adultes ne peuvent pas franchir, et partent en wagonnet vers le hall de commerce.',
     mats: ['4 villageois de départ + 6 lits minimum', '1 distributeur + 1 horloge de redstone lente', '≈12 entonnoirs reliés à une ferme à blé ou à carottes', '1 dalle, 1 seau d\'eau, quelques rails et 1 wagonnet', '≈150 blocs pleins et vitres'],
     couches: [
-      { t: 'Vue de dessus · chambre de reproduction', g: [
+      { t: 'Vue de dessus · chambre de reproduction', vue: 1, g: [
         'bbbbbbbbb',
         'b<.<.<.<b',
         'b.......b',
@@ -882,7 +882,7 @@ var USINES = [
         'b.......b',
         'bbbbbbb.b'
       ] },
-      { t: 'Vue de côté · sas à bébés (1 bloc de haut)', g: [
+      { t: 'Vue de côté · sas à bébés (1 bloc de haut)', vue: 1, g: [
         'bbbbbbbb',
         'b......b',
         'b.11..-b',
@@ -892,7 +892,7 @@ var USINES = [
         'bbbbb=.b',
         'bbbbbbbb'
       ] },
-      { t: 'Vue de côté · distributeur de nourriture', g: [
+      { t: 'Vue de côté · distributeur de nourriture', vue: 1, g: [
         'bbEbb',
         'bbHbb',
         'bbYbb',
@@ -923,7 +923,7 @@ var USINES = [
     desc: 'Une tortue ne pond que sur le sable de la plage où elle est née. Les œufs éclosent la nuit, les bébés s\'échappent par un couloir d\'un bloc de large trop étroit pour les adultes, et chaque bébé devenu adulte lâche une écaille sur un sol d\'entonnoirs.',
     mats: ['2 tortues adultes + de l\'herbe marine (cisaille sur les fonds marins)', '≈60 blocs de sable pour la plage de ponte', '≈15 entonnoirs, 1 grand coffre', '1 distributeur + horloge lente pour l\'herbe marine', '≈120 blocs pleins et vitres pour l\'enceinte'],
     couches: [
-      { t: 'Vue de dessus · plage de ponte', g: [
+      { t: 'Vue de dessus · plage de ponte', vue: 1, g: [
         'bbbbbbbbbbb',
         'bwwwwwwwwwb',
         'bwAAAAAAAwb',
@@ -934,14 +934,14 @@ var USINES = [
         'bwwww.wwwwb',
         'bbbbb~bbbbb'
       ] },
-      { t: 'Vue de côté · couloir filtrant et enclos de croissance', g: [
+      { t: 'Vue de côté · couloir filtrant et enclos de croissance', vue: 1, g: [
         'bbbbbbbbb',
         'b..b....b',
         'bA1~.2..b',
         'bAAAHHHHb',
         'bbbbEbbbb'
       ] },
-      { t: 'Vue de dessus · enclos de croissance', g: [
+      { t: 'Vue de dessus · enclos de croissance', vue: 1, g: [
         'bbbbbbb',
         'bHHHHHb',
         'bHHHHHb',
@@ -972,13 +972,13 @@ var USINES = [
     desc: 'Un mouton posé sur un bloc d\'herbe finit toujours par la brouter : le bloc devient de la terre, un observateur détecte le changement et déclenche un distributeur chargé d\'une cisaille. La laine tombe et un wagonnet-entonnoir la ramasse à travers le sol.',
     mats: ['1 mouton par module (jusqu\'à 8)', '1 distributeur + 1 cisaille + 1 observateur par module', '≈9 blocs d\'herbe (à la houe ou déplacés à la pelle)', '1 wagonnet-entonnoir + ≈16 rails + 1 rail motorisé', '2 entonnoirs, 1 grand coffre, ≈20 poudres de redstone'],
     couches: [
-      { t: 'Vue de dessus · rangée de 7 enclos', g: [
+      { t: 'Vue de dessus · rangée de 7 enclos', vue: 1, g: [
         'bbbbbbbbb',
         'bYYYYYYYb',
         'beeeeeeeb',
         'bbbbbbbbb'
       ] },
-      { t: 'Vue de côté · un module', g: [
+      { t: 'Vue de côté · un module', vue: 1, g: [
         'bbbbb',
         'bY1.b',
         'bQeQb',
@@ -986,7 +986,7 @@ var USINES = [
         'b.H.b',
         'b.E.b'
       ] },
-      { t: 'Vue de dessus · boucle du wagonnet-entonnoir', g: [
+      { t: 'Vue de dessus · boucle du wagonnet-entonnoir', vue: 1, g: [
         'bbbbbbbbb',
         'b=======b',
         'b=bbbbb=b',
@@ -1451,7 +1451,7 @@ var USINES = [
         ]
       },
       {
-        t: 'Vue de côté · un four et sa boucle de carburant',
+        t: 'Vue de côté · un four et sa boucle de carburant', vue: 1,
         g: [
           '..E..',
           '..H..',
@@ -1489,7 +1489,7 @@ var USINES = [
     mats: ['Par module : 3 entonnoirs, 2 comparateurs, 1 torche de redstone, 4 blocs pleins, 1 coffre', 'Par module compacté : 1 fabricateur (crafter), 1 entonnoir, 1 coffre', '18 objets « bourre » par entonnoir filtre (18 par module)', 'Pour une ligne de 13 modules : ≈90 entonnoirs (450 lingots de fer), 13 fabricateurs, 26 grands coffres', 'Cadres d\'objets pour l\'étiquetage'],
     couches: [
       {
-        t: 'Vue de dessus · Y+0 — les deux rangées de coffres',
+        t: 'Vue de dessus · Y+0 — les deux rangées de coffres', vue: 1,
         g: [
           'bbbbbbbbbbbbbbb',
           'bEEEEEEEEEEEEEb',
@@ -1501,7 +1501,7 @@ var USINES = [
         ]
       },
       {
-        t: 'Vue de dessus · Y+1 — entonnoirs filtres, comparateurs et torches',
+        t: 'Vue de dessus · Y+1 — entonnoirs filtres, comparateurs et torches', vue: 1,
         g: [
           'bbbbbbbbbbbbbbb',
           'bHHHHHHHHHHHHHb',
@@ -1513,7 +1513,7 @@ var USINES = [
         ]
       },
       {
-        t: 'Vue de dessus · Y+2 — lignes d\'apport et batterie de fabricateurs',
+        t: 'Vue de dessus · Y+2 — lignes d\'apport et batterie de fabricateurs', vue: 1,
         g: [
           'bbbbbbbbbbbbbbb',
           'bHHHHHHHHHHHHHb',
@@ -1525,7 +1525,7 @@ var USINES = [
         ]
       },
       {
-        t: 'Vue de côté · un module double (objet puis bloc)',
+        t: 'Vue de côté · un module double (objet puis bloc)', vue: 1,
         g: [
           '...H...',
           '..BHB..',
