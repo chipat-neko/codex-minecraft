@@ -684,7 +684,7 @@ var PLANS = [
         '.o##o##DD##o##.',
         '...............'
       ] },
-      { t: 'Y+2 · les murs montent, linteau au-dessus de la porte', g: [
+      { t: 'Y+2 · les murs montent, second rang de la porte charretière', g: [
         '...............',
         '.o##o###o##o##.',
         '.#...........#.',
@@ -694,7 +694,7 @@ var PLANS = [
         '.#...........#.',
         '.o...........o.',
         '.#...........#.',
-        '.o##o######o##.',
+        '.o##o##DD##o##.',
         '...............'
       ] },
       { t: 'Y+3 · poutraison', g: [

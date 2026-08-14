@@ -5,3 +5,5 @@
 # Sans elles, le site utilise les couleurs réelles de assets/couleurs.js
 # (valeurs dérivées, elles, versionnées).
 assets/textures/
+
+# Banc d'essai : le serveur et son monde vivent hors du dépôt (D:\plan-min-banc)
