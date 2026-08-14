@@ -111,13 +111,51 @@
      extraites en local via tools/extract-textures.js, les vraies textures.
      L'absence du second fichier est sans conséquence : on garde les aplats. -->
 <script src="assets/couleurs.js"></script>
+<script src="assets/textures-libres/index.js"></script>
 <script src="assets/textures/index.js" onerror="void 0"></script>
 <script src="assets/core.js"></script>
 <script src="assets/data-blocs.js"></script>
 <script>
 (function () {
+  /* Quelle texture illustre quelle famille : on reconnaît le matériau
+     au nom de la fiche, avec un repli par catégorie. */
+  var PAR_NOM = [
+    [/cerisier/i, 'W'], [/chêne pâle|pâle/i, 'k'], [/chêne noir|sombre/i, 'o'],
+    [/épicéa|taïga/i, 'P'], [/bouleau/i, 'k'], [/bambou/i, 'z'], [/mangrove|jungle|acacia/i, 'o'],
+    [/écarlate|difforme|nether/i, 'r'], [/chêne|bois/i, '#'],
+    [/brique/i, 'b'], [/deepslate|profondeur/i, 'd'], [/tuf/i, 'c'],
+    [/pierre noire|basalte/i, 'n'], [/grès/i, 'a'], [/quartz/i, 'q'],
+    [/cuivre/i, 'I'], [/prismarine/i, 'q'], [/glace|neige|froid/i, 'i'],
+    [/terre cuite|argile|boue/i, ','], [/béton/i, 'W'], [/laine|tapis/i, 'W'],
+    [/verre|vitre/i, 'g'], [/mousse|végét|feuillage/i, 'N'], [/foin|champignon/i, 'h'],
+    [/purpur|end/i, 'q'], [/lumineus|glowstone|lanterne|froglight|bougie/i, '*'],
+    [/andésite|diorite|granite|pierre/i, 'c']
+  ];
+  var PAR_CAT = { bois: '#', pierre: 'c', terre: 't', nether: 'r', end: 'q',
+                  aquatique: 'i', couleur: 'W', lumiere: '*' };
+
+  function texturePour(f) {
+    for (var i = 0; i < PAR_NOM.length; i++) {
+      if (PAR_NOM[i][0].test(f.nom)) { return PAR_NOM[i][1]; }
+    }
+    return PAR_CAT[f.cat] || 'B';
+  }
+
   var liste = document.getElementById('liste');
-  for (var i = 0; i < FAMILLES_BLOCS.length; i++) { liste.appendChild(renderEntry(FAMILLES_BLOCS[i])); }
+  for (var i = 0; i < FAMILLES_BLOCS.length; i++) {
+    var f = FAMILLES_BLOCS[i];
+    var el = renderEntry(f);
+    /* bande des formes réellement posables avec ce matériau */
+    var cle = texturePour(f);
+    var bloc = BLOCKS[cle] || { c: '#7f8c9b' };
+    var html = renderFormes(f.cat, cle, bloc.c);
+    if (html) {
+      var zone = document.createElement('div');
+      zone.innerHTML = '<p class="formes-titre">Ce que l\'on peut poser avec</p>' + html;
+      el.appendChild(zone);
+    }
+    liste.appendChild(el);
+  }
   fillTable('tbl-palettes', PALETTES);
   fillTable('tbl-techniques', TECHNIQUES_BLOCS);
   setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });

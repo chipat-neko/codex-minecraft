@@ -612,6 +612,35 @@ hr { border: none; border-top: 1px solid var(--line-soft); margin: 34px 0; }
 /* Les textures 16×16 doivent rester nettes, jamais lissées */
 .slot, .bp-cell, .legend-swatch { image-rendering: pixelated; }
 
+/* Formes dérivées d'un matériau (page Blocs) */
+.formes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  margin: 12px 0 2px;
+  padding: 12px;
+  background: var(--grid-bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.forme { margin: 0; text-align: center; width: 46px; }
+.forme svg { display: block; margin: 0 auto; image-rendering: pixelated; }
+.forme figcaption {
+  font-size: 10px;
+  color: var(--txt-3);
+  margin-top: 3px;
+  line-height: 1.25;
+  word-break: break-word;
+}
+.formes-titre {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--txt-3);
+  margin: 14px 0 0;
+}
+
 /* Une case texturée n'a plus besoin de son abréviation */
 .slot.tex .lbl { display: none; }
 .slot.tex { border-color: rgba(255,255,255,.18); }

@@ -185,16 +185,32 @@ var ITEMS = {
   for (var j in i) { if (ITEMS[j]) { ITEMS[j].c = i[j]; } }
 }());
 
-function aTextures() { return typeof TEXTURES !== 'undefined'; }
+/* Cherche la meilleure texture disponible pour une clé donnée.
+   Renvoie { dossier, t } ou null. */
+function trouverTexture(type, cle) {
+  if (typeof TEXTURES !== 'undefined') {
+    var t = (TEXTURES[type] || {})[cle];
+    if (t) { return { dossier: 'assets/textures/', t: t }; }
+  }
+  if (typeof TEXTURES_LIBRES !== 'undefined') {
+    var l = (TEXTURES_LIBRES[type] || {})[cle];
+    if (l) { return { dossier: 'assets/textures-libres/', t: l }; }
+  }
+  return null;
+}
+
+function aTextures() {
+  return typeof TEXTURES !== 'undefined' || typeof TEXTURES_LIBRES !== 'undefined';
+}
 
 /* Style CSS d'une case texturée. `type` vaut 'blocs' ou 'items'. */
 function texStyle(type, cle, couleur) {
-  if (!aTextures()) { return 'background:' + couleur; }
-  var t = (TEXTURES[type] || {})[cle];
-  if (!t) { return 'background:' + couleur; }
+  var trouve = trouverTexture(type, cle);
+  if (!trouve) { return 'background:' + couleur; }
+  var t = trouve.t;
   /* la couleur reste en fond : si l'image ne charge pas, la case reste lisible */
   var s = 'background-color:' + couleur + ';' +
-    'background-image:url(assets/textures/' + t.f + ');' +
+    'background-image:url(' + trouve.dossier + t.f + ');' +
     'background-repeat:no-repeat;image-rendering:pixelated;';
   /* Une texture animée est une bande verticale : on n'affiche que la 1re image. */
   s += t.n ? 'background-size:100% ' + (t.n * 100) + '%;background-position:top center;'
@@ -202,6 +218,80 @@ function texStyle(type, cle, couleur) {
   /* Herbe, feuillage, eau : textures grises que le jeu colore lui-même. */
   if (t.t) { s += 'background-color:' + t.t + ';background-blend-mode:multiply;'; }
   return s;
+}
+
+/* -----------------------------------------------------------
+   2 ter. Formes dérivées d'un bloc
+   ---------------------------------------------------------------
+   Silhouettes vues de face, remplies avec la texture du matériau :
+   on voit d'un coup d'œil ce qu'on peut réellement poser avec lui.
+   ----------------------------------------------------------- */
+
+/* Chaque forme est décrite par un chemin SVG dans un carré de 16 × 16. */
+var FORMES = {
+  bloc:      { n: 'Bloc plein',    d: 'M0 0h16v16H0z' },
+  escalier:  { n: 'Escalier',      d: 'M0 8h8V0h8v16H0z' },
+  dalle:     { n: 'Dalle',         d: 'M0 8h16v8H0z' },
+  mur:       { n: 'Muret',         d: 'M0 4h4v12h8V4h4v12h-16z M5 4h6v4H5z' },
+  cloture:   { n: 'Clôture',       d: 'M6 0h4v16H6z M0 4h16v3H0z M0 10h16v3H0z' },
+  portillon: { n: 'Portillon',     d: 'M1 3h14v3H1z M1 10h14v3H1z M1 3h3v10H1z M12 3h3v10h-3z' },
+  porte:     { n: 'Porte',         d: 'M3 0h10v16H3z' },
+  trappe:    { n: 'Trappe',        d: 'M0 6h16v4H0z' },
+  panneau:   { n: 'Panneau',       d: 'M2 1h12v8H2z M7 9h2v7H7z' },
+  bouton:    { n: 'Bouton',        d: 'M5 6h6v4H5z' },
+  plaque:    { n: 'Plaque',        d: 'M1 12h14v3H1z' },
+  vitre:     { n: 'Vitre',         d: 'M0 0h16v3H0z M6 3h4v13H6z' },
+  tapis:     { n: 'Tapis',         d: 'M0 14h16v2H0z' },
+  poli:      { n: 'Poli / ciselé', d: 'M0 0h16v16H0z M2 2h5v5H2z M9 9h5v5H9z' },
+  cisele:    { n: 'Ciselé',        d: 'M0 0h16v16H0z' }
+};
+
+/* Quelles formes existent réellement selon la famille de matériau. */
+var FORMES_PAR_CAT = {
+  bois:      ['bloc', 'escalier', 'dalle', 'cloture', 'portillon', 'porte', 'trappe', 'panneau', 'bouton', 'plaque'],
+  pierre:    ['bloc', 'escalier', 'dalle', 'mur', 'bouton', 'plaque', 'poli'],
+  terre:     ['bloc', 'escalier', 'dalle', 'mur'],
+  nether:    ['bloc', 'escalier', 'dalle', 'mur', 'cloture'],
+  end:       ['bloc', 'escalier', 'dalle', 'mur'],
+  aquatique: ['bloc', 'escalier', 'dalle', 'mur'],
+  couleur:   ['bloc', 'escalier', 'dalle', 'vitre', 'tapis'],
+  lumiere:   ['bloc']
+};
+
+/* Rend la bande de formes d'une famille.
+   `cleTexture` désigne la texture à utiliser (clé de bloc, ex. '#'). */
+function renderFormes(cat, cleTexture, couleur) {
+  var noms = FORMES_PAR_CAT[cat];
+  if (!noms) { return ''; }
+  var tex = trouverTexture('blocs', cleTexture);
+  var id = 'fm' + Math.abs(hachage(cat + cleTexture));
+
+  var defs = tex
+    ? '<defs><pattern id="' + id + '" patternUnits="userSpaceOnUse" width="16" height="16">' +
+      '<image href="' + tex.dossier + tex.t.f + '" width="16" height="16" preserveAspectRatio="none"' +
+      (tex.t.n ? ' clip-path="inset(0 0 ' + (100 - 100 / tex.t.n) + '% 0)"' : '') + '/>' +
+      (tex.t.t ? '<rect width="16" height="16" fill="' + tex.t.t + '" style="mix-blend-mode:multiply"/>' : '') +
+      '</pattern></defs>'
+    : '';
+  var remplissage = tex ? 'url(#' + id + ')' : couleur;
+
+  var h = '<div class="formes">';
+  for (var i = 0; i < noms.length; i++) {
+    var f = FORMES[noms[i]];
+    if (!f) { continue; }
+    h += '<figure class="forme" title="' + esc(f.n) + '">' +
+      '<svg viewBox="0 0 16 16" width="34" height="34" aria-hidden="true">' +
+      (i === 0 ? defs : '') +
+      '<path d="' + f.d + '" fill="' + remplissage + '" fill-rule="evenodd"/></svg>' +
+      '<figcaption>' + esc(f.n) + '</figcaption></figure>';
+  }
+  return h + '</div>';
+}
+
+function hachage(s) {
+  var h = 0;
+  for (var i = 0; i < s.length; i++) { h = (h * 31 + s.charCodeAt(i)) | 0; }
+  return h;
 }
 
 /* -----------------------------------------------------------
@@ -258,7 +348,7 @@ function renderRecipe(r) {
 
 function slotHTML(it, cle) {
   if (!it || !it.c) { return '<div class="slot"></div>'; }
-  var texture = cle && aTextures() && (TEXTURES.items || {})[cle];
+  var texture = cle && trouverTexture('items', cle);
   return '<div class="slot filled' + (texture ? ' tex' : '') + '" style="' +
     texStyle('items', cle, it.c) + '" title="' + esc(it.n) + '">' +
     (texture ? '' : '<span class="lbl">' + esc(it.t || '') + '</span>') + '</div>';
@@ -629,7 +719,8 @@ function renderIso(bp) {
         var blk = BLOCKS[ch];
         if (!blk || !blk.c) { continue; }
         cells.push({ x: x + offX, z: z + offZ, c: blk.c, n: blk.n, ch: ch });
-        if (aTextures() && (TEXTURES.blocs || {})[ch]) { motifs[ch] = TEXTURES.blocs[ch]; }
+        var tex = trouverTexture('blocs', ch);
+        if (tex) { motifs[ch] = tex; }
       }
     }
     /* du fond vers l'avant pour un recouvrement correct */
@@ -649,10 +740,10 @@ function renderIso(bp) {
   /* un motif par bloc texturé, réutilisé par toutes ses faces */
   var defs = '';
   for (var ch in motifs) {
-    var t = motifs[ch];
+    var t = motifs[ch].t, dossier = motifs[ch].dossier;
     defs += '<pattern id="tx' + ch.charCodeAt(0) + '" patternUnits="userSpaceOnUse" ' +
       'width="' + (TW * 2) + '" height="' + (TZ * 2) + '">' +
-      '<image href="assets/textures/' + t.f + '" x="0" y="0" width="' + (TW * 2) + '" height="' + (TZ * 2) +
+      '<image href="' + dossier + t.f + '" x="0" y="0" width="' + (TW * 2) + '" height="' + (TZ * 2) +
       '" preserveAspectRatio="none" style="image-rendering:pixelated"' +
       (t.n ? ' clip-path="inset(0 0 ' + (100 - 100 / t.n) + '% 0)"' : '') + '/>' +
       (t.t ? '<rect width="' + (TW * 2) + '" height="' + (TZ * 2) + '" fill="' + t.t + '" style="mix-blend-mode:multiply"/>' : '') +
