@@ -774,6 +774,42 @@ hr { border: none; border-top: 1px solid var(--line-soft); margin: 34px 0; }
   .toc-side { display: block; }
 }
 
+/* ---- Calculateur de matériaux ---- */
+.mat-wrap {
+  display: none;
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: var(--grid-bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.mat-wrap.open { display: block; }
+
+.mat-table { width: 100%; min-width: 0; font-size: 13.5px; }
+.mat-table th {
+  background: none;
+  border-bottom: 1px solid var(--line);
+  padding: 4px 8px;
+  position: static;
+}
+.mat-table td { padding: 5px 8px; border-bottom: 1px solid var(--line-soft); }
+.mat-table tr:last-child td { border-bottom: none; }
+.mat-puce {
+  display: block;
+  width: 17px; height: 17px;
+  border-radius: 3px;
+  border: 1px solid rgba(255,255,255,.12);
+  image-rendering: pixelated;
+}
+.mat-prevoir { color: var(--gold); font-family: var(--mono); font-size: 12px; }
+.mat-note {
+  font-size: 12.5px;
+  color: var(--txt-3);
+  margin: 10px 0 0;
+}
+.mat-note b { color: var(--txt); }
+.mat-note.avert { color: var(--gold); }
+
 /* ---- Recherche globale ---- */
 .rg {
   display: none;

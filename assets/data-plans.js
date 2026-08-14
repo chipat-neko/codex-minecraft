@@ -1620,6 +1620,886 @@ var PLANS = [
       { type: 'warn', txt: 'Feu — n\'utilisez jamais de feu de camp ni de lave à l\'intérieur d\'un bâtiment en planches. Le foyer de la salle commune doit être entouré de pierre sur au moins un bloc dans toutes les directions.' },
       { type: 'info', txt: 'Chevaux — une stalle de 3 × 3 avec un portillon suffit à un cheval. Posez une auge (chaudron rempli d\'eau) et une botte de foin : c\'est décoratif, mais cela rend l\'écurie crédible.' }
     ]
+  },
+
+/* ================= AGRICOLE ================= */
+  {
+    id: 'moulin-vent', nom: 'Moulin à vent — corps, ailes et meule', cat: 'ferme',
+    taille: '9 × 9 × 16', diff: 'Intermédiaire',
+    desc: 'Une tour tronconique en pierre coiffée d\'une calotte en bois, avec une roue d\'ailes de 13 blocs de diamètre et une meule au rez-de-chaussée. Le seul bâtiment agricole qui se voit de l\'autre bout de la plaine.',
+    mats: ['≈600 briques de pierre (fût octogonal)', '≈120 planches et 80 escaliers (calotte)', '≈60 rondins écorcés (arbre des ailes et lattes)', '≈40 trappes (toiles des ailes)', '2 blocs de pierre taillée (meule) · 6 blocs de foin', '1 porte · 8 lanternes · 1 paratonnerre'],
+    couches: [
+      {
+        t: 'Y+0 · fondation octogonale',
+        g: [
+          '..ccccc..',
+          '.ccccccc.',
+          'ccccccccc',
+          'ccccccccc',
+          'ccccccccc',
+          'ccccccccc',
+          'ccccccccc',
+          '.ccccccc.',
+          '..ccccc..'
+        ]
+      },
+      {
+        t: 'Y+1 · rez-de-chaussée : meule et escalier',
+        g: [
+          '..bbbbb..',
+          '.bb...bb.',
+          'bb.....bb',
+          'b...cc..b',
+          'b...cc..b',
+          'b.......b',
+          'bb..../bb',
+          '.bb...bb.',
+          '..bbDbb..'
+        ]
+      },
+      {
+        t: 'Y+6 · grenier à grain et sacs',
+        g: [
+          '..bbbbb..',
+          '.bb...bb.',
+          'bbhh...bb',
+          'bhh....Gb',
+          'b.......b',
+          'bE.....Eb',
+          'bb..../bb',
+          '.bb...bb.',
+          '..bbGbb..'
+        ]
+      },
+      {
+        t: 'Y+11 · plancher de la calotte tournante',
+        g: [
+          '..###..',
+          '.#####.',
+          '#######',
+          '#######',
+          '#######',
+          '.#####.',
+          '..###..'
+        ]
+      },
+      {
+        t: 'Vue de face · roue des quatre ailes (13 × 13)',
+        g: [
+          '+k.........k+',
+          '.+k.......k+.',
+          '..+k.....k+..',
+          '...+k...k+...',
+          '....+k.k+....',
+          '.....+k+.....',
+          '......k......',
+          '.....k+k.....',
+          '....k+.+k....',
+          '...k+...+k...',
+          '..k+.....+k..',
+          '.k+.......+k.',
+          'k+.........+k'
+        ]
+      }
+    ],
+    etapes: [
+      'Tracez l\'octogone avant tout : un carré de 9 × 9 dont on retire deux blocs à chaque angle. C\'est l\'astuce qui donne un fût « rond » sans une seule courbe compliquée.',
+      'Montez le fût sur 11 blocs en le rétrécissant d\'un bloc tous les 5 niveaux : un moulin doit être plus large en bas qu\'en haut, sinon il ressemble à une tour de guet.',
+      'Installez la meule au rez-de-chaussée : deux blocs de pierre taillée superposés au centre, entourés d\'un plancher de bois. C\'est le seul mobilier vraiment visible depuis la porte.',
+      'Percez les ouvertures en quinconce d\'un étage à l\'autre. Aligner toutes les fenêtres sur la même verticale casse l\'illusion de tour maçonnée.',
+      'Posez le plancher de la calotte à Y+11, en débordant d\'un bloc sur le fût : ce débord est la charnière visuelle entre la pierre et le bois.',
+      'Construisez la calotte en escaliers inversés, bombée, sur 4 blocs de haut. Terminez par la poutre-arbre qui sort en façade et portera les ailes.',
+      'Montez les ailes en croix de Saint-André autour de cette poutre : quatre bras de 6 blocs en rondins écorcés, doublés de trappes pour figurer la toile.',
+      'Réglez l\'inclinaison : posez les trappes du même côté de chaque bras et fermez-les à moitié. Toutes ouvertes, la roue devient illisible de loin.',
+      'Éclairez le grenier par des lanternes suspendues, et le sol par un foyer près de la meule ; toute case sombre à l\'intérieur d\'un moulin fermé fait apparaître des zombies.',
+      'Aménagez le pied : chemin de terre battue, charrette, meules de foin et parcelle de blé — un moulin sans champ autour n\'a aucune raison d\'exister.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Proportion clé — le diamètre de la roue doit valoir environ 1,5 fois la largeur du fût. Des ailes trop petites font « ventilateur », des ailes trop grandes font « éolienne ».' },
+      { type: 'info', txt: 'Ailes animées — quatre pistons collants poussant chacun un bras ne donnent qu\'un tremblement, pas une rotation. Pour un vrai mouvement, il faut une caméra armor stand ou un pack de ressources : mieux vaut assumer des ailes fixes.' }
+    ]
+  },
+  {
+    id: 'serre', nom: 'Serre / jardin d\'hiver vitré', cat: 'ferme',
+    taille: '13 × 9 × 6', diff: 'Intermédiaire',
+    desc: 'Une enveloppe entièrement vitrée sur un soubassement de pierre : quatre bacs de culture hydratés, une allée centrale et un toit à deux versants percé d\'aérateurs. Cultive tout ce qui pousse à la lumière, y compris en biome enneigé.',
+    mats: ['≈350 blocs de verre et vitres', '≈120 briques de pierre (soubassement et dallage)', '≈60 dalles et trappes (faîtage et aérateurs)', '44 blocs de terre labourée · 2 seaux d\'eau', '≈10 lanternes suspendues · 1 porte'],
+    couches: [
+      {
+        t: 'Y+0 · dallage, bacs de culture et rigoles',
+        g: [
+          'ccccccccccccc',
+          'cfffffffffffc',
+          'cfffffffffffc',
+          'cwwwwwwwwwwwc',
+          'c,,,,,,,,,,,c',
+          'cwwwwwwwwwwwc',
+          'cfffffffffffc',
+          'cfffffffffffc',
+          'ccccccccccccc'
+        ]
+      },
+      {
+        t: 'Y+1 · cultures, allée et porte',
+        g: [
+          'ccccccccccccc',
+          'chhhhhhhhhhhc',
+          'chhhhhhhhhhhc',
+          'c...........c',
+          'D...........c',
+          'c...........c',
+          'chhhhhhhhhhhc',
+          'chhhhhhhhhhhc',
+          'ccccccccccccc'
+        ]
+      },
+      {
+        t: 'Y+2 · vitrage courant (à répéter jusqu\'à Y+3)',
+        g: [
+          'cGGGGGGGGGGGc',
+          'G...........G',
+          'G...........G',
+          'G...........G',
+          'G...........G',
+          'G...........G',
+          'G...........G',
+          'G...........G',
+          'cGGGGGGGGGGGc'
+        ]
+      },
+      {
+        t: 'Y+4 · toit, premier rang (13 × 9)',
+        g: [
+          'ggggggggggggg',
+          'ggggggggggggg',
+          'g...........g',
+          'g...........g',
+          'g...........g',
+          'g...........g',
+          'g...........g',
+          'ggggggggggggg',
+          'ggggggggggggg'
+        ]
+      },
+      {
+        t: 'Y+5 · toit, second rang (13 × 5)',
+        g: [
+          'ggggggggggggg',
+          'g...........g',
+          'g...........g',
+          'g...........g',
+          'ggggggggggggg'
+        ]
+      },
+      {
+        t: 'Y+6 · faîtage et aérateurs (13 × 3)',
+        g: [
+          'ggggggggggggg',
+          '+---+---+---+',
+          'ggggggggggggg'
+        ]
+      }
+    ],
+    etapes: [
+      'Montez d\'abord le soubassement en pierre sur un bloc de haut, tout autour : c\'est lui qui protège le verre des dégâts au sol et qui pose le bâtiment.',
+      'Creusez les deux rigoles d\'eau dans le dallage, à 4 blocs l\'une de l\'autre. Une source hydrate 4 blocs dans chaque direction : deux rigoles suffisent à irriguer les quatre bacs.',
+      'Labourez les bacs seulement APRÈS avoir posé l\'eau, sinon les blocs secs se déterrent au premier passage.',
+      'Montez l\'enveloppe vitrée sur 3 niveaux. Alternez blocs de verre et vitres-panneaux : les panneaux ne remplissent pas toute la case et créent des joints de menuiserie très nets.',
+      'Marquez les quatre angles en pierre du sol au toit. Sans ces montants, une serre entièrement en verre paraît molle et sans structure.',
+      'Le toit est un simple prisme : chaque rang couvre deux lignes de moins que le précédent, jusqu\'à une ligne de faîtage.',
+      'Percez les aérateurs — des trappes en position ouverte dans le faîtage tous les 4 blocs. Détail purement décoratif, mais c\'est ce qui fait lire « serre » plutôt que « boîte en verre ».',
+      'Suspendez les lanternes sous le faîtage par des chaînes : les cultures poussent dès le niveau de lumière 9, la nuit comprise.',
+      'Ajoutez une réserve : composteur, tonneau à graines et arrosoir décoratif au bout de l\'allée, plus deux bacs à fleurs à l\'entrée.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Verre teinté — remplacer 10 % des vitres par du verre teinté de la même famille de couleur suffit à casser la monotonie sans perdre la transparence.' },
+      { type: 'warn', txt: 'Pas de plafond opaque — si vous coiffez la serre d\'un toit plein « pour faire joli », plus aucune lumière du ciel n\'entre : il faut alors doubler l\'éclairage artificiel partout.' },
+      { type: 'info', txt: 'Sous la neige — en biome enneigé, la neige se dépose sur le verre et le rend opaque de l\'extérieur. Les trappes et les dalles au faîtage empêchent la couche de se former.' }
+    ]
+  },
+
+  /* ================= VILLAGE & OUVRAGES ================= */
+  {
+    id: 'phare-recif', nom: 'Phare côtier sur récif', cat: 'ville',
+    taille: '13 × 13 × 15', diff: 'Intermédiaire',
+    desc: 'Un fût de pierre à bandes claires planté sur un récif artificiel, avec une digue en muret, une galerie en encorbellement et un lanternon vitré. Sert de repère de navigation et de point d\'amarrage au large.',
+    mats: ['≈900 briques de pierre et pierre taillée', '≈250 blocs de quartz (bandes claires)', '≈120 murets (digue et galerie)', '≈80 blocs de sable et gravier (récif)', '32 vitres · 40 échelles', '1 lanterne marine ou bloc de froglight · 1 paratonnerre'],
+    couches: [
+      {
+        t: 'Y+0 · récif, banc de sable et socle',
+        g: [
+          'wwwwwwwwwwwww',
+          'wwwwAAAAAwwww',
+          'wwwAAcccAAwww',
+          'wwAAcccccAAww',
+          'wAAcccccccAAw',
+          'wAcccccccccAw',
+          'wAcccccccccAw',
+          'wAcccccccccAw',
+          'wAAcccccccAAw',
+          'wwAAcccccAAww',
+          'wwwAAcccAAwww',
+          'wwwwAAAAAwwww',
+          'wwwwwwwwwwwww'
+        ]
+      },
+      {
+        t: 'Y+1 · terre-plein, digue et porte',
+        g: [
+          '.............',
+          '....MMMMM....',
+          '...McccccM...',
+          '..MbbbbbbbM..',
+          '.Mcb.....bcM.',
+          '.Mcb.....bcM.',
+          '.Mcb..L..bcM.',
+          '.Mcb.....bcM.',
+          '.Mcb.....bcM.',
+          '..MbbbDbbbM..',
+          '...McccccM...',
+          '....MMMMM....',
+          '.............'
+        ]
+      },
+      {
+        t: 'Y+2 → Y+11 · fût du phare (à répéter)',
+        g: [
+          '..bbb..',
+          '.bqqqb.',
+          'bq...qb',
+          'bq.L.qb',
+          'bq...qb',
+          '.bqqqb.',
+          '..bbb..'
+        ]
+      },
+      {
+        t: 'Y+12 · galerie en encorbellement',
+        g: [
+          '.-------.',
+          '-ccccccc-',
+          '-cbbbbbc-',
+          '-cb...bc-',
+          '-cb.L.bc-',
+          '-cb...bc-',
+          '-cbbbbbc-',
+          '-ccccccc-',
+          '.-------.'
+        ]
+      },
+      {
+        t: 'Y+13 · lanternon vitré',
+        g: [
+          '.GGGGG.',
+          'G.....G',
+          'G.....G',
+          'G..*..G',
+          'G.....G',
+          'G.....G',
+          '.GGGGG.'
+        ]
+      },
+      {
+        t: 'Y+14 · toiture et paratonnerre',
+        g: [
+          './//.',
+          '/---/',
+          '/-*-/',
+          '/---/',
+          './//.'
+        ]
+      }
+    ],
+    etapes: [
+      'Choisissez un haut-fond ou une pointe rocheuse à 20-40 blocs de la côte : un phare collé à la plage ne sert à rien, il doit signaler un danger.',
+      'Construisez le récif d\'abord, en remblayant sable et gravier depuis le fond. Faites-le déborder de 2 blocs autour du socle : la couronne de sable apparente est ce qui rend l\'ouvrage crédible.',
+      'Montez la digue en murets sur le pourtour du terre-plein. Un muret arrête les vagues visuellement et empêche les noyés de grimper.',
+      'Élevez le fût sur 10 blocs en alternant 3 rangs de briques et 2 rangs de quartz : les bandes horizontales sont la signature d\'un phare, et elles cassent la verticalité du tube.',
+      'Faites décroître le fût d\'un bloc de diamètre au tiers de sa hauteur. Un fût parfaitement cylindrique paraît toujours trop mince en haut.',
+      'Posez l\'échelle contre la paroi intérieure côté terre, doublée d\'une trappe à chaque plancher pour ne pas tomber en sortant.',
+      'La galerie déborde de 2 blocs sur le fût : rang de dalles porté par des escaliers inversés, puis garde-corps en murets. C\'est le détail qui donne l\'échelle à l\'ensemble.',
+      'Vitrez le lanternon et posez la source de lumière au centre, à hauteur d\'œil : une lanterne marine ou un bloc de froglight porte beaucoup plus loin la nuit qu\'une simple torche.',
+      'Coiffez d\'un petit toit conique en escaliers, puis plantez un paratonnerre en cuivre : sur un point haut isolé au bord de l\'eau, la foudre tombe régulièrement.',
+      'Terminez par les abords : un ponton de dalles jusqu\'à la rive, deux bornes d\'amarrage, quelques blocs de corail et de la prismarine sur le récif.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Visibilité réelle — placez la lumière au-dessus de la distance de rendu du brouillard bas, soit environ 20 blocs au-dessus du niveau de la mer. En dessous, votre phare disparaît dès que vous vous éloignez.' },
+      { type: 'warn', txt: 'Noyés — un ouvrage en pleine eau attire les noyés, qui lancent des tridents. Fermez le terre-plein par des murets et éclairez le socle jusque sous la surface.' }
+    ]
+  },
+  {
+    id: 'bibliotheque', nom: 'Bibliothèque monumentale à mezzanine', cat: 'ville',
+    taille: '15 × 15 × 14', diff: 'Avancé',
+    desc: 'Une salle unique de 13 blocs de haut, ceinturée de rayonnages sur deux niveaux, avec une mezzanine en U ouverte sur le vide central et un lanterneau qui éclaire la nef par le haut.',
+    mats: ['≈420 bibliothèques (1 260 livres : prévoyez une ferme à canne à sucre)', '≈1 400 briques de pierre et pierre taillée', '≈300 planches (planchers et mezzanine)', '≈200 escaliers et 150 dalles (toiture et corniches)', '≈90 clôtures (garde-corps) · 60 vitres', '≈30 lanternes · 1 table d\'enchantement'],
+    couches: [
+      {
+        t: 'Y+0 · nef : rayonnages, piliers et table de lecture',
+        g: [
+          'bbbbbbbbbbbbbbb',
+          'b&&&&&&&&&&&&&b',
+          'b&...........&b',
+          'b&.c.......c.&b',
+          'b&...........&b',
+          'b&...........&b',
+          'b&....###....&b',
+          'b&....#*#....&b',
+          'b&....###....&b',
+          'b&...........&b',
+          'b&...........&b',
+          'b&.c.......c.&b',
+          'b&.........//&b',
+          'b&&&&&&&&&&&&&b',
+          'bbbbbbbDbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+2 · murs, piliers et verrières basses',
+        g: [
+          'bbGGbbbbbbbGGbb',
+          'G.............G',
+          'G.............G',
+          'b.c.........c.b',
+          'b.............b',
+          'G.............G',
+          'b.............b',
+          'b.............b',
+          'G.............G',
+          'b.............b',
+          'b.............b',
+          'b.c.........c.b',
+          'G.............G',
+          'G.............G',
+          'bbGGbbbDbbbGGbb'
+        ]
+      },
+      {
+        t: 'Y+5 · plancher de la mezzanine (en U autour du vide)',
+        g: [
+          'bbbbbbbbbbbbbbb',
+          'b#############b',
+          'b#############b',
+          'b###.......###b',
+          'b###.......###b',
+          'b###.......###b',
+          'b###.......###b',
+          'b###.......###b',
+          'b###.......###b',
+          'b###.......###b',
+          'b###.......###b',
+          'b#############b',
+          'b#############b',
+          'b#############b',
+          'bbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+6 · mezzanine : rayonnages et garde-corps',
+        g: [
+          'bbGGGbbbbbGGGbb',
+          'G&&&&&&&&&&&&&G',
+          'b&&|||||||||&&b',
+          'b&.|.......|.&b',
+          'G&.|.......|.&G',
+          'b&.|.......|.&b',
+          'b&.|.......|.&b',
+          'G&.|.......|.&G',
+          'b&.|.......|.&b',
+          'b&.|.......|.&b',
+          'G&.|.......|.&G',
+          'b&&|||||||||&&b',
+          'b&...........&b',
+          'G&&&&&&&&&&&&&G',
+          'bbGGGbbbbbGGGbb'
+        ]
+      },
+      {
+        t: 'Y+10 · charpente et lanterneau vitré',
+        g: [
+          'kkkkkkkkkkkkkkk',
+          'k.............k',
+          'k.kkkkkkkkkkk.k',
+          'k.k.........k.k',
+          'k.k.ggggggg.k.k',
+          'k.k.g.....g.k.k',
+          'k.k.g.....g.k.k',
+          'k.k.g.....g.k.k',
+          'k.k.g.....g.k.k',
+          'k.k.g.....g.k.k',
+          'k.k.ggggggg.k.k',
+          'k.k.........k.k',
+          'k.kkkkkkkkkkk.k',
+          'k.............k',
+          'kkkkkkkkkkkkkkk'
+        ]
+      },
+      {
+        t: 'Y+12 · toiture, premier rang débordant (17 × 17)',
+        g: [
+          '/////////////////',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/////////////////'
+        ]
+      }
+    ],
+    etapes: [
+      'Montez la boîte 15 × 15 sur 12 blocs AVANT toute décoration. Une bibliothèque monumentale se joue entièrement sur la hauteur sous plafond : en dessous de 10 blocs, l\'effet tombe à plat.',
+      'Marquez quatre piliers intérieurs en pierre taillée aux angles de la nef. Ils portent visuellement la mezzanine et rythment les rayonnages.',
+      'Doublez tout le pourtour intérieur de bibliothèques au rez-de-chaussée, sauf devant la porte et l\'escalier : c\'est la masse de livres qui fait la pièce, pas le décor.',
+      'Posez la mezzanine à Y+5 en U : plancher de 3 blocs de profondeur sur trois côtés, ouvert sur le vide central. Un plancher plein transformerait la salle en deux petites pièces superposées.',
+      'Bordez le vide de clôtures ou de murets à hauteur de taille. C\'est le seul garde-corps qui laisse voir la nef depuis l\'étage.',
+      'L\'escalier monte dans l\'angle sud-est, en deux volées de 5 marches séparées par un palier — un escalier d\'un seul jet sur 5 blocs paraît toujours trop raide.',
+      'Percez les verrières : deux bandes de vitres, une au niveau du rez-de-chaussée et une au niveau de la mezzanine, alignées sur la même trame verticale.',
+      'Construisez le lanterneau : un carré vitré de 7 × 7 au centre de la charpente, qui laisse tomber la lumière du ciel au milieu de la nef. C\'est l\'éclairage le plus élégant du jeu.',
+      'Coiffez d\'une toiture en escaliers débordant d\'un bloc sur les murs, avec des corniches en dalles au niveau du plafond.',
+      'Aménagez enfin : tables de lecture en dalles sur clôtures, tapis dans l\'allée centrale, table d\'enchantement au fond entourée de ses 15 bibliothèques utiles, et cadres d\'objets pour signaler les rayons.'
+    ],
+    notes: [
+      { type: 'warn', txt: 'Coût réel — 420 bibliothèques valent 1 260 livres, soit 1 260 cuirs et 3 780 papiers. Montez la ferme à canne à sucre et l\'élevage de vaches AVANT de commencer ce chantier, ou remplacez une partie des rayonnages par des étagères ciselées.' },
+      { type: 'tip', txt: 'Faux rayonnages — au-delà du deuxième niveau, personne ne distingue une bibliothèque d\'un bloc de bois foncé bordé de dalles. Réservez les vraies bibliothèques aux 2 premiers rangs, à hauteur d\'œil.' },
+      { type: 'info', txt: 'Niveau 30 — la table d\'enchantement ne compte que les 15 bibliothèques situées à 2 blocs d\'elle avec de l\'air entre les deux. Les 400 autres sont purement décoratives : ne cherchez pas à les « faire compter ».' }
+    ]
+  },
+  {
+    id: 'forge-village', nom: 'Forge de village — four, enclume et charbonnière', cat: 'ville',
+    taille: '11 × 9 × 8', diff: 'Intermédiaire',
+    desc: 'Un atelier ouvert sur la rue par un large auvent : batterie de fourneaux sous la hotte, enclume et bac de trempe au centre, réserve de charbon au fond. Le bâtiment qui donne immédiatement un métier à un village.',
+    mats: ['≈300 briques de pierre et pierre taillée', '≈150 planches et 60 rondins écorcés (charpente et auvent)', '≈180 escaliers (toiture à deux versants)', '4 à 6 fourneaux · 1 haut fourneau · 1 enclume', '≈20 blocs de charbon (réserve) · 1 chaudron', '1 établi · 3 coffres · 6 lanternes'],
+    couches: [
+      {
+        t: 'Y+0 · dallage de l\'atelier et sol de la cour',
+        g: [
+          'ccccccccccc',
+          'ccccccccccc',
+          'ccccccccccc',
+          'ccccccccccc',
+          'ccccccccccc',
+          'ccccccccccc',
+          'ccccccccccc',
+          ',,,,,,,,,,,',
+          ',,,,,,,,,,,'
+        ]
+      },
+      {
+        t: 'Y+1 · murs, fourneaux, enclume et charbonnière',
+        g: [
+          'bbbbbbbbbbb',
+          'bUUU..BBBBb',
+          'b.....BBBBb',
+          'b(...w....b',
+          'b.........b',
+          'bY.......Eb',
+          'bbbb...bbbb',
+          '.|.......|.',
+          ',,,,,,,,,,,'
+        ]
+      },
+      {
+        t: 'Y+2 · hotte de cheminée, fenêtres et étagères',
+        g: [
+          'bbGGbbbbGGb',
+          'bccc.....*b',
+          'b.........b',
+          'bG.......Gb',
+          'b.........b',
+          'b........*b',
+          'bbbb...bbbb',
+          '.|.......|.',
+          '...........'
+        ]
+      },
+      {
+        t: 'Y+3 · poutraison et sablière de l\'auvent',
+        g: [
+          'kkkkkkkkkkk',
+          'k.........k',
+          'k.kkkkkkk.k',
+          'k.........k',
+          'k.kkkkkkk.k',
+          'k.........k',
+          'kkkkkkkkkkk',
+          'kkkkkkkkkkk',
+          '...........'
+        ]
+      },
+      {
+        t: 'Y+4 · toit, anneau 1 (13 × 11)',
+        g: [
+          '/////////////',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/////////////'
+        ]
+      },
+      {
+        t: 'Y+5 · toit, anneau 2 (11 × 9)',
+        g: [
+          '///////////',
+          '/........./',
+          '/........./',
+          '/........./',
+          '/........./',
+          '/........./',
+          '/........./',
+          '/........./',
+          '///////////'
+        ]
+      }
+    ],
+    etapes: [
+      'Posez le dallage de pierre en débordant de 2 blocs côté rue : cette avancée dallée sera le sol de l\'auvent, et elle amarre le bâtiment au village.',
+      'Montez trois murs pleins seulement. Le quatrième, côté rue, n\'est qu\'un large linteau porté par deux poteaux : une forge se regarde de l\'extérieur, elle ne se ferme pas.',
+      'Alignez la batterie de fourneaux contre le mur du fond, tous orientés vers l\'intérieur, avec le haut fourneau au milieu — c\'est lui qui fond les minerais deux fois plus vite.',
+      'Montez la hotte au-dessus des fourneaux : trois blocs de pierre en encorbellement qui se resserrent jusqu\'à une cheminée d\'un bloc traversant le toit. Sans hotte, la forge ressemble à une cuisine.',
+      'Placez l\'enclume au centre, tournée d\'un quart de tour par rapport aux murs. Un mobilier légèrement désaxé lit tout de suite comme un atelier en activité.',
+      'Creusez le bac de trempe à côté de l\'enclume : un chaudron rempli d\'eau, ou une case d\'eau bordée de dalles.',
+      'Empilez la réserve de charbon dans l\'angle du fond — les blocs marqués « B » sur le plan sont des blocs de charbon. Un tas irrégulier, à un ou deux blocs de haut, avec une pelle posée dessus.',
+      'Charpentez l\'auvent : deux poteaux en rondins écorcés, une sablière qui les relie, et des liens obliques en escaliers dans les angles.',
+      'Toiture à deux versants très pente, en escaliers, débordant de 1 bloc de chaque côté ; laissez la cheminée passer au travers.',
+      'Éclairez par des lanternes suspendues sous l\'auvent et un feu de camp à l\'écart : la lumière chaude en façade est ce qui rend une forge vivante la nuit.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Villageois forgeron — posez une table de forge, une table de fabrication d\'armures ou une meule dans le bâtiment, et un villageois sans métier viendra s\'y installer. Le bâtiment devient alors une vraie boutique.' },
+      { type: 'warn', txt: 'Feu — la lave décorative et les feux de camp mettent le feu aux blocs de bois adjacents. Isolez toujours la hotte et l\'auvent par au moins un bloc de pierre.' }
+    ]
+  },
+  {
+    id: 'halle-marche', nom: 'Halle de marché couverte', cat: 'ville',
+    taille: '15 × 11 × 9', diff: 'Intermédiaire',
+    desc: 'Une charpente sur colonnade, sans mur : deux rangées d\'étals adossés, un îlot central et deux allées de circulation, le tout couvert d\'un grand toit à quatre pans. Le bâtiment qui structure une place de village.',
+    mats: ['≈220 rondins écorcés (colonnade et charpente)', '≈500 escaliers (toiture à quatre pans)', '≈180 dalles (dallage et faîtage)', '≈40 tonneaux et coffres (étals)', '≈30 blocs de chemin de terre (allée centrale)', '12 lanternes · cadres d\'objets · bannières'],
+    couches: [
+      {
+        t: 'Y+0 · dallage, allée centrale et emprise',
+        g: [
+          'ccccccccccccccc',
+          'c-------------c',
+          'c-------------c',
+          'c-------------c',
+          'c-------------c',
+          'c,,,,,,,,,,,,,c',
+          'c-------------c',
+          'c-------------c',
+          'c-------------c',
+          'c-------------c',
+          'ccccccccccccccc'
+        ]
+      },
+      {
+        t: 'Y+1 · colonnade, étals adossés et îlot central',
+        g: [
+          'k.k.k.k.k.k.k.k',
+          'kEEEEEEEEEEEEEk',
+          'k.............k',
+          'k.............k',
+          'k.EEEEE.EEEEE.k',
+          'k.E.x.E.E.x.E.k',
+          'k.EEEEE.EEEEE.k',
+          'k.............k',
+          'k.............k',
+          'kEEEEEEEEEEEEEk',
+          'k.k.k.k.k.k.k.k'
+        ]
+      },
+      {
+        t: 'Y+3 · poutraison, entraits et solives',
+        g: [
+          'kkkkkkkkkkkkkkk',
+          'k.............k',
+          'k.kkkkkkkkkkk.k',
+          'k.............k',
+          'k.kkkkkkkkkkk.k',
+          'k.............k',
+          'k.kkkkkkkkkkk.k',
+          'k.............k',
+          'k.kkkkkkkkkkk.k',
+          'k.............k',
+          'kkkkkkkkkkkkkkk'
+        ]
+      },
+      {
+        t: 'Y+4 · toit, anneau 1 (17 × 13)',
+        g: [
+          '/////////////////',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/.............../',
+          '/////////////////'
+        ]
+      },
+      {
+        t: 'Y+5 · toit, anneau 2 (15 × 11)',
+        g: [
+          '///////////////',
+          '/............./',
+          '/............./',
+          '/............./',
+          '/............./',
+          '/............./',
+          '/............./',
+          '/............./',
+          '/............./',
+          '/............./',
+          '///////////////'
+        ]
+      },
+      {
+        t: 'Y+6 · toit, anneau 3 (13 × 9)',
+        g: [
+          '/////////////',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/.........../',
+          '/////////////'
+        ]
+      }
+    ],
+    etapes: [
+      'Implantez la halle sur la place, pas contre les maisons : il faut au moins 3 blocs de dégagement sur les quatre côtés pour qu\'on puisse en faire le tour.',
+      'Posez le dallage complet, puis tracez l\'allée centrale en chemin de terre battue. C\'est ce contraste de sol qui indique par où on entre, en l\'absence de portes.',
+      'Plantez la colonnade : un poteau en rondin écorcé tous les 2 blocs sur le pourtour. Deux blocs, c\'est l\'écartement qui donne un rythme lisible ; à 3, la charpente paraît molle.',
+      'Montez les poteaux sur 3 blocs seulement. Une halle est un bâtiment bas et large : trop haute, elle devient un préau d\'école.',
+      'Adossez les étals aux longs côtés — une rangée de tonneaux et de coffres avec une dalle en guise de comptoir par-dessus.',
+      'Construisez l\'îlot central en deux rectangles creux : le marchand se tient à l\'intérieur (repères « x »), les clients tournent autour. C\'est ce vide au milieu qui fait qu\'un étal ressemble à un étal.',
+      'Charpentez à Y+3 : sablières sur les poteaux, puis des entraits transversaux tous les 2 blocs. Cette grille de poutres visible depuis le sol est le principal intérêt du bâtiment.',
+      'Montez le toit à quatre pans, anneau par anneau, en débordant de 1 bloc au premier rang : le débord protège les étals et donne l\'ombre portée qui ancre la halle au sol.',
+      'Terminez par le faîtage en dalles et deux petites lucarnes pour laisser passer la lumière.',
+      'Habillez : bannières de couleurs différentes par étal, cadres d\'objets pour annoncer la marchandise, caisses en tonneaux au sol et lanternes suspendues aux entraits tous les 4 blocs.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Un étal = un objet — mettez un seul type de marchandise par comptoir (pain, poisson, colorants, outils). Un étal fourre-tout ne se lit pas ; huit étals thématiques racontent un marché.' },
+      { type: 'warn', txt: 'Bâtiment ouvert et sombre — sans murs, la halle est un excellent point d\'apparition la nuit. Prévoyez une lanterne tous les 4 blocs sous la charpente, ou des dalles inversées sur le dallage.' },
+      { type: 'info', txt: 'Villageois marchands — placez les blocs de métier (tonneau, table de cartographie, métier à tisser) directement dans les étals : les villageois viendront réellement s\'y poster en journée.' }
+    ]
+  },
+  {
+    id: 'temple-jungle', nom: 'Temple de jungle — sanctuaire à gradins', cat: 'ville',
+    taille: '15 × 15 × 13', diff: 'Avancé',
+    desc: 'Une pyramide à degrés en pierre moussue, deux terrasses ceintes de lianes, un escalier axial et une cella fermée qui abrite l\'autel. Se construit dans la canopée, à moitié envahi par la végétation.',
+    mats: ['≈1 800 briques de pierre moussues et fissurées', '≈400 blocs de mousse et de pierre couverte de lichen', '≈300 escaliers et 200 dalles (gradins et corniches)', '≈150 lianes', '1 table d\'enchantement (autel) · 6 coffres', '12 lanternes ou feux de camp'],
+    couches: [
+      {
+        t: 'Y+0 · terrasse basse, mur d\'enceinte et bassin',
+        g: [
+          'mmmmmmmmmmmmmmm',
+          'mNNNNNNNNNNNNNm',
+          'mN...........Nm',
+          'mN.mmmmmmmmm.Nm',
+          'mN.m.......m.Nm',
+          'mN.m.......m.Nm',
+          'mN.m.......m.Nm',
+          'mN.m...w...m.Nm',
+          'mN.m.......m.Nm',
+          'mN.m.......m.Nm',
+          'mN.m.......m.Nm',
+          'mN.mmmm/mmmm.Nm',
+          'mN...........Nm',
+          'mNNNNN///NNNNNm',
+          'mmmmmm///mmmmmm'
+        ]
+      },
+      {
+        t: 'Y+3 · deuxième terrasse et rampe axiale',
+        g: [
+          'mmmmmmmmmmm',
+          'mvvvvvvvvvm',
+          'mv.......vm',
+          'mv.mmmmm.vm',
+          'mv.m...m.vm',
+          'mv.m.w.m.vm',
+          'mv.m...m.vm',
+          'mv.mm/mm.vm',
+          'mv.......vm',
+          'mvvv///vvvm',
+          'mmmm///mmmm'
+        ]
+      },
+      {
+        t: 'Y+6 · cella : autel, offrandes et braseros',
+        g: [
+          'mmmmmmmmm',
+          'm*.....*m',
+          'm.......m',
+          'm..EEE..m',
+          'm..E$E..m',
+          'm..EEE..m',
+          'm.......m',
+          'm*.....*m',
+          'mmmmDmmmm'
+        ]
+      },
+      {
+        t: 'Y+9 · toiture à gradins',
+        g: [
+          '///////',
+          '/-----/',
+          '/-mmm-/',
+          '/-m*m-/',
+          '/-mmm-/',
+          '/-----/',
+          '///////'
+        ]
+      },
+      {
+        t: 'Y+11 · couronnement',
+        g: [
+          '/////',
+          '/mmm/',
+          '/m*m/',
+          '/mmm/',
+          '/////'
+        ]
+      }
+    ],
+    etapes: [
+      'Cherchez un tertre naturel dans la jungle, ou remblayez-en un : un temple posé à plat sur un sol nivelé perd la moitié de son effet.',
+      'Montez le socle 15 × 15 en pierre moussue, puis retirez-lui un anneau de 2 blocs à chaque niveau. Le retrait constant est ce qui fait la pyramide à degrés ; l\'improviser donne toujours une silhouette bancale.',
+      'Percez l\'escalier axial d\'entrée sur toute la face sud, large de 3 blocs et pentu — une marche par bloc de hauteur. Un temple maya n\'a pas de rampe douce.',
+      'Traitez le parement AVANT de monter plus haut : mélangez briques moussues, fissurées et pierre normale, en concentrant la mousse en bas et dans les angles rentrants, là où l\'eau stagne.',
+      'Creusez le bassin d\'eau au centre de chaque terrasse : deux cuvettes de 1 bloc bordées de dalles. Ce sont elles qui donnent l\'idée d\'un lieu de culte et non d\'un simple tas de pierre.',
+      'Bâtissez la cella au sommet : une pièce fermée de 9 × 9, plafond bas, une seule porte, aucune fenêtre. Le contraste entre les terrasses ouvertes et cette boîte sombre fait tout le mystère.',
+      'Installez l\'autel — table d\'enchantement au centre, entourée de coffres à offrandes et de braseros — et éclairez uniquement par des feux de camp posés au sol.',
+      'Couronnez par deux gradins décroissants et un petit édicule : c\'est ce qui dépasse de la canopée et signale le temple depuis le sol.',
+      'Faites retomber les lianes depuis toutes les arêtes horizontales, sans régularité. Les lianes plantées en ligne droite trahissent immédiatement la main du joueur.',
+      'Laissez la jungle reprendre : plantez des arbres contre les flancs, des buissons dans les angles, et remplacez quelques blocs du parement par de l\'air ou de la mousse — un temple intact n\'existe pas.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Trois pierres, une règle — 60 % de briques moussues, 30 % de briques fissurées, 10 % de pierre nette. Placez les pourcentages à la main par petites taches, jamais un bloc sur deux : l\'aléatoire régulier se voit.' },
+      { type: 'danger', txt: 'Pièges d\'origine — si vous rénovez un vrai temple de jungle, désamorcez d\'abord les fils de détente en les cassant avec des cisailles. Casser le fil à la main déclenche les distributeurs de flèches.' },
+      { type: 'info', txt: 'Lumière cachée — la cella doit paraître sombre sans être un nid à zombies. Encastrez des blocs lumineux sous des tapis, ou des lanternes des âmes derrière les colonnes : le niveau de lumière monte, l\'ambiance reste.' }
+    ]
+  },
+
+  /* ================= TECHNIQUE ================= */
+  {
+    id: 'camp-mineurs', nom: 'Camp de mineurs à l\'entrée d\'une mine', cat: 'technique',
+    taille: '15 × 13 × 5', diff: 'Débutant',
+    desc: 'La tête de puits : une terrasse taillée dans la falaise, deux cabanes, une batterie de fours et une voie de wagonnets qui sort directement de la galerie. Transforme un trou dans le sol en base d\'exploitation.',
+    mats: ['≈500 blocs de pierre et pierre des profondeurs (terrasse et parement)', '≈200 planches et rondins (cabanes)', '≈120 escaliers (toitures)', '≈60 clôtures (palissade)', '≈80 rails + 8 rails motorisés + 2 wagonnets', '6 fourneaux · 8 coffres · 1 lit · 16 lanternes'],
+    couches: [
+      {
+        t: 'Y−1 · première galerie et gare de wagonnets',
+        g: [
+          'ccccccccccccccc',
+          'ccccccccccccccc',
+          'cccccc...cccccc',
+          'cccccc.=.cccccc',
+          'cccccc.=.cccccc',
+          'cccccc.=.cccccc',
+          'cccccc.=.cccccc',
+          'ccccc..=..ccccc',
+          'cccc*..=..*cccc',
+          'cccc.E.=.E.cccc',
+          'cccc...=...cccc',
+          'ccccccccccccccc',
+          'ccccccccccccccc'
+        ]
+      },
+      {
+        t: 'Y+0 · terrasse, gueule de mine et voie',
+        g: [
+          'ccccccccccccccc',
+          'cddddd...dddddc',
+          'cd...........dc',
+          'cd...........dc',
+          'ccccccc=ccccccc',
+          'c......=......c',
+          'c......=......c',
+          'c......=......c',
+          'c......=......c',
+          'c......=......c',
+          'c......=......c',
+          'c......=......c',
+          'ccccccccccccccc'
+        ]
+      },
+      {
+        t: 'Y+1 · cabanes, batterie de fours et palissade',
+        g: [
+          'ccccccccccccccc',
+          'cddddd...dddddc',
+          'cd...........dc',
+          'cdEUUUUE.....dc',
+          'ccccccc=ccccccc',
+          'c###...=...###c',
+          'c#E#...=...#Y#c',
+          'c#<#...=...#E#c',
+          'c#D#...=...#D#c',
+          'c......=......c',
+          'c..F...=...F..c',
+          'c......=......c',
+          '|||||||=|||||||'
+        ]
+      },
+      {
+        t: 'Y+2 · toitures, éclairage et portique',
+        g: [
+          'ccccccccccccccc',
+          'cddddd*.*dddddc',
+          'cd...........dc',
+          'cd...........dc',
+          'ccccccc=ccccccc',
+          'c///...=...///c',
+          'c/-/...=.../-/c',
+          'c/-/...=.../-/c',
+          'c///...=...///c',
+          'c......=......c',
+          'c.*....=....*.c',
+          'c......=......c',
+          '|*|||||=|||||*|'
+        ]
+      }
+    ],
+    etapes: [
+      'Choisissez un flanc de colline plutôt qu\'un terrain plat : une entrée de mine taillée dans une paroi est immédiatement lisible, un trou au milieu d\'un pré ne l\'est jamais.',
+      'Taillez la terrasse à la verticale sur 4 à 5 blocs de haut. Laissez le front de taille brut, avec quelques blocs qui dépassent : une paroi parfaitement lisse ressemble à une erreur de terraformation.',
+      'Ouvrez la galerie sur 3 blocs de large et 3 de haut. Un tunnel de 2 blocs suffit techniquement, mais un wagonnet, un joueur et un cheval n\'y passent pas de front.',
+      'Posez la voie AVANT les bâtiments : elle sort de la galerie, traverse la cour et se termine par une boucle. Toute la composition du camp découle de cet axe.',
+      'Boisez l\'entrée : deux poteaux et un linteau en rondins, doublés à 4 blocs d\'intervalle dans la galerie. C\'est le détail qui distingue une mine d\'un simple trou.',
+      'Montez les deux cabanes de 3 × 3 de part et d\'autre de la voie : l\'une avec un lit et un coffre (le dortoir), l\'autre avec l\'établi et l\'outillage.',
+      'Alignez la batterie de fours contre la paroi, sous un auvent de dalles : c\'est là qu\'on fond le minerai avant de le remonter, ce qui divise par deux ce qu\'on transporte.',
+      'Éclairez la cour à 16 lanternes minimum, et posez une torche tous les 8 blocs dans la galerie, toujours du même côté : au retour, elles indiquent la sortie sans hésitation.',
+      'Fermez la cour par une palissade de clôtures avec un portillon sur la voie : elle empêche le bétail et les mobs d\'errer sur le chantier.',
+      'Installez la gare souterraine à Y−1 : deux coffres tampons de part et d\'autre du rail, éclairés, où l\'on vide son inventaire sans remonter.'
+    ],
+    notes: [
+      { type: 'tip', txt: 'Rails motorisés — un rail motorisé tous les 8 rails ordinaires suffit à maintenir un wagonnet à pleine vitesse sur le plat, et tous les 3 dans une pente montante.' },
+      { type: 'warn', txt: 'Grottes ouvertes — une galerie qui débouche sur une caverne naturelle non éclairée transforme votre camp en couloir à monstres. Murez ou éclairez toute intersection avant de dormir sur place.' },
+      { type: 'info', txt: 'Point de réapparition — un lit dans la cabane évite de refaire tout le trajet depuis la base à chaque mort. C\'est le vrai intérêt du camp, bien avant le décor.' }
+    ]
   }
 
 ];

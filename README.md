@@ -79,6 +79,16 @@ tools/
   valider.js           Validation complète : données, rendus, pages, encodage
 ```
 
+## Après avoir ajouté du contenu
+
+```
+node tools/indexer.js      # reconstruit l'index de la recherche globale
+node tools/valider.js      # contrôle tout le site
+```
+
+L'index de recherche n'est pas régénéré automatiquement : sans cette commande,
+les nouvelles entrées restent introuvables depuis <kbd>Ctrl</kbd>+<kbd>K</kbd>.
+
 ## Vérifier le site
 
 ```
@@ -102,6 +112,9 @@ La commande renvoie un code d'erreur non nul si quelque chose ne va pas.
 | Impression | bouton sur chaque plan/usine | N'imprime que la fiche choisie |
 | Vue 3D | bouton sur les plans empilables | Rendu isométrique SVG des couches, généré au clic |
 | Sommaire latéral | plans, usines, redstone — écrans ≥ 1140 px | Groupé par catégorie, suit le défilement |
+| Recherche globale | <kbd>Ctrl</kbd>+<kbd>K</kbd> ou la loupe | Cherche dans les 12 catalogues à la fois, navigable au clavier |
+| Calcul des matériaux | bouton sur chaque plan/usine | Compte les blocs dessinés dans les schémas, convertit en piles |
+| Formes d'un bloc | page Blocs | Montre ce qu'on peut poser : escalier, dalle, muret, clôture… |
 
 ## Ajouter une page
 

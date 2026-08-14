@@ -1009,6 +1009,552 @@ var USINES = [
       { type: 'tip', txt: 'Laine et lits — 3 laines + 3 planches font un lit, 1 laine fait un tapis et 3 laines une bannière. C\'est aussi la matière première du bloc de laine insonorisant utilisé sur les capteurs sculk.' },
       { type: 'info', txt: 'Le distributeur n\'use pas la cisaille au même rythme qu\'un joueur, mais elle finit par casser : ajoutez un entonnoir d\'approvisionnement depuis un coffre de cisailles de rechange.' }
     ]
+  },
+
+/* ================= CULTURES ================= */
+  {
+    id: 'cactus-vert', nom: 'Ferme à cactus (colorant vert automatique)', cat: 'culture',
+    taille: 'Plaque extensible 11 × 5', diff: 'Débutant',
+    desc: 'Un cactus se casse tout seul dès qu\'un bloc touche son flanc. Il suffit donc d\'aligner des colonnes de cactus autour d\'une rangée de blocs : la ferme n\'a aucune redstone, ne tombe jamais en panne et alimente un four à colorant vert.',
+    mats: ['≈40 blocs de sable (une colonne de cactus par bloc)', '≈20 blocs pleins (les « blocs de rupture »)', '≈30 entonnoirs + 2 grands coffres', '2 à 4 cactus de départ (désert, badlands, ou coffres de village)', '1 fourneau (ou une batterie) pour le colorant vert'],
+    couches: [
+      {
+        t: 'Y+0 · plancher de collecte et coffre',
+        g: [
+          'ccccccccccc',
+          'cHHHHHHHHHc',
+          'cHHHHHHHHHc',
+          'cHHHHHHHHHc',
+          'cccccEccccc'
+        ]
+      },
+      {
+        t: 'Y+1 · sable de plantation (une case sur deux)',
+        g: [
+          'ccccccccccc',
+          'cA.A.A.A.Ac',
+          'c.........c',
+          'cA.A.A.A.Ac',
+          'ccccccccccc'
+        ]
+      },
+      {
+        t: 'Y+2 · cactus et rangée de blocs de rupture',
+        g: [
+          'ccccccccccc',
+          'cp.p.p.p.pc',
+          'cb.b.b.b.bc',
+          'cp.p.p.p.pc',
+          'ccccccccccc'
+        ]
+      }
+    ],
+    etapes: [
+      'Posez d\'abord la couche d\'entonnoirs : tout ce que la ferme produit tombe de deux blocs, et un cactus qui atterrit sur un sol plein finit par disparaître au bout de 5 minutes.',
+      'Placez le sable une case sur deux. Deux cactus jointifs se détruisent mutuellement dès la plantation : l\'écart d\'un bloc est absolument obligatoire.',
+      'Plantez les cactus sur le sable. Aucun besoin d\'eau ni de lumière — c\'est la seule culture du jeu qui pousse dans le noir complet.',
+      'Montez la rangée de blocs de rupture au niveau Y+2, entre les deux lignes de cactus. Un même bloc casse les cactus de gauche ET de droite : vous divisez par deux la quantité de blocs nécessaire.',
+      'Vérifiez la hauteur : le bloc de rupture doit être au niveau du DEUXIÈME segment de cactus, pas du premier. S\'il est trop bas, le cactus ne pousse jamais ; trop haut, il grandit de trois et la récolte reste bloquée en l\'air.',
+      'Bordez la plaque d\'un muret ou de blocs pleins : un cactus qui casse projette parfois l\'objet d\'une case, et hors de la zone d\'entonnoirs il est perdu.',
+      'Branchez la sortie sur un fourneau : 1 cactus cuit = 1 colorant vert. Alimentez le four au bambou séché pour que toute la chaîne soit gratuite.',
+      'Rangez le colorant vert dans un coffre dédié à côté du sable et du gravier : c\'est la recette du béton vert, le matériau de construction le moins cher du jeu à grande échelle.',
+      'Pour agrandir, empilez : la plaque se superpose tous les 4 blocs de hauteur, chaque étage renvoyant sa récolte dans la même colonne d\'entonnoirs.'
+    ],
+    rendement: '≈1 cactus toutes les 12 à 18 minutes par colonne. Une plaque de 32 colonnes donne ≈120 à 160 cactus/heure, soit autant de colorants verts — largement de quoi produire du béton en continu.',
+    notes: [
+      { type: 'tip', txt: 'Zéro redstone — c\'est la seule ferme entièrement automatique constructible le premier jour, sans fer, sans redstone et sans observateur. Montez-la avant toute autre automatisation.' },
+      { type: 'warn', txt: 'Dégâts de contact — le cactus blesse au contact. Ne longez jamais la plaque à pied : prévoyez un couloir d\'accès d\'au moins un bloc d\'écart, ou bordez-la de dalles.' },
+      { type: 'info', txt: 'Cactus et coffres — un cactus détruit tout objet qui tombe dessus. C\'est aussi le composant de base des « broyeurs à déchets » : une case de cactus au bout d\'une ligne d\'entonnoirs supprime le trop-plein.' }
+    ]
+  },
+  {
+    id: 'champignons-geants', nom: 'Ferme à champignons géants', cat: 'culture',
+    taille: '13 × 11 × 8', diff: 'Intermédiaire',
+    desc: 'Une salle obscure au sol de mycélium où des distributeurs projettent de la poudre d\'os sur des champignons plantés en damier. Chaque pied devient un champignon géant de 7 blocs de large, abattu à la hache et balayé vers les entonnoirs par une lame d\'eau.',
+    mats: ['≈100 blocs de mycélium ou de podzol', '6 distributeurs + poudre d\'os en quantité (ferme à squelettes)', '≈15 entonnoirs, 2 grands coffres, 1 seau d\'eau', '≈300 blocs pleins (salle et plafond)', '6 champignons rouges ou bruns de départ (marais, grottes, île aux champignons)'],
+    couches: [
+      {
+        t: 'Y+0 · sol de mycélium, lame d\'eau et collecte',
+        g: [
+          'bbbbbbbbbbbbb',
+          'bwwwwwwwwwwwb',
+          'btttttttttttb',
+          'btttttttttttb',
+          'btttttttttttb',
+          'btttttttttttb',
+          'btttttttttttb',
+          'btttttttttttb',
+          'btttttttttttb',
+          'bHHHHHHHHHHHb',
+          'bbbbbEbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+1 · plants en damier et distributeurs de poudre d\'os',
+        g: [
+          'bbbbbbbbbbbbb',
+          'b1.1.1.1.1.1b',
+          'b...........b',
+          'b.%.%.%.%.%.b',
+          'b...........b',
+          'b.%.%.%.%.%.b',
+          'b...........b',
+          'b.%.%.%.%.%.b',
+          'b...........b',
+          'b...........b',
+          'bbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+4 · emprise d\'un chapeau arrivé à maturité',
+        g: [
+          'bbbbbbbbbbbbb',
+          'b...........b',
+          'b..%%%%%....b',
+          'b.%%%%%%%...b',
+          'b.%%%k%%%...b',
+          'b.%%%%%%%...b',
+          'b..%%%%%....b',
+          'b...........b',
+          'b...........b',
+          'b...........b',
+          'bbbbbbbbbbbbb'
+        ]
+      }
+    ],
+    etapes: [
+      'Ramenez du mycélium (île aux champignons, avec Toucher de soie) ou du podzol (taïga géante, ou 4 poudres d\'os sur de l\'herbe en jungle) : sur n\'importe quel autre sol, il faut un niveau de lumière inférieur à 13.',
+      'Construisez la salle avec un plafond à 8 blocs minimum. Un champignon géant a besoin de 6 blocs de hauteur libre : sous un plafond bas, la poudre d\'os est consommée sans rien produire.',
+      'Fermez complètement et n\'éclairez PAS. Sur mycélium, un champignon supporte jusqu\'au niveau de lumière 12 ; au-delà il se déplante tout seul.',
+      'Espacez les plants de 4 blocs dans les deux directions : un chapeau adulte fait 7 blocs de large, deux plants trop proches s\'empêchent mutuellement de pousser.',
+      'Placez les distributeurs au ras du sol, pointés horizontalement vers chaque plant, et chargez-les de poudre d\'os. Un simple levier ou une horloge lente suffit à les déclencher.',
+      'Il faut en moyenne 3 à 5 poudres d\'os par champignon géant : branchez la ferme sur une ferme à squelettes ou sur un composteur alimenté par vos surplus de cultures.',
+      'Abattez à la hache. Les blocs de chapeau lâchent 0 à 2 petits champignons ; avec le Toucher de soie, vous récupérez les blocs eux-mêmes, qui sont un excellent matériau de construction.',
+      'Ouvrez la source d\'eau du fond : la lame balaie tout le sol jusqu\'à la rangée d\'entonnoirs. Refermez-la aussitôt, sinon elle déplante les nouveaux pieds.',
+      'Gardez toujours 6 petits champignons de rappel dans un coffre séparé : c\'est la seule chose qui puisse réellement mettre la ferme à l\'arrêt.'
+    ],
+    rendement: 'Un champignon géant rend 10 à 20 blocs de chapeau, soit ≈10 petits champignons sans Toucher de soie. Une salle de 15 pieds récoltée en une passe donne ≈150 champignons ou ≈250 blocs — de quoi tenir un stock de ragoût et un chantier entier.',
+    notes: [
+      { type: 'tip', txt: 'Ragoût de champignons — 1 rouge + 1 brun + 1 bol = un aliment qui ne s\'empile pas mais qui rend 6 points de faim. Combiné à une ferme à bols (n\'importe quel bois), c\'est la nourriture la moins chère du jeu.' },
+      { type: 'info', txt: 'Mycélium et podzol se propagent — le mycélium contamine la terre voisine comme l\'herbe. Isolez la salle par des blocs pleins si vous ne voulez pas transformer tout votre terrain en biome à champignons.' },
+      { type: 'warn', txt: 'Pas d\'automatisation complète en vanilla : les blocs de champignon géant ne se cassent ni au piston ni à l\'eau. Seule la pousse et la collecte s\'automatisent, l\'abattage reste manuel.' }
+    ]
+  },
+
+  /* ================= ÉLEVAGE ================= */
+  {
+    id: 'oeufs', nom: 'Ferme à œufs dédiée (sans cuisson)', cat: 'animal',
+    taille: '7 × 7 × 3', diff: 'Débutant',
+    desc: 'Une volière vitrée dont le plancher est entièrement en entonnoirs : les poules restent vivantes, pondent toutes les 5 à 10 minutes et les œufs partent directement au coffre. Aucune lave, aucune mise à mort — la ferme à œufs pure, pour les gâteaux et les jets d\'œufs.',
+    mats: ['≈25 entonnoirs (125 lingots de fer) + 1 grand coffre', '≈40 vitres et blocs pleins (volière)', '12 à 16 poules (œufs jetés au sol ou poules attirées aux graines)', '2 lanternes ou blocs lumineux encastrés', '1 trappe de service · 1 porte'],
+    couches: [
+      {
+        t: 'Y+0 · plancher d\'entonnoirs et coffre de sortie',
+        g: [
+          'ccccccc',
+          'cHHHHHc',
+          'cHHHHHc',
+          'cHHHHHc',
+          'cHHHHHc',
+          'cHHHHHc',
+          'cccEccc'
+        ]
+      },
+      {
+        t: 'Y+1 · volière vitrée et porte de service',
+        g: [
+          'cGGGGGc',
+          'G.....G',
+          'G.....G',
+          'G..x..G',
+          'G.....G',
+          'G.....G',
+          'cGGDGGc'
+        ]
+      },
+      {
+        t: 'Y+2 · plafond, éclairage et trappe',
+        g: [
+          'ccccccc',
+          'c*...*c',
+          'c.....c',
+          'c..+..c',
+          'c.....c',
+          'c*...*c',
+          'ccccccc'
+        ]
+      }
+    ],
+    etapes: [
+      'Posez d\'abord le plancher : 25 entonnoirs qui se chaînent vers un seul entonnoir de sortie, lui-même sur le coffre. Un œuf qui tombe sur un bloc plein disparaît en 5 minutes.',
+      'Montez la volière en verre plutôt qu\'en blocs pleins : vous comptez les poules d\'un coup d\'œil, et c\'est le seul moyen de repérer une surpopulation avant qu\'elle ne coûte des images par seconde.',
+      'Peuplez à la main : jetez des œufs contre le sol (1 sur 8 fait éclore un poussin) ou attirez des poules avec des graines de blé. Douze à seize poules adultes est l\'optimum.',
+      'Ne dépassez jamais 20 poules dans 5 × 5. Au-delà, les entités s\'empilent, subissent des dégâts d\'étouffement et la cadence de ponte n\'augmente plus.',
+      'Fermez et éclairez le plafond : une poule dans le noir ne pond pas moins, mais des zombies apparaissent à l\'intérieur et étranglent la ferme en une nuit.',
+      'Prévoyez une trappe de service au plafond plutôt qu\'une porte au sol : chaque ouverture au niveau du plancher est une occasion de laisser sortir une poule.',
+      'Branchez la sortie sur un trieur si vous produisez aussi de la plume ou du poulet ailleurs : ici, seul l\'œuf circule, le tri est donc inutile tant que la ferme reste dédiée.',
+      'Pour agrandir, empilez les volières : chaque étage se vide dans la même colonne d\'entonnoirs. Trois étages de 12 poules tiennent dans 7 × 7 × 9.'
+    ],
+    rendement: 'Une poule pond un œuf toutes les 5 à 10 minutes, soit ≈8 à 12 œufs/heure. Avec 16 poules : ≈150 à 190 œufs/heure, de quoi produire un gâteau (3 seaux de lait, 2 sucres, 3 blés, 1 œuf) à la demande et garder un stock de jets d\'œufs.',
+    notes: [
+      { type: 'tip', txt: 'Chargement des chunks — une ferme passive ne produit que si le chunk est chargé. Installez-la à moins de 128 blocs de votre base principale, ou dans le rayon d\'un chargeur de chunks par portail du Nether.' },
+      { type: 'info', txt: 'Poule = ferme gratuite — les œufs relancés font éclore des poussins ; deux ou trois relances suffisent à repeupler entièrement la volière. La ferme se réalimente donc elle-même sans blé ni graines.' }
+    ]
+  },
+
+  /* ================= RESSOURCES & MATÉRIAUX ================= */
+  {
+    id: 'pommes-chene-noir', nom: 'Ferme à pommes et bûches de chêne noir', cat: 'ressource',
+    taille: '13 × 9 × 12', diff: 'Intermédiaire',
+    desc: 'Le chêne noir pousse en bosquets de 2 × 2 et laisse toujours un tronc épais et une canopée large : c\'est le seul arbre qui rentabilise vraiment la poudre d\'os. Distributeurs pour la pousse, canal d\'eau pour la collecte, pommes en prime à la décomposition des feuilles.',
+    mats: ['≈50 blocs de terre (plateformes de plantation 2 × 2)', '6 à 9 distributeurs + poudre d\'os (ferme à squelettes ou composteur)', '2 seaux d\'eau, ≈8 entonnoirs, 2 grands coffres', '≈200 blocs pleins (bordure du bassin)', '1 hache en fer ou mieux, avec Efficacité', 'Optionnel : 1 fourneau pour transformer les surplus en charbon de bois'],
+    couches: [
+      {
+        t: 'Y+0 · bassin de balayage et point de collecte',
+        g: [
+          'ccccccccccccc',
+          'cwwwwwwwwwwwc',
+          'cwwwwwwwwwwwc',
+          'cwwwwwwwwwwwc',
+          'cwwwwwwwwwwwc',
+          'cwwwwwwwwwwwc',
+          'cwwwwwwwwwwwc',
+          'cwwwwwwwwwwwc',
+          'cccccHEcccccc'
+        ]
+      },
+      {
+        t: 'Y+1 · plateformes de plantation 2 × 2',
+        g: [
+          'ccccccccccccc',
+          'ctt.ctt.ctt.c',
+          'ctt.ctt.ctt.c',
+          'c...........c',
+          'ctt.ctt.ctt.c',
+          'ctt.ctt.ctt.c',
+          'c...........c',
+          'ctt.ctt.ctt.c',
+          'ctt.ctt.ctt.c'
+        ]
+      },
+      {
+        t: 'Y+2 · jeunes pousses et distributeurs de poudre d\'os',
+        g: [
+          'ccccccccccccc',
+          'c%%1c%%1c%%1c',
+          'c%%.c%%.c%%.c',
+          'c...........c',
+          'c%%1c%%1c%%1c',
+          'c%%.c%%.c%%.c',
+          'c...........c',
+          'c%%1c%%1c%%1c',
+          'c%%.c%%.c%%.c'
+        ]
+      },
+      {
+        t: 'Y+8 · emprise de la canopée d\'un arbre adulte',
+        g: [
+          '.............',
+          '..%%%%%%%%%..',
+          '.%%%%%%%%%%%.',
+          '.%%%%oo%%%%%.',
+          '.%%%%oo%%%%%.',
+          '.%%%%%%%%%%%.',
+          '..%%%%%%%%%..',
+          '.............',
+          '.............'
+        ]
+      }
+    ],
+    etapes: [
+      'Plantez toujours par carré de 4 pousses : un chêne noir isolé ne pousse jamais, quelle que soit la quantité de poudre d\'os. C\'est la règle qui fait échouer la moitié des tentatives.',
+      'Laissez 5 blocs entre deux bosquets. Les canopées de chêne noir font 9 blocs de large : plus serré, les feuilles se touchent et bloquent la croissance des voisins.',
+      'Dégagez 12 blocs de hauteur libre au-dessus des plateformes. Un plafond ou un surplomb annule la pousse sans consommer la poudre d\'os — vous croirez à une panne de distributeur.',
+      'Placez les distributeurs au niveau des pousses, pointés vers le carré. Chaque bosquet demande en moyenne 6 à 10 poudres d\'os, réparties sur les 4 pousses.',
+      'Abattez avec une hache à Efficacité : le tronc de chêne noir fait 2 × 2 sur 6 à 8 blocs, soit une soixantaine de bûches par arbre.',
+      'Ne cassez PAS les feuilles à la main : laissez-les se décomposer. C\'est la décomposition qui lâche les pommes (0,5 % par bloc de feuilles) et les pousses de rappel.',
+      'Ouvrez la source d\'eau au bord haut du bassin : la lame balaie bûches, pousses et pommes vers l\'entonnoir de collecte. Refermez-la avant de replanter.',
+      'Replantez immédiatement les 4 pousses de chaque emplacement pendant que les feuilles se décomposent : le cycle suivant est déjà lancé quand vous ramassez le précédent.',
+      'Envoyez le surplus de bûches vers une batterie de fours pour le transformer en charbon de bois : la ferme devient alors auto-suffisante en carburant.'
+    ],
+    rendement: '≈60 bûches par arbre. Une passe complète sur 9 bosquets rend ≈540 bûches, ≈120 pousses et ≈15 à 25 pommes, en une dizaine de minutes de récolte active.',
+    notes: [
+      { type: 'tip', txt: 'Pourquoi le chêne noir — c\'est le seul arbre dont le tronc fait 2 × 2 par défaut, soit 3 à 4 fois plus de bûches par pied que le chêne ordinaire, et sa canopée massive lâche beaucoup plus de pommes.' },
+      { type: 'warn', txt: 'Automatisation totale — casser les bûches automatiquement demande des duplicateurs de TNT, hors de portée en survie ordinaire. Ici, la pousse et la collecte sont automatiques, l\'abattage reste à la hache : c\'est le meilleur rapport effort/rendement.' },
+      { type: 'info', txt: 'Poudre d\'os gratuite — un composteur transforme 7 pousses ou feuillages excédentaires en 1 poudre d\'os. La ferme finance donc en partie sa propre consommation.' }
+    ]
+  },
+  {
+    id: 'glace-bleue', nom: 'Ferme à glace bleue (bassin de gel + compactage)', cat: 'ressource',
+    taille: '15 × 11 × 3', diff: 'Avancé',
+    desc: 'En biome froid, une lame d\'eau d\'un bloc de large gèle en quelques dizaines de secondes. On récolte au Toucher de soie depuis une passerelle d\'entonnoirs, puis une cascade de fabricateurs compacte 81 glaces en un bloc de glace bleue.',
+    mats: ['1 pioche avec Toucher de soie (indispensable)', '≈120 blocs pleins (trame du bassin)', '≈80 seaux d\'eau — ou 2 seaux et de la patience', '≈40 entonnoirs, 4 grands coffres', '2 fabricateurs (crafters) + 2 comparateurs pour le compactage', 'Un biome enneigé, une taïga glacée ou un pic gelé'],
+    couches: [
+      {
+        t: 'Y+0 · bassin de gel : lames d\'eau entre des murets',
+        g: [
+          'bbbbbbbbbbbbbbb',
+          'bwwwwwwwwwwwwwb',
+          'bbbbbbbbbbbbbbb',
+          'bwwwwwwwwwwwwwb',
+          'bbbbbbbbbbbbbbb',
+          'bwwwwwwwwwwwwwb',
+          'bbbbbbbbbbbbbbb',
+          'bwwwwwwwwwwwwwb',
+          'bbbbbbbbbbbbbbb',
+          'bwwwwwwwwwwwwwb',
+          'bbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+1 · passerelles de récolte et lignes d\'entonnoirs',
+        g: [
+          'bbbbbbbbbbbbbbb',
+          'b.............b',
+          'bHHHHHHHHHHHHHb',
+          'b.............b',
+          'bHHHHHHHHHHHHHb',
+          'b.............b',
+          'bHHHHHHHHHHHHHb',
+          'b.............b',
+          'bHHHHHHHHHHHHHb',
+          'b.............b',
+          'bbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+2 · atelier de compactage (glace → tassée → bleue)',
+        g: [
+          'bbbbbbbbbbb',
+          'bE.1.2.3.Eb',
+          'b.........b',
+          'bHHHHHHHHHb',
+          'b.........b',
+          'bE.......Eb',
+          'bbbbbbbbbbb'
+        ]
+      }
+    ],
+    etapes: [
+      'Installez-vous dans un biome où l\'eau gèle naturellement : taïga enneigée, toundra, pics gelés. Ailleurs, aucun réglage ne fera geler quoi que ce soit.',
+      'Découpez le bassin en lames d\'UN bloc de large séparées par des murets. Une nappe d\'eau large ne gèle que sur ses bords : c\'est la contrainte qui dicte toute la géométrie.',
+      'Laissez le ciel entièrement dégagé au-dessus des lames. Un bloc au-dessus de l\'eau, même une dalle, empêche définitivement le gel.',
+      'N\'éclairez surtout pas le bassin : une source de lumière de niveau 12 ou plus dans le voisinage bloque le gel. Éclairez uniquement les passerelles, à distance.',
+      'Minez la glace au Toucher de soie depuis les passerelles. Sans cet enchantement, la glace se casse en eau et vous ne récoltez rien du tout.',
+      'Les entonnoirs des passerelles ramassent les blocs au passage : vous marchez en minant, sans jamais vous arrêter pour ramasser.',
+      'L\'eau se reforme aussitôt depuis les sources placées aux extrémités de chaque lame — d\'où l\'intérêt de couler chaque lame en source pleine plutôt qu\'en courant.',
+      'Compactage : un premier fabricateur en 3 × 3 transforme 9 glaces en 1 glace tassée, un second transforme 9 glaces tassées en 1 glace bleue. Il faut donc 81 glaces par bloc bleu.',
+      'Placez un comparateur sur chaque fabricateur pour couper l\'alimentation quand la grille est incomplète, sinon la cascade se bloque sur des restes de 8 unités.',
+      'Utilisez la glace bleue pour des routes à bateau : un bateau sur glace bleue est le moyen de transport le plus rapide du jeu, largement devant le wagonnet et l\'élytre en ligne droite.'
+    ],
+    rendement: 'Une lame de 13 blocs regèle en 1 à 2 minutes. Un bassin de 5 lames rend ≈500 à 700 glaces par heure de récolte active, soit ≈6 à 8 blocs de glace bleue (81 glaces chacun).',
+    notes: [
+      { type: 'warn', txt: 'Toucher de soie obligatoire — c\'est le seul enchantement qui permet de récupérer la glace. Récoltez-la avec une pioche dédiée et gardez-la hors de votre inventaire de minage habituel.' },
+      { type: 'tip', txt: 'Variante sans biome froid — les bottes à Marcheur du gel gèlent l\'eau sous vos pas dans n\'importe quel biome. Une boucle de rails avec un joueur ou un dispositif tournant transforme n\'importe quel lac en ferme à glace.' },
+      { type: 'info', txt: 'La glace bleue ne fond jamais, même à côté de la lave ou dans le Nether. C\'est ce qui la rend indispensable pour les autoroutes et pour les générateurs de basalte.' }
+    ]
+  },
+  {
+    id: 'neige-poudreuse', nom: 'Ferme à neige et à poudre de neige', cat: 'ressource',
+    taille: '13 × 7 × 3', diff: 'Intermédiaire',
+    desc: 'Un golem de neige laisse une couche de neige partout où il passe. Enfermé dans une cellule d\'un bloc au-dessus d\'un rail, il neige sur place : un observateur détecte la couche, un piston la casse, et un wagonnet-entonnoir ramasse les boules à travers le sol. À côté, des chaudrons à ciel ouvert se remplissent de poudreuse.',
+    mats: ['12 golems de neige (2 blocs de neige + 1 citrouille sculptée chacun)', '12 pistons + 6 observateurs + ≈40 poudres de redstone', '≈40 rails, 1 rail motorisé, 1 wagonnet-entonnoir', '≈12 chaudrons (7 lingots de fer pièce)', '≈150 blocs pleins et vitres (cellules)', '1 entonnoir + 1 grand coffre'],
+    couches: [
+      {
+        t: 'Y+0 · boucle du wagonnet-entonnoir et sortie',
+        g: [
+          'bbbbbbbbbbbbb',
+          'b===========b',
+          'b=bbbbbbbbb=b',
+          'b=bbbbbbbbb=b',
+          'b=bbbbbbbbb=b',
+          'b===========b',
+          'bbbbbHEbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+1 · cellules des golems, pistons et observateurs',
+        g: [
+          'bbbbbbbbbbbbb',
+          'bxbxbxbxbxbxb',
+          'bPbPbPbPbPbPb',
+          'bQbQbQbQbQbQb',
+          'bPbPbPbPbPbPb',
+          'bxbxbxbxbxbxb',
+          'bbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+2 · confinement vitré et chaudrons à poudreuse',
+        g: [
+          'bbbbbbbbbbbbb',
+          'bgbgbgbgbgbgb',
+          'b...........b',
+          'bCbCbCbCbCbCb',
+          'b...........b',
+          'bgbgbgbgbgbgb',
+          'bbbbbbbbbbbbb'
+        ]
+      }
+    ],
+    etapes: [
+      'Fabriquez les golems sur place : deux blocs de neige superposés surmontés d\'une citrouille sculptée. Posez toujours la citrouille en dernier, sinon rien ne s\'anime.',
+      'Enfermez chaque golem dans une cellule d\'exactement 1 × 1, entre des blocs pleins. Un golem qui peut marcher répartit sa neige un peu partout et devient impossible à collecter.',
+      'Vérifiez le biome : un golem ne pose de la neige que là où la neige peut tenir. En biome chaud il ne produit rien — et dans un désert ou une jungle, il fond et meurt.',
+      'Placez l\'observateur face au bloc sous le golem : l\'apparition de la couche de neige est un changement d\'état, donc un signal fiable. Aucune horloge de redstone n\'est nécessaire.',
+      'Le signal alimente le piston, qui casse la couche : une couche de neige détruite par un piston lâche bien ses boules de neige, contrairement à une couche cassée à la main sans pelle.',
+      'La collecte passe par un wagonnet-entonnoir circulant SOUS la cellule : il ramasse les objets à travers le bloc qui le surmonte. C\'est la seule solution ici, un entonnoir classique ne verrait rien.',
+      'Bouclez le rail avec un rail motorisé et faites passer le wagonnet au-dessus d\'un entonnoir relié au coffre : il s\'y vide à chaque tour.',
+      'Pour la poudre de neige, alignez des chaudrons à ciel ouvert dans un biome où il neige. Un chaudron se remplit entièrement en une chute de neige, et la poudreuse se récupère au seau.',
+      'Protégez les chaudrons de la pluie : sous la pluie, un chaudron se remplit d\'eau et non de poudreuse. Un biome de montagne au-dessus de la ligne de neige règle définitivement le problème.',
+      'Recomposez : 4 boules de neige font un bloc de neige, et 2 blocs de neige plus un seau donnent de la poudreuse portable — l\'ingrédient des bottes de traversée et des pièges à mobs.'
+    ],
+    rendement: '≈600 à 900 boules de neige par heure pour 12 golems, soit ≈150 à 220 blocs de neige. Côté chaudrons : un chaudron rempli par chute de neige, donc autant de seaux de poudreuse que d\'épisodes neigeux.',
+    notes: [
+      { type: 'danger', txt: 'Golems et eau — un golem de neige fond au contact de l\'eau, de la pluie et de la lave, et meurt instantanément en biome chaud. Couvrez toujours la ferme d\'un toit partiel au-dessus des cellules.' },
+      { type: 'tip', txt: 'Poudre de neige — un mob (ou un joueur) qui tombe dedans s\'enfonce et gèle. C\'est le meilleur piège passif du jeu, et le seul moyen de tuer un mob sans lui infliger de dégâts d\'entité.' },
+      { type: 'info', txt: 'Neige = béton blanc et poudre — les boules de neige servent surtout à faire des blocs de neige décoratifs et à alimenter un lance-neige contre les blazes, qui prennent 3 dégâts par boule.' }
+    ]
+  },
+  {
+    id: 'charbon-de-bois', nom: 'Ferme à charbon de bois (bosquet + fours en boucle)', cat: 'ressource',
+    taille: '15 × 9 + batterie de 8 fours', diff: 'Intermédiaire',
+    desc: 'Un bosquet ordonné alimente une batterie de fours qui transforment les bûches en charbon de bois. Une partie de la production est renvoyée dans le coffre à carburant : la fonderie s\'auto-alimente et ne demande plus jamais de charbon miné.',
+    mats: ['≈24 pousses (chêne ou acacia, qui poussent sans espace vertical)', '8 fourneaux, ≈24 entonnoirs, 4 grands coffres', '2 seaux d\'eau (canal de balayage)', '1 comparateur + quelques poudres de redstone (limiteur de boucle)', '≈150 blocs pleins et 12 clôtures', '1 hache avec Efficacité'],
+    couches: [
+      {
+        t: 'Y+0 · bosquet : trame de plantation, canal et collecte',
+        g: [
+          'ccccccccccccccc',
+          'cwwwwwwwwwwwwwc',
+          'c.t.t.t.t.t.t.c',
+          'c.............c',
+          'c.t.t.t.t.t.t.c',
+          'c.............c',
+          'cwwwwwwwwwwwwwc',
+          'cHHHHHHHHHHHHHc',
+          'cccccccEccccccc'
+        ]
+      },
+      {
+        t: 'Y+1 · pousses, allées et éclairage',
+        g: [
+          'ccccccccccccccc',
+          'c*...........*c',
+          'c.%.%.%.%.%.%.c',
+          'c.............c',
+          'c.%.%.%.%.%.%.c',
+          'c.............c',
+          'c*...........*c',
+          'c.............c',
+          'ccccccccccccccc'
+        ]
+      },
+      {
+        t: 'Vue de côté · un four et sa boucle de carburant',
+        g: [
+          '..E..',
+          '..H..',
+          'EHU..',
+          '..H..',
+          '..E..'
+        ]
+      }
+    ],
+    etapes: [
+      'Plantez en quinconce avec 2 blocs d\'écart : le chêne et l\'acacia poussent même serrés, contrairement au sapin géant ou au chêne noir qui exigent de la place.',
+      'Éclairez le bosquet à 4 lanternes minimum. Une pousse a besoin d\'un niveau de lumière d\'au moins 9 pour grandir, et un bosquet sombre est un nid à monstres.',
+      'Bordez la parcelle de deux canaux d\'eau : ouvrez la source après l\'abattage, elle balaie bûches, pousses et pommes vers la rangée d\'entonnoirs.',
+      'Abattez toujours le tronc de bas en haut et replantez immédiatement : la pousse suivante grandit pendant que vous coupez l\'arbre voisin.',
+      'Montez la batterie de fours à part : par four, un entonnoir au-dessus (les bûches), un entonnoir latéral (le carburant), un entonnoir en dessous (la sortie).',
+      'Chaînez les entonnoirs supérieurs des 8 fours sur un seul coffre d\'entrée : vous videz votre inventaire d\'un coup et la répartition se fait toute seule.',
+      'Fermez la boucle : ajoutez un entonnoir du coffre de sortie vers le coffre de carburant. Une partie du charbon de bois produit repart alimenter les fours.',
+      'Limitez cette boucle avec un comparateur : dès que le coffre de carburant dépasse une pile, coupez l\'entonnoir de retour, sinon toute la production repart au feu.',
+      'Comparez les carburants avant de choisir : 1 charbon de bois cuit 8 objets, 1 bloc de charbon en cuit 80, 1 bloc de bambou séché seulement 5. Pour une fonderie, le charbon de bois reste le meilleur compromis quand on n\'a pas de ferme à kelp.',
+      'Rangez le surplus en blocs de charbon de bois (9 unités) : c\'est 9 fois moins de place dans les coffres et un carburant qui se transporte sans se disperser.'
+    ],
+    rendement: '1 charbon de bois toutes les 10 s par four : une batterie de 8 fours transforme ≈2 880 bûches par heure. Un bosquet de 12 arbres récolté toutes les 10 minutes fournit largement de quoi les tenir occupés.',
+    notes: [
+      { type: 'tip', txt: 'Charbon de bois ou charbon — les deux cuisent 8 objets et donnent des torches identiques. Seule différence : le charbon de bois ne se fabrique pas en bloc de charbon minable, mais il est totalement renouvelable.' },
+      { type: 'warn', txt: 'Ne brûlez pas tout — laissez toujours une réserve de bûches brutes pour les planches et les bâtons. Une boucle mal limitée transforme des piles entières de bois de construction en charbon.' },
+      { type: 'info', txt: 'Bonus de la parcelle — les feuilles en décomposition lâchent des pommes et des pousses de rappel. Le bosquet finance donc sa propre replantation et une partie de votre nourriture.' }
+    ]
+  },
+
+  /* ================= LOGISTIQUE ================= */
+  {
+    id: 'tri-double', nom: 'Rangement à double tri (objets et blocs compactés)', cat: 'logistique',
+    taille: '15 × 7 × 4 par ligne', diff: 'Expert',
+    desc: 'Un mur de tri à deux étages : la ligne haute trie les objets bruts, le trop-plein passe par des fabricateurs qui compactent 9 unités en 1 bloc, et la ligne basse trie ces blocs. On ne remplit plus jamais neuf coffres de lingots quand un coffre de blocs suffit.',
+    mats: ['Par module : 3 entonnoirs, 2 comparateurs, 1 torche de redstone, 4 blocs pleins, 1 coffre', 'Par module compacté : 1 fabricateur (crafter), 1 entonnoir, 1 coffre', '18 objets « bourre » par entonnoir filtre (18 par module)', 'Pour une ligne de 13 modules : ≈90 entonnoirs (450 lingots de fer), 13 fabricateurs, 26 grands coffres', 'Cadres d\'objets pour l\'étiquetage'],
+    couches: [
+      {
+        t: 'Vue de dessus · Y+0 — les deux rangées de coffres',
+        g: [
+          'bbbbbbbbbbbbbbb',
+          'bEEEEEEEEEEEEEb',
+          'bHHHHHHHHHHHHHb',
+          'b.............b',
+          'bHHHHHHHHHHHHHb',
+          'bEEEEEEEEEEEEEb',
+          'bbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Vue de dessus · Y+1 — entonnoirs filtres, comparateurs et torches',
+        g: [
+          'bbbbbbbbbbbbbbb',
+          'bHHHHHHHHHHHHHb',
+          'bVVVVVVVVVVVVVb',
+          'bXXXXXXXXXXXXXb',
+          'bVVVVVVVVVVVVVb',
+          'bHHHHHHHHHHHHHb',
+          'bbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Vue de dessus · Y+2 — lignes d\'apport et batterie de fabricateurs',
+        g: [
+          'bbbbbbbbbbbbbbb',
+          'bHHHHHHHHHHHHHb',
+          'b...........HHb',
+          'b..........1..b',
+          'b...........HHb',
+          'bHHHHHHHHHHHHHb',
+          'bbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Vue de côté · un module double (objet puis bloc)',
+        g: [
+          '...H...',
+          '..BHB..',
+          '..VXB..',
+          '...E...',
+          '...H...',
+          '...1...',
+          '...E...'
+        ]
+      }
+    ],
+    etapes: [
+      'Commencez par la ligne d\'apport : une rangée d\'entonnoirs qui pointent tous vers le suivant, alimentée par un coffre de dépôt à une extrémité. C\'est l\'artère du système, tout le reste s\'y accroche.',
+      'Sous chaque module, l\'entonnoir filtre reçoit 1 exemplaire de l\'objet à trier dans le premier emplacement, plus 18 objets « bourre » (blocs de terre, par exemple) répartis sur les 4 autres.',
+      'Comprenez le mécanisme avant de dupliquer : le comparateur mesure le remplissage de l\'entonnoir filtre. Avec les 19 objets de configuration, il émet un signal faible ; l\'arrivée d\'un objet correspondant fait monter ce signal, la torche s\'éteint et l\'entonnoir se débloque.',
+      'Sans les 18 objets de bourre, le comparateur ne distingue pas « presque vide » de « un objet vient d\'arriver » : c\'est la panne classique qui fait fuir tout le tri vers le coffre de débordement.',
+      'Étiquetez chaque coffre avec un cadre d\'objet contenant l\'article trié. Sur une ligne de 13 modules, c\'est ce qui rend le mur réellement utilisable.',
+      'Deuxième étage : sous le coffre d\'objets, un entonnoir alimente un fabricateur configuré sur la recette 3 × 3 du bloc compacté (fer, or, redstone, lapis, charbon, cuivre, blé, os).',
+      'Le fabricateur n\'agit que lorsque ses 9 emplacements sont pleins : le compactage ne part donc jamais avec 8 lingots, aucun réglage supplémentaire n\'est nécessaire.',
+      'Le bloc produit tombe dans la ligne d\'apport basse, qui possède ses propres modules de tri et sa propre rangée de coffres. Les deux étages sont indépendants : une panne en haut n\'affecte pas le bas.',
+      'Terminez chaque ligne par un coffre de débordement, et sous ce coffre un entonnoir vers un cactus ou un feu de camp si vous voulez détruire les surplus sans intervention.',
+      'Réservez le compactage aux ressources qui se récoltent par milliers : fer, or, redstone, charbon, os. Compacter les objets rares complique le retrait pour un gain nul.'
+    ],
+    rendement: '≈4 000 objets triés par heure et par ligne de 13 modules. Côté compactage : un grand coffre plein de blocs de fer (3 456 blocs) équivaut à 31 104 lingots, soit neuf grands coffres économisés.',
+    notes: [
+      { type: 'warn', txt: 'Débit d\'un entonnoir — un entonnoir transfère 2,5 objets par seconde. Au-delà, la ligne d\'apport bouchonne : dédoublez l\'apport, ou faites entrer les fermes à mi-parcours plutôt que toutes à la même extrémité.' },
+      { type: 'tip', txt: 'Objets non empilables — outils, armures, potions et cartes ne se trient pas de cette façon : le comparateur les lit à une valeur trop élevée. Envoyez-les dans une ligne séparée sans filtre, ou dans une rangée de tonneaux manuelle.' },
+      { type: 'info', txt: 'Décompacter — placez une deuxième batterie de fabricateurs en sens inverse (1 bloc → 9 unités) avec un levier : vous ressortez à la demande la quantité exacte dont vous avez besoin, sans ouvrir le coffre de blocs.' }
+    ]
   }
 
 ];

@@ -412,8 +412,9 @@ function renderBlueprint(bp) {
   /* barre d'actions */
   html += '<div class="bp-actions">' +
     '<button class="act" data-print="1">🖨 Imprimer cette fiche</button>' +
+    '<button class="act" data-mat="' + esc(bp.id) + '">📦 Calculer les matériaux</button>' +
     (isoPossible(bp) ? '<button class="act" data-iso="' + esc(bp.id) + '">🧊 Vue 3D</button>' : '') +
-    '</div><div class="iso-wrap"></div>';
+    '</div><div class="mat-wrap"></div><div class="iso-wrap"></div>';
 
   el.innerHTML = html;
   return el;
@@ -851,6 +852,113 @@ function buildToc(tocId, list, groupes) {
   window.addEventListener('scroll', maj, { passive: true });
   maj();
 }
+
+/* -----------------------------------------------------------
+   12 bis. Calculateur de matériaux
+   ---------------------------------------------------------------
+   Compte les blocs réellement dessinés dans les couches du schéma.
+   C'est un décompte exact de ce qui est représenté — pas une
+   estimation : les limites sont annoncées sous le tableau.
+   ----------------------------------------------------------- */
+
+/* Ce qu'il faut fabriquer pour obtenir un bloc : [source, produit par craft] */
+var RECOMPOSITION = {
+  '#': ['bûches', 4],      /* 1 bûche → 4 planches */
+  '/': ['blocs', 4 / 6],   /* 6 blocs → 4 escaliers */
+  '-': ['blocs', 6 / 3],   /* 3 blocs → 6 dalles */
+  '|': ['planches et bâtons', 1],
+  'M': ['blocs', 6 / 6],
+  'b': ['pierre', 4 / 4],  /* 4 pierres → 4 briques */
+  'G': ['blocs de verre', 16 / 6]
+};
+
+function calculerMateriaux(bp) {
+  var total = {}, repetees = [];
+  (bp.couches || []).forEach(function (c) {
+    if (/répéter|répète|à empiler/i.test(c.t)) { repetees.push(c.t); }
+    c.g.forEach(function (ligne) {
+      for (var i = 0; i < ligne.length; i++) {
+        var ch = ligne[i];
+        var b = BLOCKS[ch];
+        if (!b || !b.c) { continue; }     /* air */
+        total[ch] = (total[ch] || 0) + 1;
+      }
+    });
+  });
+  var liste = Object.keys(total).map(function (ch) {
+    return { ch: ch, nom: (BLOCKS[ch] || {}).n || ch, n: total[ch], c: (BLOCKS[ch] || {}).c };
+  });
+  liste.sort(function (a, b) { return b.n - a.n; });
+  return { liste: liste, repetees: repetees };
+}
+
+function renderMateriaux(bp) {
+  var r = calculerMateriaux(bp);
+  if (!r.liste.length) { return '<p class="rg-vide">Ce schéma ne contient aucun bloc à compter.</p>'; }
+
+  var somme = 0;
+  r.liste.forEach(function (m) { somme += m.n; });
+
+  var h = '<table class="mat-table"><thead><tr><th></th><th>Bloc</th><th>Quantité</th><th>Piles</th><th>À prévoir</th></tr></thead><tbody>';
+  r.liste.forEach(function (m) {
+    var piles = Math.floor(m.n / 64), reste = m.n % 64;
+    var enPiles = piles ? piles + ' pile' + (piles > 1 ? 's' : '') + (reste ? ' + ' + reste : '') : reste + '';
+    var rec = RECOMPOSITION[m.ch];
+    var prevoir = '';
+    if (rec) {
+      var brut = Math.ceil(m.n / rec[1]);
+      prevoir = brut + ' ' + rec[0];
+    }
+    h += '<tr><td><span class="mat-puce" style="' + texStyle('blocs', m.ch, m.c) + '"></span></td>' +
+      '<td>' + esc(m.nom) + '</td>' +
+      '<td class="num">' + m.n + '</td>' +
+      '<td class="num">' + enPiles + '</td>' +
+      '<td class="mat-prevoir">' + esc(prevoir) + '</td></tr>';
+  });
+  h += '</tbody></table>';
+
+  h += '<p class="mat-note"><b>' + somme + ' blocs</b> au total dans les couches dessinées, soit ' +
+    Math.ceil(somme / 64) + ' pile' + (somme > 64 ? 's' : '') + ' à transporter.</p>';
+
+  if (r.repetees.length) {
+    h += '<p class="mat-note avert">⚠ ' + r.repetees.length + ' couche' + (r.repetees.length > 1 ? 's sont marquées' : ' est marquée') +
+      ' « à répéter » : elle' + (r.repetees.length > 1 ? 's ne sont comptées qu\'une fois' : ' n\'est comptée qu\'une fois') +
+      '. Multipliez par le nombre d\'étages réel.</p>';
+  }
+
+  /* Si la fiche annonce une hauteur supérieure au nombre de couches dessinées,
+     le décompte ne peut pas être complet : autant le dire franchement. */
+  var dims = String(bp.taille || '').match(/\d+/g);
+  var hauteur = dims && dims.length >= 3 ? parseInt(dims[2], 10) : 0;
+  var nbCouches = (bp.couches || []).length;
+  if (hauteur > nbCouches) {
+    h += '<p class="mat-note avert">⚠ La fiche annonce ' + hauteur + ' blocs de hauteur pour ' + nbCouches +
+      ' couches dessinées : les niveaux identiques ne sont représentés qu\'une fois. Comptez environ ' +
+      Math.round(somme * hauteur / nbCouches) + ' blocs au total, et fiez-vous à la liste de matériaux ci-dessus.</p>';
+  }
+
+  h += '<p class="mat-note">Ce tableau compte exactement les blocs dessinés dans les schémas. Les finitions ' +
+    'décrites dans les étapes (vieillissement, éclairage, mobilier) n\'y figurent pas.</p>';
+  return h;
+}
+
+/* Bouton : le tableau n'est calculé qu'au premier clic */
+document.addEventListener('click', function (ev) {
+  var b = ev.target.closest ? ev.target.closest('[data-mat]') : null;
+  if (!b) { return; }
+  var host = b.closest('[data-search]');
+  var box = host && host.querySelector('.mat-wrap');
+  if (!box) { return; }
+  if (!box.dataset.built) {
+    var bp = (window.__isoIndex || {})[b.dataset.mat];
+    if (!bp) { return; }
+    box.innerHTML = renderMateriaux(bp);
+    box.dataset.built = '1';
+  }
+  var ouvert = box.classList.toggle('open');
+  b.classList.toggle('on', ouvert);
+  b.textContent = ouvert ? '◾ Masquer les matériaux' : '📦 Calculer les matériaux';
+});
 
 /* -----------------------------------------------------------
    13. Recherche globale (toutes les pages à la fois)
