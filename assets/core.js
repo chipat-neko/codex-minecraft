@@ -720,7 +720,14 @@ function shade(hex, f) {
    Masquer les couches hautes est le seul moyen de voir l'intérieur
    d'un bâtiment fermé. */
 function renderIso(bp, limite) {
-  var TW = 16, TH = 8, TZ = 13;          /* demi-largeur, demi-profondeur, hauteur d'un cube */
+  /* TZ = 2 × TH est la seule hauteur qui rende les motifs de texture
+     alignables : les pas entre cubes voisins — (TW, TH) en x,
+     (−TW, TH) en z, (0, −TZ) en hauteur — doivent tous être des
+     combinaisons entières des vecteurs de la tuile de chaque face.
+     Vérifié pour toute hauteur de 8 à 24 : 16 est la seule qui marche.
+     C'est aussi la proportion d'un vrai cube en isométrie 2:1 ; à 13,
+     les blocs étaient discrètement écrasés. */
+  var TW = 16, TH = 8, TZ = 16;          /* demi-largeur, demi-profondeur, hauteur d'un cube */
   var toutes = couchesY(bp);
   var couches = toutes.slice(0, limite || toutes.length);
   /* le cadre se mesure sur TOUTES les couches, jamais sur celles que
@@ -766,17 +773,44 @@ function renderIso(bp, limite) {
   var ox = maxD * TW + 20;
   var oy = 20 + total * TZ;
 
-  /* un motif par bloc texturé, réutilisé par toutes ses faces */
+  /* Trois motifs par bloc texturé : un par orientation de face.
+
+     Un seul motif partagé, comme avant, revenait à tendre une
+     tapisserie alignée sur l'écran et à y découper les faces : la
+     texture ne suivait pas les arêtes, et l'alignement qu'on croyait
+     voir n'était qu'une coïncidence sur certaines faces.
+
+     patternTransform envoie ici la tuile carrée sur le losange du
+     dessus et sur les deux parallélogrammes latéraux. Le décalage
+     (e, f) ancre chaque tuile sur le sommet correspondant du cube
+     posé à l'origine ; les pas entre cubes étant des multiples des
+     vecteurs de tuile, tous les autres suivent.
+
+     Le voile d'ombre est peint DANS le motif, ce qui ramène chaque
+     face à un seul polygone au lieu de deux. */
+  var S = 16;                                   /* côté de la tuile */
+  var FACES = [
+    { cle: 'd', m: [TW / S, TH / S, -TW / S, TH / S, 0, 0], voile: '#fff', op: .10 },
+    { cle: 'g', m: [TW / S, TH / S, 0, TZ / S, -TW, TH], voile: '#000', op: .34 },
+    { cle: 'r', m: [-TW / S, TH / S, 0, TZ / S, 0, 2 * TH], voile: '#000', op: .14 }
+  ];
+
   var defs = '';
   for (var ch in motifs) {
     var t = motifs[ch].t, dossier = motifs[ch].dossier;
-    defs += '<pattern id="tx' + ch.charCodeAt(0) + '" patternUnits="userSpaceOnUse" ' +
-      'width="' + (TW * 2) + '" height="' + (TZ * 2) + '">' +
-      '<image href="' + dossier + t.f + '" x="0" y="0" width="' + (TW * 2) + '" height="' + (TZ * 2) +
-      '" preserveAspectRatio="none" style="image-rendering:pixelated"' +
-      (t.n ? ' clip-path="inset(0 0 ' + (100 - 100 / t.n) + '% 0)"' : '') + '/>' +
-      (t.t ? '<rect width="' + (TW * 2) + '" height="' + (TZ * 2) + '" fill="' + t.t + '" style="mix-blend-mode:multiply"/>' : '') +
-      '</pattern>';
+    /* une texture animée empile ses images : on lui donne sa hauteur
+       réelle et la tuile ne montre alors que la première */
+    var hImg = S * (t.n || 1);
+    for (var fi = 0; fi < FACES.length; fi++) {
+      var F = FACES[fi];
+      defs += '<pattern id="tx' + ch.charCodeAt(0) + F.cle + '" patternUnits="userSpaceOnUse" ' +
+        'width="' + S + '" height="' + S + '" patternTransform="matrix(' + F.m.join(' ') + ')">' +
+        '<image href="' + dossier + t.f + '" x="0" y="0" width="' + S + '" height="' + hImg +
+        '" preserveAspectRatio="none" style="image-rendering:pixelated"/>' +
+        (t.t ? '<rect width="' + S + '" height="' + S + '" fill="' + t.t + '" style="mix-blend-mode:multiply"/>' : '') +
+        '<rect width="' + S + '" height="' + S + '" fill="' + F.voile + '" opacity="' + F.op + '"/>' +
+        '</pattern>';
+    }
   }
 
   return '<svg viewBox="0 0 ' + w + ' ' + h + '" width="' + Math.max(300, Math.min(w, 900)) + '" role="img" ' +
@@ -796,16 +830,14 @@ function cube(x, y, tw, th, tz, col, nom, ch) {
   var pts = function (p) {
     return p[0] + ',' + p[1] + ' ' + p[2] + ',' + p[3] + ' ' + p[4] + ',' + p[5] + ' ' + p[6] + ',' + p[7];
   };
-  var face;
   if (ch) {
-    var motif = 'url(#tx' + ch.charCodeAt(0) + ')';
-    /* voile : blanc léger sur le dessus, noir sur les côtés */
-    face = function (p, voile, opacite) {
-      return '<polygon points="' + pts(p) + '" fill="' + motif + '"/>' +
-        '<polygon points="' + pts(p) + '" fill="' + voile + '" opacity="' + opacite + '"/>';
+    /* un motif par orientation, ombre comprise : une face, un polygone */
+    var code = ch.charCodeAt(0);
+    var face = function (p, cle) {
+      return '<polygon points="' + pts(p) + '" fill="url(#tx' + code + cle + ')"/>';
     };
     return '<g><title>' + esc(nom) + '</title>' +
-      face(l, '#000', .34) + face(r, '#000', .14) + face(t, '#fff', .10) + '</g>';
+      face(l, 'g') + face(r, 'r') + face(t, 'd') + '</g>';
   }
   var poly = function (p, c) { return '<polygon points="' + pts(p) + '" fill="' + c + '"/>'; };
   return '<g><title>' + esc(nom) + '</title>' +
