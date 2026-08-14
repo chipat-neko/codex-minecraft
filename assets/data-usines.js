@@ -54,7 +54,39 @@ var USINES = [
     mats: ['Par bloc de canne : 1 observateur, 1 piston, 1 bloc plein', '1 ligne d\'entonnoirs ou un canal d\'eau + entonnoir en bout', 'Sable ou terre au bord d\'un canal d\'eau', 'Coffre de collecte'],
     couches: [
       { t: 'Vue de côté · un module', vue: 1, g: ['..P Q', '..u..', '..u..', '.Auw.', '.HHH.', '.E...'] },
-      { t: 'Vue de dessus · ligne de 6', vue: 1, g: ['QQQQQQ', 'PPPPPP', 'uuuuuu', 'AAAAAA', 'wwwwww'] }
+      { t: 'Vue de dessus · ligne de 6', vue: 1, g: ['QQQQQQ', 'PPPPPP', 'uuuuuu', 'AAAAAA', 'wwwwww'] },
+      { t: 'Y+0 · fondation, entonnoirs de bout de canal et coffre', g: ['cccccccc', 'cccccccc', 'cccccccc', 'ccccccHH', 'cccccccE'] },
+      {
+        t: 'Y+1 · sable de plantation (rangee fermee pour retenir l\'eau), canal : source en x0, courant vers les entonnoirs ; la case vide de z4 laisse ouvrir le coffre',
+        g: [
+          'cccccccc',
+          '........',
+          'cAAAAAcc',
+          'w~~~~~~c',
+          'ccccccc.'
+        ]
+      },
+      { t: 'Y+2 · % = 1er segment de canne, jamais recolte', g: ['cccccccc', '........', '.%%%%%..', '........', '........'] },
+      {
+        t: 'Y+3 · % = 2e segment ; P = pistons tournes vers la canne, c\'est CE segment qu\'ils cassent ; le mur de fond z0 porte le circuit',
+        g: [
+          'cccccccc',
+          '.PPPPP..',
+          '.%%%%%..',
+          '........',
+          '........'
+        ]
+      },
+      {
+        t: 'Y+4 · % = 3e segment (la canne s\'arrete d\'elle-meme a 3) ; Q = observateurs tournes vers la canne, ils regardent CE segment ; R = poudre posee sur le mur, alimentee par le dos des observateurs',
+        g: [
+          '.RRRRR..',
+          '.QQQQQ..',
+          '.%%%%%..',
+          '........',
+          '........'
+        ]
+      }
     ],
     etapes: [
       'Creusez un canal d\'eau d\'un bloc de large ; à côté, alignez des blocs de sable au même niveau.',
@@ -75,7 +107,39 @@ var USINES = [
     desc: 'Même principe que la canne à sucre, mais le bambou pousse jusqu\'à 16 blocs de haut et très vite. Combiné à un fabricateur, il produit des blocs de bambou séché : le carburant de vos fours.',
     mats: ['1 observateur, 1 piston, 1 bloc plein par colonne', '1 pousse de bambou (jungle ou coffre d\'épave)', 'Entonnoirs + coffre', 'Optionnel : 1 fabricateur (crafter) pour les blocs de bambou'],
     couches: [
-      { t: 'Vue de côté', vue: 1, g: ['.z.', '.z.', 'Qz.', 'Pz.', '.z.', 'tHE'] }
+      { t: 'Vue de côté', vue: 1, g: ['.z.', '.z.', 'Qz.', 'Pz.', '.z.', 'tHE'] },
+      { t: 'Y+0 · fondation pleine sous toute la ferme', g: ['cccccccc', 'cccccccc', 'cccccccc', 'cccccccc', 'cccccccc'] },
+      { t: 'Y+1 · terre de plantation et assise du couloir de recolte', g: ['cccccccc', '........', '.ttttt..', 'cccccccc', 'cccccccc'] },
+      {
+        t: 'Y+2 · % = 1er segment de bambou (permanent) ; ligne d\'entonnoirs chainee vers le coffre de x7',
+        g: [
+          'cccccccc',
+          '........',
+          '.%%%%%..',
+          'HHHHHHHH',
+          'cccccccE'
+        ]
+      },
+      {
+        t: 'Y+3 · % = 2e segment ; P = pistons tournes vers le bambou, c\'est CE segment qu\'ils cassent ; lanternes du mur en x1, x3, x5 ; la case vide de x7 laisse ouvrir le coffre',
+        g: [
+          'cccccccc',
+          '.PPPPP..',
+          '.%%%%%..',
+          '........',
+          'c*c*c*c.'
+        ]
+      },
+      {
+        t: 'Y+4 · % = 3e segment ; Q = observateurs tournes vers le bambou, ils regardent CE segment ; R = poudre posee sur le mur, alimentee par le dos des observateurs',
+        g: [
+          '.RRRRR..',
+          '.QQQQQ..',
+          '.%%%%%..',
+          '........',
+          '........'
+        ]
+      }
     ],
     etapes: [
       'Plantez le bambou sur de la terre, du sable ou du gravier ; il n\'a pas besoin d\'eau.',
@@ -190,8 +254,182 @@ var USINES = [
     desc: 'La première ferme à mobs de toute partie : on récupère un générateur de zombies ou de squelettes trouvé en donjon et on canalise ses mobs vers un point de mise à mort à hauteur de joueur.',
     mats: ['1 générateur de donjon (ne PAS le casser)', '2 seaux d\'eau', '≈15 entonnoirs, 1 grand coffre', '≈150 blocs pleins', '1 panneau ou 1 trappe pour bloquer l\'eau'],
     couches: [
-      { t: 'Y+0 · salle de spawn (générateur au centre)', g: ['bbbbbbbbb', 'b~~~~~~~b', 'b~.....~b', 'b~..@..~b', 'b~.....~b', 'b~~~~~~~b', 'bbbb.bbbb', 'bbbbbbbbb', 'bbbbbbbbb'] },
-      { t: 'Vue de côté · colonne de chute & mise à mort', vue: 1, g: ['b@b', 'b~b', 'b.b', 'b.b', 'b.b', 'b.b', 'b.b', 'bxb', 'bHb', 'bEb'] }
+      { t: 'Vue de côté · colonne de chute & mise à mort', vue: 1, g: ['b@b', 'b~b', 'b.b', 'b.b', 'b.b', 'b.b', 'b.b', 'bxb', 'bHb', 'bEb'] },
+      {
+        t: 'Y+0 · salle de spawn (générateur au centre)',
+        vue: 1,
+        g: [
+          'bbbbbbbbb',
+          'b~~~~~~~b',
+          'b~.....~b',
+          'b~..@..~b',
+          'b~.....~b',
+          'b~~~~~~~b',
+          'bbbb.bbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+0 · plancher de la salle de mise à mort : entonnoirs et grand coffre',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbEbbb',
+          'bbbbbbbEHHb',
+          'bbbbbbbbbHb',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+1 · fente de frappe (dalle inférieure) et poste du joueur',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbDbbb',
+          'bbbbbbb.bbb',
+          'bbbbbbb.bbb',
+          'bbbbbbbx-.b',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+2 · au-dessus de la fente, le mur redevient plein',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbDbbb',
+          'bbbbbbb*bbb',
+          'bbbbbbb.bbb',
+          'bbbbbbb.b.b',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+3 → Y+10 · plafond de la salle basse, puis puits de chute sec (à répéter)',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbb.b',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+11 · plancher de la salle d’apparition : le trou de reprise, resté au sec',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbb.b',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+12 · lame d’eau : rampe de sources, rigole de reprise, dernière case sèche',
+        g: [
+          'bbbbbbbbbbb',
+          'bw~~~~~~~wb',
+          'bw~~~~~~~~b',
+          'bw~~~~~~~~b',
+          'bw~~~~~~~~b',
+          'bw~~~~~~~~b',
+          'bw~~~~~~~~b',
+          'bw~~~~~~~~b',
+          'bw~~~~~~~~b',
+          'bw~~~~~~~.b',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+13 · premier niveau d’apparition (Y du générateur − 1)',
+        g: [
+          'bbbbbbbbbbb',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+14 · le générateur, au centre de son volume de 9 × 3 × 9',
+        g: [
+          'bbbbbbbbbbb',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b....@....b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+15 → Y+16 · haut du volume d’apparition (à répéter)',
+        g: [
+          'bbbbbbbbbbb',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+17 · plafond de la salle d’apparition',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb'
+        ]
+      }
     ],
     etapes: [
       'Creusez la salle du donjon jusqu\'à 4 blocs autour du générateur dans toutes les directions — c\'est son rayon d\'apparition.',
@@ -214,7 +452,285 @@ var USINES = [
     mats: ['≈2 000 blocs pleins (pierre, terre, n\'importe quoi)', '≈20 seaux d\'eau', '≈20 entonnoirs, 2 grands coffres', '≈30 dalles ou trappes (anti-apparition)', 'Beaucoup d\'échafaudages'],
     couches: [
       { t: 'Une plateforme (vue de dessus)', vue: 1, g: ['bbbbbbbbbbbbb', 'b~~~~~.~~~~~b', 'b...........b', 'b...........b', 'b...........b', 'b~~~~~.~~~~~b', 'bbbbbb.bbbbbb', 'bbbbbbbbbbbbb'] },
-      { t: 'Vue de côté · empilement', vue: 1, g: ['bbbbb', 'b~~~b', 'bbbbb', 'b...b', 'bbbbb', 'b~~~b', 'bbbbb', 'b...b', '..|..', '..|..', '..|..', '..x..', '.HHH.', '..E..'] }
+      { t: 'Vue de côté · empilement', vue: 1, g: ['bbbbb', 'b~~~b', 'bbbbb', 'b...b', 'bbbbb', 'b~~~b', 'bbbbb', 'b...b', '..|..', '..|..', '..|..', '..x..', '.HHH.', '..E..'] },
+      {
+        t: 'Y+0 · plancher de collecte : 9 entonnoirs et le grand coffre',
+        g: [
+          'bbbbbbb',
+          'bbbbbbb',
+          'bbHHHbb',
+          'bbHHHbb',
+          'bbHHHbb',
+          'bbbEbbb',
+          'bbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+1 · chambre de réception et poste d’attente, porte de service',
+        g: [
+          'bbbbbbb',
+          'bbbbbbb',
+          'bb...bb',
+          'bb...bb',
+          'bb...bb',
+          'bb.x.bb',
+          'bbbDbbb'
+        ]
+      },
+      { t: 'Y+2 · haut de la chambre, éclairage du poste', g: ['bbbbbbb', 'bbbbbbb', 'bb...bb', 'bb...bb', 'bb...bb', 'bb*.*bb', 'bbbDbbb'] },
+      {
+        t: 'Y+3 · plafond : seule la bouche du puits reste ouverte',
+        g: [
+          'bbbbbbb',
+          'bbbbbbb',
+          'bbbbbbb',
+          'bbb.bbb',
+          'bbbbbbb',
+          'bbbbbbb',
+          'bbbbbbb'
+        ]
+      },
+      { t: 'Y+4 → Y+24 · puits de chute sec, 1 × 1 (à répéter)', g: ['bbb', 'b.b', 'bbb'] },
+      {
+        t: 'Y+25 · lit de la rigole, plateforme 1',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbb.bbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+26 · plancher 1 : rigole en croix encaissée, trou central au sec',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbwbbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bw~~~~~~~.~~~~~~~wb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbbwbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+27 → Y+28 · volume d’apparition 1 : 2 blocs de vide (à répéter)',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+29 · lit de la rigole 2 = plafond de la plateforme 1',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbb.bbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+30 · plancher 2 : rigole en croix',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbwbbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bw~~~~~~~.~~~~~~~wb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbbwbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+31 → Y+32 · volume d’apparition 2 (à répéter)',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+33 · lit de la rigole 3 = plafond de la plateforme 2',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbb.bbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+34 · plancher 3 : rigole en croix',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbwbbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bw~~~~~~~.~~~~~~~wb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbbwbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+35 → Y+36 · volume d’apparition 3 (à répéter)',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+37 · toiture : plus une seule surface d’apparition au-dessus',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      }
     ],
     etapes: [
       'Choisissez l\'emplacement : au-dessus d\'un océan à Y ≈ 130, ou dans le vide de l\'End. Rien d\'autre ne doit pouvoir engendrer de mobs dans un rayon de 128 blocs.',
@@ -238,7 +754,357 @@ var USINES = [
     mats: ['≈1 200 blocs pleins', 'Plafond à exactement 2 blocs de hauteur au-dessus des plateformes', '1 à 4 chats apprivoisés (éloignent les creepers, ce qui les pousse vers les canaux)', 'Entonnoirs + coffres', 'Chute de 24 blocs'],
     couches: [
       { t: 'Plateforme · plafond bas (vue de côté)', vue: 1, g: ['bbbbbbb', 'b.....b', 'b~...~b', 'bbb.bbb'] },
-      { t: 'Zone de mise à mort', g: ['..|..', '..|..', '..x..', '.HHH.', '..E..'] }
+      { t: 'Zone de mise à mort', vue: 1, g: ['..|..', '..|..', '..x..', '.HHH.', '..E..'] },
+      {
+        t: 'Y+0 · plancher de collecte : 9 entonnoirs et le grand coffre',
+        g: [
+          'bbbbbbb',
+          'bbbbbbb',
+          'bbHHHbb',
+          'bbHHHbb',
+          'bbHHHbb',
+          'bbbEbbb',
+          'bbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+1 · chambre d’écrasement et poste d’attente, porte de service',
+        g: [
+          'bbbbbbb',
+          'bbbbbbb',
+          'bb...bb',
+          'bb...bb',
+          'bb...bb',
+          'bb.x.bb',
+          'bbbDbbb'
+        ]
+      },
+      { t: 'Y+2 · haut de la chambre, éclairage du poste', g: ['bbbbbbb', 'bbbbbbb', 'bb...bb', 'bb...bb', 'bb...bb', 'bb*.*bb', 'bbbDbbb'] },
+      {
+        t: 'Y+3 · plafond : seule la bouche du puits reste ouverte',
+        g: [
+          'bbbbbbb',
+          'bbbbbbb',
+          'bbbbbbb',
+          'bbb.bbb',
+          'bbbbbbb',
+          'bbbbbbb',
+          'bbbbbbb'
+        ]
+      },
+      { t: 'Y+4 → Y+24 · puits de chute sec : ici la chute doit TUER (à répéter)', g: ['bbb', 'b.b', 'bbb'] },
+      {
+        t: 'Y+25 · lit de la rigole, plateforme 1',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbb.bbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+26 · plancher 1 : rigole en croix encaissée, trou central au sec',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbwbbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bw~~~~~~~.~~~~~~~wb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbbwbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+27 · volume d’apparition 1 : le seul niveau où des pieds tiennent',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+28 · trappes fermées contre le plafond : le filtre de taille, percé au droit du puits',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b++++++++.++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+29 · lit de la rigole 2 = plafond de la plateforme 1',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbb.bbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+30 · plancher 2 : rigole en croix',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbwbbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bw~~~~~~~.~~~~~~~wb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbbwbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+31 · volume d’apparition 2',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+32 · trappes du filtre 2, percées au droit du puits',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b++++++++.++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+33 · lit de la rigole 3 = plafond de la plateforme 2',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbb.bbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+34 · plancher 3 : rigole en croix',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbwbbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bw~~~~~~~.~~~~~~~wb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbb~bbbbbbbbb',
+          'bbbbbbbbbwbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+35 · volume d’apparition 3',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'b.................b',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+36 · trappes du filtre 3, percées au droit du puits',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b++++++++.++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'b+++++++++++++++++b',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+37 · toiture',
+        g: [
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb',
+          'bbbbbbbbbbbbbbbbbbb'
+        ]
+      }
     ],
     etapes: [
       'Construisez des plateformes obscures comme pour une tour à mobs, mais avec un plafond à seulement 2 blocs de hauteur.',
@@ -261,7 +1127,187 @@ var USINES = [
     mats: ['≈1 500 blocs (préférez des blocs résistants aux ghasts : briques du Nether, pierre)', 'Trappes ou dalles pour bloquer les apparitions ailleurs', 'Entonnoirs + coffres', 'Chute de 24 blocs ou un broyeur à magma', 'Potion de Résistance au feu pour la construction'],
     couches: [
       { t: 'Plateforme de spawn (vue de dessus)', vue: 1, g: ['rrrrrrrrr', 'r~~~~~~~r', 'r~.....~r', 'r~..H..~r', 'r~.....~r', 'r~~~~~~~r', 'rrrrrrrrr'] },
-      { t: 'Vue de côté', vue: 1, g: ['rrrrr', 'r~~~r', 'r...r', '..|..', '..|..', '..x..', '.HHH.', '..E..'] }
+      { t: 'Vue de côté', vue: 1, g: ['rrrrr', 'r~~~r', 'r...r', '..|..', '..|..', '..x..', '.HHH.', '..E..'] },
+      {
+        t: 'Y+0 · sol du réduit d’attente, scellé sous la salle',
+        g: [
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+1 · réduit d’attente : c’est ICI qu’on patiente, pied de l’échelle',
+        g: [
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'r...rrrrrrrrr',
+          'r.x.rrrrrrrrr',
+          'rL.*rrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+2 · haut du réduit, l’échelle continue',
+        g: [
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'r...rrrrrrrrr',
+          'r...rrrrrrrrr',
+          'rL..rrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+3 · plafond du réduit et plancher de l’alcôve, percé de la cage d’échelle',
+        g: [
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rLrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+4 · plancher de réception : entonnoirs, coffre, et les pieds du joueur un cran plus bas',
+        g: [
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rEHHrrrrrrrrr',
+          'rxrHrrrrrrrrr',
+          'r.rHrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+5 · la dalle : la fente de frappe tombe pile à hauteur d’œil',
+        g: [
+          'rrrrrrrrrrrrr',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'r.r.........r',
+          'r.-.........r',
+          'r.r.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrrrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+6 → Y+25 · alcôve refermée, puis puits de chute sec 9 × 11 (à répéter)',
+        g: [
+          'rrrrrrrrrrrrr',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrrrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+26 · plateforme : bandes d’apparition d’un bloc, vides de deux',
+        g: [
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrr.........r',
+          'rrr.........r',
+          'rrrrrrrrrrrrr',
+          'rrr.........r',
+          'rrr.........r',
+          'rrrrrrrrrrrrr',
+          'rrr.........r',
+          'rrr.........r',
+          'rrrrrrrrrrrrr',
+          'rrr.........r',
+          'rrrrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+27 → Y+28 · volume d’apparition : 2 blocs de vide (à répéter)',
+        g: [
+          'rrrrrrrrrrrrr',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrr.........r',
+          'rrrrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+29 · toiture : elle interdit les ghasts et referme le noir',
+        g: [
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr',
+          'rrrrrrrrrrrrr'
+        ]
+      }
     ],
     etapes: [
       'Choisissez une zone du Nether au-dessus du vide (sous la bedrock) ou une grande vallée de sable des âmes, loin d\'un bastion.',
@@ -282,8 +1328,168 @@ var USINES = [
     desc: 'Aménagement d\'un carrefour de forteresse du Nether : on ne garde que les briques du Nether comme surface d\'apparition, ce qui rend les squelettes wither majoritaires. Objectif : les 3 crânes pour invoquer le Wither, puis la balise.',
     mats: ['≈2 000 blocs de briques du Nether (récupérés sur place)', 'Dalles et trappes en quantité', 'Épée avec Butin III (indispensable)', 'Potion de Résistance au feu', 'Entonnoirs + coffres'],
     couches: [
-      { t: 'Plateforme de spawn (dessus)', g: ['rrrrrrrrr', 'rrrrrrrrr', 'rr.....rr', 'rr.....rr', 'rr..H..rr', 'rr.....rr', 'rrrrrrrrr'] },
-      { t: 'Vue de côté · plafond 2 blocs', vue: 1, g: ['rrrrrrr', 'r.....r', 'r.....r', 'rrr.rrr', '..|....', '..x....', '.HHH...', '..E....'] }
+      { t: 'Plateforme de spawn (dessus)', vue: 1, g: ['rrrrrrrrr', 'rrrrrrrrr', 'rr.....rr', 'rr.....rr', 'rr..H..rr', 'rr.....rr', 'rrrrrrrrr'] },
+      { t: 'Vue de côté · plafond 2 blocs', vue: 1, g: ['rrrrrrr', 'r.....r', 'r.....r', 'rrr.rrr', '..|....', '..x....', '.HHH...', '..E....'] },
+      {
+        t: 'Y+0 · sol du réduit d’attente, creusé sous la forteresse',
+        g: [
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+1 · réduit d’attente : poste de patience, pied de l’échelle',
+        g: [
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'r...rrrrrrr',
+          'r.x.rrrrrrr',
+          'rL.*rrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+2 · haut du réduit, l’échelle continue',
+        g: [
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'r...rrrrrrr',
+          'r...rrrrrrr',
+          'rL..rrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+3 · plafond du réduit et plancher de l’alcôve, percé de la cage d’échelle',
+        g: [
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rLrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+4 · plancher de réception : entonnoirs, coffre, pieds du joueur un cran plus bas',
+        g: [
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rEHHrrrrrrr',
+          'rxrHrrrrrrr',
+          'r.rHrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+5 · la dalle : la fente de frappe tombe pile à hauteur d’œil',
+        g: [
+          'rrrrrrrrrrr',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'r.r.......r',
+          'r.-.......r',
+          'r.r.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+6 → Y+25 · alcôve refermée, puis puits de chute sec 7 × 9 (à répéter)',
+        g: [
+          'rrrrrrrrrrr',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+26 · plateforme : bandes d’un bloc en BRIQUES DU NETHER, dans l’emprise de la forteresse',
+        g: [
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrr.......r',
+          'rrr.......r',
+          'rrrrrrrrrrr',
+          'rrr.......r',
+          'rrr.......r',
+          'rrrrrrrrrrr',
+          'rrr.......r',
+          'rrr.......r',
+          'rrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+27 → Y+29 · volume d’apparition : 3 blocs de vide, pas 2 (à répéter)',
+        g: [
+          'rrrrrrrrrrr',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrr.......r',
+          'rrrrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+30 · plafond à 3 blocs ; tout le reste de la forteresse passe sous dalles',
+        g: [
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr',
+          'rrrrrrrrrrr'
+        ]
+      }
     ],
     etapes: [
       'Trouvez un grand carrefour de forteresse — plus la surface de briques du Nether est vaste, meilleur est le rendement.',
@@ -350,8 +1556,164 @@ var USINES = [
     desc: 'Le monument océanique est la seule zone où les gardiens apparaissent, y compris à travers l\'eau. Vidé de son eau, il devient la ferme la plus productive du jeu.',
     mats: ['≈15 éponges (récupérées sur place)', '≈3 000 blocs pour boucher les ouvertures', 'Potions de Respiration aquatique + Vision nocturne', '1 conduit (8 coquillages nautiles + 1 cœur de la mer)', 'Entonnoirs + coffres, lave ou chute de mise à mort'],
     couches: [
-      { t: 'Zone de spawn (schéma simplifié)', g: ['wwwwwwwww', 'w.......w', 'w.......w', 'w...H...w', 'w.......w', 'w.......w', 'wwwwwwwww'] },
-      { t: 'Vue de côté · collecte', vue: 1, g: ['wwwww', 'w...w', 'w.|.w', '..|..', '..x..', '.HHH.', '..E..'] }
+      {
+        t: 'Zone de spawn (schéma simplifié)',
+        vue: 1,
+        g: [
+          'wwwwwwwww',
+          'w.......w',
+          'w.......w',
+          'w...H...w',
+          'w.......w',
+          'w.......w',
+          'wwwwwwwww'
+        ]
+      },
+      { t: 'Vue de côté · collecte', vue: 1, g: ['wwwww', 'w...w', 'w.|.w', '..|..', '..x..', '.HHH.', '..E..'] },
+      {
+        t: 'Y+0 · plancher de collecte : la chambre entière est pavée d\'entonnoirs, chaînés vers le grand coffre',
+        g: [
+          '.............',
+          '.............',
+          '.............',
+          '...bbbbbbb...',
+          '...bHHHHHb...',
+          '...bHHHHHb...',
+          '...bHHHHHb...',
+          '...bHHHHHb...',
+          '...bHHHHHb...',
+          '...bbbEbbb...',
+          '.....bHb.....',
+          '.....bbb.....',
+          '.............'
+        ]
+      },
+      {
+        t: 'Y+1 · chambre de mise à mort 5 × 5, fente et sas du joueur (x) ; la lame d\'eau du puits couvre tout ce niveau',
+        g: [
+          '.............',
+          '.............',
+          '.............',
+          '...bbbbbbb...',
+          '...b.....b...',
+          '...b.....b...',
+          '...b.....b...',
+          '...b.....b...',
+          '...b.....b...',
+          '...bbb.bbb...',
+          '.....bxb.....',
+          '.....bbb.....',
+          '.............'
+        ]
+      },
+      {
+        t: 'Y+2 · murs pleins : le gardien ne voit le joueur que par la fente du bas',
+        g: [
+          '.............',
+          '.............',
+          '.............',
+          '...bbbbbbb...',
+          '...b.....b...',
+          '...b.....b...',
+          '...b.....b...',
+          '...b.....b...',
+          '...b.....b...',
+          '...bbbbbbb...',
+          '.....bxb.....',
+          '.....bbb.....',
+          '.............'
+        ]
+      },
+      {
+        t: 'Y+3 · plafond de la chambre, percé de 1 × 1 : l\'arrivée du puits',
+        g: [
+          '.............',
+          '.............',
+          '.............',
+          '...bbbbbbb...',
+          '...bbbbbbb...',
+          '...bbbbbbb...',
+          '...bbb.bbb...',
+          '...bbbbbbb...',
+          '...bbbbbbb...',
+          '...bbbbbbb...',
+          '.....bbb.....',
+          '.....bbb.....',
+          '.............'
+        ]
+      },
+      {
+        t: 'Y+4 → Y+27 · la colonne d\'eau descendante, 1 × 1 (à répéter)',
+        g: [
+          '.............',
+          '.............',
+          '.............',
+          '.............',
+          '.............',
+          '.....bbb.....',
+          '.....b~b.....',
+          '.....bbb.....',
+          '.............',
+          '.............',
+          '.............',
+          '.............',
+          '.............'
+        ]
+      },
+      {
+        t: 'Y+28 · plancher du bassin, percé au centre : le seul trou de tout le volume',
+        g: [
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbb.bbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+29 → Y+31 · les trois lames d\'eau du bassin (à répéter) ; seules Y+30 et Y+31 engendrent',
+        g: [
+          'bbbbbbbbbbbbb',
+          'bwwwwwwwwwwwb',
+          'bwwwwwwwwwwwb',
+          'bwwwwwwwwwwwb',
+          'bwwwwwwwwwwwb',
+          'bwwwwwwwwwwwb',
+          'bwwwwwwwwwwwb',
+          'bwwwwwwwwwwwb',
+          'bwwwwwwwwwwwb',
+          'bwwwwwwwwwwwb',
+          'bwwwwwwwwwwwb',
+          'bwwwwwwwwwwwb',
+          'bbbbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+32 · toit plein : il coupe la vue du ciel et fait passer 20 tentatives sur 20',
+        g: [
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb',
+          'bbbbbbbbbbbbb'
+        ]
+      }
     ],
     etapes: [
       'Tuez d\'abord les 3 gardiens anciens : leur Fatigue de minage III rend tout chantier impossible (ou buvez du lait en boucle).',
@@ -375,7 +1737,47 @@ var USINES = [
     mats: ['Par catégorie : 5 entonnoirs, 1 grand coffre, 1 comparateur, 1 torche de redstone, 1 poudre de redstone, 4 blocs pleins', '18 objets « bourre » par filtre', 'Cadres d\'objet pour l\'étiquetage'],
     couches: [
       { t: 'Vue de côté · deux modules', vue: 1, g: ['HHHHHH', 'B.BB.B', 'VRRVRR', 'H..H..', 'E..E..'] },
-      { t: 'Vue de dessus · ligne principale', vue: 1, g: ['EHHHHHHHHE', '.HH.HH.HH.', '.EE.EE.EE.'] }
+      { t: 'Vue de dessus · ligne principale', vue: 1, g: ['EHHHHHHHHE', '.HH.HH.HH.', '.EE.EE.EE.'] },
+      {
+        t: 'Y+0 · fondation du mur de tri ; un trou volontaire sous chaque torche, pour la forcer en torche MURALE',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bb.bb.bb.bb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+1 · grands coffres, entonnoirs de sortie (H) vers le coffre, torches (X) accrochées au bloc B juste derrière elles, et blocs porteurs',
+        g: [
+          '...........',
+          '.EE.EE.EE..',
+          '.HX.HX.HX..',
+          '.BB.BB.BB..',
+          '.BB.BB.BB..'
+        ]
+      },
+      {
+        t: 'Y+2 · entonnoirs filtres (H) pointant dans la butée (B) — 45 objets au repos —, comparateurs (V) et les trois poudres (R)',
+        g: [
+          '...........',
+          '...........',
+          'BH.BH.BH...',
+          '.VR.VR.VR..',
+          '.RR.RR.RR..'
+        ]
+      },
+      {
+        t: 'Y+3 · ligne d\'apport, un entonnoir par bloc vers la sortie ; le dernier verse dans un coffre de débordement (hors emprise)',
+        g: [
+          '...........',
+          '...........',
+          'HHHHHHHHHHH',
+          '...........',
+          '...........'
+        ]
+      }
     ],
     etapes: [
       'Ligne principale : une rangée d\'entonnoirs chaînés qui traverse toute la salle de stockage, alimentée par vos fermes.',
@@ -397,7 +1799,25 @@ var USINES = [
     desc: 'Le fabricateur (crafter) de la 1.21 transforme automatiquement 9 lingots en 1 bloc. Placé en amont du stockage, il divise par neuf le volume à ranger.',
     mats: ['1 fabricateur (5 fer, 2 redstone, 1 établi, 1 lanceur)', '2 entonnoirs, 2 coffres', '1 comparateur, 1 bloc plein, 1 poudre de redstone'],
     couches: [
-      { t: 'Vue de côté', vue: 1, g: ['.E.', '.H.', 'RY.', 'VB.', '.H.', '.E.'] }
+      { t: 'Vue de côté', vue: 1, g: ['.E.', '.H.', 'RY.', 'VB.', '.H.', '.E.'] },
+      {
+        t: 'Y+0 · coffre de sortie SOUS le fabricateur (jamais un entonnoir : il ressortirait les ingrédients) et socles de la boucle',
+        g: [
+          '.BBBBB',
+          '.B...B',
+          '.E.BBB'
+        ]
+      },
+      {
+        t: 'Y+1 · le fabricateur (Y, tourné vers le bas), le comparateur (V), le bloc de commande (B) et les 9 poudres',
+        g: [
+          '.RRRRR',
+          '.V...R',
+          '.YBRRR'
+        ]
+      },
+      { t: 'Y+2 · entonnoir d\'alimentation, posé sur le fabricateur', g: ['......', '......', '.H....'] },
+      { t: 'Y+3 · coffre d\'entrée', g: ['......', '......', '.E....'] }
     ],
     etapes: [
       'Coffre d\'entrée → entonnoir → fabricateur : les objets remplissent la grille 3 × 3 du fabricateur.',
@@ -419,7 +1839,12 @@ var USINES = [
     mats: ['1 seau de lave, 1 seau d\'eau', '1 piston, 1 observateur (ou horloge de redstone)', '≈10 blocs pleins résistants (pierre)', 'Entonnoirs + coffre', 'Optionnel : 1 fabricateur pour transformer en pierre taillée'],
     couches: [
       { t: 'Vue de côté', vue: 1, g: ['clcwc', 'c.P.c', 'cQHEc'] },
-      { t: 'Vue de dessus', vue: 1, g: ['ccccc', 'clcwc', 'c.P.c', 'cHHHc', 'ccEcc'] }
+      { t: 'Vue de dessus', vue: 1, g: ['ccccc', 'clcwc', 'c.P.c', 'cHHHc', 'ccEcc'] },
+      { t: 'Y+0 · plancher : entonnoirs de collecte et coffre de sortie', g: ['ccccc', 'ccHcc', 'ccHcc', 'cEHcc', 'ccccc'] },
+      { t: 'Y+1 · puits de chute sous la fente, entonnoir de rattrapage, sol du couloir', g: ['ccccc', 'cc.cc', 'ccHcc', 'c.x.c', 'ccccc'] },
+      { t: 'Y+2 · fente de génération (1), source d\'eau, fenêtre de visée à hauteur d\'yeux', g: ['ccccc', 'cc1wc', 'cc.cc', 'c*..c', 'ccccc'] },
+      { t: 'Y+3 · source de lave murée juste au-dessus de la fente, plafond du couloir', g: ['ccccc', 'cclcc', 'ccccc', 'ccccc', 'ccccc'] },
+      { t: 'Y+4 · couvercle plein au-dessus de la lave', g: ['ccccc', 'ccccc', 'ccccc', 'ccccc', 'ccccc'] }
     ],
     etapes: [
       'Creusez un canal : une source de lave d\'un côté, une source d\'eau de l\'autre, séparées par une case vide.',
@@ -441,7 +1866,55 @@ var USINES = [
     mats: ['1 cellule de 1 × 1 par villageois (vitres + dalle)', '1 bloc de métier par villageois (lutrin, forge, étal…)', '1 lit par villageois si vous voulez les reproduire', 'Rails ou bateaux pour le transport', '1 zombie enfermé (pour les remises permanentes)'],
     couches: [
       { t: 'Vue de dessus · rangée de cellules', vue: 1, g: ['bbbbbbbbbbb', 'bGbGbGbGbGb', 'b?b?b?b?b?b', 'bbbbbbbbbbb', ',,,,,,,,,,,'] },
-      { t: 'Vue de côté · une cellule', vue: 1, g: ['bbb', 'bGb', 'b?b', 'b-b'] }
+      { t: 'Vue de côté · une cellule', vue: 1, g: ['bbb', 'bGb', 'b?b', 'b-b'] },
+      {
+        t: 'Y+0 · assise continue sous les cellules et les deux couloirs',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+1 · entrées (^), couloir de service, blocs de métier (Y), villageois (x), comptoir',
+        g: [
+          'bbbbbbbbbbb',
+          '^.........^',
+          'bYbYbYbYbYb',
+          'bxbxbxbxbxb',
+          'bbbbbbbbbbb',
+          '^.........^',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+2 · linteau anti-évasion, têtes des villageois, guichets, haut des entrées',
+        g: [
+          'bbbbbbbbbbb',
+          '...........',
+          'bbbbbbbbbbb',
+          'b.b.b.b.b.b',
+          'b.b.b.b.b.b',
+          '...........',
+          'b*bbb*bbb*b'
+        ]
+      },
+      {
+        t: 'Y+3 · plafond et trappes de mise en cellule',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'b+b+b+b+b+b',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb'
+        ]
+      }
     ],
     etapes: [
       'Transportez les villageois en bateau, en wagonnet ou par un couloir d\'eau jusqu\'à vos cellules.',
@@ -464,7 +1937,14 @@ var USINES = [
     mats: ['1 bloc de sable des âmes (montée) ou 1 bloc de magma (descente)', '1 seau d\'eau par 2 blocs de hauteur (ou des kelp pour figer la source)', 'Blocs pleins pour la gaine', '2 portes ou trappes en entrée/sortie'],
     couches: [
       { t: 'Vue de côté · colonne montante', vue: 1, g: ['b.b', 'bwb', 'bwb', 'bwb', 'bwb', 'bAb'] },
-      { t: 'Vue de dessus · double colonne', vue: 1, g: ['bbbbb', 'bw.wb', 'bbbbb'] }
+      { t: 'Vue de dessus · double colonne', vue: 1, g: ['bbbbb', 'bw.wb', 'bbbbb'] },
+      { t: 'Y+0 · pied des deux gaines : 1 = sable des âmes, 2 = bloc de magma', g: ['bbbbb', 'b1b2b', 'bbbbb', 'bbbbb'] },
+      { t: 'Y+1 · palier bas : première eau source et bas des portes', g: ['bbbbb', 'bwbwb', 'bDbDb', 'b.x.b'] },
+      { t: 'Y+2 · haut des portes du bas, l\'eau continue', g: ['bbbbb', 'bwbwb', 'bDbDb', 'b...b'] },
+      { t: 'Y+3 → Y+20 · la gaine monte : une eau source par colonne (à répéter)', g: ['bbbbb', 'bwbwb', 'bbbbb', 'bbbbb'] },
+      { t: 'Y+21 · palier haut : dernière eau source et bas des portes', g: ['bbbbb', 'bwbwb', 'bDbDb', 'b.x.b'] },
+      { t: 'Y+22 · on émerge ici : air au-dessus de l\'eau, haut des portes', g: ['bbbbb', 'b.b.b', 'bDbDb', 'b...b'] },
+      { t: 'Y+23 · plafond des deux gaines', g: ['bbbbb', 'bbbbb', 'bbbbb', 'bbbbb'] }
     ],
     etapes: [
       'Creusez une gaine de 1 × 1 sur toute la hauteur voulue, entourée de blocs pleins.',
@@ -486,7 +1966,60 @@ var USINES = [
     mats: ['Blocs résistants (briques du Nether, pierre) pour les tunnels', 'Glace bleue + bateau (autoroute à grande vitesse) ou rails motorisés', 'Panneaux pour la signalétique et les coordonnées', 'Portails sécurisés (voir le plan correspondant)'],
     couches: [
       { t: 'Coupe d\'un tunnel', vue: 1, g: ['rrrrr', 'r...r', 'r...r', 'riiir'] },
-      { t: 'Plan du hub central', g: ['rrr^rrr', 'r.....r', 'r.....r', '^..}..^', 'r.....r', 'r.....r', 'rrr^rrr'] }
+      { t: 'Plan du hub central', vue: 1, g: ['rrr^rrr', 'r.....r', 'r.....r', '^..}..^', 'r.....r', 'r.....r', 'rrr^rrr'] },
+      {
+        t: 'Y+0 · seuil d\'obsidienne, sol anti-apparition (3) et départ de la glace bleue',
+        g: [
+          'rrrrrr',
+          'rOOOOr',
+          'r3333r',
+          'r3333r',
+          'rr33rr',
+          'rriirr',
+          'rriirr',
+          'rriirr'
+        ]
+      },
+      {
+        t: 'Y+1 · rangée basse du portail, panneaux, sas à portes et voie du bateau',
+        g: [
+          'rrrrrr',
+          'rO..Or',
+          'r....r',
+          'rs..sr',
+          'rrDDrr',
+          'rr..rr',
+          'rr..rr',
+          'rr..rr'
+        ]
+      },
+      {
+        t: 'Y+2 · rangée médiane du portail, haut des portes, lanternes du tunnel',
+        g: [
+          'rrrrrr',
+          'rO..Or',
+          'r....r',
+          'r....r',
+          'rrDDrr',
+          'rr..rr',
+          'r*..*r',
+          'rr..rr'
+        ]
+      },
+      {
+        t: 'Y+3 · rangée haute du portail, lanternes du sas, voûte du tunnel',
+        g: [
+          'rrrrrr',
+          'rO..Or',
+          'r*..*r',
+          'r....r',
+          'rrrrrr',
+          'rr..rr',
+          'rr..rr',
+          'rr..rr'
+        ]
+      },
+      { t: 'Y+4 · linteau d\'obsidienne et plafond continu', g: ['rrrrrr', 'rOOOOr', 'rrrrrr', 'rrrrrr', 'rrrrrr', 'rrrrrr', 'rrrrrr', 'rrrrrr'] }
     ],
     etapes: [
       'Construisez un hub central dans le Nether : une salle avec un portail par destination, chacun signalé par un panneau (nom + coordonnées).',
@@ -508,7 +2041,11 @@ var USINES = [
     mats: ['1 à 4 ruches (3 rayons de miel + 6 planches)', '1 distributeur par ruche + bouteilles ou cisailles', '1 comparateur + redstone par ruche', '1 feu de camp sous chaque ruche', 'Fleurs et abeilles'],
     couches: [
       { t: 'Vue de côté', vue: 1, g: ['.y.', 'VyH', '.F.', '.E.'] },
-      { t: 'Vue de dessus · module', vue: 1, g: ['.yyy.', 'V.y.H', '.FFF.', '.EEE.'] }
+      { t: 'Vue de dessus · module', vue: 1, g: ['.yyy.', 'V.y.H', '.FFF.', '.EEE.'] },
+      { t: 'Y+0 · assise et feux de camp, un sous chaque entonnoir de ruche', g: ['bbbbb', 'bbbbb', 'bFbFb', 'bbbbb'] },
+      { t: 'Y+1 · entonnoirs sous les ruches, entonnoirs de façade et coffre de récolte', g: ['bbbbb', 'bbbbb', 'bHHHb', 'bHEHb'] },
+      { t: 'Y+2 · ruches (y), distributeurs (2), comparateurs, répéteurs et fil', g: ['RRbRR', 'ZVbVZ', '2yby2', '.....'] },
+      { t: 'Y+3 · capot de la redstone ; rien au-dessus des ruches', g: ['bbbbb', 'bbbbb', '.....', '.....'] }
     ],
     etapes: [
       'Attirez des abeilles avec des fleurs, ou déplacez un nid entier avec une pioche à Toucher de soie (attention : les abeilles à l\'intérieur viennent avec).',
@@ -530,7 +2067,91 @@ var USINES = [
     mats: ['Pousses d\'arbre (chêne noir pour la version compacte)', 'Poudre d\'os (ferme à squelettes ou composteur)', 'Version auto : ≈10 observateurs, pistons, TNT ou machine volante', 'Entonnoirs + coffres + canaux d\'eau'],
     couches: [
       { t: 'Vue de dessus · 4 emplacements', vue: 1, g: ['bbbbbbbbb', 'b..%.%..b', 'b.%%.%%.b', 'b...o...b', 'b.%%.%%.b', 'b..%.%..b', 'bHHHHHHHb', 'bbbbEbbbb'] },
-      { t: 'Vue de côté', vue: 1, g: ['..%..', '.%%%.', '..o..', '..o..', '..t..', '.HHH.', '..E..'] }
+      { t: 'Vue de côté', vue: 1, g: ['..%..', '.%%%.', '..o..', '..o..', '..t..', '.HHH.', '..E..'] },
+      {
+        t: 'Y+0 · assise et coffre de collecte, sous le plancher',
+        g: [
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbEbbbb',
+          'bbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+1 · plancher plein ; la ligne d\'entonnoirs se chaîne vers celui du centre, qui descend dans le coffre',
+        g: [
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bHHHHHHHb',
+          'bbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+2 · cuve d\'eau (1 bloc de fond) : sources contre le mur du haut, courant vers les entonnoirs ; socle de terre 2 × 2',
+        g: [
+          'bbbbbbbbb',
+          'bwwwwwwwb',
+          'b~~~~~~~b',
+          'b~~tt~~~b',
+          'b~~tt~~~b',
+          'b~~~~~~~b',
+          'b~~~~~x~b',
+          'b~~~~~~~b',
+          'bbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+3 · les 4 pousses de chêne noir sur le socle — plus aucun mur à cette hauteur',
+        g: [
+          '.........',
+          '.........',
+          '.........',
+          '...oo....',
+          '...oo....',
+          '.........',
+          '.........',
+          '.........',
+          '.........'
+        ]
+      },
+      {
+        t: 'Y+4 → Y+11 · fût 2 × 2 et bas de la couronne : rien à poser, volume à laisser libre (à répéter)',
+        g: [
+          '.........',
+          '.........',
+          '.........',
+          '...oo....',
+          '...oo....',
+          '.........',
+          '.........',
+          '.........',
+          '.........'
+        ]
+      },
+      {
+        t: 'Y+12 → Y+13 · haut de la couronne, gabarit indicatif : c\'est l\'arbre qui la pose (à répéter)',
+        g: [
+          '.........',
+          '.%%%%%%%.',
+          '.%%%%%%%.',
+          '.%%%%%%%.',
+          '.%%%%%%%.',
+          '.%%%%%%%.',
+          '.%%%%%%%.',
+          '.%%%%%%%.',
+          '.........'
+        ]
+      }
     ],
     etapes: [
       'Préparez une plateforme de terre avec un espacement correct : 2 blocs entre chaque pousse pour un chêne, 5 × 5 pour un chêne noir (qui exige 4 pousses).',
@@ -552,7 +2173,48 @@ var USINES = [
     mats: ['1 géode d\'améthyste (Y -64 à 30)', 'Blocs d\'améthyste en gemme (budding amethyst) — NON déplaçables', '≈20 pistons + observateurs ou une horloge lente', 'Canaux d\'eau + entonnoirs + coffre'],
     couches: [
       { t: 'Vue de côté · un module', vue: 1, g: ['bPb', 'b*b', 'bwb', 'bHb', 'bEb'] },
-      { t: 'Vue de dessus · mur de récolte', vue: 1, g: ['PPPPP', '*****', 'wwwww', 'HHHHH'] }
+      { t: 'Vue de dessus · mur de récolte', vue: 1, g: ['PPPPP', '*****', 'wwwww', 'HHHHH'] },
+      { t: 'Y+0 · coffre, sous l\'entonnoir de sortie', g: ['ccccccccc', 'ccccccccc', 'cccccccEc', 'ccccccccc', 'ccccccccc'] },
+      {
+        t: 'Y+1 · fond du canal ; les 3 entonnoirs de bout se chaînent vers celui du milieu, qui descend dans le coffre',
+        g: [
+          'ccccccccc',
+          'cccccccHc',
+          'cccccccHc',
+          'cccccccHc',
+          'ccccccccc'
+        ]
+      },
+      {
+        t: 'Y+2 · canal de récupération : sources d\'eau en colonne à gauche, écoulement de 7 blocs jusqu\'aux entonnoirs',
+        g: [
+          'ccccccccc',
+          'cw~~~~~~c',
+          'cw~~~~~~c',
+          'cw~~~~~~c',
+          'ccccccccc'
+        ]
+      },
+      {
+        t: 'Y+3 · rangée de récolte : pistons (P) — espace de pousse VIDE — blocs bourgeonnants (3, en place dans la géode)',
+        g: [
+          'ccccccccc',
+          'c.PPPPP.c',
+          'c.......c',
+          'c.33333.c',
+          'ccccccccc'
+        ]
+      },
+      {
+        t: 'Y+4 · alimentation : un trait de poudre sur le dessus des pistons, doublé le long du mur, et le levier au bout',
+        g: [
+          '!RRRRRRRc',
+          'c.RRRRR.c',
+          'c.......c',
+          'c.......c',
+          'ccccccccc'
+        ]
+      }
     ],
     etapes: [
       'Repérez une géode : sphère de calcite et de basalte lisse, souvent visible depuis un océan ou une grande grotte.',
@@ -574,7 +2236,119 @@ var USINES = [
     mats: ['1 catalyseur de sculk (Toucher de soie, dans une cité antique)', 'Une ferme à mobs existante', 'Houe avec Toucher de soie ou pioche', 'Blocs pleins autour pour contenir la propagation'],
     couches: [
       { t: 'Vue de côté', vue: 1, g: ['b.b', 'bxb', 'bNb', 'bbb'] },
-      { t: 'Vue de dessus · zone de conversion', vue: 1, g: ['bbbbb', 'bNNNb', 'bNNNb', 'bNNNb', 'bbbbb'] }
+      { t: 'Vue de dessus · zone de conversion', vue: 1, g: ['bbbbb', 'bNNNb', 'bNNNb', 'bNNNb', 'bbbbb'] },
+      {
+        t: 'Y+0 · assise étanche en briques : le sculk ne peut pas la convertir, il ne descendra pas plus bas',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+1 · champ de conversion : 9 × 9 de terre (tag #dirt, donc convertible), catalyseur au centre (2), ceinture de briques',
+        g: [
+          'bbbbbbbbbbb',
+          'btttttttttb',
+          'btttttttttb',
+          'btttttttttb',
+          'btttttttttb',
+          'btttt2ttttb',
+          'btttttttttb',
+          'btttttttttb',
+          'btttttttttb',
+          'btttttttttb',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+2 · chambre d\'impact : les mobs tombent au centre et meurent sur le catalyseur',
+        g: [
+          'bbbbbbbbbbb',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+3 · même chambre, plus 4 lanternes suspendues au plafond : sans elles, des monstres apparaissent dans le noir sur le champ',
+        g: [
+          'bbbbbbbbbbb',
+          'b.........b',
+          'b.*.....*.b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.........b',
+          'b.*.....*.b',
+          'b.........b',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+4 · plafond de la chambre, percé d\'un seul bloc au-dessus du catalyseur',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbb.bbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+5 → Y+28 · puits de chute, 24 rangées de vide dans une gaine 3 × 3 — il doit rester SEC (à répéter)',
+        g: [
+          '...........',
+          '...........',
+          '...........',
+          '...........',
+          '....bbb....',
+          '....b.b....',
+          '....bbb....',
+          '...........',
+          '...........',
+          '...........',
+          '...........'
+        ]
+      },
+      {
+        t: 'Y+29 · plancher de la ferme à mobs : les courants d\'eau du dessus doivent s\'arrêter un bloc AVANT le trou, sinon ils noient le puits',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbb.bbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb'
+        ]
+      }
     ],
     etapes: [
       'Récupérez un catalyseur de sculk dans une cité antique, obligatoirement avec une pioche à Toucher de soie.',
@@ -619,7 +2393,345 @@ var USINES = [
         '..x..',
         '.HHH.',
         '..E..'
-      ] }
+      ] },
+      {
+        t: 'Y+0 · grand coffre, sous l\'entonnoir central de la chambre',
+        g: [
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '..................E..',
+          '..................E..',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................'
+        ]
+      },
+      {
+        t: 'Y+1 · sol de la chambre de mise à mort : 9 entonnoirs chaînés vers celui du centre, qui descend dans le coffre',
+        g: [
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '................bbbbb',
+          '................bHHHb',
+          '................bHHHb',
+          '................bHHHb',
+          '................bbbbb',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................'
+        ]
+      },
+      {
+        t: 'Y+2 → Y+3 · chambre : le noyé atterrit au centre à 1 ou 2 points de vie, vous frappez depuis la case voisine (à répéter)',
+        g: [
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '................bbbbb',
+          '................b...b',
+          '................bx..b',
+          '................b...b',
+          '................bbbbb',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................'
+        ]
+      },
+      {
+        t: 'Y+4 · plafond de la chambre, percé d\'un bloc : c\'est la bouche du puits',
+        g: [
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '................bbbbb',
+          '................bbbbb',
+          '................bb.bb',
+          '................bbbbb',
+          '................bbbbb',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................'
+        ]
+      },
+      {
+        t: 'Y+5 → Y+21 · puits SEC de 17 rangées : 21 blocs de chute en tout, parce qu\'on atterrit DANS un entonnoir (à répéter)',
+        g: [
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.................bbb.',
+          '.................b.b.',
+          '.................bbb.',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................'
+        ]
+      },
+      {
+        t: 'Y+22 · plancher du canal d\'amenée, percé au bout : le trou est à 8 blocs de la chute d\'eau, donc il reste sec',
+        g: [
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.........bbbbbbbbbbb.',
+          '.........bbbbbbbbb.b.',
+          '.........bbbbbbbbbbb.',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................'
+        ]
+      },
+      {
+        t: 'Y+23 · canal : la cascade tombe en x=10 et pousse sur 7 blocs ; le 8e (le trou) reste à sec, le noyé y bascule',
+        g: [
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.........bbbbbbbbbbb.',
+          '.........b~~~~~~~~.b.',
+          '.........bbbbbbbbbbb.',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................'
+        ]
+      },
+      {
+        t: 'Y+24 · vide du canal : les noyés ont besoin de 2 blocs de hauteur pour être poussés',
+        g: [
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.........bbbbbbbbbbb.',
+          '.........b.........b.',
+          '.........bbbbbbbbbbb.',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '.....................'
+        ]
+      },
+      {
+        t: 'Y+25 · plancher de la cuve (et plafond du canal), percé au centre : c\'est la bonde',
+        g: [
+          '.....................',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbb.bbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.....................'
+        ]
+      },
+      {
+        t: 'Y+26 · couche d\'eau basse : 17 × 17 de sources, sauf la bonde centrale qui coule vers le canal',
+        g: [
+          '.....................',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bwwwwwwww~wwwwwwwwb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.....................'
+        ]
+      },
+      {
+        t: 'Y+27 · couche d\'eau haute, celle où les noyés apparaissent : sources sur tout le pourtour, courant vers le centre',
+        g: [
+          '.....................',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bw~~~~~~~~~~~~~~~wb.',
+          '.bw~~~~~~~~~~~~~~~wb.',
+          '.bw~~~~~~~~~~~~~~~wb.',
+          '.bw~~~~~~~~~~~~~~~wb.',
+          '.bw~~~~~~~~~~~~~~~wb.',
+          '.bw~~~~~~~~~~~~~~~wb.',
+          '.bw~~~~~~~~~~~~~~~wb.',
+          '.bw~~~~~~~.~~~~~~~wb.',
+          '.bw~~~~~~~~~~~~~~~wb.',
+          '.bw~~~~~~~~~~~~~~~wb.',
+          '.bw~~~~~~~~~~~~~~~wb.',
+          '.bw~~~~~~~~~~~~~~~wb.',
+          '.bw~~~~~~~~~~~~~~~wb.',
+          '.bw~~~~~~~~~~~~~~~wb.',
+          '.bw~~~~~~~~~~~~~~~wb.',
+          '.bwwwwwwwwwwwwwwwwwb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.....................'
+        ]
+      },
+      {
+        t: 'Y+28 · vide au-dessus de l\'eau : sans ce bloc libre, aucun noyé ne peut apparaître',
+        g: [
+          '.....................',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.b.................b.',
+          '.b.................b.',
+          '.b.................b.',
+          '.b.................b.',
+          '.b.................b.',
+          '.b.................b.',
+          '.b.................b.',
+          '.b.................b.',
+          '.b.................b.',
+          '.b.................b.',
+          '.b.................b.',
+          '.b.................b.',
+          '.b.................b.',
+          '.b.................b.',
+          '.b.................b.',
+          '.b.................b.',
+          '.b.................b.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.....................'
+        ]
+      },
+      {
+        t: 'Y+29 · plafond opaque : c\'est lui qui met la cuve à zéro de lumière',
+        g: [
+          '.....................',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.bbbbbbbbbbbbbbbbbbb.',
+          '.....................'
+        ]
+      }
     ],
     etapes: [
       'Repérez une rivière : c\'est le meilleur biome, car son plafond d\'apparition aquatique est presque vide, donc tous les mobs générés sont des noyés.',
@@ -761,7 +2873,119 @@ var USINES = [
         'r.........r',
         'r.........r',
         'rrrrrrrrrrr'
-      ] }
+      ] },
+      {
+        t: 'Y+0 · coffre de sortie, sous l\'entonnoir de vidange',
+        g: [
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrErrrr'
+        ]
+      },
+      {
+        t: 'Y+1 · sol d\'entonnoirs de l\'enclos : les lumigrenouilles partent au coffre',
+        g: [
+          'rrrrrrrrr',
+          'rHHHHHHHr',
+          'rHHHHHHHr',
+          'rHHHHHHHr',
+          'rHHHHHHHr',
+          'rHHHHHHHr',
+          'rHHHHHHHr',
+          'rHHHHHHHr',
+          'rrrrHrrrr'
+        ]
+      },
+      {
+        t: 'Y+2 → Y+4 · enclos des grenouilles, 3 blocs de haut (à répéter)',
+        g: [
+          'rrrrrrrrr',
+          'r.......r',
+          'r.......r',
+          'r.......r',
+          'r.......r',
+          'r.......r',
+          'r.......r',
+          'r.......r',
+          'rrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+5 · plancher-filtre : trous de 1 × 1 isolés, seuls les PETITS cubes passent',
+        g: [
+          'rrrrrrrrr',
+          'r.r.r.r.r',
+          'rrrrrrrrr',
+          'r.r.r.r.r',
+          'rrrrrrrrr',
+          'r.r.r.r.r',
+          'rrrrrrrrr',
+          'r.r.r.r.r',
+          'rrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+6 → Y+8 · salle de tri, 3 blocs de haut : gros et moyens cubes restent ici (à répéter)',
+        g: [
+          'rrrrrrrrr',
+          'r.......r',
+          'r.......r',
+          'r.......r',
+          'r.......r',
+          'r.......r',
+          'r.......r',
+          'r.......r',
+          'rrrr^rrrr'
+        ]
+      },
+      {
+        t: 'Y+9 · plateforme d\'apparition (à étendre bien au-delà) percée d\'une trémie de 3 × 3',
+        g: [
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrr...rrr',
+          'rrr...rrr',
+          'rrr...rrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+10 → Y+13 · ciel d\'apparition : 4 blocs entièrement libres (à répéter)',
+        g: [
+          'rrrrrrrrr',
+          'r.......r',
+          'r.......r',
+          'r.......r',
+          'r.......r',
+          'r.......r',
+          'r.......r',
+          'r.......r',
+          'rrrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+14 · toit plein : ni ghast au-dessus, ni apparition perdue sur le dessus',
+        g: [
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr',
+          'rrrrrrrrr'
+        ]
+      }
     ],
     etapes: [
       'Choisissez un delta de basalte : c\'est le biome où les cubes de magma apparaissent le plus densément, à n\'importe quel niveau de lumière.',
@@ -857,7 +3081,91 @@ var USINES = [
         'b~~~~~~~~~b',
         'bHHHHHHHHHb',
         'bbbbbEbbbbb'
-      ] }
+      ] },
+      {
+        t: 'Y+0 · plancher : entonnoirs sous les cellules, coffre à obsidienne',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'EHHHHHHHHHb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+1 · chaudrons (repère 3), couloir de service, cellules de coulée et canal d\'eau',
+        g: [
+          'bbbbbbbbbbb',
+          'b3b3b3b3b3b',
+          'b.........b',
+          'bbbbbbbbbbb',
+          'b.b.b.b.b.b',
+          'bwwwwwwwwwb',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+2 · vide de goutte au-dessus des chaudrons, distributeurs (repère 1) au-dessus des cellules',
+        g: [
+          'bbbbbbbbbbb',
+          'b.b.b.b.b.b',
+          'b.........b',
+          'bbbbbbbbbbb',
+          'b1b1b1b1b1b',
+          'b.........b',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+3 · stalactites pointues (repère 2), plafonds, poudre de redstone sur les distributeurs',
+        g: [
+          'bbbbbbbbbbb',
+          'b2b2b2b2b2b',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bRRRRRRRRR!',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+4 · blocs d\'accroche des stalactites (la source de lave se pose juste au-dessus)',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+5 · sources de lave « mères », une par générateur, cloisonnées',
+        g: [
+          'bbbbbbbbbbb',
+          'blblblblblb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+6 · couverture pleine : rien ne doit pouvoir tomber dans les sources de lave',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb'
+        ]
+      }
     ],
     etapes: [
       'Montez le générateur de lave : une source de lave, un bloc plein juste dessous, une stalactite pointue accrochée sous ce bloc (le « | » du schéma), et un chaudron en dessous.',
@@ -956,7 +3264,103 @@ var USINES = [
         'bHHHHHb',
         'bHHHHHb',
         'bbbEbbb'
-      ] }
+      ] },
+      {
+        t: 'Y+0 · assise pleine, coffre de collecte et sa niche de service (on l\'ouvre depuis l\'extérieur, en (x5,z10))',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbEbbbbb',
+          'bbbbb.bbbbb'
+        ]
+      },
+      {
+        t: 'Y+1 · sol d\'entonnoirs de l\'enclos de croissance, tous chaînés vers l\'entonnoir central de (x5,z9) qui descend dans le coffre',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bHHHHHHHHHb',
+          'bHHHHHHHHHb',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+2 · plancher de la plage PERCÉ sous le couloir filtrant (x5,z7), moitié basse de la chambre de croissance et bas de la porte de service',
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbb.bbbbb',
+          'b.........b',
+          'b.........b',
+          'bbbbbDbbbbb'
+        ]
+      },
+      {
+        t: 'Y+3 · plage de sable, douve d\'un bloc tout autour, couloir filtrant d\'UN bloc en (x5,z7) et haut de la porte',
+        g: [
+          'bbbbbbbbbbb',
+          'bwwwwwwwwwb',
+          'bwAAAAAAAwb',
+          'bwAAAAAAAwb',
+          'bwAAAAAAAwb',
+          'bwAAAAAAAwb',
+          'bw~~~~~~~wb',
+          'bbbbb~bbbbb',
+          'b....2....b',
+          'b.........b',
+          'bbbbbDbbbbb'
+        ]
+      },
+      {
+        t: 'Y+4 · surface de ponte (air SEC au-dessus du sable), murs en blocs de verre PLEINS et quatre lanternes suspendues au plafond, au-dessus de la douve',
+        g: [
+          'ggggggggggg',
+          'g*.......*g',
+          'g.........g',
+          'g...1.1...g',
+          'g.........g',
+          'g.........g',
+          'g*.......*g',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+5 · toiture vitrée de la plage, appui des lanternes suspendues (à poser en dernier, une fois les tortues à l\'intérieur)',
+        g: [
+          'ggggggggggg',
+          'ggggggggggg',
+          'ggggggggggg',
+          'ggggggggggg',
+          'ggggggggggg',
+          'ggggggggggg',
+          'ggggggggggg',
+          'bbbbbbbbbbb',
+          '...........',
+          '...........',
+          '...........'
+        ]
+      }
     ],
     etapes: [
       'Récoltez de l\'herbe marine à la cisaille : c\'est le seul aliment des tortues, à la fois pour la reproduction et pour accélérer la croissance des bébés.',
@@ -1001,7 +3405,57 @@ var USINES = [
         'b=bbbbb=b',
         'b=======b',
         'bbbHbbbbb'
-      ] }
+      ] },
+      {
+        t: 'Y+0 · assise, entonnoir de vidange (le rail se pose DESSUS) et coffre à laine, ouvert par la face extérieure',
+        g: [
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbHbbbb',
+          'bbbbEbbbb'
+        ]
+      },
+      {
+        t: 'Y+1 · boucle du wagonnet-entonnoir (brin de collecte en z1, retour en z3), deux torches qui tiennent les rails motorisés de (x2,z3) et (x6,z3), trappe au-dessus du coffre',
+        g: [
+          'bbbbbbbbb',
+          'b=======b',
+          'b=XbbbX=b',
+          'b=======b',
+          'bbbb+bbbb'
+        ]
+      },
+      {
+        t: 'Y+2 · plancher d\'herbe des enclos, observateurs tournés vers l\'herbe (dos en z3) et blocs porteurs du circuit',
+        g: [
+          'bbbbbbbbb',
+          'beBeBeBeb',
+          'bQBQBQBQb',
+          'bBBBBBBBb',
+          'bbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+3 · moutons, séparateurs, distributeurs chargés d\'une cisaille (tournés vers le mouton) et ligne de sortie des observateurs',
+        g: [
+          'eeeeeeeee',
+          'bxBxBxBxb',
+          'bYBYBYBYb',
+          'bRRRRRRRb',
+          'bbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+4 · couvercle vitré des enclos, lanternes sur les séparateurs, mur d\'herbe éclairé en z0, et poudre POSÉE SUR les distributeurs — c\'est elle qui les déclenche',
+        g: [
+          'ggggggggg',
+          'bg*g*g*gb',
+          'bRRRRRRRb',
+          'b.......b',
+          'bbbbbbbbb'
+        ]
+      }
     ],
     etapes: [
       'Creusez une rangée d\'enclos d\'un bloc de large : un mouton par case, sinon ils se déplacent et ratent le jet de la cisaille.',
@@ -1461,6 +3915,7 @@ var USINES = [
     desc: 'Un bosquet ordonné alimente une batterie de fours qui transforment les bûches en charbon de bois. Une partie de la production est renvoyée dans le coffre à carburant : la fonderie s\'auto-alimente et ne demande plus jamais de charbon miné.',
     mats: ['≈24 pousses (chêne ou acacia, qui poussent sans espace vertical)', '8 fourneaux, ≈24 entonnoirs, 4 grands coffres', '2 seaux d\'eau (canal de balayage)', '1 comparateur + quelques poudres de redstone (limiteur de boucle)', '≈150 blocs pleins et 12 clôtures', '1 hache avec Efficacité'],
     couches: [
+      { t: 'Vue de côté · un four et sa boucle de carburant', vue: 1, g: ['..E..', '..H..', 'EHU..', '..H..', '..E..'] },
       {
         t: 'Y+0 · bosquet : trame de plantation, canal et collecte',
         g: [
@@ -1487,16 +3942,6 @@ var USINES = [
           'c*...........*c',
           'c.............c',
           'ccccccccccccccc'
-        ]
-      },
-      {
-        t: 'Vue de côté · un four et sa boucle de carburant', vue: 1,
-        g: [
-          '..E..',
-          '..H..',
-          'EHU..',
-          '..H..',
-          '..E..'
         ]
       }
     ],
@@ -1528,7 +3973,21 @@ var USINES = [
     mats: ['Par module : 3 entonnoirs, 2 comparateurs, 1 torche de redstone, 4 blocs pleins, 1 coffre', 'Par module compacté : 1 fabricateur (crafter), 1 entonnoir, 1 coffre', '18 objets « bourre » par entonnoir filtre (18 par module)', 'Pour une ligne de 13 modules : ≈90 entonnoirs (450 lingots de fer), 13 fabricateurs, 26 grands coffres', 'Cadres d\'objets pour l\'étiquetage'],
     couches: [
       {
-        t: 'Vue de dessus · Y+0 — les deux rangées de coffres', vue: 1,
+        t: 'Vue de côté · un module double (objet puis bloc)',
+        vue: 1,
+        g: [
+          '...H...',
+          '..BHB..',
+          '..VXB..',
+          '...E...',
+          '...H...',
+          '...1...',
+          '...E...'
+        ]
+      },
+      {
+        t: 'Vue de dessus · Y+0 — les deux rangées de coffres',
+        vue: 1,
         g: [
           'bbbbbbbbbbbbbbb',
           'bEEEEEEEEEEEEEb',
@@ -1540,7 +3999,8 @@ var USINES = [
         ]
       },
       {
-        t: 'Vue de dessus · Y+1 — entonnoirs filtres, comparateurs et torches', vue: 1,
+        t: 'Vue de dessus · Y+1 — entonnoirs filtres, comparateurs et torches',
+        vue: 1,
         g: [
           'bbbbbbbbbbbbbbb',
           'bHHHHHHHHHHHHHb',
@@ -1552,7 +4012,8 @@ var USINES = [
         ]
       },
       {
-        t: 'Vue de dessus · Y+2 — lignes d\'apport et batterie de fabricateurs', vue: 1,
+        t: 'Vue de dessus · Y+2 — lignes d\'apport et batterie de fabricateurs',
+        vue: 1,
         g: [
           'bbbbbbbbbbbbbbb',
           'bHHHHHHHHHHHHHb',
@@ -1561,18 +4022,6 @@ var USINES = [
           'b...........HHb',
           'bHHHHHHHHHHHHHb',
           'bbbbbbbbbbbbbbb'
-        ]
-      },
-      {
-        t: 'Vue de côté · un module double (objet puis bloc)', vue: 1,
-        g: [
-          '...H...',
-          '..BHB..',
-          '..VXB..',
-          '...E...',
-          '...H...',
-          '...1...',
-          '...E...'
         ]
       }
     ],

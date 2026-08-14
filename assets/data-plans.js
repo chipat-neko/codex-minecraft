@@ -314,10 +314,174 @@ var PLANS = [
     desc: 'Le cœur du château : trois niveaux, escalier en colimaçon, salle du trône, salle des coffres et terrasse crénelée.',
     mats: ['≈900 briques de pierre', '≈120 escaliers', '≈80 dalles', '16 barreaux de fer', '8 lanternes · 4 bannières'],
     couches: [
-      { t: 'Y+0 · salle du trône', g: ['bbbbbbbbb', 'b...;...b', 'b.......b', 'b.......b', 'b.......b', 'b..///..b', 'b.......b', 'b.......b', 'bbbb>bbbb'] },
-      { t: 'Y+5 · étage / réserve', g: ['bbbbbbbbb', 'bEEE.EEEb', 'b.......b', 'b.......b', 'G../....G', 'b.......b', 'b.......b', 'b(.....?b', 'bbbGGGbbb'] },
-      { t: 'Y+10 · terrasse', g: ['bbbbbbbbb', 'b.......b', 'b.......b', 'b.......b', 'b.../...b', 'b.......b', 'b.......b', 'b.......b', 'bbbbbbbbb'] },
-      { t: 'Y+11 · créneaux', g: ['M.M.M.M.M', '.........', 'M.......M', '.........', 'M.......M', '.........', 'M.......M', '.........', 'M.M.M.M.M'] }
+      {
+        t: 'Y+0 · salle du trône',
+        g: [
+          'bbbbbbbbb',
+          'b...;...b',
+          'b.......b',
+          'b.......b',
+          'b.......b',
+          'b..///..b',
+          'b.......b',
+          'b.......b',
+          'bbbb>bbbb'
+        ]
+      },
+      {
+        t: 'Y+1 · murs, meurtrières basses, linteau de la porte',
+        g: [
+          'bb.bbb.bb',
+          'b.......b',
+          '.........',
+          'b.......b',
+          'b.......b',
+          'b./.....b',
+          '.........',
+          'b.......b',
+          'bb.bDb.bb'
+        ]
+      },
+      {
+        t: 'Y+2 · rangée haute des meurtrières, l\'escalier tourne',
+        g: [
+          'bb.bbb.bb',
+          'b.......b',
+          '.........',
+          'b.......b',
+          'b./.....b',
+          'b.......b',
+          '.........',
+          'b.......b',
+          'bb.bbb.bb'
+        ]
+      },
+      {
+        t: 'Y+3 · murs pleins, lanternes suspendues de la salle du trône',
+        g: [
+          'bbbbbbbbb',
+          'b.......b',
+          'b.*...*.b',
+          'b.......b',
+          'b/......b',
+          'b.......b',
+          'b.*...*.b',
+          'b.......b',
+          'bbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+4 · plancher de l\'étage, dernière marche et trémie de l\'escalier',
+        g: [
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'b..bbbbbb',
+          'b/bbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+5 · étage / réserve',
+        g: [
+          'bbbbbbbbb',
+          'bEEE.EEEb',
+          'b.......b',
+          'b.......b',
+          'G../....G',
+          'b.......b',
+          'b.......b',
+          'b(.....?b',
+          'bbbGGGbbb'
+        ]
+      },
+      {
+        t: 'Y+6 · fenêtres à barreaux de l\'étage, reprise de l\'escalier',
+        g: [
+          'bbbbbbbbb',
+          'b.......b',
+          'b.......b',
+          'b.......b',
+          '|./.....|',
+          'b.......b',
+          'b.......b',
+          'b.......b',
+          'bbb|||bbb'
+        ]
+      },
+      {
+        t: 'Y+7 · murs pleins de l\'étage',
+        g: [
+          'bbbbbbbbb',
+          'b.......b',
+          'b.......b',
+          'b.......b',
+          'b.......b',
+          'b./.....b',
+          'b.......b',
+          'b.......b',
+          'bbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+8 · haut de mur, lanternes sous le plancher de la terrasse',
+        g: [
+          'bbbbbbbbb',
+          'b.......b',
+          'b.*...*.b',
+          'b.......b',
+          'b.......b',
+          'b/......b',
+          'b.*...*.b',
+          'b.......b',
+          'bbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+9 · plancher de la terrasse, dernière marche et trémie',
+        g: [
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'b/bbbbbbb',
+          'b..bbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb',
+          'bbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+10 · terrasse',
+        g: [
+          'bbbbbbbbb',
+          'b.......b',
+          'b.......b',
+          'b.......b',
+          'b.../...b',
+          'b.......b',
+          'b.......b',
+          'b.......b',
+          'bbbbbbbbb'
+        ]
+      },
+      {
+        t: 'Y+11 · créneaux',
+        g: [
+          'M.M.M.M.M',
+          '.........',
+          'M.......M',
+          '.........',
+          'M.......M',
+          '.........',
+          'M.......M',
+          '.........',
+          'M.M.M.M.M'
+        ]
+      }
     ],
     etapes: [
       'Montez la boîte 9 × 9 sur 10 blocs de haut, avec 5 blocs de hauteur sous plafond par niveau.',
@@ -493,10 +657,10 @@ var PLANS = [
     desc: 'Un module de tri par type d\'objet, à répliquer autant de fois que nécessaire. Les objets circulent dans une ligne d\'entonnoirs et tombent dans le bon coffre.',
     mats: ['Par module : 5 entonnoirs, 1 coffre (ou double coffre), 1 comparateur, 1 torche de redstone, 4 blocs pleins, 1 poudre de redstone', '18 objets « filtre » par module (voir étapes)'],
     couches: [
-      { t: 'Vue de dessus · Y+2 (ligne d\'apport)', vue: 1, g: ['HHHHHH', '......', '......'] },
-      { t: 'Vue de dessus · Y+1 (filtres)', vue: 1, g: ['HHHHHH', 'HHHHHH', '......'] },
+      { t: 'Vue de côté · un module', vue: 1, g: ['..H...', '.BHB..', '.VRV..', '.E.E..'] },
       { t: 'Vue de dessus · Y+0 (coffres)', vue: 1, g: ['EEEEEE', '......', '......'] },
-      { t: 'Vue de côté · un module', vue: 1, g: ['..H...', '.BHB..', '.VRV..', '.E.E..'] }
+      { t: 'Vue de dessus · Y+1 (filtres)', vue: 1, g: ['HHHHHH', 'HHHHHH', '......'] },
+      { t: 'Vue de dessus · Y+2 (ligne d\'apport)', vue: 1, g: ['HHHHHH', '......', '......'] }
     ],
     etapes: [
       'Ligne d\'apport : une rangée d\'entonnoirs à Y+2 qui pointent tous vers l\'entonnoir suivant, alimentée depuis votre ferme ou un coffre de dépôt.',
@@ -896,6 +1060,23 @@ var PLANS = [
     mats: ['≈4 500 briques de pierre (murs, piliers, contreforts)', '≈900 blocs de quartz ou de pierre claire (voûtes)', '≈700 escaliers et 400 dalles (toitures et arcs)', '≈350 vitres teintées (verrières et rosace)', '≈60 lanternes · 1 cloche · bannières'],
     couches: [
       {
+        t: 'Vue de face · rosace de la façade ouest (11 × 11)',
+        vue: 1,
+        g: [
+          'bbbbbbbbbbb',
+          'bbbbGGGbbbb',
+          'bbGGGGGGGbb',
+          'bGGGGbGGGGb',
+          'bGGGbcbGGGb',
+          'GGGGcccGGGG',
+          'bGGGbcbGGGb',
+          'bGGGGbGGGGb',
+          'bbGGGGGGGbb',
+          'bbbbGGGbbbb',
+          'bbbbbbbbbbb'
+        ]
+      },
+      {
         t: 'Y+0 · plan de masse : chœur, nef, transept et clocher',
         g: [
           '........bbbbb........',
@@ -1005,34 +1186,7 @@ var PLANS = [
           'bbb+++bbb'
         ]
       },
-      {
-        t: 'Y+27 · couronnement de la flèche (7 × 7)',
-        g: [
-          '..///..',
-          './---/.',
-          '/-----/',
-          '/--*--/',
-          '/-----/',
-          './---/.',
-          '..///..'
-        ]
-      },
-      {
-        t: 'Vue de face · rosace de la façade ouest (11 × 11)', vue: 1,
-        g: [
-          'bbbbbbbbbbb',
-          'bbbbGGGbbbb',
-          'bbGGGGGGGbb',
-          'bGGGGbGGGGb',
-          'bGGGbcbGGGb',
-          'GGGGcccGGGG',
-          'bGGGbcbGGGb',
-          'bGGGGbGGGGb',
-          'bbGGGGGGGbb',
-          'bbbbGGGbbbb',
-          'bbbbbbbbbbb'
-        ]
-      }
+      { t: 'Y+27 · couronnement de la flèche (7 × 7)', g: ['..///..', './---/.', '/-----/', '/--*--/', '/-----/', './---/.', '..///..'] }
     ],
     etapes: [
       'Tracez la croix au sol avant tout : nef de 9 blocs de large sur 19 de long, transept de 5 blocs de profondeur traversant toute la largeur. Cette croix est le seul élément qu\'on ne peut plus corriger ensuite.',
@@ -1294,6 +1448,58 @@ var PLANS = [
         ]
       },
       {
+        t: 'Y+1 · portail ouvert, colonnes, portes des trois salles',
+        g: [
+          '...................',
+          'ccc.............ccc',
+          'cc...............cc',
+          'cc..d.........d..cc',
+          'cc..d.........d..cc',
+          'cccddd^^^^^^^dddccc',
+          'cccd...........dccc',
+          'cccd...........dccc',
+          'cccd.c.......c.dccc',
+          'cccd...........dccc',
+          'cccd.c.......c.dccc',
+          'cccd...........dccc',
+          'cccd...........dccc',
+          'cccdDddddDddddDdccc',
+          'd.....d.....d.....d',
+          'd.....d.....d.....d',
+          'd.....d.....d.....d',
+          'd.....d.....d.....d',
+          'd.....d.....d.....d',
+          'ddddddddddddddddddd',
+          'ccccccccccccccccccc'
+        ]
+      },
+      {
+        t: 'Y+2 → Y+4 · le hall et les salles montent, portail encore ouvert (à répéter)',
+        g: [
+          '...................',
+          'ccc.............ccc',
+          'cc...............cc',
+          'cc..d.........d..cc',
+          'cc..d.........d..cc',
+          'cccddd^^^^^^^dddccc',
+          'cccd...........dccc',
+          'cccd...........dccc',
+          'cccd.c.......c.dccc',
+          'cccd...........dccc',
+          'cccd.c.......c.dccc',
+          'cccd...........dccc',
+          'cccd...........dccc',
+          'cccdddddddddddddccc',
+          'd.....d.....d.....d',
+          'd.....d.....d.....d',
+          'd.....d.....d.....d',
+          'd.....d.....d.....d',
+          'd.....d.....d.....d',
+          'ddddddddddddddddddd',
+          'ccccccccccccccccccc'
+        ]
+      },
+      {
         t: 'Y+5 · voûte du hall et plafonds des salles',
         g: [
           '...................',
@@ -1320,6 +1526,84 @@ var PLANS = [
         ]
       },
       {
+        t: 'Y+6 · plafond de la salle centrale, consoles des lanternes du hall',
+        g: [
+          '...................',
+          'ccc.............ccc',
+          'cc...............cc',
+          'cc..d.........d..cc',
+          'cc..d.........d..cc',
+          'cccdddddddddddddccc',
+          'cccd...........dccc',
+          'cccd...........dccc',
+          'cccd.cd.....dc.dccc',
+          'cccd...........dccc',
+          'cccd.cd.....dc.dccc',
+          'cccd...........dccc',
+          'cccd...........dccc',
+          'cccdddddddddddddccc',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ccccccccccccccccccc'
+        ]
+      },
+      {
+        t: 'Y+7 · chapiteaux et naissance de la voûte du hall',
+        g: [
+          '...................',
+          'ccc.............ccc',
+          'cc...............cc',
+          'cc..d.........d..cc',
+          'cc..d.........d..cc',
+          'cccdddddddddddddccc',
+          'cccd/........./dccc',
+          'cccd/........./dccc',
+          'cccd//.......//dccc',
+          'cccd/........./dccc',
+          'cccd//.......//dccc',
+          'cccd/........./dccc',
+          'cccd/........./dccc',
+          'cccdddddddddddddccc',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ccccccccccccccccccc'
+        ]
+      },
+      {
+        t: 'Y+8 · plafond du hall fermé (8 rangs libres sous voûte)',
+        g: [
+          '...................',
+          'ccc.............ccc',
+          'cc...............cc',
+          'cc..d.........d..cc',
+          'cc..d.........d..cc',
+          'cccdddddddddddddccc',
+          'cccdddddddddddddccc',
+          'cccdddddddddddddccc',
+          'cccdddddddddddddccc',
+          'cccdddddddddddddccc',
+          'cccdddddddddddddccc',
+          'cccdddddddddddddccc',
+          'cccdddddddddddddccc',
+          'cccdddddddddddddccc',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ddddddddddddddddddd',
+          'ccccccccccccccccccc'
+        ]
+      },
+      {
         t: 'Y+9 · balcon et arc au-dessus du portail (15 × 7)',
         g: [
           'M.M.M.M.M.M.M.M',
@@ -1329,6 +1613,32 @@ var PLANS = [
           'ddddd.....ddddd',
           'ddddddddddddddd',
           'ccccccccccccccc'
+        ]
+      },
+      {
+        t: 'Y+10 → Y+11 · paroi nue de la falaise au-dessus du balcon (à répéter)',
+        g: [
+          '...................',
+          'ccc.............ccc',
+          'cc...............cc',
+          'cc...............cc',
+          'cc...............cc',
+          'ccccccccccccccccccc',
+          'ccccccccccccccccccc',
+          'ccccccccccccccccccc',
+          'ccccccccccccccccccc',
+          'ccccccccccccccccccc',
+          'ccccccccccccccccccc',
+          'ccccccccccccccccccc',
+          'ccccccccccccccccccc',
+          'ccccccccccccccccccc',
+          'ccccccccccccccccccc',
+          'ccccccccccccccccccc',
+          'ccccccccccccccccccc',
+          'ccccccccccccccccccc',
+          'ccccccccccccccccccc',
+          'ccccccccccccccccccc',
+          'ccccccccccccccccccc'
         ]
       }
     ],
@@ -1379,6 +1689,26 @@ var PLANS = [
         ]
       },
       {
+        t: 'Y+1 → Y+7 · troncs, poteaux porteurs et échelle (à répéter)',
+        g: [
+          '.....................',
+          '.....................',
+          '.....................',
+          '...oo...........oo...',
+          '...ooL..........oo...',
+          '.....................',
+          '..........oo.........',
+          '..........oo.........',
+          '.....................',
+          '.....................',
+          '.................oo..',
+          '.................oo..',
+          '.....................',
+          '.....................',
+          '.....................'
+        ]
+      },
+      {
         t: 'Y+8 · planchers des plateformes et passerelles',
         g: [
           '.....................',
@@ -1419,6 +1749,46 @@ var PLANS = [
         ]
       },
       {
+        t: 'Y+10 · deuxième rang des murs : fenêtres et portes',
+        g: [
+          '.....................',
+          '..............ooooooo',
+          '..............o.....o',
+          '..............oG...Go',
+          'ooooooo.......o.....o',
+          'o.....o.......oo.D.oo',
+          'oG...Go.......ooooooo',
+          'o.....o..............',
+          'oG...Go.....ooooooo..',
+          'o.....o.....o.....o..',
+          'oooDooo.....oG...Go..',
+          '............o.....o..',
+          '............oG...Go..',
+          '............o.....o..',
+          '............ooooooo..'
+        ]
+      },
+      {
+        t: 'Y+11 · haut des murs et lanternes suspendues',
+        g: [
+          '.....................',
+          '..............ooooooo',
+          '..............o.....o',
+          '..............o..*..o',
+          'ooooooo.......o.....o',
+          'o.....o.......o.....o',
+          'o.....o.......ooooooo',
+          'o..*..o..............',
+          'o.....o.....ooooooo..',
+          'o.....o.....o.....o..',
+          'ooooooo.....o.....o..',
+          '............o..*..o..',
+          '............o.....o..',
+          '............o.....o..',
+          '............ooooooo..'
+        ]
+      },
+      {
         t: 'Y+12 · toitures des trois cabanes',
         g: [
           '.....................',
@@ -1436,6 +1806,66 @@ var PLANS = [
           '............//---//..',
           '............//---//..',
           '............///////..'
+        ]
+      },
+      {
+        t: 'Y+13 · toitures : deuxième pan des trois cabanes',
+        g: [
+          '.....................',
+          '.....................',
+          '.............../////.',
+          '.............../---/.',
+          '.............../---/.',
+          './////........./////.',
+          './---/...............',
+          './---/...............',
+          './---/...............',
+          './////......./////...',
+          '............./---/...',
+          '............./---/...',
+          '............./---/...',
+          '............./////...',
+          '.....................'
+        ]
+      },
+      {
+        t: 'Y+14 · toitures : troisième pan',
+        g: [
+          '.....................',
+          '.....................',
+          '.....................',
+          '................///..',
+          '................///..',
+          '.....................',
+          '..///................',
+          '../-/................',
+          '..///................',
+          '.....................',
+          '..............///....',
+          '............../-/....',
+          '..............///....',
+          '.....................',
+          '.....................'
+        ]
+      },
+      {
+        t: 'Y+15 · faîtages en dalles',
+        g: [
+          '.....................',
+          '.....................',
+          '.....................',
+          '.................-...',
+          '.................-...',
+          '.....................',
+          '.....................',
+          '...-.................',
+          '.....................',
+          '.....................',
+          '.....................',
+          '...............-.....',
+          '.....................',
+          '.....................',
+          '.....................'
         ]
       }
     ],
@@ -1813,6 +2243,25 @@ var PLANS = [
     mats: ['≈600 briques de pierre (fût octogonal)', '≈120 planches et 80 escaliers (calotte)', '≈60 rondins écorcés (arbre des ailes et lattes)', '≈40 trappes (toiles des ailes)', '2 blocs de pierre taillée (meule) · 6 blocs de foin', '1 porte · 8 lanternes · 1 paratonnerre'],
     couches: [
       {
+        t: 'Vue de face · roue des quatre ailes (13 × 13)',
+        vue: 1,
+        g: [
+          '+k.........k+',
+          '.+k.......k+.',
+          '..+k.....k+..',
+          '...+k...k+...',
+          '....+k.k+....',
+          '.....+k+.....',
+          '......k......',
+          '.....k+k.....',
+          '....k+.+k....',
+          '...k+...+k...',
+          '..k+.....+k..',
+          '.k+.......+k.',
+          'k+.........+k'
+        ]
+      },
+      {
         t: 'Y+0 · fondation octogonale',
         g: [
           '..ccccc..',
@@ -1854,36 +2303,7 @@ var PLANS = [
           '..bbGbb..'
         ]
       },
-      {
-        t: 'Y+11 · plancher de la calotte tournante',
-        g: [
-          '..###..',
-          '.#####.',
-          '#######',
-          '#######',
-          '#######',
-          '.#####.',
-          '..###..'
-        ]
-      },
-      {
-        t: 'Vue de face · roue des quatre ailes (13 × 13)', vue: 1,
-        g: [
-          '+k.........k+',
-          '.+k.......k+.',
-          '..+k.....k+..',
-          '...+k...k+...',
-          '....+k.k+....',
-          '.....+k+.....',
-          '......k......',
-          '.....k+k.....',
-          '....k+.+k....',
-          '...k+...+k...',
-          '..k+.....+k..',
-          '.k+.......+k.',
-          'k+.........+k'
-        ]
-      }
+      { t: 'Y+11 · plancher de la calotte tournante', g: ['..###..', '.#####.', '#######', '#######', '#######', '.#####.', '..###..'] }
     ],
     etapes: [
       'Tracez l\'octogone avant tout : un carré de 9 × 9 dont on retire deux blocs à chaque angle. C\'est l\'astuce qui donne un fût « rond » sans une seule courbe compliquée.',
@@ -2406,6 +2826,22 @@ var PLANS = [
         ]
       },
       {
+        t: 'Y+2 · comptoirs en dalles, deuxième assise des poteaux, lanternes',
+        g: [
+          'k.k.k.k.k.k.k.k',
+          'k-------------k',
+          'k..*...*...*..k',
+          'k.............k',
+          'k.-----.-----.k',
+          'k.-...-.-...-.k',
+          'k.-----.-----.k',
+          'k.............k',
+          'k..*...*...*..k',
+          'k-------------k',
+          'k.k.k.k.k.k.k.k'
+        ]
+      },
+      {
         t: 'Y+3 · poutraison, entraits et solives',
         g: [
           'kkkkkkkkkkkkkkk',
@@ -2468,7 +2904,22 @@ var PLANS = [
           '/.........../',
           '/////////////'
         ]
-      }
+      },
+      {
+        t: 'Y+7 · toit, anneau 4 (11 × 7)',
+        g: [
+          '///////////',
+          '/........./',
+          '/........./',
+          '/........./',
+          '/........./',
+          '/........./',
+          '///////////'
+        ]
+      },
+      { t: 'Y+8 · toit, anneau 5 (9 × 5)', g: ['/////////', '/......./', '/......./', '/......./', '/////////'] },
+      { t: 'Y+9 · toit, anneau 6 (7 × 3)', g: ['///////', '/...../', '///////'] },
+      { t: 'Y+10 · faîtage en dalles (5 × 1)', g: ['-----'] }
     ],
     etapes: [
       'Implantez la halle sur la place, pas contre les maisons : il faut au moins 3 blocs de dégagement sur les quatre côtés pour qu\'on puisse en faire le tour.',
