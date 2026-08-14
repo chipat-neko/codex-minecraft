@@ -711,7 +711,7 @@ var DROPS = [
     tags: [{ txt: 'Nether', cls: 'red' }],
     ou: 'Nether, tous biomes sauf mers de lave. Quatre types : trésor, pont, écuries de hoglin, salle des piglins.',
     drops: [
-      'Coffres : lingots d\'or, blocs d\'or, débris antiques (bastion trésor), ornement des groins (snout), pommes dorées enchantées, arcs enchantés, selles',
+      'Coffres : lingots et blocs d\'or, débris antiques et lingots de netherite (bastion trésor), modèle de forge « amélioration en netherite », ornement des groins (snout), pommes dorées enchantées, ARBALÈTES enchantées (le bastion ne contient aucun arc), selle dans les écuries de hoglins',
       'Blocs de roche noire et briques d\'or récupérables'
     ],
     note: 'Le bastion trésor (coffres gardés par des piglins barbares, derrière un pont) est la meilleure source de débris antiques sans minage.'
@@ -724,7 +724,7 @@ var DROPS = [
       'Générateurs de Blaze (poudre de Blaze)',
       'Withers squelettes (crânes)',
       'Verrue du Nether dans les escaliers (indispensable au brassage)',
-      'Coffres : selle, épée en diamant, armure en or pour cheval, obsidienne, or, ornement des côtes (rib)'
+      'Coffres : selle, épée et plastron EN OR, armures de cheval (or, cuivre, fer, diamant), diamants ×1–3, verrues du Nether ×3–7, briquet, obsidienne, ornement des côtes (rib)'
     ],
     note: 'Récupérez la verrue du Nether + le sable des âmes : elles se replantent chez vous et alimentent toutes vos potions.'
   },
@@ -734,7 +734,7 @@ var DROPS = [
     ou: 'Îles extérieures de l\'End (après la passerelle du portail de sortie ou une perle de l\'Ender).',
     drops: [
       'Élytres : dans le cadre d\'objet du « navire de l\'End » (End ship)',
-      'Coffres : diamants, lingots de fer/or, pommes dorées enchantées, ornement des tours (spire), épées et pioches en diamant enchantées, bâtons de sel de béryl',
+      'Coffres : diamants ×2–7, lingots de fer ×4–8 et d\'or ×2–7, émeraudes, selle, armures de cheval, ornement des tours (spire), et surtout des panoplies et des outils complets en diamant et en fer, enchantés au niveau 20–39',
       'Carapaces de shulker, blocs de purpur, tiges de chorus'
     ],
     note: 'Toutes les cités n\'ont pas de navire. Cherchez la tour la plus haute : l\'élytre est là, gardée par un shulker et une tête de dragon.'
@@ -756,7 +756,7 @@ var DROPS = [
     tags: [{ txt: 'Archéologie', cls: 'gold' }],
     ou: 'Enterrées dans les taïgas, jungles, forêts de bouleaux, marais de mangrove, plaines enneigées.',
     drops: [
-      'Pinceau sur gravier suspect : tessons de poterie, perles d\'ambre, plants de bois rares (mais PAS d\'œufs de renifleur : ceux-là viennent des ruines sous-marines chaudes)',
+      'Pinceau sur gravier suspect : tessons de poterie (sept motifs), quatre ornements exclusifs — éclaireurs, éleveurs, modeleurs, hôtes —, disque « relic », et en butin courant teintures, bougies colorées, vitres teintées, pancartes suspendues, argile, briques, émeraudes (mais PAS d\'œufs de renifleur : ceux-là viennent des ruines sous-marines chaudes)',
       'Blocs décoratifs uniques'
     ],
     note: 'Il faut un pinceau (plume + cuivre + bâton). Une seule structure fournit assez de tessons pour composer des jarres décoratives.'
@@ -773,18 +773,18 @@ var DROPS = [
     tags: [{ txt: 'Océan', cls: 'blue' }],
     ou: 'Fond des océans et parfois échouées sur les plages.',
     drops: [
-      'Coffre de ravitaillement : nourriture, papier, potions d\'eau',
-      'Coffre du trésor : lingots d\'or, émeraudes, diamants, cartes au trésor',
-      'Coffre de cargaison : blé, papier, cuir, TNT'
+      'Coffre de ravitaillement : pommes de terre (dont des empoisonnées), carottes, blé, soupe suspecte, papier, charbon, bambou, citrouille, poudre à canon, TNT, armure en cuir enchantée — aucune potion',
+      'Coffre du trésor : lingots et pépites de fer et d\'or, émeraudes, lapis-lazuli, diamant (rare), fioles d\'expérience — mais aucune carte',
+      'Coffre de la carte (cabine arrière) : la carte du trésor enfoui, GARANTIE, plus boussole, montre, carte vierge, papier, plumes et livres'
     ],
-    note: 'Trois coffres différents par épave : fouillez la proue, la cale ET la poupe.'
+    note: 'Trois coffres différents par épave, et trois seulement : ravitaillement à la proue, trésor dans la cale, carte dans la cabine arrière.'
   },
   {
     nom: 'Portail ruiné', cat: 'structure',
     tags: [{ txt: 'Deux dimensions', cls: 'purple' }],
     ou: 'Partout dans le Surworld et le Nether, entouré d\'or brut et de blocs corrompus.',
     drops: [
-      'Coffre : pommes dorées enchantées, obsidienne, briquet, lingots d\'or, bottes en fer enchantées, carottes dorées',
+      'Coffre : outils et armures EN OR enchantés (aucune pièce en fer), pomme dorée et, rarement, pomme dorée enchantée, obsidienne, briquet, charge de feu, lingots et pépites d\'or, carottes dorées, tranche de pastèque scintillante, cloche, montre, magnétite',
       'Obsidienne du cadre récupérable',
       'De l\'or brut / blocs de gravier autour'
     ],
@@ -796,7 +796,7 @@ var DROPS = [
     ou: 'Plaines enneigées et taïgas enneigées.',
     drops: [
       'Sous-sol (1 sur 2) : un villageois zombifié en cellule + un villageois, une pomme dorée et une potion de Faiblesse dans un coffre',
-      'Coffre : charbon, pomme, blé, or, pierre, hache en pierre'
+      'Coffre : pomme dorée (garantie, dans un lot à elle seule), charbon, pomme, blé, pépites d\'or, chair putréfiée, émeraude, hache en pierre — aucune pierre'
     ],
     note: 'Le kit du sous-sol est exactement ce qu\'il faut pour SOIGNER un villageois zombifié : votre premier commerce à prix cassé.'
   },
