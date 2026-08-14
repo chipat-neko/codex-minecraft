@@ -116,7 +116,7 @@ var PLANS = [
       { t: 'Y+0 · fondation (7×7)', g: ['.bbbbb.', 'bbbbbbb', 'bbbbbbb', 'bbbbbbb', 'bbbbbbb', 'bbbbbbb', '.bbbbb.'] },
       { t: 'Y+1…Y+15 · fût (à répéter)', g: ['.bbbbb.', 'b.....b', 'b..L..b', 'b.....b', 'b.....b', 'b.....b', '.bbbbb.'] },
       { t: 'Y+16 · plateforme', g: ['.bbbbb.', 'bbbbbbb', 'bb...bb', 'bb.L.bb', 'bb...bb', 'bbbbbbb', '.bbbbb.'] },
-      { t: 'Y+17 · lanternon vitré', g: ['.GGGGG.', 'G.....G', 'G..*..G', 'G.....G', 'G.....G', 'G.....G', '.GGGGG.'] },
+      { t: 'Y+17 → Y+18 · lanternon vitré (à répéter)', g: ['.GGGGG.', 'G.....G', 'G..*..G', 'G.....G', 'G.....G', 'G.....G', '.GGGGG.'] },
       { t: 'Y+19 · créneaux', g: ['.b.b.b.', 'b.....b', '.......', 'b.....b', '.......', 'b.....b', '.b.b.b.'] }
     ],
     etapes: [
@@ -167,6 +167,66 @@ var PLANS = [
           'c...c...............c...c',
           'c...c...............c...c',
           'ccccccccccc^^^ccccccccccc'
+        ]
+      },
+      {
+        t: 'Y+1 · les murs montent, les deux portes restent ouvertes',
+        g: [
+          'ccccccccccccccccccccccccc',
+          'c...c...............c...c',
+          'c...c...............c...c',
+          'c...c...............c...c',
+          'ccccc...............ccccc',
+          'c.......................c',
+          'c.......................c',
+          'c.......................c',
+          'c.......bbbbbbbbb.......c',
+          'c.......b.......b.......c',
+          'c.......b.......b.......c',
+          'c.......b.......b.......c',
+          'c.......b.......b.......c',
+          'c.......b.......b.......c',
+          'c.......b.......b.......c',
+          'c.......b.......b.......c',
+          'c.......bbbb>bbbb.......c',
+          'c.......................c',
+          'c.......................c',
+          'c.......................c',
+          'ccccc...............ccccc',
+          'c...c...............c...c',
+          'c...c...............c...c',
+          'c...c...............c...c',
+          'ccccccccccc^^^ccccccccccc'
+        ]
+      },
+      {
+        t: 'Y+2 → Y+4 · linteaux posés, murs pleins (à répéter)',
+        g: [
+          'ccccccccccccccccccccccccc',
+          'c...c...............c...c',
+          'c...c...............c...c',
+          'c...c...............c...c',
+          'ccccc...............ccccc',
+          'c.......................c',
+          'c.......................c',
+          'c.......................c',
+          'c.......bbbbbbbbb.......c',
+          'c.......b.......b.......c',
+          'c.......b.......b.......c',
+          'c.......b.......b.......c',
+          'c.......b.......b.......c',
+          'c.......b.......b.......c',
+          'c.......b.......b.......c',
+          'c.......b.......b.......c',
+          'c.......bbbbbbbbb.......c',
+          'c.......................c',
+          'c.......................c',
+          'c.......................c',
+          'ccccc...............ccccc',
+          'c...c...............c...c',
+          'c...c...............c...c',
+          'c...c...............c...c',
+          'ccccccccccccccccccccccccc'
         ]
       },
       {
@@ -356,7 +416,9 @@ var PLANS = [
     couches: [
       { t: 'Y+0 · dallage', g: ['ccccccccccccc', 'ccccccccccccc', 'ccccccccccccc', 'ccccccccccccc', 'ccccccccccccc', 'ccccccccccccc', 'ccccccccccccc', 'ccccccccccccc', 'ccccccccccccc'] },
       { t: 'Y+1 · murs + porte charretière', g: ['o##o###o##o##', '#...........#', 'o...........o', '#...........#', 'o...........o', '#...........#', 'o...........o', '#...........#', 'o##o##DD##o##'] },
+      { t: 'Y+2 · les murs montent, linteau au-dessus de la porte', g: ['o##o###o##o##', '#...........#', 'o...........o', '#...........#', 'o...........o', '#...........#', 'o...........o', '#...........#', 'o##o######o##'] },
       { t: 'Y+3 · poutraison', g: ['ooooooooooooo', 'o...........o', 'o.ooooooooo.o', 'o...........o', 'o.ooooooooo.o', 'o...........o', 'o.ooooooooo.o', 'o...........o', 'ooooooooooooo'] },
+      { t: 'Y+4 · murs du comble, sous le plancher du grenier', g: ['o##o###o##o##', '#...........#', 'o...........o', '#...........#', 'o...........o', '#...........#', 'o...........o', '#...........#', 'o##o######o##'] },
       { t: 'Y+5 · grenier (plancher partiel)', g: ['#############', '#hhhhhhhhhhh#', '#hhhhhhhhhhh#', '#...........#', '#...........#', '#...........#', '#hhhhhhhhhhh#', '#hhhhhhhhhhh#', '#############'] },
       { t: 'Y+6 · toit anneau 1 (15×11)', g: ['///////////////', '/............./', '/............./', '/............./', '/............./', '/............./', '/............./', '/............./', '/............./', '/............./', '///////////////'] },
       { t: 'Y+7 · toit anneau 2 (13×9)', g: ['/////////////', '/.........../', '/.........../', '/.........../', '/.........../', '/.........../', '/.........../', '/.........../', '/////////////'] },
@@ -402,17 +464,18 @@ var PLANS = [
   },
   {
     id: 'portail', nom: 'Portail du Nether sécurisé', cat: 'technique',
-    taille: '7 × 7 × 6', diff: 'Intermédiaire',
+    taille: '7 × 7 × 7', diff: 'Intermédiaire',
     desc: 'Un portail non protégé est une porte ouverte : zombies-piglins, ghasts et hoglins traversent. Ce sas règle le problème des deux côtés.',
-    mats: ['10 blocs d\'obsidienne (14 pour un cadre complet)', '≈60 briques de pierre ou blocs anti-explosion', '1 briquet ou 1 seau d\'eau + lave', '2 portes en fer + 2 plaques de pression', '4 lanternes'],
+    mats: ['12 blocs d\'obsidienne (16 pour un cadre complet avec les coins)', '≈70 briques de pierre ou blocs anti-explosion', '1 briquet ou 1 seau d\'eau + lave', '2 portes en fer + 2 plaques de pression', '4 lanternes'],
     couches: [
       { t: 'Y+0 · sol du sas', g: ['bbbbbbb', 'bbbbbbb', 'bbbbbbb', 'bbbbbbb', 'bbbbbbb', 'bbbbbbb', 'bbbbbbb'] },
-      { t: 'Y+1 · cadre + sas', g: ['bbbbbbb', 'bOOOOOb', 'b.....b', 'b.....b', 'b.....b', 'b..>..b', 'bbbbbbb'] },
-      { t: 'Y+2 · portail actif', g: ['bbbbbbb', 'bO^^^Ob', 'b.....b', 'b..*..b', 'b.....b', 'b..>..b', 'bbbbbbb'] },
-      { t: 'Y+4 · plafond', g: ['bbbbbbb', 'bbbbbbb', 'bbbbbbb', 'bbbbbbb', 'bbbbbbb', 'bbbbbbb', 'bbbbbbb'] }
+      { t: 'Y+1 · seuil du cadre + sas', g: ['bbbbbbb', 'bOOOOOb', 'b.....b', 'b.....b', 'b.....b', 'b..>..b', 'bbbbbbb'] },
+      { t: 'Y+2 → Y+4 · portail actif, trois rangs de haut (à répéter)', g: ['bbbbbbb', 'bO^^^Ob', 'b.....b', 'b..*..b', 'b.....b', 'b..>..b', 'bbbbbbb'] },
+      { t: 'Y+5 · linteau d\'obsidienne', g: ['bbbbbbb', 'bOOOOOb', 'b.....b', 'b.....b', 'b.....b', 'b.....b', 'bbbbbbb'] },
+      { t: 'Y+6 · plafond', g: ['bbbbbbb', 'bbbbbbb', 'bbbbbbb', 'bbbbbbb', 'bbbbbbb', 'bbbbbbb', 'bbbbbbb'] }
     ],
     etapes: [
-      'Construisez le cadre du portail : 4 × 5 blocs d\'obsidienne (les 4 coins sont facultatifs, donc 10 blocs suffisent).',
+      'Construisez le cadre : 5 blocs de large sur 5 de haut, soit un passage de 3 × 3. Les 4 coins sont facultatifs, donc 12 blocs d\'obsidienne suffisent. Le minimum absolu du jeu est un passage de 2 × 3, mais un passage de 3 de large laisse traverser un chariot ou un cheval.',
       'Allumez-le au briquet — ou, sans briquet, renvoyez une boule de feu de ghast dedans.',
       'Emmurez le portail dans une pièce fermée de 7 × 7 en briques de pierre : c\'est résistant aux boules de feu des ghasts.',
       'Portes en fer + plaques de pression aux deux extrémités : les mobs ne peuvent pas les ouvrir.',
@@ -747,6 +810,46 @@ var PLANS = [
           'r.............r',
           'r.............r',
           'rrrrrr>rrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+1 → Y+2 · les murs montent, les deux portes restent ouvertes (à répéter)',
+        g: [
+          'rrrrrrrrrrrrrrr',
+          'r.............r',
+          'r.............r',
+          'r.............r',
+          'r...rrrrrrr...r',
+          'r...r.....r...r',
+          'r...r.OOO.r...r',
+          'r...r.O^O.r...r',
+          'r...r.OOO.r...r',
+          'r...r.....r...r',
+          'r...rrr>rrr...r',
+          'r.............r',
+          'r.............r',
+          'r.............r',
+          'rrrrrr>rrrrrrrr'
+        ]
+      },
+      {
+        t: 'Y+3 · linteaux des portes, murs pleins',
+        g: [
+          'rrrrrrrrrrrrrrr',
+          'r.............r',
+          'r.............r',
+          'r.............r',
+          'r...rrrrrrr...r',
+          'r...r.....r...r',
+          'r...r.OOO.r...r',
+          'r...r.O^O.r...r',
+          'r...r.OOO.r...r',
+          'r...r.....r...r',
+          'r...rrrrrrr...r',
+          'r.............r',
+          'r.............r',
+          'r.............r',
+          'rrrrrrrrrrrrrrr'
         ]
       },
       {

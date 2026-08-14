@@ -951,6 +951,11 @@ function caseDe(c, o, X, Z) {
    que de recopier l'étage du dessous en faisant croire qu'on sait. */
 var RE_Y = /Y\s*([+−-])\s*(\d+)/;
 var RE_REP = /répéter\s+(\d+)\s+fois/i;
+/* Une couche qui vaut pour plusieurs niveaux le dit dans son titre :
+   « Y+1…Y+15 · fût (à répéter) », « Y+2 → Y+11 », « jusqu'à Y+3 ».
+   Sans lire cette borne, on prendrait pour des lacunes des niveaux
+   que les données décrivent parfaitement. */
+var RE_FIN = /(?:…|\.\.\.|→|->|jusqu[’']à)\s*Y\s*([+−-])\s*(\d+)/;
 
 function niveauxY(couches) {
   var out = [], precedent = -1;
@@ -959,8 +964,11 @@ function niveauxY(couches) {
     var m = RE_Y.exec(t);
     var y = m ? (m[1] === '+' ? 1 : -1) * parseInt(m[2], 10) : precedent + 1;
     precedent = y;
-    var r = RE_REP.exec(t);
-    out.push({ L: i, y: y, fin: r ? y + parseInt(r[1], 10) - 1 : y });
+    var f = RE_FIN.exec(t), r = RE_REP.exec(t), fin;
+    if (f) { fin = (f[1] === '+' ? 1 : -1) * parseInt(f[2], 10); }
+    else if (r) { fin = y + parseInt(r[1], 10) - 1; }
+    else { fin = y; }
+    out.push({ L: i, y: y, fin: Math.max(y, fin) });
   }
   /* une couche ne peut pas déborder sur la suivante */
   for (var k = 0; k < out.length - 1; k++) {

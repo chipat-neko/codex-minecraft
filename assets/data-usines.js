@@ -1106,6 +1106,22 @@ var USINES = [
         ]
       },
       {
+        t: 'Y+2 → Y+3 · les stipes montent, rien d\'autre à poser (à répéter)',
+        g: [
+          'bbbbbbbbbbbbb',
+          'b...........b',
+          'b...........b',
+          'b.%.%.%.%.%.b',
+          'b...........b',
+          'b.%.%.%.%.%.b',
+          'b...........b',
+          'b.%.%.%.%.%.b',
+          'b...........b',
+          'b...........b',
+          'bbbbbbbbbbbbb'
+        ]
+      },
+      {
         t: 'Y+4 · emprise d\'un chapeau arrivé à maturité',
         g: [
           'bbbbbbbbbbbbb',
@@ -1249,6 +1265,20 @@ var USINES = [
           'c...........c',
           'c%%1c%%1c%%1c',
           'c%%.c%%.c%%.c'
+        ]
+      },
+      {
+        t: 'Y+3 → Y+7 · les troncs 2 × 2 montent (à répéter)',
+        g: [
+          'ccccccccccccc',
+          'coo.coo.coo.c',
+          'coo.coo.coo.c',
+          'c...........c',
+          'coo.coo.coo.c',
+          'coo.coo.coo.c',
+          'c...........c',
+          'coo.coo.coo.c',
+          'coo.coo.coo.c'
         ]
       },
       {
