@@ -774,6 +774,81 @@ hr { border: none; border-top: 1px solid var(--line-soft); margin: 34px 0; }
   .toc-side { display: block; }
 }
 
+/* ---- Recherche globale ---- */
+.rg {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, .55);
+  backdrop-filter: blur(3px);
+  padding: 8vh 16px 16px;
+}
+.rg.open { display: block; }
+
+.rg-boite {
+  max-width: 680px;
+  margin: 0 auto;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+  overflow: hidden;
+}
+#rg-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--txt);
+  font-family: inherit;
+  font-size: 16.5px;
+  padding: 15px 18px;
+}
+#rg-input:focus { outline: none; }
+#rg-input::placeholder { color: var(--txt-3); }
+
+.rg-res { max-height: 56vh; overflow-y: auto; }
+.rg-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 9px 18px;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--txt-2);
+  font-size: 14px;
+}
+.rg-item:hover, .rg-item.sel { background: var(--panel-2); text-decoration: none; }
+.rg-item.sel { box-shadow: inset 3px 0 0 var(--emerald); }
+.rg-cat {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--emerald);
+  background: rgba(47, 212, 122, .1);
+  border: 1px solid rgba(47, 212, 122, .28);
+  border-radius: 999px;
+  padding: 1px 8px;
+  flex: none;
+}
+.rg-nom { color: var(--txt); font-weight: 600; flex: none; }
+.rg-desc {
+  color: var(--txt-3);
+  font-size: 12.8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rg-vide, .rg-aide {
+  padding: 14px 18px;
+  margin: 0;
+  color: var(--txt-3);
+  font-size: 12.8px;
+}
+.rg-aide { border-top: 1px solid var(--line-soft); background: var(--bg-2); }
+.rg-aide kbd { margin-right: 3px; }
+
 /* ---- Impression ---- */
 @media print {
   .topbar, .toolbar, footer, .toc-side, .bp-actions, .fav-btn, hr { display: none !important; }

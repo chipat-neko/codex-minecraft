@@ -67,10 +67,11 @@ var DROPS = [
     tags: [{ txt: 'Surworld', cls: 'ok' }, { txt: '5 XP', cls: 'gold' }],
     ou: 'Zones sombres, huttes de marais (avec un chat noir), raids de pillards.',
     drops: [
-      'Butin aléatoire ×0–2 parmi : fiole en verre, poudre à canon, poudre de redstone, sucre, poudre lumineuse, bâton, œil d\'araignée',
+      'Redstone : GARANTIE à chaque mort, dans un second lot indépendant du tirage aléatoire',
+      'Butin aléatoire ×1–3 parmi : poudre lumineuse, sucre, œil d\'araignée, fiole en verre, poudre à canon, bâton',
       'Potion en cours de consommation : rarement lâchée telle quelle'
     ],
-    note: 'Meilleure source renouvelable de poudre de redstone et de poudre lumineuse sans minage — base des fermes à sorcières en hutte de marais.'
+    note: 'La redstone tombe à tous les coups : c\'est la meilleure source renouvelable sans minage, et la raison d\'être des fermes à sorcières en hutte de marais.'
   },
   {
     nom: 'Noyé (Drowned)', cat: 'hostile',
@@ -230,7 +231,10 @@ var DROPS = [
     nom: 'Warden', cat: 'hostile',
     tags: [{ txt: 'Cité antique', cls: 'purple' }, { txt: 'Danger extrême', cls: 'red' }],
     ou: 'Cité antique (deep dark), invoqué par 3 alertes de « shrieker » à sculk. Ne peut pas apparaître naturellement autrement.',
-    drops: ['Éclat d\'écho ×1 (100 %) — 8 éclats + 1 cœur de la mer = Boussole de récupération'],
+    drops: [
+      'Catalyseur de sculk ×1 — c\'est son SEUL butin',
+      'Il ne lâche AUCUN éclat d\'écho : ceux-ci se trouvent uniquement dans les coffres de la cité antique. Inutile de le combattre pour eux'
+    ],
     note: 'Il est aveugle et chasse aux vibrations. Accroupissez-vous, jetez une boule de neige pour créer un leurre sonore, et fuyez : il ne peut pas être vaincu efficacement en équipement standard.'
   },
 
@@ -318,7 +322,8 @@ var DROPS = [
     tags: [{ txt: 'Cité de l\'End', cls: 'purple' }, { txt: '5 XP', cls: 'gold' }],
     ou: 'Cités de l\'End, sur les murs et les tours.',
     drops: [
-      'Carapace de shulker ×0–1 (50 %, jusqu\'à 100 % avec Butin III) — 2 carapaces + 1 coffre = boîte de shulker'
+      'Carapace de shulker ×0–1 : 50 % sans enchantement, 56,25 % avec Butin I, puis +6,25 % par niveau — soit 68,75 % au maximum avec Butin III',
+      '2 carapaces + 1 coffre = boîte de shulker'
     ],
     note: 'La boîte de shulker garde son contenu quand on la casse : c\'est LE conteneur portable du jeu. Visez 6+ carapaces par voyage.'
   },
@@ -544,7 +549,7 @@ var DROPS = [
     tags: [{ txt: 'Pioche en fer+', cls: 'gold' }, { txt: 'Y -16', cls: 'gold' }],
     ou: 'Y -64 à +32, pic à Y = -16. Dans les mesas / badlands : gisements énormes entre Y 32 et 256, à ciel ouvert.',
     drops: ['Or brut ×1 (×2–4 avec Fortune III)'],
-    note: 'Le Nether en regorge (minerai d\'or du Nether, minable à la pioche en fer) : chaque bloc donne 2–6 pépites.'
+    note: 'Le Nether en regorge, et son minerai d\'or ne demande AUCUN palier d\'outil : une pioche en bois suffit, et chaque bloc donne 2–6 pépites.'
   },
   {
     nom: 'Minerai de redstone', cat: 'bloc',
@@ -807,29 +812,32 @@ var MINERAIS = [
   ['Diamant',            'Y -64 → 16 (pic Y -59)', 'Pioche en fer',     'Diamant ×1 (Fortune ×2–4)',       'Plus fréquent exposé à l\'air'],
   ['Émeraude',           'Y -16 → 320 (pic Y 236)', 'Pioche en fer',    'Émeraude ×1',                     'Montagnes UNIQUEMENT'],
   ['Quartz du Nether',   'Nether Y 10 → 117',      'Pioche en bois',    'Quartz ×1 (Fortune ×4)',          'Très abondant, deltas de basalte'],
-  ['Or du Nether',       'Nether, tout Y',         'Pioche en fer',     'Pépites d\'or ×2–6',              'Rend les piglins hostiles si vous minez'],
+  ['Or du Nether',       'Nether, tout Y',         'Pioche en bois',    'Pépites d\'or ×2–6',              'Aucun palier d\'outil requis — minable dès le premier jour'],
   ['Débris antiques',    'Nether Y 8 → 119 (pic 15)', 'Pioche en diamant', 'Débris ×1',                  'Jamais exposé à l\'air — TNT ou lits'],
   ['Améthyste',          'Y -64 → 30 (géodes)',    'Toute pioche',      'Éclats ×4 (stade 4 uniquement)',  'Repousse : ressource renouvelable']
 ];
 
-/* ---------- Troc avec les piglins (1 lingot d'or lancé) ---------- */
+/* ---------- Troc avec les piglins (1 lingot d'or lancé) ----------
+   Table reprise telle quelle de gameplay/piglin_bartering.json (26.2) :
+   19 résultats possibles, pour un total de poids de 469. */
 var TROC = [
-  ['Bottes en fer enchantées (Marche aquatique)', '~2,2 %', '1'],
-  ['Livre enchanté (Marche aquatique)',           '~2,2 %', '1'],
-  ['Pioche en fer enchantée',                     '~2,2 %', '1'],
-  ['Fiole d\'eau splash',                         '~2,2 %', '1'],
-  ['Perle de l\'Ender',                           '~4,7 %', '2–4'],
-  ['Ficelle',                                     '~4,7 %', '3–9'],
-  ['Fragment de quartz du Nether',                '~4,7 %', '5–12'],
-  ['Obsidienne',                                  '~4,0 %', '1'],
-  ['Obsidienne pleurante (crying obsidian)',      '~4,7 %', '1–3'],
-  ['Fer',                                         '~4,7 %', '10–36'],
-  ['Chaussures / soul sand',                      '~5,5 %', '2–8'],
-  ['Sable des âmes',                              '~5,5 %', '2–8'],
-  ['Briquet',                                     '~5,5 %', '1'],
-  ['Gravier',                                     '~5,5 %', '8–16'],
-  ['Cuir',                                        '~5,5 %', '2–4'],
-  ['Verrue du Nether',                            '~5,5 %', '2–8'],
-  ['Brique du Nether',                            '~7,1 %', '2–8'],
-  ['Chair putréfiée',                             '~7,1 %', '2–8']
+  ['Obsidienne',                              '8,53 %', '1'],
+  ['Obsidienne pleurante',                    '8,53 %', '1–3'],
+  ['Boule de feu',                            '8,53 %', '1'],
+  ['Cuir',                                    '8,53 %', '2–4'],
+  ['Sable des âmes',                          '8,53 %', '2–8'],
+  ['Brique du Nether',                        '8,53 %', '2–8'],
+  ['Flèches spectrales',                      '8,53 %', '6–12'],
+  ['Gravier',                                 '8,53 %', '8–16'],
+  ['Pierre noire',                            '8,53 %', '8–16'],
+  ['Ficelle',                                 '4,26 %', '3–9'],
+  ['Quartz du Nether',                        '4,26 %', '5–12'],
+  ['Fiole d\'eau',                            '2,13 %', '1'],
+  ['Pépites de fer',                          '2,13 %', '10–36'],
+  ['Perles de l\'Ender',                      '2,13 %', '2–4'],
+  ['Ghast desséché',                          '2,13 %', '1'],
+  ['Bottes en fer (Vitesse des âmes)',        '1,71 %', '1'],
+  ['Potion de Résistance au feu',             '1,71 %', '1'],
+  ['Potion jetable de Résistance au feu',     '1,71 %', '1'],
+  ['Livre enchanté (Vitesse des âmes)',       '1,07 %', '1']
 ];

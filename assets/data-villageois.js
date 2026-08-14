@@ -8,11 +8,12 @@ var METIERS = [
   {
     nom: 'Bibliothécaire', cat: 'essentiel',
     tags: [{ txt: 'Lutrin', cls: 'gold' }, { txt: 'Le plus rentable', cls: 'ok' }],
-    ou: 'Bloc de métier : le lutrin (3 dalles de bois + 1 bibliothèque).',
+    ou: 'Bloc de métier : le lutrin (4 dalles de bois + 1 bibliothèque).',
     drops: [
       'ACHÈTE : papier (24 → 1 émeraude), livres, encre',
       'VEND : livres enchantés — n\'importe lequel, y compris Raccommodage, Efficacité V, Fortune III, Toucher de soie',
-      'VEND aussi : lanternes, verre, boussole, plume, horloge, nom d\'objet'
+      'VEND aussi : bibliothèque dès le niveau novice (9 émeraudes), lanternes, verre, horloge, et des bougies au niveau maître',
+      'Il ne vend NI plume NI étiquette : l\'étiquette est passée au marchand ambulant'
     ],
     note: 'LE métier à installer en priorité. Une ferme à canne à sucre lui fournit du papier à l\'infini, et il vous rend des livres enchantés impossibles à obtenir autrement.'
   },
@@ -34,7 +35,8 @@ var METIERS = [
     drops: [
       'ACHÈTE : charbon, fer, lave en seau, diamants',
       'VEND : armures en fer, en chaîne, puis en DIAMANT — souvent enchantées',
-      'Au niveau expert : plastron et jambières en diamant enchantés pour 12 à 19 émeraudes'
+      'Niveau expert : bottes (8 émeraudes) puis jambières (14) en diamant',
+      'Niveau maître : le plastron en diamant (16 émeraudes) — c\'est le dernier palier, pas l\'expert'
     ],
     note: 'Acheter une armure en diamant enchantée coûte quelques piles d\'émeraudes : c\'est infiniment plus rapide que de miner, enchanter et espérer.'
   },
@@ -45,7 +47,7 @@ var METIERS = [
     drops: [
       'ACHÈTE : charbon, fer, diamants',
       'VEND : pioche, hache, pelle en fer puis en diamant, souvent enchantées',
-      'Vend aussi des cloches au niveau maître'
+      'La CLOCHE (36 émeraudes) arrive dès le niveau apprenti, et elle est commune aux trois forgerons'
     ],
     note: 'Une pioche en diamant Efficacité IV + Solidité III achetée d\'un coup fait gagner des heures d\'enchantement aléatoire.'
   },
@@ -64,8 +66,8 @@ var METIERS = [
     tags: [{ txt: 'Alambic', cls: 'purple' }],
     ou: 'Bloc de métier : l\'alambic (1 bâton de Blaze + 3 pierres).',
     drops: [
-      'ACHÈTE : chair putréfiée (32 → 1 émeraude !), or, lapis, perles de l\'Ender rarement',
-      'VEND : redstone, lapis, perles de l\'Ender, poudre lumineuse, bouteille d\'expérience'
+      'ACHÈTE : chair putréfiée (32 → 1 émeraude !), or',
+      'VEND : redstone, LAPIS, PERLES DE L\'ENDER (≈5 émeraudes l\'unité), poudre lumineuse, bouteille d\'expérience'
     ],
     note: 'Il achète la chair putréfiée : une ferme à zombies devient directement une source d\'émeraudes. Et il vend des perles de l\'Ender, ce qui évite la chasse aux endermen.'
   },
@@ -168,7 +170,9 @@ var MECANIQUES = [
   ['Remise permanente par soin', 'Zombifier puis soigner un villageois',
    'Ses prix chutent définitivement, souvent à 1 émeraude. C\'est la meilleure optimisation du jeu — voir la procédure ci-dessous.'],
   ['Reproduction', '3 pains, 12 carottes, 12 betteraves ou 12 pommes de terre',
-   'Il faut aussi un lit libre accessible par chemin. Deux villageois nourris et disposant de lits font un bébé toutes les ~5 minutes.']
+   'Il faut aussi un lit libre accessible par chemin. Deux villageois nourris et disposant de lits font un bébé toutes les ~5 minutes.'],
+  ['La variante de biome compte', 'Un villageois du désert n\'a pas les mêmes offres qu\'un villageois de taïga',
+   'Certaines offres (cartes de village, bannières, barques) dépendent désormais du biome d\'origine du villageois. Pour une offre précise, il faut parfois aller chercher le bon village.']
 ];
 
 /* Procédure de soin */

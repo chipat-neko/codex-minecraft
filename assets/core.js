@@ -852,17 +852,117 @@ function buildToc(tocId, list, groupes) {
   maj();
 }
 
-/* Raccourci « / » pour aller à la recherche */
+/* -----------------------------------------------------------
+   13. Recherche globale (toutes les pages à la fois)
+   ---------------------------------------------------------------
+   L'index est construit une seule fois, à la demande, à partir des
+   jeux de données déjà chargés PLUS un index compact des autres
+   pages (assets/index-global.js, généré par tools/indexer.js).
+   ----------------------------------------------------------- */
+
+var IDX_GLOBAL = null;
+
+function construireIndex() {
+  if (IDX_GLOBAL) { return IDX_GLOBAL; }
+  IDX_GLOBAL = (typeof INDEX_GLOBAL !== 'undefined') ? INDEX_GLOBAL.slice() : [];
+  for (var i = 0; i < IDX_GLOBAL.length; i++) { IDX_GLOBAL[i].q = norm(IDX_GLOBAL[i].n + ' ' + (IDX_GLOBAL[i].d || '')); }
+  return IDX_GLOBAL;
+}
+
+function ouvrirRechercheGlobale() {
+  var d = document.getElementById('rg');
+  if (d) { d.classList.add('open'); document.getElementById('rg-input').focus(); return; }
+
+  d = document.createElement('div');
+  d.id = 'rg';
+  d.className = 'rg open';
+  d.innerHTML =
+    '<div class="rg-boite" role="dialog" aria-label="Recherche sur tout le site">' +
+    '<input id="rg-input" type="search" placeholder="Chercher dans les 12 catalogues…" autocomplete="off">' +
+    '<div id="rg-res" class="rg-res"></div>' +
+    '<p class="rg-aide"><kbd>↑</kbd><kbd>↓</kbd> naviguer · <kbd>Entrée</kbd> ouvrir · <kbd>Échap</kbd> fermer</p>' +
+    '</div>';
+  document.body.appendChild(d);
+
+  var input = document.getElementById('rg-input');
+  var res = document.getElementById('rg-res');
+  var courant = -1;
+
+  function chercher() {
+    var q = norm(input.value.trim());
+    if (q.length < 2) {
+      res.innerHTML = '<p class="rg-vide">Tapez au moins deux lettres.</p>';
+      courant = -1;
+      return;
+    }
+    var idx = construireIndex();
+    var trouves = [];
+    for (var i = 0; i < idx.length && trouves.length < 60; i++) {
+      var pos = idx[i].q.indexOf(q);
+      if (pos !== -1) { trouves.push({ e: idx[i], score: (pos === 0 ? 0 : 1) + (norm(idx[i].n).indexOf(q) === -1 ? 2 : 0) }); }
+    }
+    trouves.sort(function (a, b) { return a.score - b.score; });
+    if (!trouves.length) {
+      res.innerHTML = '<p class="rg-vide">Aucun résultat.</p>';
+      courant = -1;
+      return;
+    }
+    res.innerHTML = trouves.map(function (t, k) {
+      var e = t.e;
+      return '<a class="rg-item' + (k === 0 ? ' sel' : '') + '" href="' + esc(e.p) + (e.a ? '#' + esc(e.a) : '') + '">' +
+        '<span class="rg-cat">' + esc(e.c) + '</span>' +
+        '<span class="rg-nom">' + esc(e.n) + '</span>' +
+        (e.d ? '<span class="rg-desc">' + esc(e.d.slice(0, 90)) + '</span>' : '') + '</a>';
+    }).join('');
+    courant = 0;
+  }
+
+  function bouger(pas) {
+    var items = res.querySelectorAll('.rg-item');
+    if (!items.length) { return; }
+    if (courant >= 0) { items[courant].classList.remove('sel'); }
+    courant = (courant + pas + items.length) % items.length;
+    items[courant].classList.add('sel');
+    items[courant].scrollIntoView({ block: 'nearest' });
+  }
+
+  input.addEventListener('input', chercher);
+  input.addEventListener('keydown', function (ev) {
+    if (ev.key === 'ArrowDown') { ev.preventDefault(); bouger(1); }
+    else if (ev.key === 'ArrowUp') { ev.preventDefault(); bouger(-1); }
+    else if (ev.key === 'Enter') {
+      var sel = res.querySelector('.rg-item.sel');
+      if (sel) { ev.preventDefault(); location.href = sel.getAttribute('href'); }
+    } else if (ev.key === 'Escape') { fermer(); }
+  });
+  d.addEventListener('click', function (ev) { if (ev.target === d) { fermer(); } });
+  function fermer() { d.classList.remove('open'); }
+
+  chercher();
+  input.focus();
+}
+
+/* Raccourcis clavier :
+   « / » cible la recherche de la page ; Ctrl+K ouvre la recherche globale. */
 document.addEventListener('keydown', function (ev) {
-  if (ev.key === '/' && document.activeElement.tagName !== 'INPUT') {
+  var dansChamp = /^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName);
+  if ((ev.ctrlKey || ev.metaKey) && ev.key.toLowerCase() === 'k') {
+    ev.preventDefault();
+    ouvrirRechercheGlobale();
+    return;
+  }
+  if (ev.key === '/' && !dansChamp) {
     var s = document.querySelector('.search');
     if (s) { ev.preventDefault(); s.focus(); }
+    else { ev.preventDefault(); ouvrirRechercheGlobale(); }
   }
 });
 
 /* Surligne l'onglet actif et installe le bouton de thème */
 document.addEventListener('DOMContentLoaded', function () {
   initTheme();
+  var rg = document.getElementById('rg-btn');
+  if (rg) { rg.addEventListener('click', ouvrirRechercheGlobale); }
   var page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   var links = document.querySelectorAll('.nav a');
   for (var i = 0; i < links.length; i++) {
