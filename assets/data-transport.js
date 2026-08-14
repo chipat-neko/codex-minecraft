@@ -347,5 +347,262 @@ var TRANSPORT = [
       'Trident et élytre — sous la pluie, la propulsion sert de décollage immédiat'
     ],
     note: 'La Propulsion aquatique est le seul déplacement rapide vraiment gratuit et illimité : sur un lac ou sous l\'averse, on avance par bonds sans consommer la moindre fusée.'
+  },
+
+  /* ---------------- AIR ---------------- */
+  {
+    nom: 'Élytre : durabilité et entretien', cat: 'air',
+    tags: [{ txt: '432 points', cls: 'purple' }, { txt: 'Cité de l\'End', cls: '' }],
+    ou: 'L\'élytre ne casse jamais vraiment : elle s\'arrête à 1 point de durabilité et refuse simplement de s\'ouvrir jusqu\'à réparation.',
+    drops: [
+      'Où la trouver — cadre d\'objet d\'un vaisseau de cité de l\'End, gardé par un shulker',
+      'Durabilité — 432 points, environ un point par seconde de vol',
+      'Membrane de phantom — sur l\'enclume, chacune en restaure environ un quart',
+      'Raccommodage — l\'enchantement le plus rentable du jeu sur une élytre',
+      'Emplacement — elle occupe la place du plastron : aucune armure de torse en vol',
+      'Aucune protection — l\'élytre n\'amortit ni la chute ni les coups',
+      'Panne sèche — sans fusée ni relief, il ne reste que la marche'
+    ],
+    note: 'Avec Raccommodage et une réserve d\'expérience, une élytre ne se répare plus jamais à la main. Sans lui, glissez deux membranes de phantom dans le sac à chaque départ.'
+  },
+  {
+    nom: 'Fusées de feu d\'artifice', cat: 'air',
+    tags: [{ txt: 'Carburant du vol', cls: 'gold' }],
+    ou: 'La fusée est le seul carburant du vol : sa fabrication décide de la distance que vous pouvez parcourir dans une partie.',
+    drops: [
+      'Fabrication — 1 papier et 1 à 3 poudres à canon donnent 3 fusées',
+      'Durée de poussée — plus il y a de poudre, plus la poussée dure longtemps',
+      'Vitesse obtenue — de l\'ordre de 30 blocs par seconde en poussée continue',
+      'Consommation — une fusée toutes les quelques secondes en vol soutenu',
+      'Étoile de feu d\'artifice — une fusée qui en contient vous blesse en vol',
+      'Production — canne à sucre plus ferme à creepers rendent les fusées gratuites',
+      'Réserve — une pile de 64 traverse facilement plusieurs milliers de blocs'
+    ],
+    note: 'Ne décollez jamais au-dessus d\'un océan avec moins d\'une pile de fusées : une élytre à sec au milieu de l\'eau, c\'est plusieurs minutes de nage et souvent un noyé au bout.'
+  },
+  {
+    nom: 'Décoller sans montagne', cat: 'air',
+    tags: [{ txt: 'Sol plat', cls: 'ok' }],
+    ou: 'On peut lancer un vol depuis un terrain parfaitement plat : il suffit d\'un tremplin, d\'une averse ou d\'une poussée violente.',
+    drops: [
+      'Saut et fusée — sautez, ouvrez l\'élytre en l\'air, tirez une fusée aussitôt',
+      'Tour de décollage — 20 à 30 blocs suffisent pour partir confortablement',
+      'Trident et Propulsion — sous la pluie, il vous met en l\'air sans rien construire',
+      'Charge de vent — lancée à ses pieds, elle projette vers le haut',
+      'Colonne de bulles — un ascenseur à bulles sert aussi de rampe de lancement',
+      'Canon à propulsion — TNT ou pistons ; il exige Protection contre les explosions IV',
+      'Erreur classique — ouvrir l\'élytre trop près du sol et la refermer aussitôt'
+    ],
+    note: 'Une tour de décollage de 25 blocs à côté du portail est l\'aménagement le plus rentable d\'une base : chaque départ devient un vol immédiat au lieu d\'une marche jusqu\'au premier relief.'
+  },
+  {
+    nom: 'Vol plané : altitude, angle et distance', cat: 'air',
+    tags: [{ txt: 'Sans fusée', cls: 'cyan' }],
+    ou: 'Sans fusée, le vol est un échange : on convertit de la hauteur en distance, et l\'angle décide du taux de change.',
+    drops: [
+      'Principe — chaque bloc d\'altitude perdu se transforme en plusieurs blocs parcourus',
+      'Angle optimal — un piqué très léger, presque à l\'horizontale',
+      'Piqué franc — vitesse maximale, mais l\'altitude fond à vue d\'œil',
+      'Redressement — un piqué suivi d\'une remontée regagne un peu de hauteur',
+      'Altitude de croisière — plus haut on part, plus loin on va sans dépenser une fusée',
+      'Dégâts cinétiques — percuter un mur en vol blesse proportionnellement à la vitesse',
+      'Nether — le plafond de roche rend le vol à la fusée particulièrement dangereux'
+    ],
+    note: 'Depuis un sommet de montagne, un plané sans une seule fusée franchit plusieurs centaines de blocs. Regardez l\'altimètre avant de sauter : c\'est le Y de départ qui décide de la portée.'
+  },
+  {
+    nom: 'Atterrir sans mourir', cat: 'air',
+    tags: [{ txt: 'Cause n° 1 de mort en vol', cls: 'red' }],
+    ou: 'L\'élytre ne protège de rien : la fin du vol tue bien plus souvent que le vol lui-même.',
+    drops: [
+      'Règle de base — l\'élytre n\'annule aucun dégât de chute',
+      'Eau — un plan d\'eau annule tout, même sur un seul bloc de profondeur',
+      'Seau d\'eau — posé au sol juste avant l\'impact, il fait exactement la même chose',
+      'Chute lente — la potion supprime totalement les dégâts de chute',
+      'Approche rasante — arriver à plat et frôler le sol efface la vitesse verticale',
+      'Fusée de rattrapage — tirée vers le haut, elle sauve une approche trop basse',
+      'Ballot de foin — au pied d\'une tour, il absorbe l\'essentiel de la chute'
+    ],
+    note: 'La mort classique à l\'élytre n\'est pas l\'atterrissage mais le mur : à 30 blocs/s, une colline prise de face fait plus de dégâts qu\'une chute de 20 blocs. Volez au-dessus du relief, jamais dedans.'
+  },
+
+  /* ---------------- ORIENTATION ---------------- */
+  {
+    nom: 'Coordonnées et écran de débogage', cat: 'orientation',
+    tags: [{ txt: 'F3', cls: '' }, { txt: 'Gratuit', cls: 'ok' }],
+    ou: 'Trois nombres suffisent à ne plus jamais être perdu ; encore faut-il savoir dans quel sens ils augmentent.',
+    drops: [
+      'XYZ — X est l\'axe est-ouest, Z l\'axe nord-sud, Y l\'altitude',
+      'Sens de lecture — X augmente vers l\'est, Z augmente vers le sud',
+      'Ligne Facing — elle donne la direction regardée, bien plus fiable que le soleil',
+      'Repères d\'altitude — la mer vers Y 62, le diamant le plus dense vers Y −59',
+      'F3 + G — affiche les limites de chunks, utile pour aligner une ferme',
+      'F3 + C — copie une commande de téléportation vers votre position',
+      'Conversion Nether — divisez X et Z par 8 pour trouver le point correspondant'
+    ],
+    note: 'Notez trois coordonnées et le reste suit : la base, le portail, le dernier point d\'intérêt. Un livre et une plume dans le coffre d\'entrée valent toutes les cartes du monde.'
+  },
+  {
+    nom: 'Boussole, magnétite et boussole de réapparition', cat: 'orientation',
+    tags: [{ txt: 'Trois aiguilles', cls: 'gold' }],
+    ou: 'Trois boussoles différentes, qui pointent trois choses différentes : le spawn du monde, un bloc que vous avez posé, ou votre dernière mort.',
+    drops: [
+      'Boussole — 4 lingots de fer et 1 redstone ; elle vise le point d\'apparition du monde',
+      'Hors de l\'Overworld — l\'aiguille tourne dans le vide, au Nether comme dans l\'End',
+      'Magnétite — 1 lingot de netherite et 8 briques de pierre ciselées',
+      'Boussole magnétique — utilisez une boussole sur une magnétite, elle vise ce bloc',
+      'Portée — elle fonctionne partout, tant que vous êtes dans la dimension de la magnétite',
+      'Boussole de réapparition — 8 éclats d\'écho et 1 boussole (recovery compass)',
+      'Éclat d\'écho — dans les coffres des cités antiques, et nulle part ailleurs'
+    ],
+    note: 'Une magnétite dans le hall et une boussole magnétique en poche remplacent toute la signalétique : où que vous soyez dans la dimension, l\'aiguille montre la maison.'
+  },
+  {
+    nom: 'Carte, agrandissement et verrouillage', cat: 'orientation',
+    tags: [{ txt: '5 niveaux de zoom', cls: 'blue' }],
+    ou: 'Une carte ne dessine que ce que vous avez parcouru en la tenant ouverte : c\'est un carnet de terrain, pas un satellite.',
+    drops: [
+      'Carte vierge — 8 papiers autour d\'une boussole',
+      'Premier usage — elle se centre définitivement là où vous l\'ouvrez',
+      'Cinq niveaux — de 128 × 128 blocs jusqu\'à 2 048 × 2 048 blocs',
+      'Agrandir — 1 papier à la table de cartographie, ou 8 sur l\'établi',
+      'Copier — carte plus carte vierge ; les copies se mettent à jour ensemble',
+      'Verrouiller — une vitre à la table de cartographie fige le dessin pour toujours',
+      'Remplissage — seule la zone survolée ou parcourue carte en main apparaît'
+    ],
+    note: 'Neuf cartes de niveau maximal alignées en 3 × 3 couvrent 6 144 blocs de côté : c\'est le mur de contrôle d\'un monde entier. Remplissez-les d\'un seul vol en quadrillage à l\'élytre.'
+  },
+  {
+    nom: 'Marqueurs de bannière et murs de cartes', cat: 'orientation',
+    tags: [{ txt: 'Index du monde', cls: 'purple' }],
+    ou: 'Le seul moyen d\'inscrire un nom sur une carte, et donc de transformer un dessin en index consultable.',
+    drops: [
+      'Marqueur — posez une bannière, puis cliquez dessus avec la carte en main',
+      'Couleur et nom — le marqueur reprend la couleur de la bannière et son nom',
+      'Renommer — une bannière nommée à l\'enclume affiche son nom sur la carte',
+      'Effacer — cassez la bannière, puis rouvrez la carte sur place',
+      'Cadre d\'objet — une carte encadrée affiche un repère vert à sa propre position',
+      'Mur de cartes — neuf cartes agrandies dans neuf cadres, alignées sans trou',
+      'Limite — un marqueur n\'apparaît que sur la carte qui couvre sa zone'
+    ],
+    note: 'Un marqueur par découverte (village, avant-poste, portail, mine) et la carte devient la mémoire du monde. C\'est la seule qui ne dépende pas de la vôtre après trois semaines sans jouer.'
+  },
+  {
+    nom: 'Repères bâtis et signalétique', cat: 'orientation',
+    tags: [{ txt: 'Visible de loin', cls: 'gold' }],
+    ou: 'Un monde bien balisé se parcourt sans carte : ce sont vos constructions qui font office de panneaux indicateurs.',
+    drops: [
+      'Balise — son rayon monte jusqu\'au ciel et se voit à toute la distance d\'affichage',
+      'Tour repère — un matériau tranché sur l\'horizon vaut mieux qu\'une belle tour discrète',
+      'Torches d\'un seul côté — dans une grotte, elles indiquent la sortie au retour',
+      'Panneau de portail — coordonnées des deux côtés, Overworld et Nether',
+      'Chemins — un sentier de gravier ou de chemin de terre relie ce qui compte',
+      'Nuit — une lanterne tous les 8 blocs empêche les monstres et sert de balisage',
+      'Raccourci du Nether — le meilleur repère reste un tunnel : voir « Réseau de transport du Nether » (Usines)'
+    ],
+    note: 'Chaque construction visible de loin économise une carte. Un pilier de quartz de 40 blocs au-dessus de la base coûte une heure et se rentabilise à chaque retour d\'expédition.'
+  },
+  {
+    nom: 'Retrouver sa base après une mort', cat: 'orientation',
+    tags: [{ txt: '5 minutes', cls: 'red' }],
+    ou: 'Le butin ne dépend pas de votre courage mais d\'une seule variable : la distance que vous pouvez couvrir en cinq minutes.',
+    drops: [
+      'Compte à rebours — 5 minutes avant la disparition des objets au sol',
+      'Chunks déchargés — le compteur est figé tant que personne n\'est à proximité',
+      'Boussole de réapparition — elle pointe le dernier lieu de mort, dans la bonne dimension',
+      'Lit posé en chemin — un clic droit suffit à enregistrer le point de réapparition',
+      'Ancre de réapparition — au Nether, la seule solution ; elle brûle de la pierre lumineuse',
+      'Kit de secours — un coffre près du lit avec armure, nourriture, pioche et perles',
+      'Lave et vide — inutile de courir, tout a déjà disparu'
+    ],
+    note: 'Le vrai remède est en amont : un lit tous les 500 blocs et un coffre de secours à côté. Repartir nu et sans point de réapparition proche, c\'est perdre le second tas en allant chercher le premier.'
   }
 ];
+
+/* ============================================================
+   Comparatif des vitesses — du plus lent au plus rapide
+   ---------------------------------------------------------------
+   Les valeurs certaines sont chiffrées ; les autres sont données
+   en ordre de grandeur ou en comparaison relative.
+   ============================================================ */
+var COMPARATIF_VITESSE = [
+  ['Montée à l\'échelle', 'Environ 2 blocs/s vers le haut', '7 bâtons pour 3 échelles',
+   'Accès fixes et puits courts ; l\'échafaudage monte plus vite'],
+  ['Marche sur sable des âmes', 'Nettement plus lent que la marche', 'Rien, c\'est subi',
+   'Nulle part : contournez, ou enchantez des bottes en Âme rapide'],
+  ['Strider sur la lave', 'Lent mais imperturbable', 'Selle et champignon tordu au bout d\'un bâton',
+   'Traverser un lac de lave sans construire de pont'],
+  ['Nage en surface', 'Plus lent que la marche', 'Rien',
+   'Quelques dizaines de blocs ; au-delà, prenez un bateau'],
+  ['Marche', '4,317 blocs/s', 'Rien',
+   'Le seul déplacement qui ne coûte aucune nourriture'],
+  ['Cheval du bas de la fourchette', 'Environ 4,8 blocs/s', 'Une selle',
+   'À remplacer dès qu\'un meilleur cheval passe à portée'],
+  ['Sprint', '5,612 blocs/s', 'De la nourriture en réserve',
+   'Déplacement courant dès que la barre de faim le permet'],
+  ['Sprint sauté', 'De l\'ordre de 7 blocs/s', 'Beaucoup de nourriture',
+   'Trajets courts quand la faim n\'est pas un problème'],
+  ['Sprint avec Rapidité II', 'Environ 40 % de plus que le sprint', 'Verrue du Nether, sucre, pierre lumineuse',
+   'Chantier, fuite, ou longue exploration à pied'],
+  ['Nage avec Grâce du dauphin', 'Plus rapide qu\'un sprint', 'Trouver des dauphins et rester près d\'eux',
+   'Longer une côte ; l\'effet ne marche pas en bateau'],
+  ['Wagonnet sur rails motorisés', '8 blocs/s au maximum', 'Environ 375 lingots de fer pour 1 000 blocs, plus l\'or',
+   'Montées, trajets internes et fret automatique'],
+  ['Bateau sur l\'eau', 'De l\'ordre de 8 blocs/s', '5 planches',
+   'Le meilleur rapport vitesse/prix de tout le début de partie'],
+  ['Bon cheval', 'Jusqu\'à 14,23 blocs/s', 'Une selle et de l\'élevage à la carotte dorée',
+   'Grands espaces dégagés, avant d\'avoir une élytre'],
+  ['Élytre en vol plané', 'Dépend de l\'altitude de départ', 'Une élytre, rien de plus',
+   'Descendre d\'un sommet, franchir un océan sans fusée'],
+  ['Élytre et fusées', 'De l\'ordre de 30 blocs/s', 'Élytre, papier et poudre à canon en quantité',
+   'Le déplacement de référence en fin de partie'],
+  ['Bateau sur glace bleue', 'Environ 70 blocs/s, environ 40 sur glace compactée', '81 glaces par bloc, ou récolte en océan gelé',
+   'Liaison permanente entre deux points connus'],
+  ['Élytre et fusées au Nether', '8 blocs de surface parcourus par bloc réel', 'Un tunnel sécurisé et une réserve de fusées',
+   'Traverser un monde déjà cartographié'],
+  ['Bateau sur glace bleue au Nether', 'Le déplacement le plus rapide du jeu', 'Un tunnel fermé et beaucoup de glace',
+   'Autoroute permanente entre deux bases très éloignées']
+];
+
+/* ============================================================
+   S'orienter — la bonne réaction et le réflexe à éviter
+   ============================================================ */
+var ORIENTATION = [
+  ['Perdu sans coordonnées',
+   'Monter en hauteur, repérer une côte ou un biome tranché, puis suivre la boussole qui pointe le point d\'apparition du monde',
+   'Marcher au hasard en changeant de cap : on tourne en rond sans s\'en rendre compte'],
+  ['Mort loin de la base',
+   'Repartir immédiatement avec un kit de secours, boussole de réapparition en main',
+   'Se rééquiper tranquillement : les objets disparaissent 5 minutes après le rechargement de la zone'],
+  ['Retrouver un portail du Nether',
+   'Diviser X et Z par 8, aller au point correspondant côté Nether et fouiller dans un rayon de 128 blocs',
+   'Rallumer un portail neuf juste à côté : il se reliera à l\'ancien et brouillera tout le réseau'],
+  ['Cartographier une région',
+   'Survoler la zone en quadrillage, carte agrandie tenue en main, puis la verrouiller à la table de cartographie',
+   'Explorer carte rangée dans le sac : une carte fermée ne se remplit jamais'],
+  ['Marquer un lieu à revoir',
+   'Poser une bannière nommée à l\'enclume et cliquer dessus avec la carte pour créer un marqueur',
+   'Se fier à sa mémoire ou à un panneau que la végétation aura recouvert'],
+  ['Traverser un océan',
+   'Partir en bateau à cap constant, avec du bois de rechange, de la nourriture et un lit posé avant le départ',
+   'Traverser à la nage : c\'est plus lent que la marche et un seul noyé suffit à tout perdre'],
+  ['Explorer le Nether sans se perdre',
+   'Creuser un couloir droit et poser un panneau de coordonnées à chaque embranchement',
+   'Suivre les grottes naturelles en espérant reconnaître le chemin au retour'],
+  ['Descendre dans une grotte profonde',
+   'Poser les torches toujours du même côté à l\'aller : elles montrent la sortie au retour',
+   'Éclairer au hasard : tous les embranchements finissent par se ressembler'],
+  ['Chercher une structure lointaine',
+   'Voler en ligne droite à altitude constante, un axe après l\'autre, en notant les coordonnées explorées',
+   'Zigzaguer : on repasse au-dessus des mêmes chunks sans jamais élargir la zone'],
+  ['Rentrer à la nuit tombée',
+   'Viser le rayon d\'une balise ou une tour éclairée repérable de loin',
+   'Compter sur le clair de lune et affronter tout ce qui apparaît en chemin'],
+  ['Se repérer dans l\'End',
+   'Noter les coordonnées du portail de sortie avant de partir vers les îles, et emporter des perles',
+   'Se lancer vers le vide sans perle ni coordonnée : il n\'y a aucun repère naturel'],
+  ['Fonder une base secondaire',
+   'Noter ses coordonnées, poser un lit, une magnétite et un portail relié au réseau existant',
+   'La bâtir sans lien avec le réseau : une base qu\'on ne rejoint pas ne sert jamais']
+];
+

@@ -1103,7 +1103,8 @@ var NAVIGATION = [
   { titre: 'Construire', liens: [
     ['plans.html', 'Plans de construction'],
     ['blocs.html', 'Blocs de construction'],
-    ['deco.html', 'Décoration']
+    ['deco.html', 'Décoration'],
+    ['transport.html', 'Transport & orientation']
   ] },
   { titre: 'Automatiser', liens: [
     ['usines.html', 'Usines & fermes'],

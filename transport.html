@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transport &amp; orientation — Codex Minecraft</title>
+<meta name="description" content="Se déplacer et s'orienter dans Minecraft Java : montures, rails, bateau sur glace, élytre, perles de l'Ender, cartes et coordonnées.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-cube"></span>
+      <span>Codex Minecraft<small>Java Edition</small></span>
+    </a>
+    <nav class="nav"></nav>
+    <button id="rg-btn" class="icon-btn" title="Rechercher sur tout le site (Ctrl+K)" aria-label="Recherche globale">🔍</button>
+    <button id="theme-btn" class="icon-btn" title="Changer de thème" aria-label="Changer de thème">☀️</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Catalogue</span>
+    <h1>Transport &amp; orientation</h1>
+    <p>Se déplacer vite et savoir où l'on est. Du sprint au vol à l'élytre, en passant par
+      l'autoroute de glace et le réseau du Nether — avec, pour chaque moyen,
+      <b>ce qu'il coûte</b> et <b>quand il vaut le détour</b>.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <input id="q" class="search" type="search" placeholder="Rechercher un moyen de transport…  ( / )" autocomplete="off">
+      <span id="count" class="count"></span>
+    </div>
+    <div class="toolbar-row" id="chips" style="margin-top:10px">
+      <button class="chip on" data-cat="all">Tout</button>
+      <button class="chip" data-cat="fav">★ Favoris</button>
+      <button class="chip" data-cat="pied">À pied</button>
+      <button class="chip" data-cat="monture">Montures</button>
+      <button class="chip" data-cat="rail">Rails</button>
+      <button class="chip" data-cat="eau">Sur l'eau</button>
+      <button class="chip" data-cat="air">Dans les airs</button>
+      <button class="chip" data-cat="orientation">S'orienter</button>
+    </div>
+  </div>
+
+  <section class="print-host" style="margin-bottom:20px">
+    <div id="liste" class="grid g2"></div>
+    <div id="vide" class="empty" style="display:none">Rien trouvé. Essayez « élytre », « cheval », « glace », « carte »…</div>
+  </section>
+
+  <hr>
+
+  <section id="comparatif">
+    <h2>Combien ça va vite, combien ça coûte</h2>
+    <p class="lead">Classé du plus lent au plus rapide. Quand une vitesse exacte n'est pas certaine,
+      elle est donnée en ordre de grandeur plutôt qu'en chiffre faussement précis.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Moyen</th><th>Vitesse ou performance</th><th>Coût de mise en place</th><th>Quand le choisir</th></tr></thead>
+        <tbody id="tbl-vitesse"></tbody>
+      </table>
+    </div>
+    <div class="callout tip">
+      <b>Le vrai raccourci</b> — le <a href="usines.html#nether-hub">réseau du Nether</a> bat tout le reste :
+      un bloc parcouru là-bas en vaut huit en surface. Un tunnel de glace bleue parcouru en bateau,
+      dans le Nether, est le moyen de déplacement le plus rapide du jeu.
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="orientation">
+    <h2>Ne pas se perdre</h2>
+    <p class="lead">Douze situations et la bonne réaction pour chacune.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Situation</th><th>Ce qu'il faut faire</th><th>Ce qu'il faut éviter</th></tr></thead>
+        <tbody id="tbl-orientation"></tbody>
+      </table>
+    </div>
+    <div class="callout info">
+      <b>Sur les chiffres de cette page</b> — les vitesses exactes de plusieurs déplacements
+      (nage, plané à l'élytre, bateau sur glace) ne sont pas exposées dans les fichiers de données du jeu.
+      Elles sont donc données en ordre de grandeur, signalé comme tel, plutôt qu'avec une précision
+      qui ne serait pas vérifiable.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Codex Minecraft — guide de référence non officiel.</div>
+</footer>
+
+<script src="assets/index-global.js"></script>
+<script src="assets/couleurs.js"></script>
+<script src="assets/textures-libres/index.js"></script>
+<script src="assets/textures/index.js" onerror="void 0"></script>
+<script src="assets/core.js"></script>
+<script src="assets/data-transport.js"></script>
+<script>
+(function () {
+  var liste = document.getElementById('liste');
+  for (var i = 0; i < TRANSPORT.length; i++) { liste.appendChild(renderEntry(TRANSPORT[i])); }
+  fillTable('tbl-vitesse', COMPARATIF_VITESSE);
+  fillTable('tbl-orientation', ORIENTATION);
+  setupFilter({ container: 'liste', search: 'q', chips: 'chips', count: 'count', empty: 'vide' });
+}());
+</script>
+</body>
+</html>

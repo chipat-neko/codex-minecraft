@@ -1,7 +1,42 @@
 # Codex Minecraft
 
-Site statique de référence sur Minecraft Java Edition : drops et lieux d'apparition,
-recettes d'artisanat, plans de construction, usines et fermes automatiques.
+Site statique de référence sur Minecraft Java Edition : mécaniques du jeu, drops et lieux
+d'apparition, recettes, potions, enchantements, commerce, biomes, structures, blocs,
+décoration, transport, plans de construction et fermes automatiques.
+
+## Comment ce contenu est vérifié
+
+Le guide a d'abord été rédigé de mémoire. Il s'est ensuite avéré que **beaucoup d'affirmations
+étaient fausses** — des recettes infaisables, des objets qui n'existent pas, des succès qui
+envoyaient affronter le mauvais monstre. La méthode ci-dessous a été mise en place pour cela,
+et elle reste la bonne à suivre pour toute modification future.
+
+**La source de vérité est le `.jar` du jeu installé**, pas la mémoire ni un wiki. Il contient
+les recettes, les tables de butin, les enchantements, les échanges villageois, les succès et
+les biomes, tous en JSON lisible. Le fichier de langue `fr_fr.json`, lui, n'est pas dans le
+`.jar` : il se trouve dans `%APPDATA%\.minecraft\assets\objects\` via l'index
+`assets\indexes\*.json`.
+
+Trois règles pratiques, apprises à leurs dépens :
+
+1. **Ne jamais appliquer une correction sans la relire dans le JSON.** Sur les rapports d'audit
+   produits pendant cette session, plusieurs affirmations se sont révélées inexactes — un
+   superlatif sur un poids de table, un objet classé dans la mauvaise structure.
+2. **Un faux positif coûte plus cher qu'un oubli.** Un outil de vérification qui crie au loup
+   finit par être ignoré, et c'est alors qu'il laisse passer les vrais écarts. Quand une donnée
+   n'est pas déterminable, il vaut mieux l'écrire « inconnue » que de la deviner.
+3. **Certaines valeurs ne sont pas dans les données** : dégâts, durabilité, vitesses et durées
+   d'effet sont codés en Java. Le guide les décrit alors qualitativement et le dit explicitement,
+   plutôt que d'avancer un chiffre invérifiable.
+
+```
+node tools/verifier-jeu.js    # compare le guide au .jar installé
+node tools/valider.js         # cohérence interne du site
+node tools/indexer.js         # reconstruit l'index de recherche
+```
+
+À relancer après chaque mise à jour du jeu : c'est ce qui permet de rattraper une recette
+modifiée ou un butin déplacé sans tout relire.
 
 ## Ouvrir le site
 
@@ -42,19 +77,23 @@ le script signale toute texture introuvable au lieu d'échouer.
 ## Arborescence
 
 ```
-index.html             Accueil : progression de partie, repères chiffrés, dimensions
-drops.html             Catalogue 1  — 87 fiches de drops + minerais + troc piglin
-craft.html             Catalogue 2  — 127 recettes avec grille 3×3 dessinée
-potions.html           Catalogue 3  — 18 potions, toute la chaîne de brassage
-enchantements.html     Catalogue 4  — 32 enchantements, optimisation de l'enclume
-redstone.html          Catalogue 5  — 10 composants, 13 circuits, dépannage
-villageois.html        Catalogue 6  — 14 métiers, commerce, remise par soin
-biomes.html            Catalogue 7  — 26 biomes et ressources exclusives
-structures.html        Catalogue 8  — 33 structures, butin et pièges
-blocs.html             Catalogue 9  — 38 familles de blocs, 17 palettes
-succes.html            Catalogue 10 — 49 succès
-plans.html             Catalogue 11 — 26 plans de construction couche par couche
-usines.html            Catalogue 12 — 34 usines et fermes automatiques
+index.html             Accueil : les catalogues, la progression, les repères chiffrés
+parcours.html          Parcours guidé — 24 étapes ordonnées, 16 jalons
+mecaniques.html        32 mécaniques de fond, 24 constantes, 16 erreurs courantes
+drops.html             101 fiches de drops + table des minerais + troc piglin
+craft.html             129 recettes avec grille 3×3 dessinée
+potions.html           18 potions, toute la chaîne de brassage
+enchantements.html     33 enchantements, optimisation de l'enclume
+redstone.html          10 composants, 13 circuits, dépannage
+villageois.html        14 métiers, commerce, remise permanente par soin
+biomes.html            27 biomes et leurs ressources exclusives
+structures.html        33 structures, butin et pièges
+blocs.html             38 familles de blocs, 17 palettes, formes posables
+deco.html              34 montages de décoration, 14 ambiances
+transport.html         32 moyens de déplacement et d'orientation
+succes.html            49 succès
+plans.html             34 plans de construction couche par couche
+usines.html            42 usines et fermes automatiques
 assets/
   style.css            Feuille de style unique (thèmes sombre et clair)
   core.js              Palette de blocs, moteurs de rendu, recherche/filtres,

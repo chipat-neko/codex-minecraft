@@ -48,6 +48,7 @@ const SOURCES = [
   ['succes.html', 'Succès', dispo('ADVANCEMENTS'), false],
   ['blocs.html', 'Bloc', dispo('FAMILLES_BLOCS'), false],
   ['deco.html', 'Déco', dispo('DECO'), false],
+  ['transport.html', 'Transport', dispo('TRANSPORT'), false],
   ['plans.html', 'Plan', dispo('PLANS'), true],
   ['usines.html', 'Usine', dispo('USINES'), true]
 ];
