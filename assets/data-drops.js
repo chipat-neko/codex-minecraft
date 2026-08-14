@@ -798,6 +798,218 @@ var DROPS = [
       'Coffre : charbon, pomme, blé, or, pierre, hache en pierre'
     ],
     note: 'Le kit du sous-sol est exactement ce qu\'il faut pour SOIGNER un villageois zombifié : votre premier commerce à prix cassé.'
+  },
+
+  {
+    nom: 'Nautile (Nautilus)', cat: 'passif',
+    tags: [
+      { txt: 'Océans', cls: 'blue' },
+      { txt: 'Sellable', cls: 'ok' },
+      { txt: 'Armure dédiée', cls: 'copper' }
+    ],
+    ou: 'Créature aquatique (catégorie water_creature), toujours en groupe de 1. Poids 5 dans ocean, warm_ocean, lukewarm_ocean, deep_ocean et deep_lukewarm_ocean ; poids 2 dans cold_ocean, deep_cold_ocean, frozen_ocean et deep_frozen_ocean.',
+    drops: [
+      'Coquille de nautile ×1 — uniquement si le mob est tué par le joueur ; 5 % sans enchantement, 6 % avec Butin I puis +1 % par niveau supplémentaire'
+    ],
+    note: 'Il figure dans les tags can_equip_saddle, can_wear_nautilus_armor, can_breathe_under_water, aquatic et not_scary_for_pufferfish. nautilus_taming_items ne contient que le poisson-globe et le seau de poisson-globe ; nautilus_food ajoute tous les poissons et les seaux de morue, saumon, poisson tropical et poisson-globe. nautilus_hostiles ne contient que le poisson-globe. Le jar fournit un écran d\'inventaire dédié (textures/gui/container/nautilus.png) et un effet « Breath of the Nautilus » déclaré dans en_us.json.'
+  },
+
+  {
+    nom: 'Desséché (Parched)', cat: 'hostile',
+    tags: [
+      { txt: 'Désert', cls: 'gold' },
+      { txt: 'Squelette', cls: '' },
+      { txt: 'Mort-vivant', cls: 'purple' }
+    ],
+    ou: 'Uniquement dans le biome desert, catégorie monster, poids 50, par groupes de 4 exactement (minCount = maxCount = 4). Il cohabite avec le zombie momifié (poids 80) déjà présent dans ce biome.',
+    drops: [
+      'Flèche ×0–2 — +0 à 1 par niveau de Butin',
+      'Os ×0–2 — +0 à 1 par niveau de Butin',
+      'Flèche de Faiblesse ×0–1 — uniquement si tué par le joueur ; +0 à 1 avec Butin, plafonné à 1 flèche supplémentaire'
+    ],
+    note: 'Il appartient au tag entity_type/skeletons, donc au tag undead qui en dépend. C\'est le seul mob dont la table de butin produit directement une flèche à effet (set_potion : minecraft:weakness), sans passer par une potion.'
+  },
+
+  {
+    nom: 'Golem de cuivre (Copper Golem)', cat: 'passif',
+    tags: [
+      { txt: 'Cuivre', cls: 'copper' },
+      { txt: 'Statues', cls: '' },
+      { txt: 'Aucun spawn naturel', cls: 'red' }
+    ],
+    ou: 'Aucun fichier de biome ne le déclare dans ses spawners : il n\'apparaît naturellement dans aucun biome d\'après les données. Le jar fournit un œuf d\'apparition (copper_golem_spawn_egg) et une famille de blocs « statue de golem de cuivre » en 4 stades d\'oxydation, chacun décliné en version cirée (tag item/copper_golem_statues, 8 blocs).',
+    drops: [
+      'Lingot de cuivre ×1–3 — +0 à 1 par niveau de Butin ; aucune condition, le butin tombe quelle que soit la cause de la mort'
+    ],
+    note: 'Il est le seul membre du tag accepts_iron_golem_gift, et le tag shearable_from_copper_golem ne contient que le coquelicot. Il figure aussi dans can_breathe_under_water et fall_damage_immune. Les blocs statue conservent leur nom personnalisé et leur état copper_golem_pose quand on les casse (fonctions copy_components et copy_state de leur table de butin).'
+  },
+
+  {
+    nom: 'Chameau momifié (Camel Husk)', cat: 'hostile',
+    tags: [
+      { txt: 'Monture', cls: 'gold' },
+      { txt: 'Mort-vivant', cls: 'purple' },
+      { txt: 'Aucun spawn de biome', cls: 'red' }
+    ],
+    ou: 'Aucun fichier de worldgen/biome ne le liste dans ses spawners. En revanche la table de butin du zombie momifié le désigne comme monture : un husk tué alors qu\'il chevauche un camel_husk lâche un butin supplémentaire.',
+    drops: [
+      'Chair putréfiée ×2–3 — +0 à 1 par niveau de Butin ; aucune condition de mise à mort'
+    ],
+    note: 'Il fait partie du tag entity_type/zombies (donc undead), ainsi que de can_equip_saddle et can_float_while_ridden. camel_husk_food ne contient qu\'un seul objet : la patte de lapin. Le zombie momifié qui le chevauche lâche justement une patte de lapin ×0–1 (+0 à 1 avec Butin), butin qui n\'existe que dans cette configuration.'
+  },
+
+  {
+    nom: 'Nautile zombie (Zombie Nautilus)', cat: 'hostile',
+    tags: [
+      { txt: 'Aquatique', cls: 'blue' },
+      { txt: 'Mort-vivant', cls: 'purple' },
+      { txt: 'Brûle au jour', cls: 'red' }
+    ],
+    ou: 'Aucun spawner de biome ne le mentionne. Les données définissent en revanche deux variantes d\'apparence : « temperate » par défaut (priorité 0) et « warm », texture corallienne, appliquée dans les biomes du tag spawns_coral_variant_zombie_nautilus, qui ne contient que warm_ocean.',
+    drops: [
+      'Chair putréfiée ×0–3 — uniquement si le mob est tué par le joueur ; +0 à 1 par niveau de Butin'
+    ],
+    note: 'Il figure dans burn_in_daylight, entity_type/zombies (donc undead), aquatic, can_equip_saddle, can_wear_nautilus_armor, cannot_be_pushed_onto_boats et not_scary_for_pufferfish. Comme le nautile vivant, il peut donc porter une selle et une armure de nautile.'
+  },
+
+  {
+    nom: 'Cube de soufre (Sulfur Cube)', cat: 'hostile',
+    tags: [
+      { txt: 'Grottes de soufre', cls: 'gold' },
+      { txt: '12 archétypes', cls: 'cyan' },
+      { txt: 'Aucun butin', cls: 'red' }
+    ],
+    ou: 'Biome sulfur_caves uniquement, catégorie monster, poids 100 — le poids le plus élevé du biome, devant le creeper, le squelette et le zombie (50 chacun) —, par groupes de 2 à 4.',
+    drops: [
+      'Sa table de butin ne contient AUCUN pool : le fichier se limite au type et à la séquence aléatoire. Le cube de soufre ne lâche donc rien à sa mort.'
+    ],
+    note: 'Douze archétypes sont définis dans data/minecraft/sulfur_cube_archetype/ : regular, bouncy, slow_bouncy, slow_flat, fast_flat, slow_sliding, fast_sliding, light, sticky, high_resistance, hot et explosive. Chacun modifie des attributs (bounciness, friction_modifier, air_drag_modifier, résistance au recul) et est associé à un tag d\'objets qu\'il peut avaler (sulfur_cube_swallowable). L\'archétype « hot » inflige 1 point de dégâts au contact via le type de dégâts sulfur_cube_hot (effet « burning ») ; « explosive » déclare une explosion de puissance 3, mèche 120, sans mise à feu. Un seau dédié existe (sulfur_cube_bucket) et sulfur_cube_food ne contient que la boule de slime.'
+  },
+
+  {
+    nom: 'Ghast joyeux (Happy Ghast)', cat: 'passif',
+    tags: [
+      { txt: 'Harnais', cls: 'cyan' },
+      { txt: 'Vol', cls: 'ok' },
+      { txt: 'Aucun butin', cls: 'red' }
+    ],
+    ou: 'Aucun spawner de biome ne le déclare. Le jar fournit un œuf d\'apparition (happy_ghast_spawn_egg) et le bloc Dried Ghast, dont l\'état « hydration » va de 0 à 3 et possède une propriété waterlogged.',
+    drops: [
+      'Sa table de butin ne contient AUCUN pool : elle se limite au type et à la séquence aléatoire. Le ghast joyeux ne lâche rien à sa mort.'
+    ],
+    note: 'Il est le seul membre du tag can_equip_harness ; 16 harnais colorés plus un harnais de base sont déclarés dans en_us.json et dans assets/minecraft/equipment/. Il figure aussi dans dismounts_underwater, fall_damage_immune et followable_friendly_mobs.'
+  },
+
+  {
+    nom: 'Mannequin (Mannequin)', cat: 'passif',
+    tags: [
+      { txt: 'PNJ', cls: '' },
+      { txt: 'Commande', cls: 'cyan' },
+      { txt: 'Aucun butin', cls: 'red' }
+    ],
+    ou: 'Aucun spawner de biome, aucun œuf d\'apparition, aucune recette. Le seul point d\'entrée visible dans les données est la clé de traduction commands.fetchprofile.summon_mannequin (« Summon Mannequin »).',
+    drops: [
+      'Sa table de butin ne contient AUCUN pool : elle se limite au type et à la séquence aléatoire. Le mannequin ne lâche rien.'
+    ],
+    note: 'en_us.json lui associe une étiquette dédiée : entity.minecraft.mannequin.label vaut « NPC ». Aucun autre fichier de données du jar ne le mentionne — ni tag, ni progrès, ni recette.'
+  },
+
+  {
+    nom: 'Lances (Spears)', cat: 'bloc',
+    tags: [
+      { txt: '7 matériaux', cls: 'ok' },
+      { txt: 'Attaque chargée', cls: 'gold' },
+      { txt: 'Emplacement dédié', cls: 'cyan' }
+    ],
+    ou: 'Fabricables dans les 7 matériaux (bois, pierre, cuivre, fer, or, diamant, netherite). On en trouve aussi en coffre : forge de village (lance en fer poids 5, lance en cuivre poids 7), trésor enfoui (lance en fer), ruines sous-marines petites et grandes (lance en pierre, poids 2), trésor de bastion (lance en diamant, poids 6, usée et enchantée aléatoirement), trésor de cité de l\'End (lance en diamant, poids 3, enchantée à 20–39 niveaux).',
+    drops: [
+      'Recette commune : motif « X / # / # » en diagonale (pattern " X", " # ", "# ") — une tête de matériau plus deux bâtons',
+      'Lance en netherite : forge uniquement, smithing_transform à partir de la lance en diamant, d\'un modèle de forgeage netherite_upgrade et de netherite_tool_materials',
+      'Type de dégâts propre : minecraft:spear, épuisement 0,1, message_id « spear », scaling when_caused_by_living_non_player',
+      'Tag minecraft:spears : les 7 lances y sont regroupées'
+    ],
+    note: 'Le progrès adventure/spear_many_mobs (« Mob Kabob », cadre goal, icône lance en fer) demande de toucher cinq mobs dans la même attaque chargée à la lance : les données confirment donc l\'existence d\'une attaque chargée touchant plusieurs cibles. Une texture d\'emplacement d\'inventaire dédiée existe (gui/sprites/container/slot/spear.png), ainsi qu\'un modèle « en main » distinct pour chaque lance.'
+  },
+
+  {
+    nom: 'Armure de nautile (Nautilus Armor)', cat: 'bloc',
+    tags: [
+      { txt: '5 matériaux', cls: 'ok' },
+      { txt: 'Butin marin', cls: 'blue' },
+      { txt: 'Non fabricable', cls: 'red' }
+    ],
+    ou: 'Cinq variantes : cuivre, fer, or, diamant, netherite. Aucune recette d\'artisanat n\'existe pour les quatre premières — seul netherite_nautilus_armor_smithing.json est présent dans data/minecraft/recipe/. Elles se trouvent donc uniquement en coffre, dans un même lot partagé par cinq tables : trésor enfoui, épave (carte, réserve, trésor) et ruines sous-marines (petites et grandes).',
+    drops: [
+      'Lot de coffre : rien (poids 148), armure de nautile en cuivre (20), en fer (10), en or (5), en diamant (2) — un seul tirage, une seule pièce',
+      'Armure de nautile en netherite : forge uniquement, à partir de la version diamant plus un modèle netherite_upgrade et netherite_tool_materials'
+    ],
+    note: 'Le tag can_wear_nautilus_armor ne contient que deux entités : le nautile et le nautile zombie. Le jar contient les textures d\'équipement correspondantes (entity/equipment/nautilus_body/ en cuivre, fer, or, diamant, netherite) et une texture de selle séparée (nautilus_saddle). Deux emplacements d\'inventaire dédiés existent aussi (slot/nautilus_armor.png et nautilus_armor_inventory.png).'
+  },
+
+  {
+    nom: 'Armure de cheval en cuivre (Copper Horse Armor)', cat: 'bloc',
+    tags: [
+      { txt: 'Cuivre', cls: 'copper' },
+      { txt: 'Coffres', cls: 'gold' },
+      { txt: 'Non fabricable', cls: 'red' }
+    ],
+    ou: 'Aucune recette dans data/minecraft/recipe/. On la trouve exclusivement en coffre : pyramide du désert (poids 15, à égalité avec l\'armure en fer), temple de la jungle, pont du Nether, donjon simple, couloir de forteresse, trésor de cité de l\'End et forge de village.',
+    drops: [
+      'Un exemplaire par tirage, sans fonction de dégâts ni d\'enchantement dans les tables consultées',
+      'Dans la pyramide du désert, elle partage le même poids (15) que l\'armure de cheval en fer, devant l\'or et le diamant',
+      'Dans la forge de village et le trésor de cité de l\'End, elle est listée juste avant les armures en fer, or et diamant, au même poids par défaut'
+    ],
+    note: 'Elle complète la gamme existante (fer, or, diamant) par le bas. C\'est le seul objet « cuivre » de 26.2 qui ne dispose d\'aucune recette : tous les autres (outils, armure, lance) se fabriquent.'
+  },
+
+  {
+    nom: 'Outils et armure en cuivre (Copper tools & armor)', cat: 'bloc',
+    tags: [
+      { txt: 'Cuivre', cls: 'copper' },
+      { txt: '10 objets', cls: 'ok' },
+      { txt: 'Fabricable', cls: 'ok' }
+    ],
+    ou: 'Dix objets nouveaux fabricables : épée, pioche, hache, pelle, houe et lance en cuivre, plus casque, plastron, jambières et bottes en cuivre. Toutes les recettes sont dans data/minecraft/recipe/, catégorie « equipment ».',
+    drops: [
+      'Outils : motifs vanilla habituels, avec le tag #minecraft:copper_tool_materials en tête de manche — ce tag ne contient qu\'une valeur, le lingot de cuivre',
+      'Armure : motifs vanilla habituels utilisant directement minecraft:copper_ingot (casque « XXX / X X », plastron « X X / XXX / XXX », jambières « XXX / X X / X X », bottes « X X / X X »)',
+      'Un jeu de textures d\'équipement porté est fourni : assets/minecraft/equipment/copper.json'
+    ],
+    note: 'Le cuivre s\'insère ainsi comme un palier d\'équipement complet, au même titre que le fer ou l\'or. Les valeurs d\'armure et de durabilité ne figurent dans aucun fichier de données du jar : elles sont définies dans le code, elles ne sont donc pas documentées ici.'
+  },
+
+  {
+    nom: 'Ghast desséché (Dried Ghast)', cat: 'bloc',
+    tags: [
+      { txt: 'Nether', cls: 'red' },
+      { txt: '4 stades d\'hydratation', cls: 'blue' },
+      { txt: 'Troc piglin', cls: 'gold' }
+    ],
+    ou: 'Fabricable, ou obtenu par troc avec un piglin : il figure dans gameplay/piglin_bartering.json avec un poids de 10 pour 1 exemplaire.',
+    drops: [
+      'Recette : 8 larmes de ghast autour d\'1 bloc de sable des âmes (motif « ### / #X# / ### »), catégorie building, groupe « dry_ghast »',
+      'Table de butin du bloc : il se lâche lui-même, sous la seule condition survives_explosion',
+      'Le blocstate expose une propriété « hydration » à 4 valeurs (0 à 3) et une propriété « facing » sur 4 directions ; le bloc est aquifiable (waterlogged)'
+    ],
+    note: 'Le progrès husbandry/place_dried_ghast_in_water (« Stay Hydrated! ») se déclenche en posant un bloc Dried Ghast dans l\'eau, c\'est-à-dire à l\'état waterlogged=true. C\'est le seul lien que les données établissent entre ce bloc et le ghast joyeux, qui ne possède ni butin ni apparition naturelle.'
+  },
+
+  {
+    nom: 'Soufre et cinabre (Sulfur & Cinnabar)', cat: 'bloc',
+    tags: [
+      { txt: 'Grottes de soufre', cls: 'gold' },
+      { txt: 'Pioche', cls: '' },
+      { txt: '2 familles complètes', cls: 'cyan' }
+    ],
+    ou: 'Les deux blocs constituent la matière des grottes de soufre : les règles de surface du Surworld les placent dans ce seul biome, selon le bruit sulfur_cave_gradient. Les deux figurent dans le tag mineable/pickaxe.',
+    drops: [
+      'Soufre : famille complète — dalle, escalier, mur, version polie (dalle, escalier, mur), briques (dalle, escalier, mur) et version ciselée ; chaque bloc se lâche lui-même',
+      'Pointe de soufre (sulfur_spike) : bloc de type spéléothème, généré vers le haut comme vers le bas ; 4 pointes en carré 2×2 redonnent 1 bloc de soufre',
+      'Soufre concentré (potent_sulfur) : 9 blocs de soufre sans forme imposée ; il apparaît naturellement à l\'état « wet » au fond des bassins de soufre',
+      'Cinabre : mêmes déclinaisons que le soufre (poli, briques, ciselé, dalles, escaliers, murs) ; aucune recette ne le produit, il ne s\'obtient qu\'en le minant',
+      'Marchand ambulant : 1 émeraude → 2 pointes de soufre (5 utilisations)'
+    ],
+    note: 'sulfur_spike_replaceable_blocks ne contient que deux blocs, le soufre et le cinabre : les pointes ne poussent que dans cette matière. Toutes les variantes taillées sont accessibles à la scie de pierre en plus de l\'établi.'
   }
 ];
 

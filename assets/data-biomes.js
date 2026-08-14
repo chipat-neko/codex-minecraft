@@ -327,5 +327,22 @@ var BIOMES = [
       'Coffres : diamants, patron « spire », équipement en diamant enchanté'
     ],
     note: 'Toutes les cités n\'ont pas de navire. Utilisez une longue-vue depuis la tour la plus haute pour repérer le navire de loin.'
+  },
+
+  {
+    nom: 'Grottes de soufre (Sulfur Caves)', cat: 'souterrain',
+    tags: [
+      { txt: 'Biome souterrain', cls: 'gold' },
+      { txt: 'Cube de soufre', cls: 'red' },
+      { txt: 'Soufre et cinabre', cls: 'copper' }
+    ],
+    ou: 'Biome du Surworld. Les règles de surface de worldgen/noise_settings/overworld.json y remplacent la pierre par du cinabre ou du soufre selon le bruit sulfur_cave_gradient : cinabre entre -0,4 et -0,1, soufre entre 0,0 et 0,4.',
+    drops: [
+      'Générations propres : sulfur_spike et sulfur_spike_cluster (stalactites et stalagmites de soufre), sulfur_pool et rooted_sulfur_spring (bassins bordés de soufre, avec un bloc de soufre concentré à l\'état « wet »)',
+      'Minerais : jeu complet du Surworld, cuivre, fer, or, redstone, lapis, charbon et quatre variantes de diamant (ore_diamond, medium, large, buried)',
+      'Aussi présents : géode d\'améthyste, salles de monstre (monster_room et monster_room_deep), lacs de lave, sources d\'eau et de lave, lichen luisant, herbe haute',
+      'Apparitions hostiles : cube de soufre (poids 100, 2–4), creeper / squelette / zombie (50, ×2), slime (25), araignée venimeuse (20), enderman (10), villageois zombie (5), sorcière (1) — plus 8 chauves-souris en catégorie ambient'
+    ],
+    note: 'Couleurs déclarées : brouillard #8cb831, ciel #78a7ff, brouillard sous-marin #17543c, eau #34bf89, herbe #aba64f. Température 0,8, précipitations 0,4, has_precipitation à true. Musique dédiée : music.overworld.sulfur_caves. Le champ spawn_costs est vide, contrairement au deep_dark. Les creuseurs actifs sont cave, cave_extra_underground et canyon.'
   }
 ];
