@@ -23,7 +23,16 @@ var USINES = [
     mats: ['Par four : 1 fourneau, 3 entonnoirs (15 lingots de fer), 2 coffres', 'Fonderie 8 fours : 8 fourneaux, 24 entonnoirs (120 fer), 3 grands coffres', 'Carburant : bloc de charbon, ou bambou/kelp séché produit en ferme'],
     couches: [
       { t: 'Vue de côté · un module', vue: 1, g: ['.E.', '.H.', 'EHU', '.H.', '.E.'] },
-      { t: 'Vue de dessus · batterie de 4 fours', vue: 1, g: ['EEEE', 'HHHH', 'UUUU', 'HHHH', 'EEEE'] }
+      { t: 'Vue de dessus · batterie de 4 fours', vue: 1, g: ['EEEE', 'HHHH', 'UUUU', 'HHHH', 'EEEE'] },
+      /* Les mêmes 4 fours, mais niveau par niveau : c'est ce qui donne
+         la vue en volume et la coupe. L'alimentation en minerai vient
+         du dessus, le carburant par le côté, la sortie par le dessous —
+         un entonnoir latéral ne remplit jamais l'emplacement du minerai. */
+      { t: 'Y+0 · coffres de sortie, sous les fours', g: ['....', '....', 'EEEE'] },
+      { t: 'Y+1 · entonnoirs de sortie', g: ['....', '....', 'HHHH'] },
+      { t: 'Y+2 · fours, entonnoirs et coffres de carburant', g: ['EEEE', 'HHHH', 'UUUU'] },
+      { t: 'Y+3 · entonnoirs d\'alimentation en minerai', g: ['....', '....', 'HHHH'] },
+      { t: 'Y+4 · coffres d\'entrée du minerai', g: ['....', '....', 'EEEE'] }
     ],
     etapes: [
       'Placez le fourneau. Un entonnoir au-dessus, orienté vers le bas, alimente l\'emplacement du minerai.',
