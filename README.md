@@ -267,6 +267,23 @@ echoue par ma faute, un entonnoir aspirant ce qui le surmonte et non ce qui est
 a cote, une torche devant etre fixee sur son support et non posee pres de lui.
 Un echec se relit donc avant daccuser la fiche.
 
+#### Ce que le banc ne sait pas juger
+
+Il mesure bien ce qui laisse une trace durable : un coffre qui se remplit, un
+portail qui s'allume, un bloc qui tient ou non. Il est en revanche mal outille
+pour les mecanismes a impulsion -- observateur, piston, circuit a front.
+
+Un observateur emet pendant deux ticks de redstone, soit un dixieme de seconde.
+Une commande envoyee ensuite arrive toujours trop tard pour voir le signal, et
+les etats intermediaires (piston etendu) sont tout aussi fugaces. Mesurer
+l'effet plutot que le signal aide, mais ne suffit pas : la pose par commande
+ne declenche pas les memes mises a jour qu'une croissance naturelle.
+
+Les fermes a observateur restent donc decrites par leurs schemas, et ce qui les
+concerne n'est ecrit dans les fiches que lorsqu'un essai l'a etabli point par
+point -- par exemple qu'un piston DETRUIT un melon au lieu de le pousser, ou
+qu'il s'active quand le bloc situe au-dessus de lui est alimente.
+
 ## Fonctions de l'interface
 
 | Fonction | Où | Détail |

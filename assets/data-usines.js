@@ -218,6 +218,7 @@ var USINES = [
     ],
     rendement: '≈250 tranches de melon/heure pour 8 modules. Le melon scintillant (potions de soin) et les blocs de citrouille en découlent.',
     notes: [
+      { type: 'info', txt: 'Deux points vérifiés dans le jeu — un piston DÉTRUIT le melon au lieu de le pousser, il n\'y a donc rien à récupérer derrière lui : c\'est bien sous la case du fruit qu\'il faut collecter. Et un piston s\'active aussi quand c\'est le bloc situé JUSTE AU-DESSUS de lui qui est alimenté, pas seulement lui-même : cela permet de faire passer la ligne de redstone par-dessus les pistons plutôt qu\'entre eux.' },
       { type: 'tip', txt: 'Citrouilles sculptées — une ferme à citrouilles + un distributeur avec cisaille produit des citrouilles sculptées automatiquement : de quoi fabriquer des golems de fer et de neige à la chaîne.' }
     ]
   },
