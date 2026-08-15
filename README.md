@@ -244,6 +244,29 @@ zèle : la première version ciblait les couches par leur titre, et deux fermes
 partageant dix intitulés mot pour mot, elle en a écrasé une à la place de
 l'autre sans que rien ne le signale.
 
+
+### Faire tourner une usine
+
+```
+node tools/tester-usine.js            # tous les protocoles
+node tools/tester-usine.js four-auto  # un seul
+```
+
+Verifier que les blocs tiennent ne suffit pas : une fonderie dont tous les
+blocs tiennent ne fond rien si un entonnoir pointe du mauvais cote. Or un plan
+vu de dessus ne dit pas les orientations. Chaque usine a donc son protocole :
+ce quon pose, comment on loriente, ce quon met en entree, combien de temps on
+laisse tourner, et ce quon doit trouver a larrivee.
+
+Trois essais existent pour linstant : la fonderie produit 7 lingots en 75
+secondes, ce qui confirme le rendement annonce par sa fiche ; le portail
+corrige sallume ; linverseur inverse bien dans les deux sens.
+
+Le protocole est aussi faillible que le plan : deux des trois essais ont dabord
+echoue par ma faute, un entonnoir aspirant ce qui le surmonte et non ce qui est
+a cote, une torche devant etre fixee sur son support et non posee pres de lui.
+Un echec se relit donc avant daccuser la fiche.
+
 ## Fonctions de l'interface
 
 | Fonction | Où | Détail |
