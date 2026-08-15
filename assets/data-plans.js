@@ -4186,21 +4186,25 @@ var PLANS = [
         ]
       },
       {
+        /* La voie reste au sol. Elle figurait aussi ici et au niveau
+           du dessus, ce qui posait des rails flottants à un et deux
+           blocs de hauteur : le jeu les refuse, et ceux du dessous
+           avec. On laisse le passage libre au-dessus des rails. */
         t: 'Y+1 · cabanes, batterie de fours et palissade',
         g: [
           'ccccccccccccccc',
           'cddddd...dddddc',
           'cd...........dc',
           'cdEUUUUE.....dc',
-          'ccccccc=ccccccc',
-          'c###...=...###c',
-          'c#E#...=...#Y#c',
-          'c#<#...=...#E#c',
-          'c#D#...=...#D#c',
-          'c......=......c',
-          'c..F...=...F..c',
-          'c......=......c',
-          '|||||||=|||||||'
+          'ccccccc.ccccccc',
+          'c###.......###c',
+          'c#E#.......#Y#c',
+          'c#<#.......#E#c',
+          'c#D#.......#D#c',
+          'c.............c',
+          'c..F.......F..c',
+          'c.............c',
+          '|||||||.|||||||'
         ]
       },
       {
@@ -4210,15 +4214,15 @@ var PLANS = [
           'cddddd*.*dddddc',
           'cd...........dc',
           'cd...........dc',
-          'ccccccc=ccccccc',
-          'c///...=...///c',
-          'c/-/...=.../-/c',
-          'c/-/...=.../-/c',
-          'c/D/...=.../D/c',
-          'c......=......c',
-          'c.*....=....*.c',
-          'c......=......c',
-          '|*|||||=|||||*|'
+          'ccccccc.ccccccc',
+          'c///.......///c',
+          'c/-/......./-/c',
+          'c/-/......./-/c',
+          'c/D/......./D/c',
+          'c.............c',
+          'c.*.........*.c',
+          'c.............c',
+          '|*|||||.|||||*|'
         ]
       }
     ],
@@ -4235,6 +4239,7 @@ var PLANS = [
       'Installez la gare souterraine à Y−1 : deux coffres tampons de part et d\'autre du rail, éclairés, où l\'on vide son inventaire sans remonter.'
     ],
     notes: [
+      { type: 'warn', txt: 'Descente dans la galerie — les deux voies sont dessinées l\'une au-dessus de l\'autre pour montrer qu\'elles se rejoignent, mais elles ne peuvent pas être adjacentes : un rail ne tient pas sur un rail. Creusez la galerie 3 ou 4 blocs plus bas, gardez de la roche entre les deux, et reliez-les par une pente de rails à la gueule de mine.' },
       { type: 'tip', txt: 'Rails motorisés — un rail motorisé tous les 8 rails ordinaires suffit à maintenir un wagonnet à pleine vitesse sur le plat, et tous les 3 dans une pente montante.' },
       { type: 'warn', txt: 'Grottes ouvertes — une galerie qui débouche sur une caverne naturelle non éclairée transforme votre camp en couloir à monstres. Murez ou éclairez toute intersection avant de dormir sur place.' },
       { type: 'info', txt: 'Point de réapparition — un lit dans la cabane évite de refaire tout le trajet depuis la base à chaque mort. C\'est le vrai intérêt du camp, bien avant le décor.' }
