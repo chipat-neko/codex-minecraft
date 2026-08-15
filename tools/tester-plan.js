@@ -74,8 +74,29 @@ async function testerPlan(p) {
       for (let x = 0; x < g[z].length; x++) {
         const ch = g[z][x];
         const sous = dessous && dessous[z] ? identifiant(dessous[z][x]) : null;
-        const id = identifiant(ch, sous);
+        let id = identifiant(ch, sous);
         if (!id || id === 'air') { continue; }
+
+        /* Une vigne ne se pose pas dans une case : elle s'accroche à la
+           face d'un mur voisin. Sur un plan vu de dessus, le caractère
+           marque la case, pas le mur — on cherche donc le mur nous-même
+           et on oriente la vigne vers lui. */
+        if (racine(id) === 'vine') {
+          const plein = d => {
+            const [dx, dz] = d;
+            const l = g[z + dz];
+            if (!l || l[x + dx] === undefined) { return false; }
+            const v = identifiant(l[x + dx]);
+            return v && v !== 'air' && racine(v) !== 'vine';
+          };
+          const faces = [];
+          if (plein([0, -1])) { faces.push('north=true'); }
+          if (plein([0, 1])) { faces.push('south=true'); }
+          if (plein([-1, 0])) { faces.push('west=true'); }
+          if (plein([1, 0])) { faces.push('east=true'); }
+          if (!faces.length) { continue; }   /* rien où s'accrocher : on n'en pose pas */
+          id = 'vine[' + faces.join(',') + ']';
+        }
         poses.push({ ch, id, x: x0 + x, y, z: z0 + z, yPlan: r.y });
       }
     }
